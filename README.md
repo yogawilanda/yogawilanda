@@ -1,10 +1,15 @@
-### Hi there 👋
-
-
-
-
-![](https://github.com/yogawilanda/yogawilanda/blob/main/Github%20Introductory.png)
 # :raised_hand: Hi There! I'm Yoga Wilanda.
+
+
+
+<!-- 
+![](https://github.com/yogawilanda/yogawilanda/blob/main/Github%20Introductory.png)
+-->
+
+![](https://thumbs.gfycat.com/EvilFeistyBinturong.webp)
+
+
+
 > My name is Yoga Wilanda
 > Designer, Digital Marketer, Long life learner as well as Flutter Programmer focusing on Android And Windows Developer 
 > Software Enthusiast with mixed of knowlegde.
@@ -30,7 +35,7 @@
 
 ![](https://thumbs.gfycat.com/VictoriousAmusedBullfrog.webp)
 
-![](https://thumbs.gfycat.com/EvilFeistyBinturong.webp)
+
 
 ![](https://thumbs.gfycat.com/DrearyFamousBlueshark.webp)
 
