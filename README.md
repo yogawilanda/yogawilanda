@@ -1,11 +1,5 @@
 # :raised_hand: Hi There! I'm Yoga Wilanda.
 
-
-
-<!-- 
-![](https://github.com/yogawilanda/yogawilanda/blob/main/Github%20Introductory.png)
--->
-
 ![](https://thumbs.gfycat.com/EvilFeistyBinturong.webp)
 
 
@@ -15,15 +9,6 @@
 > Software Enthusiast with mixed of knowlegde.
 > Born in Tuban, 26 Y.O, love
 > coding from Junior High School.
-
-<!--
-> already handle 35+ websites
-> with 4 years professional
-> experience. love challenge and
-> new / strange things. currently
-> focused on learning AI,
-> especially machine learning.
--->
 
 
 [![](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:eayogawilanda@gmail.com)
@@ -35,23 +20,6 @@
 
 ![](https://thumbs.gfycat.com/VictoriousAmusedBullfrog.webp)
 
-
-
 ![](https://thumbs.gfycat.com/DrearyFamousBlueshark.webp)
 
 ![](https://komarev.com/ghpvc/?username=yogawilanda)
-
-<!--
-**yogawilanda/yogawilanda** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
