@@ -1,10 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: '#da373d',
+            },
+            fontFamily: {
+              sans: ['ui-sans-serif', 'system-ui'],
+              serif: ['ui-serif', 'Georgia'],
+              mono: ['ui-monospace', 'SFMono-Regular'],
+              display: ['Oswald'],
+              body: ['Poppins'], // Set Poppins as the default body font
+            },
+          },
+        },
+        variants: {
+          scrollbar: ['rounded'], // Add the 'rounded' variant for scrollbars
+        },
+      };
+      
+    </script>
+    <title>Yoga Wilanda</title>
+  </head>
+  <body>
+
+    <div class="h-screen">
+      <div class="fixed top-0 left-0 w-full bg-white z-10 shadow-sm shadow-red-700/100 ">
+        <div class="flex items-center justify-between px-60 py-4">
+          <a class="text-2xl font-bold" href="#">YogaWilanda.</a>
+          
+          <!-- In the middle -->
+          <div class="space-x-6"> <button class="px-3 py-2 text-gray-800 hover:text-black transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-black">Home</button>
+            <button class="px-3 py-2 text-gray-800 hover:text-black transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-black">About</button>
+            <button class="px-3 py-2 text-gray-800 hover:text-black transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-black">Skills</button>
+            <button class="px-3 py-2 text-gray-800 hover:text-black transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-black">Projects</button>
+          </div>
+
+          <!-- Separated to be CTA Button -->
+          <button class="border-2 px-4 py-2 rounded-lg bg-neutral-800 text-neutral-400 font-bold">Contact Me</button>
+        </div>
+      </div>
+    
+      <main class="flex-grow overflow-y-auto px-60">
+        <div class="welcome-section grid justify-center align-center py-20 bg-slate-300">
+          <span class="text-6xl font-bold">Welcome.</span>
+          <span class="mb-3">Breathe and relax your mind first before reading my portfolio.</span>
+        </div>
+      </main>
+    
+      <footer class="fixed bottom-0 left-0 w-full border-t-[3px] border-red-700 z-20 flex justify-between py-4 px-4 bg-white">
+        <div class="social-media flex space-x-4">
+          <a class="flex px-1" href="https://www.instagram.com/yogawilanda/" target="_blank">
+            <img class="w-6" src="https://img.icons8.com/fluent/48/000000/instagram-new.png"/>
+            Instagram
+          </a>
+          <a href="https://www.linkedin.com/in/yogawilanda/" target="_blank">
+            <img class="w-6" src="https://img.icons8.com/fluent/48/000000/linkedin.png"/>
+          </a>
+          <a href="" target="_blank">
+            <img class="w-6" src="https://img.icons8.com/fluent/48/000000/github.png"/>
+          </a>
+        </div>
+        <div class="copyright text-center text-sm">E.A.Yoga Wilanda Ⓒ 2024</div>
+
+      </footer>
+  </body>
 </html>
