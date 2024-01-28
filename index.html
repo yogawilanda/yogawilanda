@@ -13,14 +13,17 @@
     <div class="h-screen">
       <div class="fixed top-0 left-0 w-full bg-white z-10 shadow-sm shadow-red-700/100 ">
         <div class="flex items-center justify-between px-60 py-4">
+          
           <a class="text-2xl font-bold" href="#">YogaWilanda.</a>
           
-          <!-- In the middle -->
           <div class="space-x-6"> 
             
-            <a class="px-3 py-2 text-gray-800 hover:text-black transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-red-700">
+            <a 
+            href="#hero-content-placeholder"
+            class="px-3 py-2 text-gray-800 hover:text-black transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-red-700">
               Home
             </a>
+
             <!-- Scroll to About content -->
             <a class="px-3 py-2 text-gray-800 hover:text-black transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-red-700" href="#about-content-placeholder">About</a>
 
@@ -43,50 +46,6 @@
         <div id="about-content-placeholder">
           Loading about content...
         </div>
-      
-        <script>
-          console.log('Welcome to Yoga Wilanda Console Log!');
-      
-          // Use fetch to load external HTML content for Hero section
-          fetch('components/hero-section.html')
-            .then(response => {
-              if (!response.ok) {
-                throw new Error('Network response was not ok');
-              }
-              return response.text();
-            })
-            .then(html => {
-              // Check if the element with the ID exists
-              const heroContentElement = document.getElementById('hero-content-placeholder');
-              if (heroContentElement) {
-                // Replace the placeholder content with the loaded HTML
-                heroContentElement.innerHTML = html;
-              } else {
-                console.error('Element with ID "hero-content-placeholder" not found');
-              }
-            })
-            .catch(error => console.error('Error loading hero-section.html:', error));
-      
-          // Use fetch to load external HTML content for About section
-          fetch('components/about.html')
-            .then(response => {
-              if (!response.ok) {
-                throw new Error('Network response was not ok');
-              }
-              return response.text();
-            })
-            .then(html => {
-              // Check if the element with the ID exists
-              const aboutContentElement = document.getElementById('about-content-placeholder');
-              if (aboutContentElement) {
-                // Replace the placeholder content with the loaded HTML
-                aboutContentElement.innerHTML = html;
-              } else {
-                console.error('Element with ID "about-content-placeholder" not found');
-              }
-            })
-            .catch(error => console.error('Error loading about.html:', error));
-        </script>
       </main>
       
       
@@ -111,5 +70,49 @@
 
       </footer>
       
+
+      <script>
+        console.log('Welcome to Yoga Wilanda Console Log!');
+    
+        // Use fetch to load external HTML content for Hero section
+        fetch('components/hero-section.html')
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.text();
+          })
+          .then(html => {
+            // Check if the element with the ID exists
+            const heroContentElement = document.getElementById('hero-content-placeholder');
+            if (heroContentElement) {
+              // Replace the placeholder content with the loaded HTML
+              heroContentElement.innerHTML = html;
+            } else {
+              console.error('Element with ID "hero-content-placeholder" not found');
+            }
+          })
+          .catch(error => console.error('Error loading hero-section.html:', error));
+    
+        // Use fetch to load external HTML content for About section
+        fetch('components/about.html')
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.text();
+          })
+          .then(html => {
+            // Check if the element with the ID exists
+            const aboutContentElement = document.getElementById('about-content-placeholder');
+            if (aboutContentElement) {
+              // Replace the placeholder content with the loaded HTML
+              aboutContentElement.innerHTML = html;
+            } else {
+              console.error('Element with ID "about-content-placeholder" not found');
+            }
+          })
+          .catch(error => console.error('Error loading about.html:', error));
+      </script>
   </body>
 </html>
