@@ -3,31 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style/styles.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              clifford: '#da373d',
-            },
-            fontFamily: {
-              sans: ['ui-sans-serif', 'system-ui'],
-              serif: ['ui-serif', 'Georgia'],
-              mono: ['ui-monospace', 'SFMono-Regular'],
-              display: ['Oswald'],
-              body: ['Poppins'], // Set Poppins as the default body font
-            },
-          },
-        },
-        variants: {
-          scrollbar: ['rounded'], // Add the 'rounded' variant for scrollbars
-        },
-      };
-      
-    </script>
+    
     <title>Yoga Wilanda</title>
   </head>
   <body>
@@ -38,39 +16,100 @@
           <a class="text-2xl font-bold" href="#">YogaWilanda.</a>
           
           <!-- In the middle -->
-          <div class="space-x-6"> <button class="px-3 py-2 text-gray-800 hover:text-black transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-black">Home</button>
-            <button class="px-3 py-2 text-gray-800 hover:text-black transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-black">About</button>
-            <button class="px-3 py-2 text-gray-800 hover:text-black transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-black">Skills</button>
-            <button class="px-3 py-2 text-gray-800 hover:text-black transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-black">Projects</button>
+          <div class="space-x-6"> 
+            
+            <a class="px-3 py-2 text-gray-800 hover:text-black transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-red-700">
+              Home
+            </a>
+            <!-- Scroll to About content -->
+            <a class="px-3 py-2 text-gray-800 hover:text-black transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-red-700" href="#about-content-placeholder">About</a>
+
+            <a class="px-3 py-2 text-gray-800 hover:text-black transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-red-700">Skills</a>
+            <a class="px-3 py-2 text-gray-800 hover:text-black transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-red-700">Projects</a>
           </div>
 
           <!-- Separated to be CTA Button -->
-          <button class="border-2 px-4 py-2 rounded-lg bg-neutral-800 text-neutral-400 font-bold">Contact Me</button>
+          <a class="border-2 px-4 py-2 rounded-lg bg-neutral-800 text-neutral-50 font-bold">Contact Me</a>
         </div>
       </div>
     
       <main class="flex-grow overflow-y-auto px-60">
-        <div class="welcome-section grid justify-center align-center py-20 bg-slate-300">
-          <span class="text-6xl font-bold">Welcome.</span>
-          <span class="mb-3">Breathe and relax your mind first before reading my portfolio.</span>
+        <!-- Hero Content Placeholder -->
+        <div id="hero-content-placeholder">
+          Loading hero content...
         </div>
+      
+        <!-- About Content Placeholder -->
+        <div id="about-content-placeholder">
+          Loading about content...
+        </div>
+      
+        <script>
+          console.log('Welcome to Yoga Wilanda Console Log!');
+      
+          // Use fetch to load external HTML content for Hero section
+          fetch('components/hero-section.html')
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.text();
+            })
+            .then(html => {
+              // Check if the element with the ID exists
+              const heroContentElement = document.getElementById('hero-content-placeholder');
+              if (heroContentElement) {
+                // Replace the placeholder content with the loaded HTML
+                heroContentElement.innerHTML = html;
+              } else {
+                console.error('Element with ID "hero-content-placeholder" not found');
+              }
+            })
+            .catch(error => console.error('Error loading hero-section.html:', error));
+      
+          // Use fetch to load external HTML content for About section
+          fetch('components/about.html')
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.text();
+            })
+            .then(html => {
+              // Check if the element with the ID exists
+              const aboutContentElement = document.getElementById('about-content-placeholder');
+              if (aboutContentElement) {
+                // Replace the placeholder content with the loaded HTML
+                aboutContentElement.innerHTML = html;
+              } else {
+                console.error('Element with ID "about-content-placeholder" not found');
+              }
+            })
+            .catch(error => console.error('Error loading about.html:', error));
+        </script>
       </main>
+      
+      
+
     
       <footer class="fixed bottom-0 left-0 w-full border-t-[3px] border-red-700 z-20 flex justify-between py-4 px-4 bg-white">
         <div class="social-media flex space-x-4">
-          <a class="flex px-1" href="https://www.instagram.com/yogawilanda/" target="_blank">
+          <a rel="noopenner" class="flex px-1" href="https://www.instagram.com/yogawilanda/" target="_blank">
             <img class="w-6" src="https://img.icons8.com/fluent/48/000000/instagram-new.png"/>
             Instagram
           </a>
-          <a href="https://www.linkedin.com/in/yogawilanda/" target="_blank">
+          <a class="flex px-2" href="https://www.linkedin.com/in/yogawilanda/" target="_blank">
             <img class="w-6" src="https://img.icons8.com/fluent/48/000000/linkedin.png"/>
+            LinkedIn
           </a>
-          <a href="" target="_blank">
+          <a class="flex px-1" href="" target="_blank">
             <img class="w-6" src="https://img.icons8.com/fluent/48/000000/github.png"/>
+            Github
           </a>
         </div>
         <div class="copyright text-center text-sm">E.A.Yoga Wilanda Ⓒ 2024</div>
 
       </footer>
+      
   </body>
 </html>
