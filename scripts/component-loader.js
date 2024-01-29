@@ -1,6 +1,6 @@
 export class ComponentLoader {
   async loadComponent(componentName, placeholderId) {
-    console.log("Cooking the component: "+`ComponentLoader.loadComponent(${componentName})`);
+    console.log("Cooking the component: " + `ComponentLoader.loadComponent(${componentName})`);
 
     try {
       const response = await fetch(`components/${componentName}.html`);
@@ -12,7 +12,7 @@ export class ComponentLoader {
       const html = await response.text();
 
       const contentElement = document.getElementById(`${placeholderId}-placeholder`);
-      
+
       if (contentElement) {
         contentElement.innerHTML = html;
       } else {
@@ -24,9 +24,12 @@ export class ComponentLoader {
   }
 
   async loadComponents() {
+    // name: file name of the component
+    // placeholderId: ID of the element where the component will be injected
     const components = [
       { name: 'hero-section', placeholderId: 'hero-content' },
       { name: 'about', placeholderId: 'about-content' },
+      { name: 'skill', placeholderId: 'skill-content' },
       // Add more components as needed
     ];
 
