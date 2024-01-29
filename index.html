@@ -32,7 +32,14 @@
           </div>
 
           <!-- Separated to be CTA Button -->
-          <a class="border-2 px-4 py-2 rounded-lg bg-neutral-800 text-neutral-50 font-bold">Contact Me</a>
+          <a class="border-2 px-4 py-2 rounded-lg bg-neutral-800 text-neutral-50 font-bold 
+          shadow-lg
+          shadow-red-700/100 
+          ring-red-500 
+          ring-[0px] 
+          "
+          >
+          Contact Me</a>
         </div>
       </div>
     
@@ -51,8 +58,28 @@
       
 
     
-      <footer class="fixed bottom-0 left-0 w-full border-t-[3px] border-red-700 z-20 flex justify-between py-4 px-4 bg-white">
-        <div class="social-media flex space-x-4">
+      <footer class="fixed bottom-0 left-0 w-full border-t-[3px] border-red-700 z-20 flex justify-between py-4 px-4 bg-white text-sm ">
+        <div class="links flex space-x-4">
+          <a href="./components/privacy" class="text-red-700 hover:border-b-2 hover:border-red-700">
+            Privacy Policy
+          </a>  
+
+          <a href="./components/tos" class="text-red-700 hover:border-b-2 hover:border-red-700">
+            Terms of Service
+          </a>
+          
+          <a href="./components/contact" class="text-red-700 hover:border-b-2 hover:border-red-700">
+            Contact Us
+          </a>
+
+          <a href="./components/faq" class="text-red-700 hover:border-b-2 hover:border-red-700">
+            FAQ 
+          </a>
+
+
+        </div>
+        <div class="copyright text-center text-sm">E A Yoga Wilanda Ⓒ 2024</div>
+        <section class="social-media flex space-x-4">
           <a rel="noopenner" class="flex px-1" href="https://www.instagram.com/yogawilanda/" target="_blank">
             <img class="w-6" src="https://img.icons8.com/fluent/48/000000/instagram-new.png"/>
             Instagram
@@ -65,54 +92,14 @@
             <img class="w-6" src="https://img.icons8.com/fluent/48/000000/github.png"/>
             Github
           </a>
-        </div>
-        <div class="copyright text-center text-sm">E.A.Yoga Wilanda Ⓒ 2024</div>
+        </section>
+       
 
       </footer>
       
 
-      <script>
-        console.log('Welcome to Yoga Wilanda Console Log!');
-    
-        // Use fetch to load external HTML content for Hero section
-        fetch('components/hero-section.html')
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            }
-            return response.text();
-          })
-          .then(html => {
-            // Check if the element with the ID exists
-            const heroContentElement = document.getElementById('hero-content-placeholder');
-            if (heroContentElement) {
-              // Replace the placeholder content with the loaded HTML
-              heroContentElement.innerHTML = html;
-            } else {
-              console.error('Element with ID "hero-content-placeholder" not found');
-            }
-          })
-          .catch(error => console.error('Error loading hero-section.html:', error));
-    
-        // Use fetch to load external HTML content for About section
-        fetch('components/about.html')
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            }
-            return response.text();
-          })
-          .then(html => {
-            // Check if the element with the ID exists
-            const aboutContentElement = document.getElementById('about-content-placeholder');
-            if (aboutContentElement) {
-              // Replace the placeholder content with the loaded HTML
-              aboutContentElement.innerHTML = html;
-            } else {
-              console.error('Element with ID "about-content-placeholder" not found');
-            }
-          })
-          .catch(error => console.error('Error loading about.html:', error));
-      </script>
+      <script type="module" src="scripts/scripts.js"></script>
+
+      <!-- <script src="https://gist.github.com/yogawilanda/8f3754492e8f0b2d8a18e5299126f684.js"></script> -->
   </body>
 </html>
