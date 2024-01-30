@@ -1,3 +1,6 @@
+function consoleMessage( message) {
+  console.log(message);
+}
 export class ComponentLoader {
   async loadComponent(componentName, placeholderId) {
     console.log("Cooking the component: " + `ComponentLoader.loadComponent(${componentName})`);
@@ -24,21 +27,26 @@ export class ComponentLoader {
   }
 
   async loadComponents() {
-    // name: file name of the component
-    // placeholderId: ID of the element where the component will be injected
+    var  HERO_SECTION_FILENAME = "hero-section";
+    var ABOUT_SECTION_FILENAME = "about-section";
+    var SKILL_SECTION_FILENAME = "skill-section";
+
+    var HERO_PLACEHOLDER_ID = "hero-content";
+    var ABOUT_PLACEHOLDER_ID = "about-content";
+    var SKILL_PLACEHOLDER_ID = "skill-content";
+
     const components = [
-      { name: 'hero-section', placeholderId: 'hero-content' },
-      { name: 'about', placeholderId: 'about-content' },
-      { name: 'skill', placeholderId: 'skill-content' },
-      // Add more components as needed
+      { name: HERO_SECTION_FILENAME, placeholderId:  HERO_PLACEHOLDER_ID },
+      { name: ABOUT_SECTION_FILENAME, placeholderId:  ABOUT_PLACEHOLDER_ID},
+      { name: SKILL_SECTION_FILENAME, placeholderId:  SKILL_PLACEHOLDER_ID},
     ];
 
     try {
       await Promise.all(components.map(async (component) => {
         await this.loadComponent(component.name, component.placeholderId);
       }));
-
-      console.log('All components cooked, bon appetit!');
+      consoleMessage("All components cooked, bon appetit!");
+      
     } catch (error) {
       console.error('Error loading components:', error);
     }
