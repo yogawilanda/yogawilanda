@@ -1,49 +1,35 @@
-<section
-  id="about-section"
-  class="welcome-section flex justify-center space-x-4 items-center h-screen"
->
-  <div>
-    <div class="flex justify-center items-center space-x-10">
-        <div style="max-width: 500px;"> <!-- Adjust the max-width according to your design -->
-          <p class="mb-7">
-            <span class="text-6xl font-bold hover:text-red-700 transition duration-300 ease-in-out duration-100">
-              About.
-            </span>
-            <br />
-            <div class="mb-3">
-              <span class="">
-                As a <span class="font-bold">
-                    software engineer
-                </span>, I value the technology not just as creating programs, but as crafting tools that 
-                <span class="font-bold">
-                    optimize and enhance the way people work
-                </span>.
-              </span>
-              <div class="mb-5"></div>
-              <span class="">
-                  A person that believes digitalization can help people be more productive.
-                </span>
-            <div class="mb-5"></div>
-              <span class="">
-                What I do is to create a tool that can help people to be more productive.
-              </span>
-            </div>
+<div id="about-section" class="welcome-section px-4 md:px-6 lg:px-8 ">
+  <div class="w-full lg:max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center border-transparent h-screen">
+    
+    <!-- Content Wrapper -->
+    <div class="flex-1 flex flex-col md:flex-row justify-center md:justify-start lg:justify-between items-center md:items-start text-start md:text-left mb-8 md:mb-0 md:space-x-6">
+      
+      <!-- Profile Image -->
+      <img class="w-64 h-64 md:w-32  sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-full mb-5 md:mb-0" src="assets/img-profile.png" alt="Yoga Wilanda" />
+      
+      <!-- Text Content -->
+      <div id="about-explainers" class="flex flex-col items-start md:items-start">
+        <div class="text-6xl sm:text-5xl md:text-6xl font-bold hover:text-red-700 transition duration-300 ease-in-out">
+          About.
+        </div>
+        <div class="mt-5 text-base sm:text-lg md:text-xl lg:max-w-3xl leading-relaxed">
+          <p class="mb-5">
+            As a <span class="font-bold">software engineer</span>, I value technology not just as a means of creating
+            programs, but as a way to craft tools that <span class="font-bold">optimize and enhance the way people
+              work</span>.
           </p>
-          <button class="border-2 px-4 py-2 rounded-md bg-neutral-800 text-neutral-50 font-bold hover:bg-red-700">
-            Get to know me
-          </button>
+          <p class="mb-5">
+            I believe in digitalization as a path to increased productivity.
+          </p>
+          <p class="mb-5">
+            My goal is to create tools that help people become more productive.
+          </p>
         </div>
-        <div>
-          <img class="w-96 h-96 rounded-full" src="assets/img-profile.png" alt="Yoga Wilanda" />
-        </div>
+        <button class="border-2 px-4 py-2 rounded-md bg-neutral-800 text-neutral-50 font-bold hover:bg-red-700 mt-4">
+          Get to know me
+        </button>
       </div>
       
-
-    <div>
-      <div id="about-content"></div>
-      <div>
-        <p></p>
-      </div>
     </div>
   </div>
-</section>
+</div>

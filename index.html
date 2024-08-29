@@ -1,119 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta name="description" content="Yoga Wilanda Portfolio, and sharing the projects running and done" />
-      <meta name="keywords" content="Portfolio, Software Engineer, Yoga Wilanda Portfolio, Software Skill Portfolio" />
-      <meta name="robots" content="index, follow" />  <!-- Search Engine -->
-      <link rel="stylesheet" href="style/styles.css" /> <!-- Custom CSS Configuration. -->
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css"> <!-- Icon for programming language. -->
-      <script src="https://cdn.tailwindcss.com"></script> <!-- CDN Tailwind CSS. -->
-      <title>Yoga Wilanda</title>
-  </head>
 
-  <body>
-    <div class="h-screen">
-      <div class="fixed top-0 left-0 w-full bg-white z-10 shadow-sm shadow-red-700/100 ">
-        <div class="flex items-center justify-between px-60 py-4">
-          
-          <a class="text-2xl font-bold" href="#">YogaWilanda.</a>
-          
-          <div class="space-x-6"> 
-            
-            <a 
-            href="#hero-content-placeholder"
-            class="px-3 py-2 text-gray-800 hover:text-black transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-red-700">
-              Home
-            </a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Yoga Wilanda Portfolio, and sharing the projects running and done" />
+  <meta name="keywords" content="Portfolio, Software Engineer, Yoga Wilanda Portfolio, Software Skill Portfolio" />
+  <!-- Search Engine -->
+  <meta name="robots" content="index, follow" /> 
+  
+  <!-- Custom CSS Configuration. -->
+  <link rel="stylesheet" href="style/styles.css" /> 
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+  <!-- Icon for programming language. -->
+  <script src="https://cdn.tailwindcss.com"></script> <!-- CDN Tailwind CSS. -->
+  <title>Yoga Wilanda</title>
+</head>
 
-            <!-- Scroll to About content -->
-            <a class="px-3 py-2 text-gray-800 hover:text-black transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-red-700" href="#about-content-placeholder">About</a>
+<body class="anti-alias">
+  <nav class="fixed top-0 left-0 w-full bg-white z-10 shadow-sm shadow-red-700/100">
+    <div class="relative flex items-center justify-between px-6 lg:px-8 md:px-12 py-4">
 
-            <a href="#skill-content-placeholder" class="px-3 py-2 text-gray-800 hover:text-black transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-red-700">Skills</a>
-            <a class="px-3 py-2 text-gray-800 hover:text-black transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-red-700">Projects</a>
-          </div>
+      <a class="text-2xl font-bold text-red-700" href="#">YogaWilanda.</a>
 
-          <!-- Separated to be CTA Button -->
-          <a class="border-2 px-4 py-2 rounded-lg bg-neutral-800 text-neutral-50 font-bold 
-          shadow-lg
-          shadow-red-700/100 
-          ring-red-500 
-          ring-[0px] 
-          "
-          >
-          Contact Me</a>
-        </div>
+      <!-- Navigation Links -->
+      <div class="hidden md:hidden lg:inline-block items-center space-x-6 ">
+        <a href="#hero-content-placeholder"
+          class="px-3 py-2 text-gray-800 hover:text-red-700 transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-red-700">
+          Home
+        </a>
+        <a href="#about-content-placeholder"
+          class="px-3 py-2 text-gray-800 hover:text-red-700 transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-red-700">
+          About
+        </a>
+        <a href="#skill-content-placeholder"
+          class="px-3 py-2 text-gray-800 hover:text-red-700 transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-red-700">
+          Skills
+        </a>
+        <a href="#projects-content-placeholder"
+          class="px-3 py-2 text-gray-800 hover:text-red-700 transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-red-700">
+          Projects
+        </a>
       </div>
-    
-      <main class="flex-grow overflow-y-auto px-60">
-        <!-- Hero Content Placeholder -->
-        <div id="hero-content-placeholder">
-          Loading hero content...
-        </div>
-      
-        <!-- About Content Placeholder -->
-        <div id="about-content-placeholder">
-          Loading about content...
-        </div>
-        
-        <!-- Skill Content Placeholder -->
-        <div id="skill-content-placeholder">
-          Loading about content...
-        </div>
-      </main>
-      
-      
 
-    
-      <footer class="fixed bottom-0 left-0 w-full border-t-[3px] border-red-700 z-20 flex justify-between py-4 px-4 bg-white text-sm ">
-        
-        <!-- Useful links -->
-        <div class="links flex space-x-4">
-          <a href="./components/privacy" class="text-red-700 hover:border-b-2 hover:border-red-700">
-            Privacy Policy
-          </a>  
+      <!-- CTA Button -->
+      <a class="hidden md:hidden lg:inline-block border-2 px-4 py-2 rounded-lg bg-red-700 text-white font-bold shadow-lg shadow-red-700/100 hover:bg-red-800 hover:shadow-red-800/100 transition duration-300 ease-in-out"
+        href="#contact-section">
+        Contact Me
+      </a>
 
-          <a href="./components/tos" class="text-red-700 hover:border-b-2 hover:border-red-700">
-            Terms of Service
+      <!-- Mobile Menu Button -->
+      <button class="lg:hidden flex items-center" id="burger-toggle" title="Contact me">
+        <svg viewBox="0 0 100 80" width="40" height="40">
+          <rect width="100" height="10" class="fill-red-700"></rect>
+          <rect y="25" width="100" height="10" class="fill-red-700"></rect>
+          <rect y="50" width="100" height="10" class="fill-red-700"></rect>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div
+      class="lg:hidden fixed top-0 right-0 w-3/4 h-full bg-white shadow-lg z-50 transform translate-x-full transition-transform duration-300 ease-in-out"
+      id="mobile-menu">
+      <div class="flex flex-col p-6 space-y-4">
+        <button class="self-end text-red-700" id="close-menu" title="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+            stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        <a href="#hero-content-placeholder"
+          class="px-3 py-2 text-gray-800 hover:text-red-700 transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-red-700">
+          Home
+        </a>
+        <a href="#about-content-placeholder"
+          class="px-3 py-2 text-gray-800 hover:text-red-700 transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-red-700">
+          About
+        </a>
+        <a href="#skill-content-placeholder"
+          class="px-3 py-2 text-gray-800 hover:text-red-700 transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-red-700">
+          Skills
+        </a>
+        <a href="#projects-content-placeholder"
+          class="px-3 py-2 text-gray-800 hover:text-red-700 transition duration-300 ease-in-out focus:outline-none border-b-2 hover:border-red-700">
+          Projects
+        </a>
+        <a href="#contact-section"
+          class="border-2 px-4 py-2 rounded-lg bg-red-700 text-white font-bold shadow-lg shadow-red-700/100 hover:bg-red-800 hover:shadow-red-800/100 transition duration-300 ease-in-out">
+          Contact Me
+        </a>
+      </div>
+    </div>
+  </nav>
+  <div class="">
+    <main class="flex-grow overflow-y-auto">
+      <!-- Hero Content Placeholder -->
+      <div id="hero-content-placeholder">
+        Loading hero content...
+      </div>
+
+      <!-- About Content Placeholder -->
+      <div id="about-content-placeholder">
+        Loading about content...
+      </div>
+
+      <!-- Skill Content Placeholder -->
+      <div id="skill-content-placeholder">
+        Loading about content...
+      </div>
+    </main>
+
+    <footer class="fixed bottom-0 left-0 w-full border-t-4 border-red-700 z-20 flex flex-wrap justify-between items-center py-4 px-6 bg-white text-sm">
+      <!-- Useful links -->
+      <div class="flex space-x-4 mb-2 sm:mb-0">
+          <a href="./components/privacy" class="text-red-700 hover:border-b-2 hover:border-red-700 transition duration-300">
+              Privacy Policy
           </a>
-          
-          <a href="./components/contact" class="text-red-700 hover:border-b-2 hover:border-red-700">
-            Contact Us
+          <a href="./components/tos" class="text-red-700 hover:border-b-2 hover:border-red-700 transition duration-300">
+              Terms of Service
           </a>
-
-          <a href="./components/faq" class="text-red-700 hover:border-b-2 hover:border-red-700">
-            FAQ 
+          <a href="./components/contact" class="text-red-700 hover:border-b-2 hover:border-red-700 transition duration-300">
+              Contact Us
           </a>
-
-
-        </div>
-        
-        <!-- Copyright -->
-        <div class="copyright text-center text-sm">E A Yoga Wilanda Ⓒ 2024</div>
-
-        <!-- Social Media -->
-        <section class="social-media flex space-x-4">
-          <a rel="noopener" class="flex px-1" href="https://www.instagram.com/yogawilanda/" target="_blank">
-            <img class="w-6" alt="instagram-account" src="https://img.icons8.com/fluent/48/000000/instagram-new.png"/>
-            Instagram
+          <a href="./components/faq" class="text-red-700 hover:border-b-2 hover:border-red-700 transition duration-300">
+              FAQ
           </a>
-          <a rel="noopener" class="flex px-2" href="https://www.linkedin.com/in/yogawilanda/" target="_blank">
-            <img class="w-6" alt="linkedin-account" src="https://img.icons8.com/fluent/48/000000/linkedin.png"/>
-            LinkedIn
+      </div>
+  
+      <!-- Copyright -->
+      <div class="text-center text-sm mb-2 sm:mb-0">
+          © 2024 E A Yoga Wilanda
+      </div>
+  
+      <!-- Social Media -->
+      <div class="flex space-x-4">
+          <a rel="noopener noreferrer" class="flex items-center space-x-1 text-red-700 hover:text-red-800 transition duration-300" href="https://www.instagram.com/yogawilanda/" target="_blank">
+              <img class="w-6" alt="Instagram" src="https://img.icons8.com/fluent/48/000000/instagram-new.png" />
+              <span>Instagram</span>
           </a>
-          <a rel="noopener" class="flex px-1" href="" target="_blank">
-            <img class="w-6" alt="github-account" src="https://img.icons8.com/fluent/48/000000/github.png"/>
-            Github
+          <a rel="noopener noreferrer" class="flex items-center space-x-1 text-red-700 hover:text-red-800 transition duration-300" href="https://www.linkedin.com/in/yogawilanda/" target="_blank">
+              <img class="w-6" alt="LinkedIn" src="https://img.icons8.com/fluent/48/000000/linkedin.png" />
+              <span>LinkedIn</span>
           </a>
+          <a rel="noopener noreferrer" class="flex items-center space-x-1 text-red-700 hover:text-red-800 transition duration-300" href="https://github.com/yogawilanda" target="_blank">
+              <img class="w-6" alt="Github" src="https://img.icons8.com/fluent/48/000000/github.png" />
+              <span>Github</span>
+          </a>
+      </div>
+  </footer>
+  
 
-          
-        </section>
-      </footer>
-      
 
-      <script type="module" src="scripts/scripts.js"></script>
+    <script type="module" src="scripts/scripts.js"></script>
+</body>
 
-      <!-- <script src="https://gist.github.com/yogawilanda/8f3754492e8f0b2d8a18e5299126f684.js"></script> -->
-  </body>
 </html>
