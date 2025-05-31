@@ -12,6 +12,9 @@
   <!-- Custom CSS Configuration. -->
   <link rel="stylesheet" href="style/styles.css" />
 
+  <!-- add font awesome icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
   <!-- Icon for programming language. -->
   <script src="https://cdn.tailwindcss.com"></script> <!-- CDN Tailwind CSS. -->
@@ -95,29 +98,32 @@
     </div>
   </nav>
 
-  <main class="flex-grow overflow-y-auto">
-    <!-- Hero Content Placeholder -->
-     <div id="hero-content-placeholder">
-      Loading hero content...
+  <main class="flex-grow overflow-y-auto pb-[64px]">
+             
+    <!-- <div id="hero-content-placeholder">
+            Loading hero content...
+          </div>
+
+            <div id="about-content-placeholder">
+            Loading about content...
+          </div>
+
+            <div id="skill-content-placeholder">
+            Loading about content...
+          </div>
+
+        <div id="projects-content-placeholder">
+            Loading about content...
+          </div> -->
+
+    <div id="contact-content-placeholder">
+      Loading contact content...
     </div>
 
-    <!-- About Content Placeholder -->
-    <div id="about-content-placeholder">
-      Loading about content...
-    </div>
-
-    <!-- Skill Content Placeholder -->
-    <div id="skill-content-placeholder">
-      Loading about content...
-    </div>
-
-    <div id="projects-content-placeholder">
-      Loading about content...
-    </div>
   </main>
 
   <footer
-    class="fixed bottom-0 left-0 w-full border-t-4 border-red-700 z-20 flex flex-wrap justify-between items-center py-4 px-6 bg-white text-sm">
+    class="lg:fixed sm:float md:float bottom-0 left-0 w-full border-t-4 border-red-700 z-20 flex flex-wrap justify-between items-center py-4 px-6 bg-white text-sm">
     <!-- Useful links -->
     <div class="flex space-x-4 mb-2 sm:mb-0">
       <a href="./components/privacy" class="text-red-700 hover:border-b-2 hover:border-red-700 transition duration-300">
@@ -132,6 +138,7 @@
       <a href="./components/faq" class="text-red-700 hover:border-b-2 hover:border-red-700 transition duration-300">
         FAQ
       </a>
+      <!-- add margin so it has a default bottom under spaces -->
     </div>
 
     <!-- Copyright -->

@@ -31,17 +31,20 @@ export class ComponentLoader {
     var ABOUT_SECTION_FILENAME = "about-section";
     var SKILL_SECTION_FILENAME = "skill-section";
     var PROJECTS_SECTION_FILENAME = "projects-section";
+    var CONTACT_SECTION_FILENAME = "contact-section";
 
     var HERO_PLACEHOLDER_ID = "hero-content";
     var ABOUT_PLACEHOLDER_ID = "about-content";
     var SKILL_PLACEHOLDER_ID = "skill-content";
     var PROJECTS_PLACEHOLDER_ID = "projects-content";
+    var CONTACT_PLACEHOLDER_ID = "contact-content";
 
     const components = [
       { name: HERO_SECTION_FILENAME, placeholderId:  HERO_PLACEHOLDER_ID },
       { name: ABOUT_SECTION_FILENAME, placeholderId:  ABOUT_PLACEHOLDER_ID},
       { name: SKILL_SECTION_FILENAME, placeholderId:  SKILL_PLACEHOLDER_ID},
       { name: PROJECTS_SECTION_FILENAME, placeholderId:  PROJECTS_PLACEHOLDER_ID},
+      { name: CONTACT_SECTION_FILENAME, placeholderId:  CONTACT_PLACEHOLDER_ID}
     ];
 
     try {
