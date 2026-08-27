@@ -7,7 +7,8 @@
 
         <h1 class="text-3xl md:text-5xl font-extrabold mb-8 tracking-tight leading-tight text-white text-center">
             <span class="block" data-scramble data-delay="150" data-glitch-loop="true">Software Engineer</span>
-            <span class="text-zinc-400 block" data-scramble data-delay="300" data-glitch-loop="true">& Full-Stack
+            <span class="text-zinc-400 block" data-scramble data-delay="50" data-glitch-loop="true">|</span>
+            <span class="text-zinc-400 block" data-scramble data-delay="300" data-glitch-loop="true">Full-Stack
                 Developer.</span>
         </h1>
 

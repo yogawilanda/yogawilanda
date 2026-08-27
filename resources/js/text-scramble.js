@@ -59,14 +59,13 @@ export class TextScramble {
         }
     }
 
-    // Efek Micro-Glitch Singkat untuk Ambient Loop
-    glitchOnce(speed = 45) {
+    // Organic Glitch + CSS Effect Trigger
+    glitchOnce() {
         const text = this.el.dataset.original;
         if (!text) return;
 
-        // Acak 1-3 karakter saja secara acak biar gak lebay
         const charArray = text.split('');
-        const glitchCount = Math.floor(Math.random() * 3) + 1;
+        const glitchCount = Math.floor(Math.random() * 2) + 1; // 1-2 karakter aja
 
         for (let i = 0; i < glitchCount; i++) {
             const randomIndex = Math.floor(Math.random() * charArray.length);
@@ -75,12 +74,14 @@ export class TextScramble {
             }
         }
 
+        // Tambah class untuk trigger visual distortion (CSS)
+        this.el.classList.add('cyber-glitch-active');
         this.el.innerHTML = charArray.join('');
 
-        // Kembalikan ke teks asli setelah 120ms
         setTimeout(() => {
             this.el.innerHTML = text;
-        }, 120);
+            this.el.classList.remove('cyber-glitch-active');
+        }, 100);
     }
 
     randomChar() {
@@ -97,46 +98,48 @@ export function initScramble() {
         }
     });
 
+    // Helper untuk loop glitch dengan interval acak (Organic/Erratic)
+    const startOrganicGlitch = (el, fx) => {
+        const scheduleNextGlitch = () => {
+            // Random delay antara 1.5 detik sampai 4.5 detik
+            const randomDelay = Math.floor(Math.random() * 3000) + 1500;
+
+            el.glitchTimeout = setTimeout(() => {
+                fx.glitchOnce();
+                scheduleNextGlitch(); // Rekursif
+            }, randomDelay);
+        };
+        scheduleNextGlitch();
+    };
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             const el = entry.target;
 
             if (entry.isIntersecting) {
-                // Stop glitch loop lama jika ada saat scroll masuk kembali
-                if (el.glitchInterval) {
-                    clearInterval(el.glitchInterval);
-                    el.glitchInterval = null;
-                }
+                // Bersihkan glitch loop lama kalau ada
+                if (el.glitchTimeout) clearTimeout(el.glitchTimeout);
 
                 const fx = new TextScramble(el);
                 const originalText = el.dataset.original;
                 const delay = el.dataset.delay ? parseInt(el.dataset.delay) : 0;
                 const speed = el.dataset.speed ? parseInt(el.dataset.speed) : 25;
 
-                // Reset teks jadi kosong sebentar sebelum replay
                 el.innerText = '';
 
                 el.scrambleTimeout = setTimeout(() => {
                     fx.setText(originalText, speed).then(() => {
-                        // Khusus elemen yang punya data-glitch-loop="true", jalankan loop glitch interval
+                        // Jalankan organic glitch jika ada atribut data-glitch-loop
                         if (el.dataset.glitchLoop === 'true') {
-                            el.glitchInterval = setInterval(() => {
-                                // 40% chance untuk trigger glitch per 2.5 detik biar terkesan acak alami
-                                if (Math.random() < 0.6) {
-                                    fx.glitchOnce();
-                                }
-                            }, 2500);
+                            startOrganicGlitch(el, fx);
                         }
                     });
                 }, delay);
 
             } else {
-                // Saat elemen keluar viewport, bersihkan timer & reset state biar bisa replay pas masuk lagi
+                // Cleanup saat elemen keluar layar
                 if (el.scrambleTimeout) clearTimeout(el.scrambleTimeout);
-                if (el.glitchInterval) {
-                    clearInterval(el.glitchInterval);
-                    el.glitchInterval = null;
-                }
+                if (el.glitchTimeout) clearTimeout(el.glitchTimeout);
             }
         });
     }, { threshold: 0.3 });
