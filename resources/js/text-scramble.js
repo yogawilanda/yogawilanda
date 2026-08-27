@@ -59,29 +59,48 @@ export class TextScramble {
         }
     }
 
-    // Organic Glitch + CSS Effect Trigger
-    glitchOnce() {
+    // Burst Glitch: 1 Trigger = 1-3x Rapid Flicker
+    glitchBurst(onComplete) {
         const text = this.el.dataset.original;
         if (!text) return;
 
-        const charArray = text.split('');
-        const glitchCount = Math.floor(Math.random() * 2) + 1; // 1-2 karakter aja
+        // Tentukan acak berapa kali kedip dalam 1 burst (1 sampai 3 kali)
+        const totalFlickers = Math.floor(Math.random() * 3) + 1;
+        let currentFlicker = 0;
 
-        for (let i = 0; i < glitchCount; i++) {
-            const randomIndex = Math.floor(Math.random() * charArray.length);
-            if (charArray[randomIndex] !== ' ') {
-                charArray[randomIndex] = `<span class="text-emerald-400 font-mono">${this.randomChar()}</span>`;
+        const renderGlitchFrame = () => {
+            const charArray = text.split('');
+            const glitchCount = Math.floor(Math.random() * 3) + 1; // 1-3 karakter diacak per frame
+
+            for (let i = 0; i < glitchCount; i++) {
+                const randomIndex = Math.floor(Math.random() * charArray.length);
+                if (charArray[randomIndex] !== ' ') {
+                    charArray[randomIndex] = `<span class="text-emerald-400 font-mono">${this.randomChar()}</span>`;
+                }
             }
-        }
 
-        // Tambah class untuk trigger visual distortion (CSS)
-        this.el.classList.add('cyber-glitch-active');
-        this.el.innerHTML = charArray.join('');
+            this.el.classList.add('cyber-glitch-active');
+            this.el.innerHTML = charArray.join('');
 
-        setTimeout(() => {
-            this.el.innerHTML = text;
-            this.el.classList.remove('cyber-glitch-active');
-        }, 100);
+            // Durasi 1 frame glitch (sangat cepat: 40ms - 80ms)
+            const frameDuration = Math.floor(Math.random() * 40) + 40;
+
+            setTimeout(() => {
+                // Kembalikan ke teks normal sebentar
+                this.el.innerHTML = text;
+                this.el.classList.remove('cyber-glitch-active');
+
+                currentFlicker++;
+                if (currentFlicker < totalFlickers) {
+                    // Jeda antar flicker dalam 1 burst (30ms - 70ms)
+                    setTimeout(renderGlitchFrame, Math.floor(Math.random() * 40) + 30);
+                } else if (onComplete) {
+                    onComplete();
+                }
+            }, frameDuration);
+        };
+
+        renderGlitchFrame();
     }
 
     randomChar() {
@@ -98,15 +117,16 @@ export function initScramble() {
         }
     });
 
-    // Helper untuk loop glitch dengan interval acak (Organic/Erratic)
+    // Helper untuk loop burst glitch dengan interval acak
     const startOrganicGlitch = (el, fx) => {
         const scheduleNextGlitch = () => {
-            // Random delay antara 1.5 detik sampai 4.5 detik
-            const randomDelay = Math.floor(Math.random() * 3000) + 1500;
+            // Interval jeda antar burst glitch (800ms sampai 2.5s)
+            const randomDelay = Math.floor(Math.random() * 1700) + 800;
 
             el.glitchTimeout = setTimeout(() => {
-                fx.glitchOnce();
-                scheduleNextGlitch(); // Rekursif
+                fx.glitchBurst(() => {
+                    scheduleNextGlitch(); // Panggil burst berikutnya setelah burst ini selesai
+                });
             }, randomDelay);
         };
         scheduleNextGlitch();
@@ -117,7 +137,6 @@ export function initScramble() {
             const el = entry.target;
 
             if (entry.isIntersecting) {
-                // Bersihkan glitch loop lama kalau ada
                 if (el.glitchTimeout) clearTimeout(el.glitchTimeout);
 
                 const fx = new TextScramble(el);
@@ -129,7 +148,6 @@ export function initScramble() {
 
                 el.scrambleTimeout = setTimeout(() => {
                     fx.setText(originalText, speed).then(() => {
-                        // Jalankan organic glitch jika ada atribut data-glitch-loop
                         if (el.dataset.glitchLoop === 'true') {
                             startOrganicGlitch(el, fx);
                         }
@@ -137,7 +155,6 @@ export function initScramble() {
                 }, delay);
 
             } else {
-                // Cleanup saat elemen keluar layar
                 if (el.scrambleTimeout) clearTimeout(el.scrambleTimeout);
                 if (el.glitchTimeout) clearTimeout(el.glitchTimeout);
             }

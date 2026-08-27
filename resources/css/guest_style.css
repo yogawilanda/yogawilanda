@@ -68,19 +68,40 @@ html {
     display: none;
 }
 
-/* Cyber Glitch Animation */
+/* Cyber Glitch Animation - Fixed Layout Shift */
 @keyframes cyber-shake {
-    0% { transform: translate(0); }
-    20% { transform: translate(-2px, 1px); }
-    40% { transform: translate(-1px, -1px); }
-    60% { transform: translate(2px, 0); }
-    80% { transform: translate(1px, 1px); }
-    100% { transform: translate(0); }
+    0% { transform: translate(0, 0); }
+    20% { transform: translate(-1.5px, 0.5px); }
+    40% { transform: translate(-0.5px, -0.5px); }
+    60% { transform: translate(1.5px, 0); }
+    80% { transform: translate(0.5px, 0.5px); }
+    100% { transform: translate(0, 0); }
 }
 
 .cyber-glitch-active {
     display: inline-block;
-    animation: cyber-shake 100ms ease-in-out;
-    /* FIX: Diganti dari #00full ke #00f3ff (Cyan) biar Chromatic Aberration-nya dapet */
+    will-change: transform;
+    animation: cyber-shake 80ms ease-in-out;
     text-shadow: 1.5px 0 #00f3ff, -1.5px 0 #10b981;
+}
+
+/* Hard Blink Cursor Nempel Presisi */
+@keyframes terminal-blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
+.cursor-terminal {
+    position: relative;
+    display: inline-block;
+}
+
+.cursor-terminal::after {
+    content: "|";
+    position: absolute;
+    right: -0.55em; /* Nempel persis di sebelah huruf 'i' */
+    top: 0;
+    color: var(--accent-green);
+    font-weight: 700;
+    animation: terminal-blink 1s steps(1) infinite;
 }
