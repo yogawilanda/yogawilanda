@@ -1,7 +1,23 @@
 export class TextScramble {
     constructor(el) {
         this.el = el;
-        this.chars = '0123456789ABCDEF_//<>{}[]$#';
+        // this.chars = '0123456789ABCDEF_//<>{}[]$#';
+        // Versi Original (Hex / Matrix Code)
+        // this.chars = '0123456789ABCDEF_//<>{}[]$#';
+
+        // Versi Kanji (Cyberpunk / Ghost in the Shell Vibes)
+        // this.chars = '零一二三四五六七八九十百千万億日月火水木金土日月星天宇宙未来電算機術';
+
+        // this.chars = 'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ0123456789';
+
+        // Versi Aksara Jawa (Majapahit / Futuristic Javanese Aesthetic)
+        // this.chars = 'ꦄꦅꦆꦇꦈꦉꦊꦋꦌꦍꦎꦏꦐꦑꦒꦓꦔꦕꦖꦗꦘꦙꦚꦛꦜꦝꦞꦟꦠꦡꦢꦣꦤꦥꦦꦧꦨꦩꦪꦫꦭꦮꦯꦰꦱꦲ';
+        // this.chars = 'БГДЖИЛПФЦЧШЩ░▒▓█ｱｲｳｴｵｶｷｸｹｺ│┃┼═║ⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩⅪⅫ';
+        // this.chars = '😀😃😄😁😆😅😂🤣🥳😎';
+
+        this.chars = '░▒▓█│┃┼═║╒╗╚╝▲▼◄►░▒▓█▀▄▌▐ꦄꦅꦆꦇꦈꦉꦊꦋꦌꦍꦎꦏꦐꦑꦒꦓꦔꦕꦖꦗꦘꦙꦚꦛꦜꦝꦞꦟꦠꦡꦢꦣꦤꦥꦦꦧꦨꦩꦪꦫꦭꦮꦯꦰꦱꦲｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝБГДЖИЛПФЦЧШЩ░▒▓█ｱｲｳｴｵｶｷｸｹｺ│┃┼═║';
+
+
         this.update = this.update.bind(this);
     }
 

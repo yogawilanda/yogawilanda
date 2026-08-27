@@ -6,10 +6,10 @@
         style="contain: layout size;">
 
         <span
-            class="mb-2 flex h-4 items-center justify-center text-sm uppercase tracking-widest text-zinc-500 font-mono"
+            class="mb-2 flex h-4 items-center justify-center text-sm uppercase tracking-widest text-zinc-500 dark:text-zinc-300 font-mono"
             data-scramble data-delay="0">[CHAPTER 001]</span>
         <span
-            class="mb-2 flex h-4 items-center justify-center text-sm uppercase tracking-widest text-zinc-500 font-mono"
+            class="mb-2 flex h-4 items-center justify-center text-sm uppercase tracking-widest text-zinc-600 dark:text-zinc-400 font-mono"
             data-scramble data-delay="0">[Episode - Intro]</span>
 
         <h1
@@ -17,8 +17,8 @@
             <span class="flex h-9 items-center justify-center md:h-12" data-scramble data-delay="150"
                 data-glitch-loop="true">Software Engineer</span>
 
-            <span class="my-1 flex h-5 items-center justify-center text-lg text-zinc-500 opacity-60 md:text-xl"
-                data-scramble data-delay="50" data-glitch-loop="true">||</span>
+            <span class="my-1 flex h-5 items-center justify-center text-lg text-zinc-500 opacity-60 md:text-xl font-mono"
+                data-scramble data-delay="50" data-glitch-loop="true">\\_//</span>
 
             <span class="flex h-9 items-center justify-center text-zinc-700 dark:text-zinc-400 md:h-12" data-scramble data-delay="300"
                 data-glitch-loop="true">Full-Stack Developer</span>
@@ -26,70 +26,103 @@
     </div>
 
     <div id="terminal-window"
-        class="relative z-10 mt-4 w-full max-w-2xl cursor-text overflow-hidden rounded-sm border border-zinc-200 bg-white/80 text-left shadow-[0_24px_80px_rgba(15,23,42,0.12)] backdrop-blur-md transition-all duration-300 dark:border-zinc-800 dark:bg-zinc-950/80 dark:shadow-[0_24px_80px_rgba(0,0,0,0.35)]"
+        class="relative z-10 mt-4 w-full max-w-3xl cursor-text overflow-hidden rounded-sm transition-all duration-300 focus-within:border-emerald-500 focus-within:ring-1 focus-within:ring-emerald-500 selection:bg-emerald-500 selection:text-zinc-950 hover-within:border-emerald-500 hover-within:ring-1 hover-within:ring-emerald-500"
         onclick="document.getElementById('cli-input')?.focus()">
 
-        <div
-            class="flex items-center justify-between border-b border-zinc-200 bg-zinc-100/80 px-4 py-2.5 text-[11px] select-none dark:border-zinc-800 dark:bg-zinc-900/80">
-            <div class="flex items-center gap-2 font-mono text-zinc-600 dark:text-zinc-400">
-                <span class="text-xs font-bold text-emerald-500">>_</span>
+        <div class="flex items-center justify-between border-b border-zinc-200/60 dark:border-zinc-800/80 px-4 py-3 text-xs select-none">
+            <div class="flex items-center gap-2 font-medium">
+                <span class="text-sm font-bold text-emerald-500">>_</span>
                 <span data-scramble data-delay="450">yogawilanda.sh — Interactive Shell</span>
             </div>
 
-            <div class="flex items-center gap-4">
-                <div class="flex items-center gap-2 text-[10px] uppercase tracking-widest font-mono text-zinc-600 dark:text-zinc-400">
-                    <span class="h-1.5 w-1.5 animate-ping rounded-full bg-emerald-500"></span>
-                    <span data-scramble data-delay="600">STATUS: AVAILABLE_FOR_WORK</span>
-                </div>
-
-                <div class="ml-2 flex items-center gap-3 text-zinc-500 dark:text-zinc-500">
-                    <button id="btn-minimize" title="Minimize"
-                        class="transition-colors hover:text-zinc-900 focus:outline-none dark:hover:text-white">
-                        <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
-                        </svg>
-                    </button>
-                    <button id="btn-maximize" title="Maximize/Restore"
-                        class="transition-colors hover:text-zinc-900 focus:outline-none dark:hover:text-white">
-                        <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <rect x="4" y="4" width="16" height="16" rx="1" stroke-width="2" />
-                        </svg>
-                    </button>
-                    <button id="btn-close" title="Close Terminal"
-                        class="transition-colors hover:text-red-400 focus:outline-none">
-                        <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
+            <div class="ml-2 flex items-center gap-3.5 opacity-80">
+                <button id="btn-minimize" title="Minimize"
+                    class="transition-colors hover:text-emerald-500 focus:outline-none">
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
+                    </svg>
+                </button>
+                <button id="btn-maximize" title="Maximize/Restore"
+                    class="transition-colors hover:text-emerald-500 focus:outline-none">
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <rect x="4" y="4" width="16" height="16" rx="1" stroke-width="2" />
+                    </svg>
+                </button>
+                <button id="btn-close" title="Close Terminal"
+                    class="transition-colors hover:text-red-400 focus:outline-none">
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
             </div>
         </div>
 
         <div id="terminal-body"
-            class="max-h-105 space-y-4 overflow-y-auto p-6 text-sm leading-relaxed font-mono transition-all duration-300 scrollbar-thin scrollbar-thumb-zinc-800 md:text-base">
-            <div id="terminal-logs" class="space-y-4">
+            class="max-h-120 space-y-5 overflow-y-auto p-6 font-mono text-sm leading-relaxed transition-all duration-300 md:p-7 md:text-base">
+            <div id="terminal-logs" class="space-y-5">
                 <div>
-                    <p class="font-bold text-zinc-900 dark:text-white">
-                        <span class="mr-1.5 text-emerald-500">$</span>whoami
+                    <p class="font-bold text-base md:text-lg">
+                        <span class="mr-2 text-emerald-500">$</span>whoami --verbose
                     </p>
-                    <p class="mt-1 text-zinc-700 dark:text-zinc-300">
-                        Yoga Wilanda — Berbasis di Surabaya, Indonesia. Berfokus pada pengembangan sistem web &
-                        mobile skala tinggi, arsitektur database multi-tenant, dan optimalisasi aplikasi custom
-                        tanpa rigid template.
-                    </p>
-                    <div class="flex items-center gap-2 pt-2 text-[11px] text-zinc-500 dark:text-zinc-400">
-                        <span class="h-2 w-2 animate-pulse rounded-full bg-emerald-500"></span>
-                        <span>Surabaya, ID • Telkom University</span>
+
+                    <div class="mt-4 space-y-2.5">
+                        <div class="flex items-start gap-3">
+                            <span class="font-bold text-emerald-500">[✓]</span>
+                            <div>
+                                <span class="font-bold text-zinc-900 dark:text-zinc-100">Engineer Profile:</span>
+                                <span class="text-zinc-700 dark:text-zinc-300">Yoga Wilanda (Full-Stack Developer)</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <span class="font-bold text-emerald-500">[✓]</span>
+                            <div>
+                                <span class="font-bold text-zinc-900 dark:text-zinc-100">Respawn Points:</span>
+                                <span class="text-zinc-700 dark:text-zinc-300">Sidoarjo, ID</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <span class="font-bold text-emerald-500">[✓]</span>
+                            <div>
+                                <span class="font-bold text-zinc-900 dark:text-zinc-100">Trait & Passive Skill:</span>
+                                <span class="text-zinc-700 dark:text-zinc-300">Curiousity => e LV.MAX</span>
+                                <span class="text-zinc-700 dark:text-zinc-300">Persistence => LV.MAX</span>
+                                <span class="text-zinc-700 dark:text-zinc-300">Chronolurgy => LV.MAX</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <span class="font-bold text-emerald-500">[✓]</span>
+                            <div>
+                                <span class="font-bold text-zinc-900 dark:text-zinc-100">Status:</span>
+                                <span class="font-bold text-emerald-500">AVAILABLE_FOR_WORK</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <span class="font-bold text-emerald-500">[✓]</span>
+                            <div class="space-y-1">
+                                <span class="font-bold text-zinc-900 dark:text-zinc-100">Core Focus:</span>
+                                <p class="text-zinc-700 dark:text-zinc-300">
+                                    Pengembangan sistem web & mobile skala tinggi, arsitektur database multi-tenant, dan optimalisasi aplikasi custom tanpa rigid template.
+                                </p>
+                            </div>
+                        </div>
                     </div>
+
+                    <p class="mt-4 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                        ! No issues found. Character ready for Guild Recruitment.
+                    </p>
                 </div>
             </div>
 
-            <form id="terminal-form" class="flex items-center gap-1.5 pt-2" onsubmit="return false;">
-                <span class="select-none font-bold text-emerald-500">$</span>
+            <form id="terminal-form" class="flex items-center gap-2 pt-3" onsubmit="return false;">
+                <span class="select-none font-bold text-emerald-500 text-base">$</span>
                 <div class="relative flex flex-1 items-center">
                     <input type="text" id="cli-input" autocomplete="off" spellcheck="false"
-                        class="w-full border-none bg-transparent p-0 m-0 font-bold text-zinc-900 caret-emerald-500 focus:outline-none dark:text-white"
+                        class="w-full border-none p-0 m-0 font-bold caret-emerald-500 hover:cursor-text focus:outline-none focus:ring-0"
                         placeholder="type 'help' or 'whoami -vv'..." />
                 </div>
             </form>

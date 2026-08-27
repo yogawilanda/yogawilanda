@@ -8,13 +8,13 @@
     <x-layouts::guest.nav />
 
     {{-- Container utama diberi dot-pattern --}}
-    <main id="horizontal-wrapper" class="h-full w-full flex overflow-x-auto overflow-y-hidden snap-x snap-mandatory scroll-smooth no-scrollbar bg-dot-pattern">
+    <main id="horizontal-wrapper" class="h-full w-full flex flex-col overflow-y-auto overflow-x-hidden snap-y snap-mandatory scroll-smooth no-scrollbar bg-dot-pattern">
         {{ $slot }}
     </main>
 
-    <x-layouts::guest.scroll_hint />
+    {{-- <x-layouts::guest.scroll_hint /> --}}
     <x-layouts::guest.footer />
 
-    
+
 </body>
 </html>

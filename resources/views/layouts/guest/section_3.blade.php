@@ -1,6 +1,6 @@
 {{-- STEP 003: PROJECTS --}}
 <section id="projects"
-    class="relative flex h-full min-w-full flex-shrink-0 snap-center flex-col items-center justify-center px-6 pb-12 pt-16 text-zinc-700 dark:text-zinc-300 md:px-12">
+    class=" relative flex h-full min-w-full flex-shrink-0 snap-center flex-col items-center justify-center px-6 pb-12 pt-16 text-zinc-700 dark:text-zinc-300 md:px-12">
     <span class="mb-3 text-[11px] uppercase tracking-widest text-zinc-500 font-mono">[STEP 003]</span>
     <h2 class="mb-8 text-center text-2xl font-bold tracking-tight text-zinc-900 dark:text-white md:text-3xl">Featured Projects</h2>
 

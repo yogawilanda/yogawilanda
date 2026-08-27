@@ -1,7 +1,7 @@
 
 {{-- STEP 004: CONTACT --}}
 <section id="contact"
-    class="relative flex h-full min-w-full flex-shrink-0 snap-center flex-col items-center justify-center px-6 pb-12 pt-16 text-zinc-700 dark:text-zinc-300 md:px-12">
+    class="guest-wire relative flex h-full min-w-full flex-shrink-0 snap-center flex-col items-center justify-center px-6 pb-12 pt-16 text-zinc-700 dark:text-zinc-300 md:px-12">
     <span class="mb-3 text-[11px] uppercase tracking-widest text-zinc-500 font-mono">[STEP 004]</span>
     <h2 class="mb-4 text-center text-2xl font-bold tracking-tight text-zinc-900 dark:text-white md:text-3xl">Initiate Connection</h2>
     <p class="mb-8 max-w-md text-center text-xs text-zinc-600 md:text-sm dark:text-zinc-400">
