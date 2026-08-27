@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-{{-- views/layouts/app/header.blade.php --}}
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
     <head>
         @include('partials.head')

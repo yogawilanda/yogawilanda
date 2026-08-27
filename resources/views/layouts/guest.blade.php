@@ -3,7 +3,7 @@
 
 <x-layouts::guest.head />
 
-<body class="h-full w-full bg-[#09090b] text-zinc-100 antialiased font-sans overflow-hidden">
+<body class="h-full w-full bg-zinc-50 text-zinc-900 antialiased font-sans overflow-hidden dark:bg-[#09090b] dark:text-zinc-100">
 
     <x-layouts::guest.nav />
 

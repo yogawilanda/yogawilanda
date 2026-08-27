@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {{-- views/layouts/app/sidebar.blade.php --}}
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         @include('partials.head')
     </head>
