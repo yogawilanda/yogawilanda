@@ -29,20 +29,39 @@ const setTheme = (isDark) => {
 };
 
 const syncGuestTheme = () => {
+    const isAuthenticated = document.body.dataset.authenticated === 'true';
+    const fluxAppearance = localStorage.getItem('flux.appearance');
     const storedTheme = localStorage.getItem(storageKey);
+
+    if (isAuthenticated && (fluxAppearance === 'dark' || fluxAppearance === 'light')) {
+        setTheme(fluxAppearance === 'dark');
+        return;
+    }
 
     if (storedTheme === 'dark' || storedTheme === 'light') {
         setTheme(storedTheme === 'dark');
         return;
     }
 
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    setTheme(prefersDark);
-    localStorage.setItem(storageKey, prefersDark ? 'dark' : 'light');
+    setTheme(false);
+    localStorage.setItem(storageKey, 'light');
 };
 
 if (themeToggle) {
     themeToggle.addEventListener('click', () => {
+        const isAuthenticated = document.body.dataset.authenticated === 'true';
+
+        if (isAuthenticated) {
+            const fluxAppearance = localStorage.getItem('flux.appearance');
+            const nextIsDark = !(fluxAppearance === 'dark');
+
+            if (fluxAppearance === 'dark' || fluxAppearance === 'light') {
+                localStorage.setItem('flux.appearance', nextIsDark ? 'dark' : 'light');
+                window.Flux?.applyAppearance?.(nextIsDark ? 'dark' : 'light');
+                return;
+            }
+        }
+
         const nextIsDark = !root.classList.contains('dark');
         setTheme(nextIsDark);
         localStorage.setItem(storageKey, nextIsDark ? 'dark' : 'light');

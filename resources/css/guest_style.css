@@ -22,11 +22,19 @@ html.dark {
     --accent-green: #10b981;
 }
 
+html {
+    color-scheme: light;
+}
+
+html.dark {
+    color-scheme: dark;
+}
+
 html,
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
-    font-family: "JetBrains Mono", monospace;
+    font-family: var(--font-sans, "JetBrains Mono", monospace);
 }
 
 body {

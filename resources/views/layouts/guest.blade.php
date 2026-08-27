@@ -3,7 +3,7 @@
 
 <x-layouts::guest.head />
 
-<body class="h-full w-full bg-zinc-50 text-zinc-900 antialiased font-sans overflow-hidden dark:bg-[#09090b] dark:text-zinc-100">
+<body data-authenticated="{{ auth()->check() ? 'true' : 'false' }}" class="h-full w-full bg-zinc-50 text-zinc-900 antialiased overflow-hidden dark:bg-[#09090b] dark:text-zinc-100">
 
     <x-layouts::guest.nav />
 
