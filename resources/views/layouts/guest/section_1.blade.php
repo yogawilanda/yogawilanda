@@ -86,10 +86,8 @@
                         <div class="flex items-start gap-3">
                             <span class="font-bold text-emerald-500">[✓]</span>
                             <div>
-                                <span class="font-bold text-zinc-900 dark:text-zinc-100">Trait & Passive Skill:</span>
-                                <span class="text-zinc-700 dark:text-zinc-300">Curiousity => e LV.MAX</span>
-                                <span class="text-zinc-700 dark:text-zinc-300">Persistence => LV.MAX</span>
-                                <span class="text-zinc-700 dark:text-zinc-300">Chronolurgy => LV.MAX</span>
+                                <span class="font-bold text-zinc-900 dark:text-zinc-100">Passive Skill:</span>
+                                <span class="text-zinc-700 dark:text-zinc-300">Curiousity, Craftsmanship, Persistence</span>
                             </div>
                         </div>
 
@@ -98,16 +96,6 @@
                             <div>
                                 <span class="font-bold text-zinc-900 dark:text-zinc-100">Status:</span>
                                 <span class="font-bold text-emerald-500">AVAILABLE_FOR_WORK</span>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start gap-3">
-                            <span class="font-bold text-emerald-500">[✓]</span>
-                            <div class="space-y-1">
-                                <span class="font-bold text-zinc-900 dark:text-zinc-100">Core Focus:</span>
-                                <p class="text-zinc-700 dark:text-zinc-300">
-                                    Pengembangan sistem web & mobile skala tinggi, arsitektur database multi-tenant, dan optimalisasi aplikasi custom tanpa rigid template.
-                                </p>
                             </div>
                         </div>
                     </div>
@@ -119,10 +107,10 @@
             </div>
 
             <form id="terminal-form" class="flex items-center gap-2 pt-3" onsubmit="return false;">
-                <span class="select-none font-bold text-emerald-500 text-base">$</span>
+                <span class="select-none font-bold text-emerald-500 text-base leading-none">$</span>
                 <div class="relative flex flex-1 items-center">
                     <input type="text" id="cli-input" autocomplete="off" spellcheck="false"
-                        class="w-full border-none p-0 m-0 font-bold caret-emerald-500 hover:cursor-text focus:outline-none focus:ring-0"
+                        class="w-full border-none bg-transparent p-0 m-0 font-mono text-sm leading-normal font-bold caret-emerald-500 hover:cursor-text focus:outline-none focus:ring-0 focus:border-none"
                         placeholder="type 'help' or 'whoami -vv'..." />
                 </div>
             </form>
