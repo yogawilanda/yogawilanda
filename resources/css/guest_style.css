@@ -79,7 +79,9 @@ html {
 }
 
 .cyber-glitch-active {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     will-change: transform;
     animation: cyber-shake 80ms ease-in-out;
     text-shadow: 1.5px 0 #00f3ff, -1.5px 0 #10b981;
