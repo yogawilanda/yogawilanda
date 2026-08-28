@@ -82,7 +82,7 @@
             <a href="https://github.com/yourusername" target="_blank"
                class="group inline-flex items-center gap-2 font-mono text-xs text-zinc-500 transition-colors hover:text-emerald-500 dark:text-zinc-400 dark:hover:text-emerald-400">
                 <span class="text-emerald-500 font-bold">&gt;</span>
-                <span data-scramble data-delay="200" data-glitch-loop="true" class="underline decoration-dashed underline-offset-4">
+                <span class="underline decoration-dashed underline-offset-4">
                     [ACCESS_ALL_LOGS] — View More Stories
                 </span>
                 <span class="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span>
