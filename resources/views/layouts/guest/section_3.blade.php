@@ -1,6 +1,6 @@
 {{-- STEP 003: PROJECTS --}}
 <section id="projects"
-    class="relative flex h-full min-h-full flex-shrink-0 snap-center flex-col items-center justify-center px-6 pb-12 pt-16 text-zinc-700 dark:text-zinc-300 md:px-12">
+    class="relative flex h-full min-h-full shrink-0 snap-center flex-col items-center justify-center px-6 pb-12 pt-16 text-zinc-700 dark:text-zinc-300 md:px-12">
     <span
         class="mb-2 flex h-4 items-center justify-center font-mono text-sm uppercase tracking-widest text-zinc-600 dark:text-zinc-400"
         data-scramble data-delay="100">[Episode 03 - Proven Artifacts]</span>
@@ -19,7 +19,7 @@
                 <div class="flex items-center gap-2">
                     <i class="fas fa-folder-open text-emerald-500 text-[11px]"></i>
                     <span
-                        class="font-bold uppercase tracking-wider text-zinc-900 text-[11px] dark:text-white">01_AUTOMATED_DUPAK</span>
+                        class="font-bold uppercase tracking-wider text-zinc-900 text-[11px] dark:text-white">01_HRMS</span>
                     <span class="rounded bg-emerald-500/10 px-1.5 py-0.5 text-[9px] font-semibold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">COMPLETED</span>
                 </div>
                 <a href="https://yogawilanda.com/dupak" target="_blank"

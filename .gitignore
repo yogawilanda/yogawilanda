@@ -1,6 +1,6 @@
 /.phpunit.cache
 /node_modules
-/public/build
+# /public/build
 /public/fonts-manifest.dev.json
 /public/hot
 /public/storage
@@ -8,6 +8,7 @@
 /storage/pail
 /vendor
 .env
+.env.local
 .env.backup
 .env.production
 .phpactor.json

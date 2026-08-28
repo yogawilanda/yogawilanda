@@ -3,51 +3,42 @@
 
         {{-- Logo Brand --}}
         <div class="flex min-w-0 shrink-0 items-center gap-2">
-            <a href="#about" class="group flex items-center gap-2.5 border border-zinc-200 bg-zinc-50 px-3 py-2 text-xs font-bold uppercase tracking-wider text-zinc-700 transition hover:border-emerald-500 hover:text-emerald-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200">
+            <a href="#about"
+                class="group flex items-center gap-2.5 border border-zinc-200 bg-zinc-50 px-3 py-2 text-xs font-bold uppercase tracking-wider text-zinc-700 transition hover:border-emerald-500 hover:text-emerald-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200">
                 <span class="inline-flex h-5 w-5 items-center justify-center bg-emerald-500/15 text-[10px] text-emerald-500">YW</span>
                 <span class="hidden sm:inline">YOGAWILANDA</span>
             </a>
         </div>
 
-        {{-- Menu Links (Tambah relative & flex flex-col items-center untuk posisikan Dot) --}}
+        {{-- Menu Links --}}
         <div id="nav-menu-links" class="hidden flex-1 items-center justify-center gap-1.5 overflow-x-auto no-scrollbar md:flex">
-            <a href="#about" class="nav-link relative flex flex-col items-center border border-transparent px-4 py-2 text-xs font-medium uppercase tracking-wider text-zinc-600 transition hover:border-zinc-200 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:text-zinc-100">
-                <span class="nav-dot absolute -top-1 h-1.5 w-1.5 rounded-full bg-emerald-500 opacity-0 transition-all duration-300"></span>
-                About
-            </a>
-            <a href="#stack" class="nav-link relative flex flex-col items-center border border-transparent px-4 py-2 text-xs font-medium uppercase tracking-wider text-zinc-600 transition hover:border-zinc-200 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:text-zinc-100">
-                <span class="nav-dot absolute -top-1 h-1.5 w-1.5 rounded-full bg-emerald-500 opacity-0 transition-all duration-300"></span>
-                Stack
-            </a>
-            <a href="#projects" class="nav-link relative flex flex-col items-center border border-transparent px-4 py-2 text-xs font-medium uppercase tracking-wider text-zinc-600 transition hover:border-zinc-200 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:text-zinc-100">
-                <span class="nav-dot absolute -top-1 h-1.5 w-1.5 rounded-full bg-emerald-500 opacity-0 transition-all duration-300"></span>
-                Projects
-            </a>
-            <a href="#contact" class="nav-link relative flex flex-col items-center border border-transparent px-4 py-2 text-xs font-medium uppercase tracking-wider text-zinc-600 transition hover:border-zinc-200 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:text-zinc-100">
-                <span class="nav-dot absolute -top-1 h-1.5 w-1.5 rounded-full bg-emerald-500 opacity-0 transition-all duration-300"></span>
-                Contact
-            </a>
+            @foreach (['about' => 'About', 'stack' => 'Stack', 'projects' => 'Projects', 'contact' => 'Contact'] as $hash => $label)
+                <a href="#{{ $hash }}"
+                    class="nav-link relative flex flex-col items-center border border-transparent px-4 py-2 text-xs font-medium uppercase tracking-wider text-zinc-600 transition hover:border-zinc-200 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:text-zinc-100">
+                    <span class="nav-dot absolute -top-1 h-1.5 w-1.5 rounded-full bg-emerald-500 opacity-0 transition-all duration-300"></span>
+                    {{ $label }}
+                </a>
+            @endforeach
         </div>
 
         {{-- Action Buttons --}}
         <div class="flex shrink-0 items-center gap-2.5">
-            <button id="guest-theme-toggle" type="button" class="inline-flex items-center gap-2 border border-zinc-200 bg-zinc-50 px-3 py-2 text-xs font-medium uppercase tracking-wider text-zinc-700 transition hover:border-emerald-500 hover:text-emerald-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200">
+            <button id="guest-theme-toggle" type="button"
+                class="inline-flex items-center gap-2 border border-zinc-200 bg-zinc-50 px-3 py-2 text-xs font-medium uppercase tracking-wider text-zinc-700 transition hover:border-emerald-500 hover:text-emerald-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200">
                 <span data-theme-icon aria-hidden="true">☀</span>
                 <span data-theme-label class="hidden sm:inline">Light</span>
             </button>
 
-            <a href="/login" class="inline-flex items-center bg-emerald-500 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-zinc-950 transition hover:bg-emerald-400">
-                Login
-            </a>
+            
         </div>
 
     </div>
 </nav>
 
-{{-- Custom Style untuk state active --}}
+{{-- Active state styling --}}
 <style>
     .nav-link.active {
-        color: #10b981 !important; /* Emerald color */
+        color: #10b981 !important;
     }
     .nav-link.active .nav-dot {
         opacity: 1 !important;
@@ -55,34 +46,26 @@
     }
 </style>
 
-{{-- Script Observer --}}
+{{-- Scrollspy Observer --}}
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const navLinks = document.querySelectorAll('.nav-link');
-    const sections = document.querySelectorAll('section[id]');
+    document.addEventListener('DOMContentLoaded', () => {
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section[id]');
 
-    const observerOptions = {
-        root: null,
-        rootMargin: '-30% 0px -60% 0px', // Trigger ketika section masuk area tengah layar
-        threshold: 0
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const id = entry.target.getAttribute('id');
-
-                navLinks.forEach(link => {
-                    if (link.getAttribute('href') === `#${id}`) {
-                        link.classList.add('active');
-                    } else {
-                        link.classList.remove('active');
-                    }
-                });
-            }
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                    });
+                }
+            });
+        }, {
+            rootMargin: '-30% 0px -60% 0px',
+            threshold: 0
         });
-    }, observerOptions);
 
-    sections.forEach(section => observer.observe(section));
-});
+        sections.forEach(section => observer.observe(section));
+    });
 </script>
