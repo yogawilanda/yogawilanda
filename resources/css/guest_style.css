@@ -70,8 +70,58 @@ body {
     background-size: 24px 24px;
 }
 
-#horizontal-wrapper {
+#vertical-wrapper {
     background-color: var(--bg-color);
+    overscroll-behavior-y: contain;
+    scroll-snap-type: y mandatory;
+    touch-action: pan-y;
+}
+
+#vertical-wrapper > section {
+    scroll-snap-stop: always;
+}
+
+#vertical-wrapper.is-programmatic-scrolling {
+    scroll-snap-type: none;
+}
+
+.guest-section--enter-forward {
+    animation: guest-section-whoosh-forward 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.guest-section--enter-backward {
+    animation: guest-section-whoosh-backward 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes guest-section-whoosh-forward {
+    from {
+        opacity: 0.82;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes guest-section-whoosh-backward {
+    from {
+        opacity: 0.82;
+        transform: translateY(-18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .guest-section--enter-forward,
+    .guest-section--enter-backward {
+        animation: none;
+    }
 }
 
 .guest-shell {
@@ -92,6 +142,38 @@ body {
     background: var(--terminal-window-bg);
     box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08);
     overflow: hidden;
+}
+
+#terminal-window:hover,
+#terminal-window:focus-within {
+    border-color: var(--accent-green);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent-green) 35%, transparent), 0 0 28px color-mix(in srgb, var(--accent-green) 18%, transparent), 0 14px 32px rgba(15, 23, 42, 0.08);
+}
+
+#terminal-window:hover > div:first-child,
+#terminal-window:focus-within > div:first-child {
+    animation: terminal-signal 1.8s steps(2, end) infinite;
+}
+
+@keyframes terminal-signal {
+    0%, 88%, 100% {
+        transform: translateX(0);
+    }
+
+    90% {
+        transform: translateX(-1px);
+    }
+
+    94% {
+        transform: translateX(1px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #terminal-window:hover > div:first-child,
+    #terminal-window:focus-within > div:first-child {
+        animation: none;
+    }
 }
 
 #terminal-window > div:first-child {

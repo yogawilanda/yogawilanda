@@ -1,6 +1,6 @@
 {{-- STEP 001: ABOUT / HERO --}}
 <section id="about"
-    class="relative flex h-full min-w-full shrink-0 snap-center flex-col items-center justify-center px-6 pb-12 pt-16 text-zinc-700 dark:text-zinc-300 md:px-12">
+    class="relative flex h-full min-h-full shrink-0 snap-center flex-col items-center justify-center px-6 pb-12 pt-16 text-zinc-700 dark:text-zinc-300 md:px-12">
 
     <div class="relative flex h-40 w-full max-w-4xl select-none flex-col items-center justify-center overflow-hidden md:h-50"
         style="contain: layout size;">
@@ -10,18 +10,21 @@
             data-scramble data-delay="0">[CHAPTER 001]</span>
         <span
             class="mb-2 flex h-4 items-center justify-center text-sm uppercase tracking-widest text-zinc-600 dark:text-zinc-400 font-mono"
-            data-scramble data-delay="0">[Episode - Intro]</span>
+            data-scramble data-delay="0">[Episode 01 - The beginning]</span>
 
         <h1
             class="flex w-full flex-col items-center justify-center text-center text-3xl font-extrabold leading-none tracking-tight text-zinc-900 dark:text-white md:text-5xl">
             <span class="flex h-9 items-center justify-center md:h-12" data-scramble data-delay="150"
                 data-glitch-loop="true">Software Engineer</span>
 
-            <span class="my-1 flex h-5 items-center justify-center text-lg text-zinc-500 opacity-60 md:text-xl font-mono"
-                data-scramble data-delay="50" data-glitch-loop="true">\\_//</span>
+            <span
+                class="my-1 flex h-5 items-center justify-center font-mono text-xs tracking-widest text-zinc-700 dark:text-zinc-400 opacity-60 md:text-sm"
+                data-scramble data-delay="500">
+                + ── ── ── +
+            </span>
 
-            <span class="flex h-9 items-center justify-center text-zinc-700 dark:text-zinc-400 md:h-12" data-scramble data-delay="300"
-                data-glitch-loop="true">Full-Stack Developer</span>
+            <span class="flex h-9 items-center justify-center text-zinc-700 dark:text-zinc-400 md:h-12" data-scramble
+                data-delay="300" data-glitch-loop="true">Problem Solver</span>
         </h1>
     </div>
 
@@ -29,7 +32,8 @@
         class="relative z-10 mt-4 w-full max-w-3xl cursor-text overflow-hidden rounded-sm transition-all duration-300 focus-within:border-emerald-500 focus-within:ring-1 focus-within:ring-emerald-500 selection:bg-emerald-500 selection:text-zinc-950 hover-within:border-emerald-500 hover-within:ring-1 hover-within:ring-emerald-500"
         onclick="document.getElementById('cli-input')?.focus()">
 
-        <div class="flex items-center justify-between border-b border-zinc-200/60 dark:border-zinc-800/80 px-4 py-3 text-xs select-none">
+        <div
+            class="flex items-center justify-between border-b border-zinc-200/60 dark:border-zinc-800/80 px-4 py-3 text-xs select-none">
             <div class="flex items-center gap-2 font-medium">
                 <span class="text-sm font-bold text-emerald-500">>_</span>
                 <span data-scramble data-delay="450">yogawilanda.sh — Interactive Shell</span>
@@ -70,8 +74,8 @@
                         <div class="flex items-start gap-3">
                             <span class="font-bold text-emerald-500">[✓]</span>
                             <div>
-                                <span class="font-bold text-zinc-900 dark:text-zinc-100">Engineer Profile:</span>
-                                <span class="text-zinc-700 dark:text-zinc-300">Yoga Wilanda (Full-Stack Developer)</span>
+                                <span class="font-bold text-zinc-900 dark:text-zinc-100">Character Name:</span>
+                                <span class="text-zinc-700 dark:text-zinc-300">E A Yoga Wilanda</span>
                             </div>
                         </div>
 
@@ -87,7 +91,8 @@
                             <span class="font-bold text-emerald-500">[✓]</span>
                             <div>
                                 <span class="font-bold text-zinc-900 dark:text-zinc-100">Passive Skill:</span>
-                                <span class="text-zinc-700 dark:text-zinc-300">Curiousity, Craftsmanship, Persistence</span>
+                                <span class="text-zinc-700 dark:text-zinc-300">Curiousity, Craftsmanship,
+                                    Persistence</span>
                             </div>
                         </div>
 
@@ -95,13 +100,15 @@
                             <span class="font-bold text-emerald-500">[✓]</span>
                             <div>
                                 <span class="font-bold text-zinc-900 dark:text-zinc-100">Status:</span>
-                                <span class="font-bold text-emerald-500">AVAILABLE_FOR_WORK</span>
+                                <span class="font-bold text-emerald-500">Actively Hunts Guilds on Earth</span>
                             </div>
                         </div>
                     </div>
-
-                    <p class="mt-4 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
-                        ! No issues found. Character ready for Guild Recruitment.
+                    {{-- greeting to the visitor, tell them to scroll to continoue the adventure --}}
+                    <p class="mt-4 text-md font-semibold text-emerald-600 dark:text-emerald-400">
+                        Hi, fellow adventurer! Scroll down or arrow key down to step into the story and see what we can
+                        build
+                        together.
                     </p>
                 </div>
             </div>
@@ -123,3 +130,28 @@
     <span class="h-2 w-2 animate-pulse rounded-full bg-emerald-500"></span>
     <span>>_ restore terminal</span>
 </button>
+
+<div id="contact-modal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-zinc-950/40 p-6 backdrop-blur-sm"
+    role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
+    <div id="contact-modal-window"
+        class="w-full max-w-lg border border-zinc-700 bg-zinc-950 text-zinc-100 shadow-2xl transition-all duration-200">
+        <div class="flex items-center justify-between border-b border-zinc-800 px-4 py-3 font-mono text-xs">
+            <span id="contact-modal-title" class="font-bold text-emerald-400">contact_protocol.exe</span>
+            <div class="flex items-center gap-3">
+                <button id="contact-modal-minimize" type="button" title="Minimize" class="hover:text-emerald-400">—</button>
+                <button id="contact-modal-maximize" type="button" title="Maximize/Restore" class="hover:text-emerald-400">□</button>
+                <button id="contact-modal-close" type="button" title="Close" class="hover:text-rose-400">×</button>
+            </div>
+        </div>
+        <div id="contact-modal-content" class="space-y-5 p-6 font-mono text-sm">
+            <p class="text-zinc-300">Connection request received. How would you like to continue?</p>
+            <div class="grid gap-2 sm:grid-cols-2">
+                <a href="#contact" data-contact-action="navigate" class="border border-emerald-500/50 px-3 py-2 text-center text-emerald-400 transition hover:bg-emerald-500 hover:text-zinc-950">navigate_to_contact</a>
+                <a href="https://wa.me/6285158986696" target="_blank" rel="noopener" class="border border-zinc-700 px-3 py-2 text-center transition hover:border-emerald-500 hover:text-emerald-400">open_whatsapp</a>
+                <a href="https://t.me/yogawilanda" target="_blank" rel="noopener" class="border border-zinc-700 px-3 py-2 text-center transition hover:border-emerald-500 hover:text-emerald-400">open_telegram</a>
+                <a href="mailto:hyoga.wilanda@gmail.com" class="border border-zinc-700 px-3 py-2 text-center transition hover:border-emerald-500 hover:text-emerald-400">send_email</a>
+                <a href="https://www.linkedin.com/in/yoga-wilanda/" target="_blank" rel="noopener" class="border border-zinc-700 px-3 py-2 text-center transition hover:border-emerald-500 hover:text-emerald-400 sm:col-span-2">open_linkedin</a>
+            </div>
+        </div>
+    </div>
+</div>

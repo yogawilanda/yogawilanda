@@ -1,5 +1,5 @@
 import './text-scramble';
-import './horizontal-scroll';
+import './vertical-scroll';
 import './cmd';
 
 const root = document.documentElement;

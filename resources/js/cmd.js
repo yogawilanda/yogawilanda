@@ -6,6 +6,12 @@ export function initTerminal() {
     const btnMaximize = document.getElementById('btn-maximize');
     const btnClose = document.getElementById('btn-close');
     const btnRestoreFloating = document.getElementById('btn-restore-floating');
+    const contactModal = document.getElementById('contact-modal');
+    const contactModalWindow = document.getElementById('contact-modal-window');
+    const contactModalContent = document.getElementById('contact-modal-content');
+    const contactModalMinimize = document.getElementById('contact-modal-minimize');
+    const contactModalMaximize = document.getElementById('contact-modal-maximize');
+    const contactModalClose = document.getElementById('contact-modal-close');
 
     // CLI Interactive Elements
     const cliInput = document.getElementById('cli-input');
@@ -16,6 +22,48 @@ export function initTerminal() {
     if (!windowEl || !cliInput) return;
 
     let isMaximized = false;
+    let isContactModalMaximized = false;
+    let contactFlowState = 'idle';
+
+    const openContactModal = () => {
+        contactModalContent?.classList.remove('hidden');
+        contactModalWindow?.classList.remove('max-w-5xl', 'min-h-[70vh]');
+        contactModalWindow?.classList.add('max-w-lg');
+        isContactModalMaximized = false;
+        contactModal?.classList.remove('hidden');
+        contactModal?.classList.add('flex');
+    };
+
+    const closeContactModal = () => {
+        contactModal?.classList.add('hidden');
+        contactModal?.classList.remove('flex');
+    };
+
+    contactModalMinimize?.addEventListener('click', () => {
+        contactModalContent?.classList.toggle('hidden');
+    });
+
+    contactModalMaximize?.addEventListener('click', () => {
+        isContactModalMaximized = !isContactModalMaximized;
+        contactModalWindow?.classList.toggle('max-w-lg', !isContactModalMaximized);
+        contactModalWindow?.classList.toggle('max-w-5xl', isContactModalMaximized);
+        contactModalWindow?.classList.toggle('min-h-[70vh]', isContactModalMaximized);
+    });
+
+    contactModalClose?.addEventListener('click', closeContactModal);
+    contactModal?.addEventListener('click', (event) => {
+        if (event.target === contactModal) {
+            closeContactModal();
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            closeContactModal();
+        }
+    });
+
+    contactModal?.querySelector('[data-contact-action="navigate"]')?.addEventListener('click', closeContactModal);
 
     // --- 1. WINDOW CONTROLS ---
     btnMinimize?.addEventListener('click', (e) => {
@@ -25,6 +73,13 @@ export function initTerminal() {
 
     btnMaximize?.addEventListener('click', (e) => {
         e.stopPropagation();
+
+        if (bodyEl?.classList.contains('hidden')) {
+            bodyEl.classList.remove('hidden');
+            cliInput.focus();
+            return;
+        }
+
         windowEl.classList.toggle('max-w-5xl', !isMaximized);
         windowEl.classList.toggle('max-w-2xl', isMaximized);
         isMaximized = !isMaximized;
@@ -113,6 +168,27 @@ export function initTerminal() {
         const cmd = rawVal.trim().toLowerCase();
         cliInput.value = '';
 
+        if (contactFlowState === 'awaiting-confirmation') {
+            if (!cmd || cmd === 'y' || cmd === 'yes') {
+                contactFlowState = 'idle';
+                cliInput.placeholder = "type 'help' or 'whoami -vv'...";
+                appendSystemLog('Opening contact protocol...');
+                openContactModal();
+                return;
+            }
+
+            if (cmd === 'n' || cmd === 'no') {
+                contactFlowState = 'idle';
+                cliInput.placeholder = "type 'help' or 'whoami -vv'...";
+                appendSystemLog('Contact services canceled. Type a new command when you are ready.');
+                return;
+            }
+
+            appendSystemLog('Please answer with y/yes or n/no. Default is y.');
+            cliInput.focus();
+            return;
+        }
+
         if (!cmd) return;
         if (cmd === 'clear') {
             logsContainer.innerHTML = '';
@@ -160,8 +236,8 @@ export function initTerminal() {
                 responseHTML = `<p class="text-zinc-300">Backend (Laravel, Node.js), Frontend (Tailwind, Vue/React), Mobile (Flutter), Database (PostgreSQL, MySQL, Redis).</p>`;
                 break;
             case 'contact':
-                responseHTML = `<p class="text-zinc-300">Email: contact@yogawilanda.com • GitHub: @yogawilanda</p>`;
-                break;
+                startContactRetrieval(rawVal);
+                return;
             default:
                 const suggestion = findClosestCommand(cmd);
                 responseHTML = `
@@ -195,6 +271,64 @@ export function initTerminal() {
                 cliForm.dispatchEvent(new Event('submit'));
             }
         });
+    }
+
+    function appendSystemLog(outputHTML) {
+        const logItem = document.createElement('div');
+        logItem.className = 'space-y-1';
+        logItem.innerHTML = `<div class="text-zinc-300 pl-3">${outputHTML}</div>`;
+        logsContainer.appendChild(logItem);
+        if (bodyEl) bodyEl.scrollTop = bodyEl.scrollHeight;
+    }
+
+    function startContactRetrieval(inputCmd) {
+        if (contactFlowState !== 'idle') {
+            appendSystemLog('Contact information retrieval is already in progress.');
+            return;
+        }
+
+        contactFlowState = 'loading';
+        appendLog(inputCmd, `
+            <div class="space-y-2 text-zinc-300">
+                <p>Retrieving current character contact information...</p>
+                <div class="h-2 w-full overflow-hidden border border-emerald-500/40 bg-zinc-900">
+                    <div data-contact-progress class="h-full w-0 bg-emerald-500 transition-[width] duration-75"></div>
+                </div>
+                <p data-contact-progress-label class="text-xs text-emerald-400">0%</p>
+            </div>
+        `);
+
+        const progressBars = logsContainer.querySelectorAll('[data-contact-progress]');
+        const progressLabels = logsContainer.querySelectorAll('[data-contact-progress-label]');
+        const progressBar = progressBars[progressBars.length - 1];
+        const progressLabel = progressLabels[progressLabels.length - 1];
+        const startedAt = Date.now();
+        const updateProgress = () => {
+            const progress = Math.min(Math.round(((Date.now() - startedAt) / 1000) * 100), 100);
+
+            if (progressBar) {
+                progressBar.style.width = `${progress}%`;
+            }
+
+            if (progressLabel) {
+                progressLabel.textContent = `${progress}%`;
+            }
+
+            if (progress < 100) {
+                window.setTimeout(updateProgress, 50);
+                return;
+            }
+
+            contactFlowState = 'awaiting-confirmation';
+            appendSystemLog(`
+                <p class="text-emerald-400">Data retrieval complete.</p>
+                <p>Open contact options? <span class="font-bold text-white">y</span>/n</p>
+            `);
+            cliInput.placeholder = 'press Enter for yes, or type n...';
+            cliInput.focus();
+        };
+
+        updateProgress();
     }
 
     function escapeHTML(str) {
