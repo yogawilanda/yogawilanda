@@ -85,7 +85,6 @@
                 <span class="underline decoration-dashed underline-offset-4">
                     [ACCESS_ALL_LOGS] — View More Stories
                 </span>
-                <span class="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span>
             </a>
         </div>
     </div>
