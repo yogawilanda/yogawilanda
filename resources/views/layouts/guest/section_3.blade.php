@@ -23,7 +23,7 @@
                     <span
                         class="rounded bg-emerald-500/10 px-1.5 py-0.5 text-[9px] font-semibold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">COMPLETED</span>
                 </div>
-                <a href="https://yogawilanda.com/dupak" target="_blank"
+                <a href="https://dupak.yogawilanda.com/" target="_blank"
                     class="flex items-center gap-1 text-[10px] text-zinc-500 transition-colors hover:text-emerald-500 dark:text-zinc-400 dark:hover:text-emerald-400">
                     <span>[OPEN_URL]</span> ↗
                 </a>

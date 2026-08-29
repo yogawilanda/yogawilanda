@@ -24,4 +24,11 @@ class DashboardTest extends TestCase
         $response = $this->get(route('dashboard'));
         $response->assertOk();
     }
+
+    public function test_profile_views_dashboard_renders_without_data(): void
+    {
+        $response = $this->get(route('profile-views'));
+
+        $response->assertOk();
+    }
 }

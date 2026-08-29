@@ -13,7 +13,7 @@
         {{-- Menu Links --}}
         <div id="nav-menu-links" class="hidden flex-1 items-center justify-center gap-1.5 overflow-x-auto no-scrollbar md:flex">
             @foreach (['about' => 'About', 'stack' => 'Stack', 'projects' => 'Projects', 'contact' => 'Contact'] as $hash => $label)
-                <a href="#{{ $hash }}"
+                <a href="{{ route('home') }}#{{ $hash }}"
                     class="nav-link relative flex flex-col items-center border border-transparent px-4 py-2 text-xs font-medium uppercase tracking-wider text-zinc-600 transition hover:border-zinc-200 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:border-zinc-700 dark:hover:bg-zinc-900 dark:hover:text-zinc-100">
                     <span class="nav-dot absolute -top-1 h-1.5 w-1.5 rounded-full bg-emerald-500 opacity-0 transition-all duration-300"></span>
                     {{ $label }}
@@ -29,7 +29,7 @@
                 <span data-theme-label class="hidden sm:inline">Light</span>
             </button>
 
-            
+
         </div>
 
     </div>
