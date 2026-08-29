@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\MassPrunable; // 1. Import ini
 use Illuminate\Database\Eloquent\Model;
 
 class UserInsight extends Model
 {
-    use HasFactory;
+    use HasFactory, MassPrunable; // 2. Pasang di sini
 
     protected $fillable = [
         'provider',
@@ -28,6 +29,15 @@ class UserInsight extends Model
             'is_successful' => 'boolean',
             'captured_at'   => 'datetime',
         ];
+    }
+
+    /**
+     * Tentukan kriteria data yang dianggap basi / boleh dihapus otomatis.
+     */
+    public function prunable(): Builder
+    {
+        // Contoh: hapus log yang usianya lebih dari 30 hari (bisa disesuaikan kebutuhan)
+        return static::where('captured_at', '<=', now()->subDays(30));
     }
 
     // --- Local Scopes ---
