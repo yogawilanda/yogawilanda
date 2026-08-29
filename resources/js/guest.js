@@ -1,6 +1,10 @@
+// loc: resources/js/guest.js
+// usage: to gather all guest javascript functions before attached to vite.config.js
+
 import './text-scramble';
 import './vertical-scroll';
-import './cmd';
+import './terminal/index.js';
+
 
 const root = document.documentElement;
 const storageKey = 'guest-theme';

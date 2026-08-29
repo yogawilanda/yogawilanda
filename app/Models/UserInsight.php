@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserInsight extends Model
 {
-    use HasFactory, MassPrunable; // 2. Pasang di sini
+    use HasFactory, MassPrunable;
 
     protected $fillable = [
         'provider',
@@ -90,3 +90,6 @@ class UserInsight extends Model
         ];
     }
 }
+
+
+
