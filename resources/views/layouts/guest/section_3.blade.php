@@ -31,17 +31,16 @@
 
             <!-- Card Content -->
             <div class="space-y-2 p-4 text-xs md:text-sm">
-                <p class="font-mono text-[11px] text-zinc-500 dark:text-zinc-400">// Sistem Penilaian Angka Kredit ASN &
-                    Dosen</p>
+                <p class="font-mono text-[11px] text-zinc-500 dark:text-zinc-400">// Sistem Penilaian dan Pengambilan Keputusan
+                    Angka Kredit Dosen</p>
                 <p class="text-zinc-700 leading-relaxed dark:text-zinc-300">
-                    Sistem otomatisasi penilaian angka kredit berbasis multi-database untuk mengelola ribuan entri data
-                    & dokumen lampiran secara aman.
+                    Sistem Informasi penilaian angka kredit untuk mengelola kenaikan pangkat dosen.
                 </p>
 
                 <div
                     class="flex items-center gap-2 border-t border-zinc-200/80 pt-2.5 font-mono text-[11px] text-zinc-600 dark:border-zinc-800/60 dark:text-zinc-400">
                     <span class="text-emerald-500 font-semibold">$ stack:</span>
-                    <span>Laravel, Multiple DB, AlpineJS, MySQL</span>
+                    <span>Laravel, MySQL, AlpineJS</span>
                 </div>
             </div>
         </div>
@@ -56,13 +55,13 @@
                 <div class="flex items-center gap-2">
                     <i class="fas fa-network-wired text-emerald-500 text-[11px]"></i>
                     <span
-                        class="font-bold uppercase tracking-wider text-zinc-900 text-[11px] dark:text-white">02_WEBRTC_PLATFORM</span>
+                        class="font-bold uppercase tracking-wider text-zinc-900 text-[11px] dark:text-white">02_COMMUNICATION_PLATFORM</span>
                     <span
-                        class="rounded bg-amber-500/10 px-1.5 py-0.5 text-[9px] font-semibold text-amber-600 dark:text-amber-400 border border-amber-500/20">STAGING</span>
+                        class="rounded bg-amber-500/10 px-1.5 py-0.5 text-[9px] font-semibold text-amber-600 dark:text-amber-400 border border-amber-500/20">VOID CALLS</span>
                 </div>
                 <a href="https://staging.yogawilanda.com" target="_blank"
                     class="flex items-center gap-1 text-[10px] text-zinc-500 transition-colors hover:text-emerald-500 dark:text-zinc-400 dark:hover:text-emerald-400">
-                    <span>[STAGING_URL]</span> ↗
+                    <span>[VOID_CALLS_URL]</span> ↗
                 </a>
             </div>
 
@@ -72,22 +71,21 @@
                     Communication</p>
                 <p class="text-zinc-700 leading-relaxed dark:text-zinc-300">
                     Platform komunikasi P2P suara & teks real-time dengan infrastruktur signaling kustom untuk latensi
-                    rendah.
+                    rendah. Menggunakan TURN dan STUN server sebagai penghubung jaringan antar pengguna.
                 </p>
 
                 <div
                     class="flex items-center gap-2 border-t border-zinc-200/80 pt-2.5 font-mono text-[11px] text-zinc-600 dark:border-zinc-800/60 dark:text-zinc-400">
                     <span class="text-emerald-500 font-semibold">$ stack:</span>
-                    <span>WebRTC, Vanilla JS, Custom Signaling</span>
+                    <span>Laravel, WebRTC, Vanilla JS, Custom Signaling</span>
                 </div>
             </div>
         </div>
 
         <!-- See More Link (Right Aligned) -->
         <div class="mt-1 flex justify-end">
-            <a href="https://github.com/yourusername" target="_blank"
+            <a href="https://github.com/yogawilanda" target="_blank"
                 class="group inline-flex items-center gap-2 font-mono text-xs text-zinc-500 transition-colors hover:text-emerald-500 dark:text-zinc-400 dark:hover:text-emerald-400">
-                <span class="text-emerald-500 font-bold">&gt;</span>
                 <span class="underline decoration-dashed underline-offset-4">[ACCESS_ALL_LOGS] — View More
                     Stories</span>
             </a>
