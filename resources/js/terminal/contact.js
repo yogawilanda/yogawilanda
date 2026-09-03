@@ -64,13 +64,15 @@ export function initContactModule() {
     return { openContactModal, closeContactModal };
 }
 
-export function startContactRetrieval(inputCmd, logsContainer, cliInput, appendLog, appendSystemLog) {
-    if (contactFlowState !== 'idle') {
+export function startContactRetrieval(inputCmd, logsContainer, cliInput, setFlowState, appendLog, appendSystemLog) {
+    if (getContactFlowState() !== 'idle') {
         appendSystemLog('Contact information retrieval is already in progress.');
         return;
     }
 
-    contactFlowState = 'loading';
+    setContactFlowState('loading');
+    setFlowState('loading'); // Sync state ke index.js
+
     appendLog(inputCmd, `
         <div class="space-y-2 text-zinc-300">
             <p>Retrieving current character contact information...</p>
@@ -81,7 +83,6 @@ export function startContactRetrieval(inputCmd, logsContainer, cliInput, appendL
         </div>
     `);
 
-    const bodyEl = document.getElementById('terminal-body');
     const progressBars = logsContainer.querySelectorAll('[data-contact-progress]');
     const progressLabels = logsContainer.querySelectorAll('[data-contact-progress-label]');
     const progressBar = progressBars[progressBars.length - 1];
@@ -99,7 +100,9 @@ export function startContactRetrieval(inputCmd, logsContainer, cliInput, appendL
             return;
         }
 
-        contactFlowState = 'awaiting-confirmation';
+        setContactFlowState('awaiting-confirmation');
+        setFlowState('awaiting-confirmation'); // Sync state ke index.js
+
         appendSystemLog(`
             <p class="text-emerald-400">Data retrieval complete.</p>
             <p>Open contact options? <span class="font-bold text-white">y</span>/n</p>
