@@ -1,3 +1,5 @@
+// efek glitchnya disini
+// resources/js/text-scramble.js
 export class TextScramble {
     constructor(el) {
         this.el = el;
@@ -160,7 +162,7 @@ export function initScramble() {
                 const delay = el.dataset.delay ? parseInt(el.dataset.delay) : 0;
                 const speed = el.dataset.speed ? parseInt(el.dataset.speed) : 25;
 
-                el.innerText = '';
+                // el.innerText = '';
 
                 el.scrambleTimeout = setTimeout(() => {
                     fx.setText(originalText, speed).then(() => {

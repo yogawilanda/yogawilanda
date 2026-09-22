@@ -1,3 +1,4 @@
+{{-- resources/views/layouts/app.blade.php --}}
 <x-layouts::app.sidebar :title="$title ?? null">
     <flux:main>
         {{ $slot }}

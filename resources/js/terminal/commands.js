@@ -43,7 +43,7 @@ export function findClosestCommand(input) {
 }
 
 export const commandHandlers = {
-    'whoami': () => `<p class="text-zinc-300">Yoga Wilanda — Berbasis di Surabaya, Indonesia. Berfokus pada pengembangan sistem web & mobile skala tinggi, arsitektur database multi-tenant, dan optimalisasi aplikasi custom tanpa rigid template.</p>`,
+    'whoami': () => `<p class="text-zinc-300">Yoga Wilanda. Berbasis di Surabaya, Indonesia. Berfokus pada pengembangan sistem web & mobile skala tinggi, arsitektur database multi-tenant, dan optimalisasi aplikasi custom tanpa rigid template.</p>`,
     'whoami -v': () => `
         <div class="space-y-1 text-zinc-300">
             <p><span class="text-zinc-500">[NAME]</span> Yoga Wilanda</p>

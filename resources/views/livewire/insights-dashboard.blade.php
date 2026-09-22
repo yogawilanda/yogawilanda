@@ -15,7 +15,7 @@
             <div>
                 <h3 class="font-semibold text-white leading-tight">GitHub Insights</h3>
                 <a href="https://github.com/{{ $username }}" target="_blank" rel="noopener noreferrer"
-                    class="text-xs text-gray-400 hover:text-white hover:underline transition-colors duration-150 inline-flex items-center gap-1">
+                    class="text-sm text-gray-400 hover:text-white hover:underline transition-colors duration-150 inline-flex items-center gap-1">
                     {{ '@' . $username }}
                 </a>
             </div>
@@ -23,7 +23,7 @@
 
         <!-- Last Updated Badge -->
         <div
-            class="flex items-center gap-1.5 text-xs text-gray-400 bg-gray-900/60 px-2.5 py-1 rounded-full border border-gray-700/60">
+            class="flex items-center gap-1.5 text-sm text-gray-400 bg-gray-900/60 px-2.5 py-1 rounded-full border border-gray-700/60">
             <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -40,7 +40,7 @@
 
     <!-- Metric Main Display -->
     <div class="mb-5">
-        <p class="text-xs text-gray-400 uppercase tracking-wider mb-1 font-medium">Total Profile Views</p>
+        <p class="text-sm text-gray-400 uppercase tracking-wider mb-1 font-medium">Total Profile Views</p>
         <div class="flex items-baseline space-x-3">
             <span class="text-3xl font-extrabold text-white tracking-tight">
                 {{ number_format($this->stats['end_views']) }}
@@ -61,7 +61,7 @@
     </div>
 
     <!-- Aggregation Grid -->
-    <div class="grid grid-cols-2 gap-3 pt-3 border-t border-gray-700/60 text-xs">
+    <div class="grid grid-cols-2 gap-3 pt-3 border-t border-gray-700/60 text-sm">
         <div class="bg-gray-900/50 p-2.5 rounded-lg border border-gray-700/40">
             <p class="text-gray-400 mb-0.5">Peak Views Today</p>
             <p class="text-sm font-bold text-gray-200">

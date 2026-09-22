@@ -79,7 +79,7 @@ export function startContactRetrieval(inputCmd, logsContainer, cliInput, setFlow
             <div class="h-2 w-full overflow-hidden border border-emerald-500/40 bg-zinc-900">
                 <div data-contact-progress class="h-full w-0 bg-emerald-500 transition-[width] duration-75"></div>
             </div>
-            <p data-contact-progress-label class="text-xs text-emerald-400">0%</p>
+            <p data-contact-progress-label class="text-sm text-emerald-400">0%</p>
         </div>
     `);
 

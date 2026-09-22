@@ -1,10 +1,4 @@
-// loc: resources/js/guest.js
-// usage: to gather all guest javascript functions before attached to vite.config.js
-
-import './text-scramble';
-import './vertical-scroll';
 import './terminal/index.js';
-
 
 const root = document.documentElement;
 const storageKey = 'guest-theme';
@@ -29,20 +23,35 @@ const setTheme = (isDark) => {
         label.textContent = isDark ? 'Dark' : 'Light';
     }
 
-    themeToggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+    themeToggle.setAttribute(
+        'aria-label',
+        isDark ? 'Switch to light mode' : 'Switch to dark mode'
+    );
 };
 
 const syncGuestTheme = () => {
-    const isAuthenticated = document.body.dataset.authenticated === 'true';
-    const fluxAppearance = localStorage.getItem('flux.appearance');
-    const storedTheme = localStorage.getItem(storageKey);
+    const isAuthenticated =
+        document.body.dataset.authenticated === 'true';
 
-    if (isAuthenticated && (fluxAppearance === 'dark' || fluxAppearance === 'light')) {
+    const fluxAppearance =
+        localStorage.getItem('flux.appearance');
+
+    const storedTheme =
+        localStorage.getItem(storageKey);
+
+    if (
+        isAuthenticated &&
+        (fluxAppearance === 'dark' ||
+            fluxAppearance === 'light')
+    ) {
         setTheme(fluxAppearance === 'dark');
         return;
     }
 
-    if (storedTheme === 'dark' || storedTheme === 'light') {
+    if (
+        storedTheme === 'dark' ||
+        storedTheme === 'light'
+    ) {
         setTheme(storedTheme === 'dark');
         return;
     }
@@ -53,22 +62,42 @@ const syncGuestTheme = () => {
 
 if (themeToggle) {
     themeToggle.addEventListener('click', () => {
-        const isAuthenticated = document.body.dataset.authenticated === 'true';
+        const isAuthenticated =
+            document.body.dataset.authenticated === 'true';
 
         if (isAuthenticated) {
-            const fluxAppearance = localStorage.getItem('flux.appearance');
-            const nextIsDark = !(fluxAppearance === 'dark');
+            const fluxAppearance =
+                localStorage.getItem('flux.appearance');
 
-            if (fluxAppearance === 'dark' || fluxAppearance === 'light') {
-                localStorage.setItem('flux.appearance', nextIsDark ? 'dark' : 'light');
-                window.Flux?.applyAppearance?.(nextIsDark ? 'dark' : 'light');
+            const nextIsDark =
+                fluxAppearance !== 'dark';
+
+            if (
+                fluxAppearance === 'dark' ||
+                fluxAppearance === 'light'
+            ) {
+                localStorage.setItem(
+                    'flux.appearance',
+                    nextIsDark ? 'dark' : 'light'
+                );
+
+                window.Flux?.applyAppearance?.(
+                    nextIsDark ? 'dark' : 'light'
+                );
+
                 return;
             }
         }
 
-        const nextIsDark = !root.classList.contains('dark');
+        const nextIsDark =
+            !root.classList.contains('dark');
+
         setTheme(nextIsDark);
-        localStorage.setItem(storageKey, nextIsDark ? 'dark' : 'light');
+
+        localStorage.setItem(
+            storageKey,
+            nextIsDark ? 'dark' : 'light'
+        );
     });
 }
 

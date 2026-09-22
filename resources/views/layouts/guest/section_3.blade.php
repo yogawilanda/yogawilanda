@@ -1,94 +1,255 @@
-{{-- STEP 003: PROJECTS --}}
+{{-- STEP 003: WHAT I'M BUILDING --}}
 <section id="projects"
-    class="relative flex h-full min-h-full shrink-0 snap-center flex-col items-center justify-center px-6 pb-12 pt-16 text-zinc-700 dark:text-zinc-300 md:px-12">
-    <span
-        class="mb-2 flex h-4 items-center justify-center font-mono text-sm uppercase tracking-widest text-zinc-600 dark:text-zinc-400"
-        data-scramble data-delay="100">[Episode 03 - Proven Artifacts]</span>
-    <h2 class="mb-8 text-center text-2xl font-bold tracking-tight text-zinc-900 dark:text-white md:text-3xl"
-        data-scramble data-delay="150" data-glitch-loop="true">Unlocked Story</h2>
+    class="relative flex min-h-screen shrink-0 flex-col justify-center px-6 py-24 text-zinc-700 dark:text-zinc-300 md:px-12">
+    <div class="mx-auto w-full max-w-6xl">
 
-    <div class="flex w-full max-w-2xl flex-col gap-4">
+        {{-- Section Header --}}
+        <div class="max-w-3xl">
 
-        <!-- Project 01: DUPAK -->
-        <div
-            class="group relative overflow-hidden rounded-sm border border-zinc-200 bg-white/80 text-left shadow-[0_18px_40px_rgba(15,23,42,0.06)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-500/70 dark:border-zinc-800 dark:bg-zinc-950/70 dark:shadow-[0_18px_40px_rgba(0,0,0,0.25)] dark:hover:border-emerald-500/50">
+            <div class="mb-8 flex items-center gap-3 text-sm text-zinc-500 dark:text-zinc-400">
+                <span class="h-px w-8 bg-zinc-300 dark:bg-zinc-700"></span>
 
-            <!-- Card Header / Log Title Bar -->
-            <div
-                class="flex items-center justify-between border-b border-zinc-200 bg-zinc-50/60 px-4 py-2 text-xs dark:border-zinc-800/80 dark:bg-zinc-900/40 font-mono">
-                <div class="flex items-center gap-2">
-                    <i class="fas fa-folder-open text-emerald-500 text-[11px]"></i>
-                    <span
-                        class="font-bold uppercase tracking-wider text-zinc-900 text-[11px] dark:text-white">01_HRMS</span>
-                    <span
-                        class="rounded bg-emerald-500/10 px-1.5 py-0.5 text-[9px] font-semibold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">COMPLETED</span>
-                </div>
-                <a href="https://dupak.yogawilanda.com/" target="_blank"
-                    class="flex items-center gap-1 text-[10px] text-zinc-500 transition-colors hover:text-emerald-500 dark:text-zinc-400 dark:hover:text-emerald-400">
-                    <span>[OPEN_URL]</span> ↗
-                </a>
+                <span>{{ __('portfolio.work.eyebrow') }}</span>
             </div>
 
-            <!-- Card Content -->
-            <div class="space-y-2 p-4 text-xs md:text-sm">
-                <p class="font-mono text-[11px] text-zinc-500 dark:text-zinc-400">// Sistem Penilaian dan Pengambilan Keputusan
-                    Angka Kredit Dosen</p>
-                <p class="text-zinc-700 leading-relaxed dark:text-zinc-300">
-                    Sistem Informasi penilaian angka kredit untuk mengelola kenaikan pangkat dosen.
-                </p>
+            <h2 class="text-4xl font-semibold tracking-tight text-zinc-950 dark:text-white sm:text-5xl">
+                {{ __('portfolio.work.title') }}
 
-                <div
-                    class="flex items-center gap-2 border-t border-zinc-200/80 pt-2.5 font-mono text-[11px] text-zinc-600 dark:border-zinc-800/60 dark:text-zinc-400">
-                    <span class="text-emerald-500 font-semibold">$ stack:</span>
-                    <span>Laravel, MySQL, AlpineJS</span>
-                </div>
-            </div>
+                <span class="text-zinc-400 dark:text-zinc-600">
+                    {{ __('portfolio.work.title_accent') }}
+                </span>
+            </h2>
+
+            <p class="mt-6 max-w-2xl text-base leading-7 text-zinc-600 dark:text-zinc-400 sm:text-lg">
+                {{ __('portfolio.work.description') }}
+            </p>
+
         </div>
 
-        <!-- Project 02: WEBRTC -->
-        <div
-            class="group relative overflow-hidden rounded-sm border border-zinc-200 bg-white/80 text-left shadow-[0_18px_40px_rgba(15,23,42,0.06)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-emerald-500/70 dark:border-zinc-800 dark:bg-zinc-950/70 dark:shadow-[0_18px_40px_rgba(0,0,0,0.25)] dark:hover:border-emerald-500/50">
 
-            <!-- Card Header / Log Title Bar -->
-            <div
-                class="flex items-center justify-between border-b border-zinc-200 bg-zinc-50/60 px-4 py-2 text-xs dark:border-zinc-800/80 dark:bg-zinc-900/40 font-mono">
-                <div class="flex items-center gap-2">
-                    <i class="fas fa-network-wired text-emerald-500 text-[11px]"></i>
+        {{-- Products --}}
+        <div class="mt-16 grid gap-6 md:grid-cols-2">
+
+
+            {{-- DownloadRumah --}}
+            <article
+                class="group flex flex-col rounded-2xl border border-zinc-200 bg-white p-8 dark:border-zinc-800 dark:bg-zinc-950 md:col-span-2 md:p-10">
+
+                <div class="flex flex-wrap items-center justify-between gap-4">
+
+                    <div class="flex items-center gap-3">
+                        <span class="text-sm font-medium text-zinc-400">
+                            01
+                        </span>
+
+                        <span class="text-sm uppercase tracking-wider text-zinc-400">
+                            {{ __('portfolio.work.items.download_rumah.type') }}
+                        </span>
+                    </div>
+
                     <span
-                        class="font-bold uppercase tracking-wider text-zinc-900 text-[11px] dark:text-white">02_COMMUNICATION_PLATFORM</span>
-                    <span
-                        class="rounded bg-amber-500/10 px-1.5 py-0.5 text-[9px] font-semibold text-amber-600 dark:text-amber-400 border border-amber-500/20">VOID CALLS</span>
-                </div>
-                <a href="https://staging.yogawilanda.com" target="_blank"
-                    class="flex items-center gap-1 text-[10px] text-zinc-500 transition-colors hover:text-emerald-500 dark:text-zinc-400 dark:hover:text-emerald-400">
-                    <span>[VOID_CALLS_URL]</span> ↗
-                </a>
-            </div>
+                        class="inline-flex items-center gap-2 text-sm font-medium text-emerald-600 dark:text-emerald-400">
+                        <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
 
-            <!-- Card Content -->
-            <div class="space-y-2 p-4 text-xs md:text-sm">
-                <p class="font-mono text-[11px] text-zinc-500 dark:text-zinc-400">// Real-Time Voice & Text
-                    Communication</p>
-                <p class="text-zinc-700 leading-relaxed dark:text-zinc-300">
-                    Platform komunikasi P2P suara & teks real-time dengan infrastruktur signaling kustom untuk latensi
-                    rendah. Menggunakan TURN dan STUN server sebagai penghubung jaringan antar pengguna.
-                </p>
+                        {{ __('portfolio.work.items.download_rumah.status') }}
+                    </span>
 
-                <div
-                    class="flex items-center gap-2 border-t border-zinc-200/80 pt-2.5 font-mono text-[11px] text-zinc-600 dark:border-zinc-800/60 dark:text-zinc-400">
-                    <span class="text-emerald-500 font-semibold">$ stack:</span>
-                    <span>Laravel, WebRTC, Vanilla JS, Custom Signaling</span>
                 </div>
-            </div>
+
+
+                <div class="mt-10 grid gap-10 lg:grid-cols-[1fr_0.8fr]">
+
+                    {{-- Main --}}
+                    <div>
+
+                        <h3 class="text-3xl font-semibold tracking-tight text-zinc-950 dark:text-white sm:text-4xl">
+                            DownloadRumah
+                        </h3>
+
+                        <p class="mt-4 max-w-2xl text-base leading-7 text-zinc-600 dark:text-zinc-400">
+                            {{ __('portfolio.work.items.download_rumah.description') }}
+                        </p>
+
+                        <div class="mt-8 flex flex-wrap gap-2">
+                            @foreach (['Laravel', 'Livewire', 'MySQL'] as $technology)
+                            <span
+                                class="rounded-full border border-zinc-200 px-3 py-1.5 text-sm text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
+                                {{ $technology }}
+                            </span>
+                            @endforeach
+                        </div>
+
+                        <div class="mt-10">
+                            <a href="https://downloadrumah.yogawilanda.com" target="_blank" rel="noopener noreferrer"
+                                class="inline-flex items-center gap-2 text-sm font-medium text-zinc-950 transition-colors hover:text-emerald-600 dark:text-white dark:hover:text-emerald-400">
+                                {{ __('portfolio.work.actions.visit') }}
+
+                                <span class="transition-transform group-hover:translate-x-1">
+                                    →
+                                </span>
+                            </a>
+                        </div>
+
+                    </div>
+
+
+                    {{-- Product Context --}}
+                    <div
+                        class="border-t border-zinc-200 pt-8 dark:border-zinc-800 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
+
+                        <p class="text-sm font-medium uppercase tracking-wider text-zinc-400">
+                            {{ __('portfolio.work.context.label') }}
+                        </p>
+
+                        <p class="mt-5 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+                            {{ __('portfolio.work.items.download_rumah.context') }}
+                        </p>
+
+                        <div class="mt-8">
+                            <p class="text-sm font-medium uppercase tracking-wider text-zinc-400">
+                                {{ __('portfolio.work.context.focus') }}
+                            </p>
+
+                            <ul class="mt-4 space-y-3 text-sm text-zinc-700 dark:text-zinc-300">
+                                @foreach (__('portfolio.work.items.download_rumah.points') as $point)
+                                <li class="flex gap-3">
+                                    <span class="text-zinc-400">→</span>
+                                    {{ $point }}
+                                </li>
+                                @endforeach
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            {{-- Ngundang --}}
+            <article
+                class="flex flex-col rounded-2xl border border-zinc-200 bg-white p-8 dark:border-zinc-800 dark:bg-zinc-950 md:p-10">
+
+                <div class="flex items-center justify-between gap-4">
+
+                    <div class="flex items-center gap-3">
+                        <span class="text-sm font-medium text-zinc-400">
+                            02
+                        </span>
+
+                        <span class="text-sm uppercase tracking-wider text-zinc-400">
+                            {{ __('portfolio.work.items.ngundang.type') }}
+                        </span>
+                    </div>
+
+                    <span class="text-sm text-zinc-400">
+                        {{ __('portfolio.work.items.ngundang.status') }}
+                    </span>
+
+                </div>
+
+                <div class="mt-10">
+
+                    <h3 class="text-2xl font-semibold tracking-tight text-zinc-950 dark:text-white">
+                        Ngundang
+                    </h3>
+
+                    <p class="mt-4 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+                        {{ __('portfolio.work.items.ngundang.description') }}
+                    </p>
+
+                </div>
+
+                <div class="mt-auto pt-10">
+
+                    <div class="flex flex-wrap gap-2">
+                        @foreach (['Product', 'Web'] as $technology)
+                        <span
+                            class="rounded-full border border-zinc-200 px-3 py-1.5 text-sm text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
+                            {{ $technology }}
+                        </span>
+                        @endforeach
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            {{-- VoidCalls --}}
+            <article
+                class="flex flex-col rounded-2xl border border-zinc-200 bg-white p-8 dark:border-zinc-800 dark:bg-zinc-950 md:p-10">
+
+                <div class="flex items-center justify-between gap-4">
+
+                    <div class="flex items-center gap-3">
+                        <span class="text-sm font-medium text-zinc-400">
+                            03
+                        </span>
+
+                        <span class="text-sm uppercase tracking-wider text-zinc-400">
+                            {{ __('portfolio.work.items.void_calls.type') }}
+                        </span>
+                    </div>
+
+                    <span class="text-sm text-zinc-400">
+                        {{ __('portfolio.work.items.void_calls.status') }}
+                    </span>
+
+                </div>
+
+                <div class="mt-10">
+
+                    <h3 class="text-2xl font-semibold tracking-tight text-zinc-950 dark:text-white">
+                        VoidCalls
+                    </h3>
+
+                    <p class="mt-4 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+                        {{ __('portfolio.work.items.void_calls.description') }}
+                    </p>
+
+                </div>
+
+                <div class="mt-auto pt-10">
+
+                    <div class="flex flex-wrap gap-2">
+                        @foreach (['WebRTC', 'Laravel', 'JavaScript'] as $technology)
+                        <span
+                            class="rounded-full border border-zinc-200 px-3 py-1.5 text-sm text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
+                            {{ $technology }}
+                        </span>
+                        @endforeach
+                    </div>
+
+                </div>
+
+            </article>
+
         </div>
 
-        <!-- See More Link (Right Aligned) -->
-        <div class="mt-1 flex justify-end">
-            <a href="https://github.com/yogawilanda" target="_blank"
-                class="group inline-flex items-center gap-2 font-mono text-xs text-zinc-500 transition-colors hover:text-emerald-500 dark:text-zinc-400 dark:hover:text-emerald-400">
-                <span class="underline decoration-dashed underline-offset-4">[ACCESS_ALL_LOGS] — View More
-                    Stories</span>
+
+        {{-- Earlier Work --}}
+        <div
+            class="mt-12 flex flex-col gap-4 border-t border-zinc-200 pt-8 dark:border-zinc-800 sm:flex-row sm:items-center sm:justify-between">
+
+            <div>
+                <p class="text-sm font-medium uppercase tracking-wider text-zinc-400">
+                    {{ __('portfolio.work.earlier.label') }}
+                </p>
+
+                <p class="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+                    {{ __('portfolio.work.earlier.description') }}
+                </p>
+            </div>
+
+            <a href="https://github.com/yogawilanda" target="_blank" rel="noopener noreferrer"
+                class="inline-flex shrink-0 items-center gap-2 text-sm font-medium text-zinc-950 hover:text-emerald-600 dark:text-white dark:hover:text-emerald-400">
+                {{ __('portfolio.work.actions.github') }}
+                <span>↗</span>
             </a>
+
         </div>
+
     </div>
 </section>
