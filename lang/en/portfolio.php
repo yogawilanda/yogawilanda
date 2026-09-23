@@ -3,7 +3,7 @@
 return [
 
     'nav' => [
-        'about' => 'Hello',
+        'about' => 'Introductions',
         'capabilities' => 'What I Bring',
         'work' => 'What I’m Building',
         'contact' => 'Get in Touch',
@@ -12,7 +12,7 @@ return [
 
     'hero' => [
 
-        'eyebrow' => '01 / HELLO',
+        'eyebrow' => '01 / Introductions',
 
         'name' => 'Yoga Wilanda',
 
@@ -23,7 +23,7 @@ return [
 
         'actions' => [
             'work' => 'Explore my work',
-            'contact' => 'Get in touch',
+            'aboutme' => 'Get in touch',
         ],
 
         'capabilities' => [

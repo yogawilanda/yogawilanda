@@ -1,4 +1,4 @@
-<section id="about" class="flex min-h-screen items-center bg-white dark:bg-zinc-950">
+<section id="intro" class="flex min-h-screen items-center bg-white dark:bg-zinc-950">
     <div class="mx-auto w-full max-w-6xl px-6 py-24 lg:px-8">
 
         <div class="max-w-4xl">
@@ -38,10 +38,11 @@
                     <span class="ml-2">→</span>
                 </a>
 
-                <button type="button" data-modal-target="contact-modal"
+                {{-- Get to know me --}}
+                <a href="{{ route('about') }}"
                     class="inline-flex items-center justify-center rounded-lg border border-zinc-200 px-5 py-3 text-sm font-medium text-zinc-700 transition hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-zinc-300 dark:border-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-900">
-                    {{ __('portfolio.hero.actions.contact') }}
-                </button>
+                    {{ __('portfolio.hero.actions.aboutme') }}
+                </a>
 
             </div>
 
