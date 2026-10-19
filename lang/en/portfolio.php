@@ -12,7 +12,7 @@ return [
 
     'hero' => [
 
-        'eyebrow' => '01 / Introductions',
+        'eyebrow' => './Introductions',
 
         'name' => 'Yoga Wilanda',
 
@@ -23,6 +23,7 @@ return [
 
         'actions' => [
             'work' => 'Explore my work',
+            'services' => 'Digital Services',
             'aboutme' => 'Get in touch',
         ],
 

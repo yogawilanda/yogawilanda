@@ -7,7 +7,7 @@
                 {{-- Identity --}}
                 <div>
                     <div class="mb-6 flex items-center gap-3 text-sm text-zinc-500 dark:text-zinc-400">
-                        <span class="h-px w-8 bg-zinc-300 dark:bg-zinc-700"></span>
+
                         <span>About me</span>
                     </div>
 

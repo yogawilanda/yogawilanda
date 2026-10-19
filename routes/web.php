@@ -7,6 +7,8 @@ Route::view('/', 'welcome')->name('home');
 
 Route::view('/about', 'about')->name('about');
 
+Route::view('/services', 'services')->name('services');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
 });

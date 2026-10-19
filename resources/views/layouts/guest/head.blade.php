@@ -5,6 +5,24 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    @php
+    $pageTitle = match (true) {
+    request()->routeIs('services') => 'Jasa Pembuatan Website | Yoga Wilanda',
+    request()->routeIs('about') => 'About Me | Yoga Wilanda',
+    default => config('app.name', 'Yoga Wilanda') . ' | Software Engineer',
+    };
+
+    $pageDescription = request()->routeIs('services')
+    ? 'Jasa pembuatan website profesional untuk bisnis, mulai dari landing page dan company profile hingga website
+    dengan fitur khusus.'
+    : 'Yoga Wilanda — Software Engineer.';
+
+    @endphp
+
+    <meta name="description" content="{{ $pageDescription }}">
+
+    <title>{{ $pageTitle }}</title>
+
     <meta name="description" content="Yoga Wilanda Portfolio - Software Engineer">
 
     {{-- Favicon & Web App --}}
