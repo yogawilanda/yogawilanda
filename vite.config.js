@@ -13,6 +13,7 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/passkeys.js',
                 'resources/js/guest.js',
+                'resources/js/pages/services.js',
             ],
             refresh: true,
             fonts: [

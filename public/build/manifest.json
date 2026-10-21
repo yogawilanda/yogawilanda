@@ -1,7 +1,21 @@
 {
+  "_ScrollTrigger-Cz_Wx4BI.js": {
+    "file": "assets/ScrollTrigger-Cz_Wx4BI.js",
+    "name": "ScrollTrigger",
+    "imports": [
+      "resources/js/app.js"
+    ]
+  },
   "_fonts-C9MNnjVw.css": {
     "file": "assets/fonts-C9MNnjVw.css",
     "src": "_fonts-C9MNnjVw.css"
+  },
+  "_gsap-Cg4TqERb.js": {
+    "file": "assets/gsap-Cg4TqERb.js",
+    "name": "gsap",
+    "imports": [
+      "resources/js/app.js"
+    ]
   },
   "_instrument-sans-400-normal-D1W7dsQl.woff": {
     "file": "assets/instrument-sans-400-normal-D1W7dsQl.woff",
@@ -28,7 +42,7 @@
     "src": "_instrument-sans-600-normal-B9e8oLYv.woff"
   },
   "resources/css/app.css": {
-    "file": "assets/app-BF4OcklO.css",
+    "file": "assets/app-hAgM9f0m.css",
     "name": "app",
     "names": [
       "app.css"
@@ -46,16 +60,30 @@
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-Dk4yWIM5.js",
+    "file": "assets/app-CYwR9inG.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true
   },
   "resources/js/guest.js": {
-    "file": "assets/guest-9W77Gt30.js",
+    "file": "assets/guest-BXAOmoWG.js",
     "name": "guest",
     "src": "resources/js/guest.js",
-    "isEntry": true
+    "isEntry": true,
+    "dynamicImports": [
+      "_gsap-Cg4TqERb.js",
+      "_ScrollTrigger-Cz_Wx4BI.js"
+    ]
+  },
+  "resources/js/pages/services.js": {
+    "file": "assets/services-BQy54q7Y.js",
+    "name": "services",
+    "src": "resources/js/pages/services.js",
+    "isEntry": true,
+    "imports": [
+      "_gsap-Cg4TqERb.js",
+      "_ScrollTrigger-Cz_Wx4BI.js"
+    ]
   },
   "resources/js/passkeys.js": {
     "file": "assets/passkeys-ZWACIUjA.js",

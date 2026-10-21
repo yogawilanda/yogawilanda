@@ -22,9 +22,6 @@
     <meta name="description" content="{{ $pageDescription }}">
 
     <title>{{ $pageTitle }}</title>
-
-    <meta name="description" content="Yoga Wilanda Portfolio - Software Engineer">
-
     {{-- Favicon & Web App --}}
     <link rel="icon" href="{{ asset('favicon.ico') }}?v=20260921" sizes="any">
 
@@ -35,13 +32,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}?v=20260921">
 
     <link rel="manifest" href="{{ asset('site.webmanifest') }}?v=20260921">
-
-    <title>
-        {{ $title ?? config('app.name', 'Yoga Wilanda') }}
-    </title>
-
-
-    {{-- Fonts & Icons --}}
+{{-- Fonts & Icons --}}
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
@@ -58,8 +49,6 @@
 
     {{-- Flux appearance initialization --}}
     @fluxAppearance
-
-
     {{-- Application assets --}}
     @vite([
     'resources/css/app.css',

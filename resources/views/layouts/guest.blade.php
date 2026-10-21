@@ -15,6 +15,8 @@
 
     <x-layouts::guest.footer />
 
+    @stack('scripts')
+
     @fluxScripts
 
 </body>

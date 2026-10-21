@@ -22,7 +22,7 @@ return [
 
         'actions' => [
             'work' => 'Lihat karya',
-            'contact' => 'Hubungi saya',
+            'contact' => 'Hubungi yoga',
         ],
 
         'capabilities' => [
