@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DownloadRumah — Curated Real Estate & Architectural Integrity</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#0B0C0E',
+                        obsidianlight: '#14161B',
+                        paper: '#F9FAFB',
+                        hairline: '#E5E7EB',
+                        hairlinedark: '#262830',
+                        skyaccent: '#0284C7',
+                        skyaccentbright: '#38BDF8',
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Courier New', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts: Playfair Display + Plus Jakarta Sans + JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FFFFFF;
+            color: #0B0C0E;
+            overflow-x: hidden;
+            letter-spacing: -0.01em;
+        }
+
+        /* Editorial Range Input Styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 2px;
+            cursor: pointer;
+            background: #262830;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            height: 14px;
+            width: 14px;
+            border-radius: 50%;
+            background: #0284C7;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -6px;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.3);
+            background: #38BDF8;
+        }
+
+        .editorial-border-b {
+            border-bottom: 1px solid #E5E7EB;
+        }
+        .editorial-border-t {
+            border-top: 1px solid #E5E7EB;
+        }
+        .editorial-border-r {
+            border-right: 1px solid #E5E7EB;
+        }
+
+        /* Custom subtle glass blur */
+        .editorial-nav-glass {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .engine-tab-active {
+            background-color: #0B0C0E;
+            color: #FFFFFF;
+        }
+        .engine-tab-inactive {
+            background-color: transparent;
+            color: #64748B;
+        }
+        .engine-tab-inactive:hover {
+            color: #0B0C0E;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-obsidian selection:text-white">
+
+    <!-- 1. EDITORIAL HEADER & NAVIGATION -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 editorial-nav-glass editorial-border-b transition-all duration-500">
+        <div class="max-w-[1400px] mx-auto px-6 sm:px-12 h-24 flex items-center justify-between">
+            <!-- Brand Mark -->
+            <a href="#" class="flex items-center gap-4 group">
+                <span class="font-serif text-2xl font-bold tracking-tighter text-obsidian">
+                    Download<span class="italic font-normal text-slate-500">Rumah</span>
+                </span>
+                <span class="hidden lg:inline-block text-[9px] uppercase tracking-[0.25em] font-mono text-slate-400 pl-4 border-l border-slate-200">
+                    Offer • Seek • Plan Index
+                </span>
+            </a>
+
+            <!-- Editorial Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-[11px] uppercase tracking-[0.2em] font-semibold text-slate-600">
+                <a href="#hero-engine" class="hover:text-obsidian transition-colors">Core Engine</a>
+                <a href="#offer-section" class="hover:text-obsidian transition-colors">Offer (Direct Unit)</a>
+                <a href="#seek-section" class="hover:text-obsidian transition-colors">Seek (Buyer Match)</a>
+                <a href="#plan-section" class="hover:text-obsidian transition-colors">Plan (Financial KPR)</a>
+            </nav>
+
+            <!-- Action Trigger -->
+            <div class="flex items-center gap-6">
+                <button onclick="openModal()" class="text-[10px] uppercase tracking-[0.25em] font-bold text-obsidian hover:text-skyaccent transition-colors flex items-center gap-2 group">
+                    <span>Partner Accreditation</span>
+                    <i class="fa-solid fa-arrow-right-long text-xs transition-transform group-hover:translate-x-1"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="pt-24">
+
+        <!-- 2. HERO SECTION & CORE ENGINE (OFFER / SEEK / PLAN) -->
+        <section id="hero-engine" class="relative min-h-[92vh] flex flex-col justify-between py-12 px-6 sm:px-12 max-w-[1400px] mx-auto">
+            
+            <!-- Top Editorial Tag -->
+            <div class="pt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 editorial-border-b pb-6">
+                <div class="flex items-center gap-3">
+                    <span class="w-2 h-2 bg-skyaccent rounded-full animate-pulse"></span>
+                    <span class="text-[10px] font-mono uppercase tracking-[0.25em] text-slate-500">Curated Housing Ecosystem</span>
+                </div>
+                <div class="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-400">
+                    System Architecture: Offer • Seek • Plan
+                </div>
+            </div>
+
+            <!-- Massive Statement Typography -->
+            <div class="my-12 lg:my-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+                <div class="lg:col-span-8 space-y-4">
+                    <span class="text-[11px] font-mono uppercase tracking-[0.3em] text-skyaccent block">Systemic Real Estate Integrity</span>
+                    <h1 class="hero-title text-4xl sm:text-6xl lg:text-7xl font-serif font-normal text-obsidian tracking-tight leading-[1.08]">
+                        Properti Tepat.<br/>
+                        <span class="italic font-normal text-slate-400">Tanpa Spekulasi.</span>
+                    </h1>
+                </div>
+                <div class="lg:col-span-4 lg:pb-2 space-y-4">
+                    <p class="hero-subtext text-xs sm:text-sm text-slate-600 font-normal leading-relaxed">
+                        Satu platform terpadu untuk memasarkan properti terverifikasi (Offer), mencocokkan kriteria pasti pembeli (Seek), serta mengaudit kelayakan finansial KPR (Plan).
+                    </p>
+                </div>
+            </div>
+
+            <!-- DUAL CORE ENGINE CONTAINER -->
+            <div class="hero-search bg-paper border border-hairline p-6 sm:p-8 rounded-none mb-6">
+                <!-- Engine Selector Tabs -->
+                <div class="flex flex-wrap items-center justify-between border-b border-hairline pb-4 mb-6 gap-4">
+                    <div class="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider">
+                        <button id="tab-btn-seek" onclick="switchEngineTab('seek')" class="px-5 py-2.5 font-bold transition-all engine-tab-active">
+                            01. SEEK (Cari Properti)
+                        </button>
+                        <button id="tab-btn-offer" onclick="switchEngineTab('offer')" class="px-5 py-2.5 font-bold transition-all engine-tab-inactive">
+                            02. OFFER (Menjual Unit)
+                        </button>
+                        <button id="tab-btn-plan" onclick="switchEngineTab('plan')" class="px-5 py-2.5 font-bold transition-all engine-tab-inactive">
+                            03. PLAN (Simulasi KPR)
+                        </button>
+                    </div>
+                    <span class="text-[10px] font-mono text-skyaccent hidden sm:inline-block">[ Dynamic Match Engine ]</span>
+                </div>
+
+                <!-- SEEK ENGINE FORM -->
+                <div id="engine-panel-seek" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="space-y-2 border-b sm:border-b-0 sm:border-r border-hairline pb-4 sm:pb-0 sm:pr-6">
+                        <label class="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400">Seek / Wilayah</label>
+                        <select class="w-full bg-transparent font-serif text-base lg:text-lg text-obsidian focus:outline-none cursor-pointer">
+                            <option>Surabaya Timur & Pusat</option>
+                            <option>Sidoarjo Koridor Utama</option>
+                            <option>Gresik Menganti & Barat</option>
+                        </select>
+                    </div>
+                    <div class="space-y-2 border-b sm:border-b-0 lg:border-r border-hairline pb-4 sm:pb-0 lg:pr-6">
+                        <label class="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400">Seek / Kategori</label>
+                        <select class="w-full bg-transparent font-serif text-base lg:text-lg text-obsidian focus:outline-none cursor-pointer">
+                            <option>Rumah Huni Modern</option>
+                            <option>Ruko & Commercial</option>
+                            <option>Kaveling Tanah Siap Bangun</option>
+                        </select>
+                    </div>
+                    <div class="space-y-2 border-b sm:border-b-0 sm:border-r border-hairline pb-4 sm:pb-0 sm:pr-6">
+                        <label class="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400">Seek / Rentang Budget</label>
+                        <select class="w-full bg-transparent font-serif text-base lg:text-lg text-obsidian focus:outline-none cursor-pointer">
+                            <option>Rp 500 Juta – 1.2 Miliar</option>
+                            <option>Rp 1.2 Miliar – 2.5 Miliar</option>
+                            <option>Diatas Rp 2.5 Miliar</option>
+                        </select>
+                    </div>
+                    <div class="flex items-end pt-2 sm:pt-0">
+                        <button onclick="executeEngineAction('seek')" class="w-full h-14 bg-obsidian text-white text-[11px] font-mono uppercase tracking-[0.25em] hover:bg-skyaccent transition-colors duration-300 flex items-center justify-center gap-3">
+                            <span>Temukan Unit Match</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- OFFER ENGINE FORM -->
+                <div id="engine-panel-offer" class="hidden grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="space-y-2 border-b sm:border-b-0 sm:border-r border-hairline pb-4 sm:pb-0 sm:pr-6">
+                        <label class="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400">Offer / Jenis Listing</label>
+                        <select class="w-full bg-transparent font-serif text-base lg:text-lg text-obsidian focus:outline-none cursor-pointer">
+                            <option>Rumah Tinggal (Direct Owner)</option>
+                            <option>Kawasan Perumahan (Developer)</option>
+                            <option>Aset Komersial / Ruko</option>
+                        </select>
+                    </div>
+                    <div class="space-y-2 border-b sm:border-b-0 lg:border-r border-hairline pb-4 sm:pb-0 lg:pr-6">
+                        <label class="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400">Offer / Legalitas Utama</label>
+                        <select class="w-full bg-transparent font-serif text-base lg:text-lg text-obsidian focus:outline-none cursor-pointer">
+                            <option>SHM (Sertifikat Hak Milik)</option>
+                            <option>HGB Murni / Split</option>
+                            <option>Petok D / Dalam Proses SHM</option>
+                        </select>
+                    </div>
+                    <div class="space-y-2 border-b sm:border-b-0 sm:border-r border-hairline pb-4 sm:pb-0 sm:pr-6">
+                        <label class="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400">Offer / Estimasi Nilai Jual</label>
+                        <input type="text" placeholder="Contoh: 1.200.000.000" class="w-full bg-transparent font-serif text-base lg:text-lg text-obsidian focus:outline-none placeholder:text-slate-300">
+                    </div>
+                    <div class="flex items-end pt-2 sm:pt-0">
+                        <button onclick="executeEngineAction('offer')" class="w-full h-14 bg-obsidian text-white text-[11px] font-mono uppercase tracking-[0.25em] hover:bg-skyaccent transition-colors duration-300 flex items-center justify-center gap-3">
+                            <span>Pasang Listing Verifikasi</span>
+                            <i class="fa-solid fa-plus text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PLAN ENGINE FORM -->
+                <div id="engine-panel-plan" class="hidden grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="space-y-2 border-b sm:border-b-0 sm:border-r border-hairline pb-4 sm:pb-0 sm:pr-6">
+                        <label class="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400">Plan / Gaji Bulanan Gabungan</label>
+                        <input type="text" placeholder="Contoh: Rp 18.000.000" class="w-full bg-transparent font-serif text-base lg:text-lg text-obsidian focus:outline-none placeholder:text-slate-300">
+                    </div>
+                    <div class="space-y-2 border-b sm:border-b-0 lg:border-r border-hairline pb-4 sm:pb-0 lg:pr-6">
+                        <label class="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400">Plan / Alokasi DP Dana Tunai</label>
+                        <input type="text" placeholder="Contoh: Rp 150.000.000" class="w-full bg-transparent font-serif text-base lg:text-lg text-obsidian focus:outline-none placeholder:text-slate-300">
+                    </div>
+                    <div class="space-y-2 border-b sm:border-b-0 sm:border-r border-hairline pb-4 sm:pb-0 sm:pr-6">
+                        <label class="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400">Plan / Target Tenor KPR</label>
+                        <select class="w-full bg-transparent font-serif text-base lg:text-lg text-obsidian focus:outline-none cursor-pointer">
+                            <option>15 Tahun (Recommended)</option>
+                            <option>10 Tahun</option>
+                            <option>20 Tahun</option>
+                        </select>
+                    </div>
+                    <div class="flex items-end pt-2 sm:pt-0">
+                        <button onclick="scrollToPlanSection()" class="w-full h-14 bg-obsidian text-white text-[11px] font-mono uppercase tracking-[0.25em] hover:bg-skyaccent transition-colors duration-300 flex items-center justify-center gap-3">
+                            <span>Audit Kelayakan KPR</span>
+                            <i class="fa-solid fa-calculator text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- 3. PILAR STRUCTURE EXPLANATION & METRICS -->
+        <section id="manifesto" class="py-24 bg-paper editorial-border-t editorial-border-b">
+            <div class="max-w-[1400px] mx-auto px-6 sm:px-12">
+                
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-16">
+                    <div class="lg:col-span-5 space-y-4">
+                        <span class="text-[10px] font-mono uppercase tracking-[0.25em] text-skyaccent">Tri-Pillar Methodology</span>
+                        <h2 class="text-3xl font-serif text-obsidian leading-snug">
+                            Menghubungkan Suplai Valid, Demand Pasti, dan Kesiapan Dana KPR.
+                        </h2>
+                    </div>
+                    <div class="lg:col-span-7 text-slate-600 text-xs sm:text-sm leading-relaxed space-y-4">
+                        <p>
+                            DownloadRumah beroperasi dengan menyelaraskan tiga kebutuhan utama pasar properti: pemilik yang menjual unit terverifikasi (**Offer**), pembeli dengan kriteria dan daya beli nyata (**Seek**), serta kepastian perhitungan kredit finansial (**Plan**).
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Three Pillar Feature Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="p-8 bg-white border border-hairline space-y-4">
+                        <div class="text-[10px] font-mono uppercase tracking-[0.25em] text-slate-400">Pillar 01</div>
+                        <h3 class="text-xl font-serif text-obsidian">OFFER — Direct Ownership</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Listing properti langsung dari pemilik atau pengembang terakreditasi dengan transparansi legalitas (SHM/HGB) dan tanpa markup broker yang tidak terkontrol.
+                        </p>
+                    </div>
+                    <div class="p-8 bg-white border border-hairline space-y-4">
+                        <div class="text-[10px] font-mono uppercase tracking-[0.25em] text-slate-400">Pillar 02</div>
+                        <h3 class="text-xl font-serif text-obsidian">SEEK — High-Intent Buyers</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Fitur permintaan spesifik dari pembeli yang mempercepat pencocokan (*exact match*) unit tanpa harus mencari secara manual di antara ribuan spam listing.
+                        </p>
+                    </div>
+                    <div class="p-8 bg-white border border-hairline space-y-4">
+                        <div class="text-[10px] font-mono uppercase tracking-[0.25em] text-slate-400">Pillar 03</div>
+                        <h3 class="text-xl font-serif text-obsidian">PLAN — KPR Intelligence</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Engine audit finansial otomatis untuk menghitung simulasi cicilan, alokasi DP ideal, serta batas aman rasio utang terhadap pendapatan bulanan Anda.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 4. OFFER INDEX SECTION (LISTINGS SHOWCASE) -->
+        <section id="offer-section" class="py-28 max-w-[1400px] mx-auto px-6 sm:px-12">
+            
+            <!-- Section Header -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 editorial-border-b gap-6">
+                <div>
+                    <span class="text-[10px] font-mono uppercase tracking-[0.25em] text-skyaccent">Direct Offer Portfolio</span>
+                    <h2 class="text-3xl font-serif text-obsidian mt-2">Curated Unit Selection (Offer)</h2>
+                </div>
+                
+                <!-- Filter Tabs -->
+                <div class="flex flex-wrap gap-6 text-[11px] font-mono uppercase tracking-[0.2em]">
+                    <button onclick="filterListings('all')" id="filter-all" class="text-obsidian border-b-2 border-obsidian pb-1 font-bold">Semua Corridor</button>
+                    <button onclick="filterListings('surabaya')" id="filter-surabaya" class="text-slate-400 hover:text-obsidian pb-1 transition-colors">Surabaya</button>
+                    <button onclick="filterListings('sidoarjo')" id="filter-sidoarjo" class="text-slate-400 hover:text-obsidian pb-1 transition-colors">Sidoarjo</button>
+                    <button onclick="filterListings('gresik')" id="filter-gresik" class="text-slate-400 hover:text-obsidian pb-1 transition-colors">Gresik</button>
+                </div>
+            </div>
+
+            <!-- Asymmetrical High-Aspect Listing Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                
+                <!-- Listing Item 1 (Featured - Large 7 Cols) -->
+                <div class="lg:col-span-7 listing-card group cursor-pointer" data-region="gresik" onclick="openPropertyModal('denaila')">
+                    <div class="relative aspect-[16/10] overflow-hidden bg-slate-100 mb-5 border border-hairline">
+                        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80" alt="De Naila Residence" class="w-full h-full object-cover grayscale-[20%] contrast-[1.05] transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute top-4 left-4 bg-obsidian text-white px-3 py-1 text-[9px] font-mono uppercase tracking-[0.2em]">
+                            SHM • Freehold
+                        </div>
+                        <div class="absolute top-4 right-4 bg-skyaccent text-white px-3 py-1 text-[9px] font-mono uppercase tracking-[0.2em] flex items-center gap-1.5">
+                            <i class="fa-solid fa-check text-[8px]"></i> Verified Deed
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-baseline">
+                            <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-400">Offer Ref: DR-4091 / Menganti, Gresik</span>
+                            <span class="font-mono text-sm font-semibold text-obsidian">Rp 890.000.000</span>
+                        </div>
+                        <h3 class="text-2xl font-serif text-obsidian group-hover:text-skyaccent transition-colors">De Naila Residence — Modern Pavilion</h3>
+                        <p class="text-xs text-slate-500 font-mono">LT: 90 m² • LB: 65 m² • 3 Bed • 2 Bath</p>
+                    </div>
+                </div>
+
+                <!-- Listing Item 2 (Standard - 5 Cols) -->
+                <div class="lg:col-span-5 listing-card group cursor-pointer" data-region="surabaya" onclick="openPropertyModal('rungkut')">
+                    <div class="relative aspect-[4/3] overflow-hidden bg-slate-100 mb-5 border border-hairline">
+                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80" alt="Rungkut Mapan Tengah" class="w-full h-full object-cover grayscale-[20%] contrast-[1.05] transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute top-4 left-4 bg-obsidian text-white px-3 py-1 text-[9px] font-mono uppercase tracking-[0.2em]">
+                            HGB Murni
+                        </div>
+                        <div class="absolute top-4 right-4 bg-skyaccent text-white px-3 py-1 text-[9px] font-mono uppercase tracking-[0.2em] flex items-center gap-1.5">
+                            <i class="fa-solid fa-check text-[8px]"></i> Verified Deed
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-baseline">
+                            <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-400">Offer Ref: DR-1044 / Rungkut, Surabaya</span>
+                            <span class="font-mono text-sm font-semibold text-obsidian">Rp 2.100.000.000</span>
+                        </div>
+                        <h3 class="text-2xl font-serif text-obsidian group-hover:text-skyaccent transition-colors">Rungkut Mapan Residence</h3>
+                        <p class="text-xs text-slate-500 font-mono">LT: 150 m² • LB: 180 m² • 4 Bed • 3 Bath</p>
+                    </div>
+                </div>
+
+                <!-- Listing Item 3 (Standard - 6 Cols) -->
+                <div class="lg:col-span-6 listing-card group cursor-pointer" data-region="sidoarjo" onclick="openPropertyModal('waru')">
+                    <div class="relative aspect-[16/10] overflow-hidden bg-slate-100 mb-5 border border-hairline">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Wadung Asri Waru" class="w-full h-full object-cover grayscale-[20%] contrast-[1.05] transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute top-4 left-4 bg-obsidian text-white px-3 py-1 text-[9px] font-mono uppercase tracking-[0.2em]">
+                            SHM • Ready Unit
+                        </div>
+                        <div class="absolute top-4 right-4 bg-skyaccent text-white px-3 py-1 text-[9px] font-mono uppercase tracking-[0.2em] flex items-center gap-1.5">
+                            <i class="fa-solid fa-check text-[8px]"></i> Verified Deed
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-baseline">
+                            <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-400">Offer Ref: DR-2088 / Waru, Sidoarjo</span>
+                            <span class="font-mono text-sm font-semibold text-obsidian">Rp 780.000.000</span>
+                        </div>
+                        <h3 class="text-2xl font-serif text-obsidian group-hover:text-skyaccent transition-colors">Wadung Asri Compact Villa</h3>
+                        <p class="text-xs text-slate-500 font-mono">LT: 72 m² • LB: 54 m² • 2 Bed • 1 Bath</p>
+                    </div>
+                </div>
+
+                <!-- Listing Item 4 (Standard - 6 Cols) -->
+                <div class="lg:col-span-6 listing-card group cursor-pointer" data-region="surabaya" onclick="openPropertyModal('wiguna')">
+                    <div class="relative aspect-[16/10] overflow-hidden bg-slate-100 mb-5 border border-hairline">
+                        <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=800&q=80" alt="Wiguna Timur Regency" class="w-full h-full object-cover grayscale-[20%] contrast-[1.05] transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute top-4 left-4 bg-obsidian text-white px-3 py-1 text-[9px] font-mono uppercase tracking-[0.2em]">
+                            SHM Murni
+                        </div>
+                        <div class="absolute top-4 right-4 bg-skyaccent text-white px-3 py-1 text-[9px] font-mono uppercase tracking-[0.2em] flex items-center gap-1.5">
+                            <i class="fa-solid fa-check text-[8px]"></i> Verified Deed
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-baseline">
+                            <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-400">Offer Ref: DR-1102 / MERR, Surabaya Timur</span>
+                            <span class="font-mono text-sm font-semibold text-obsidian">Rp 1.450.000.000</span>
+                        </div>
+                        <h3 class="text-2xl font-serif text-obsidian group-hover:text-skyaccent transition-colors">Wiguna Timur Regency</h3>
+                        <p class="text-xs text-slate-500 font-mono">LT: 105 m² • LB: 90 m² • 3 Bed • 2 Bath</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- 5. SEEK BOARD SECTION (BUYER MATCH BOARD) -->
+        <section id="seek-section" class="py-24 bg-paper editorial-border-t editorial-border-b">
+            <div class="max-w-[1400px] mx-auto px-6 sm:px-12">
+                
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 pb-6 border-b border-hairline gap-4">
+                    <div>
+                        <span class="text-[10px] font-mono uppercase tracking-[0.25em] text-skyaccent">Direct Buyer Demand</span>
+                        <h2 class="text-3xl font-serif text-obsidian mt-2">Active Seek Requests</h2>
+                    </div>
+                    <span class="text-[10px] font-mono text-slate-400">Pembeli Terverifikasi Siap Transaksi</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 border border-hairline space-y-4">
+                        <div class="flex justify-between items-center text-[10px] font-mono text-slate-400">
+                            <span>SEEK-8821</span>
+                            <span class="text-skyaccent font-bold">Budget: Rp 1.5 M</span>
+                        </div>
+                        <h4 class="text-lg font-serif text-obsidian">Rumah Minimalis Surabaya Timur</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Mencari rumah di area MERR / Rungkut / Wiguna. LT min 90m², KPR Siap Approval Bank Mandiri.
+                        </p>
+                        <button onclick="alert('Menghubungkan Pemilik / Agen ke Pembuat Seek-8821...')" class="w-full py-3 border border-obsidian text-[10px] font-mono uppercase tracking-[0.2em] font-bold hover:bg-obsidian hover:text-white transition-colors">
+                            Tawarkan Unit Anda
+                        </button>
+                    </div>
+
+                    <div class="bg-white p-6 border border-hairline space-y-4">
+                        <div class="flex justify-between items-center text-[10px] font-mono text-slate-400">
+                            <span>SEEK-9012</span>
+                            <span class="text-skyaccent font-bold">Budget: Rp 750 Juta</span>
+                        </div>
+                        <h4 class="text-lg font-serif text-obsidian">Rumah Siap Huni Waru Sidoarjo</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Mencari unit 2 kamar dekat akses Tol Waru / Bandara Juanda. Pembayaran Cash Bertahap.
+                        </p>
+                        <button onclick="alert('Menghubungkan Pemilik / Agen ke Pembuat Seek-9012...')" class="w-full py-3 border border-obsidian text-[10px] font-mono uppercase tracking-[0.2em] font-bold hover:bg-obsidian hover:text-white transition-colors">
+                            Tawarkan Unit Anda
+                        </button>
+                    </div>
+
+                    <div class="bg-white p-6 border border-hairline space-y-4">
+                        <div class="flex justify-between items-center text-[10px] font-mono text-slate-400">
+                            <span>SEEK-4410</span>
+                            <span class="text-skyaccent font-bold">Budget: Rp 2.8 M</span>
+                        </div>
+                        <h4 class="text-lg font-serif text-obsidian">Ruko Komersial Menganti Gresik</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Kebutuhan ekspansi usaha retail. Diutamakan jalan utama, lebar depan min 5 meter, SHM/HGB.
+                        </p>
+                        <button onclick="alert('Menghubungkan Pemilik / Agen ke Pembuat Seek-4410...')" class="w-full py-3 border border-obsidian text-[10px] font-mono uppercase tracking-[0.2em] font-bold hover:bg-obsidian hover:text-white transition-colors">
+                            Tawarkan Unit Anda
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 6. PLAN SECTION (KPR & FINANCIAL INTELLIGENCE) -->
+        <section id="plan-section" class="py-28 bg-obsidian text-white relative">
+            <div class="max-w-[1400px] mx-auto px-6 sm:px-12">
+                
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+                    
+                    <!-- Engine Left Copy -->
+                    <div class="lg:col-span-5 space-y-8">
+                        <div>
+                            <span class="text-[10px] font-mono uppercase tracking-[0.25em] text-skyaccent">Pillar 03 / Plan Engine</span>
+                            <h2 class="text-3xl font-serif text-white mt-3 leading-tight">Mortgage Readiness & Amortization Audit</h2>
+                        </div>
+                        <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                            Perhitungan presisi beban angsuran bulanan berdasarkan simulasi suku bunga floating terkini dan rasio kecukupan pendapatan harian Anda.
+                        </p>
+                        
+                        <div class="border-t border-hairlinedark pt-8 space-y-6">
+                            <div class="flex items-start gap-4">
+                                <span class="font-mono text-xs text-skyaccent font-bold">01 /</span>
+                                <div>
+                                    <h4 class="text-xs font-mono uppercase tracking-wider text-white">Minimum Income Baseline</h4>
+                                    <p class="text-xs text-slate-500 mt-1">Standar rasio angsuran maksimal 35% dari total gaji bulanan.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <span class="font-mono text-xs text-skyaccent font-bold">02 /</span>
+                                <div>
+                                    <h4 class="text-xs font-mono uppercase tracking-wider text-white">Fixed Benchmark Floating Rate</h4>
+                                    <p class="text-xs text-slate-500 mt-1">Dikalibrasi dengan suku bunga acuan bank mitra (5.00% p.a. fixed 1st year).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Slider Box Right -->
+                    <div class="lg:col-span-7 bg-obsidianlight border border-hairlinedark p-8 sm:p-12 space-y-8">
+                        
+                        <div class="flex justify-between items-center border-b border-hairlinedark pb-4">
+                            <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-400">Mortgage Parameters</span>
+                            <span class="text-[10px] font-mono text-skyaccent">[ Live Calculation ]</span>
+                        </div>
+
+                        <!-- Slider 1: Valuation -->
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-baseline">
+                                <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-400">Harga Aset Properti</span>
+                                <span id="val-price" class="font-mono text-base lg:text-lg font-bold text-white">Rp 1.000.000.000</span>
+                            </div>
+                            <input type="range" id="range-price" min="300000000" max="10000000000" step="50000000" value="1000000000" class="w-full">
+                        </div>
+
+                        <!-- Slider 2: Equity DP -->
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-baseline">
+                                <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-400">Uang Muka DP (<span id="val-dp-percent" class="text-white">20%</span>)</span>
+                                <span id="val-dp-amount" class="font-mono text-xs sm:text-sm text-slate-300">Rp 200.000.000</span>
+                            </div>
+                            <input type="range" id="range-dp" min="10" max="50" step="5" value="20" class="w-full">
+                        </div>
+
+                        <!-- Slider 3: Tenor -->
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-baseline">
+                                <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-slate-400">Jangka Waktu Tenor</span>
+                                <span id="val-tenor" class="font-mono text-xs sm:text-sm text-white">15 Tahun</span>
+                            </div>
+                            <input type="range" id="range-tenor" min="5" max="30" step="5" value="15" class="w-full">
+                        </div>
+
+                        <!-- Calculation Output -->
+                        <div class="bg-obsidian border border-hairlinedark p-6 sm:p-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
+                            <div>
+                                <span class="text-[9px] font-mono uppercase tracking-[0.25em] text-slate-400 block mb-1">Estimasi Angsuran Bulanan</span>
+                                <span id="val-monthly" class="text-2xl sm:text-3xl font-mono font-bold text-skyaccentbright">Rp 6.324.000</span>
+                                <span id="val-recommended-income" class="text-[10px] font-mono text-slate-400 block mt-1">*Rekomendasi Min Gaji: Rp 18.000.000 / bln</span>
+                            </div>
+                            <button onclick="requestConsultation()" class="w-full sm:w-auto px-8 py-4 bg-white text-obsidian text-[10px] font-mono uppercase tracking-[0.25em] font-bold hover:bg-skyaccent hover:text-white transition-colors duration-300">
+                                Ajukan Pre-Approval
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 7. PARTNER NETWORK & ONBOARDING -->
+        <section id="partners" class="py-28 max-w-[1400px] mx-auto px-6 sm:px-12">
+            <div class="border border-hairline p-8 sm:p-16 bg-paper grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-8 space-y-6">
+                    <span class="text-[10px] font-mono uppercase tracking-[0.25em] text-skyaccent">Partner Ecosystem</span>
+                    <h2 class="text-3xl sm:text-4xl font-serif text-obsidian tracking-tight leading-tight">
+                        Program Kemitraan Agensi & Developer Terakreditasi.
+                    </h2>
+                    <p class="text-slate-600 text-xs sm:text-sm leading-relaxed max-w-2xl">
+                        Bergabung dalam jaringan DownloadRumah untuk menjangkau pembeli berkualifikasi tinggi (*verified seek requests*) dan kemudahan publikasi unit *direct offer*.
+                    </p>
+                </div>
+
+                <div class="lg:col-span-4 flex flex-col justify-end items-start lg:items-end">
+                    <button onclick="openModal()" class="w-full sm:w-auto px-8 py-4 bg-obsidian text-white text-[11px] font-mono uppercase tracking-[0.25em] font-bold hover:bg-skyaccent transition-colors duration-300">
+                        Daftar Partner Resmi
+                    </button>
+                    <span class="text-[10px] font-mono text-slate-400 mt-3">Proses Verifikasi 24 Jam</span>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 8. EDITORIAL FOOTER -->
+    <footer class="bg-obsidian text-slate-400 border-t border-hairlinedark py-16 px-6 sm:px-12 text-xs">
+        <div class="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 pb-12 border-b border-hairlinedark">
+            
+            <div class="md:col-span-5 space-y-6">
+                <span class="font-serif text-2xl font-bold tracking-tighter text-white block">
+                    Download<span class="italic font-normal text-slate-400">Rumah</span>
+                </span>
+                <p class="text-slate-400 text-xs leading-relaxed max-w-md">
+                    Platform direktori dan kurasi real estate terverifikasi di Indonesia. Mengintegrasikan pencocokan penawaran unit (Offer), permintaan kriteria pasti (Seek), dan kecerdasan simulasi KPR (Plan).
+                </p>
+                <div class="text-[10px] font-mono text-slate-500">
+                    &copy; 2026 DownloadRumah Architectural Index. All Rights Reserved.
+                </div>
+            </div>
+
+            <div class="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8">
+                <div class="space-y-4">
+                    <h4 class="text-white text-[11px] font-mono uppercase tracking-[0.2em] font-bold">Ecosystem</h4>
+                    <ul class="space-y-2 text-slate-400 text-[11px]">
+                        <li><a href="#offer-section" class="hover:text-white transition-colors">Direct Offer Hub</a></li>
+                        <li><a href="#seek-section" class="hover:text-white transition-colors">Buyer Seek Board</a></li>
+                        <li><a href="#plan-section" class="hover:text-white transition-colors">KPR Intelligence Engine</a></li>
+                    </ul>
+                </div>
+                <div class="space-y-4">
+                    <h4 class="text-white text-[11px] font-mono uppercase tracking-[0.2em] font-bold">Legal & Integrity</h4>
+                    <ul class="space-y-2 text-slate-400 text-[11px]">
+                        <li><a href="#" class="hover:text-white transition-colors">Ketentuan Layanan</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Kebijakan Privasi</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Proses Audit Sertifikat</a></li>
+                    </ul>
+                </div>
+                <div class="space-y-4">
+                    <h4 class="text-white text-[11px] font-mono uppercase tracking-[0.2em] font-bold">Accreditation</h4>
+                    <ul class="space-y-2 text-slate-400 text-[11px]">
+                        <li><a href="javascript:void(0)" onclick="openModal()" class="hover:text-white transition-colors">Agensi Mitra</a></li>
+                        <li><a href="javascript:void(0)" onclick="openModal()" class="hover:text-white transition-colors">Pengembang Developer</a></li>
+                        <li><a href="javascript:void(0)" onclick="openModal()" class="hover:text-white transition-colors">Officer Bank KPR</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- PROPERTY DETAIL OVERLAY MODAL -->
+    <div id="property-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-8 bg-obsidian/90 backdrop-blur-md overflow-y-auto">
+        <div class="bg-white max-w-4xl w-full border border-hairline relative my-8 p-6 sm:p-12 space-y-8">
+            <button onclick="closePropertyModal()" class="absolute top-6 right-6 text-slate-400 hover:text-obsidian text-xl z-10">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- Modal Header -->
+            <div class="space-y-3 border-b border-hairline pb-6">
+                <div class="flex flex-wrap items-center gap-3">
+                    <span id="prop-ref" class="text-[10px] font-mono uppercase tracking-[0.25em] text-skyaccent">OFFER REF: DR-4091</span>
+                    <span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 text-[9px] font-mono uppercase tracking-wider font-bold">Terverifikasi Non-Spekulasi</span>
+                </div>
+                <h2 id="prop-title" class="text-3xl sm:text-4xl font-serif text-obsidian">De Naila Residence — Modern Pavilion</h2>
+                <p id="prop-location" class="text-xs text-slate-500 font-mono">Menganti, Kabupaten Gresik, Jawa Timur 61174</p>
+            </div>
+
+            <!-- Main Specs & Price Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+                <div class="md:col-span-7 space-y-6">
+                    <div class="aspect-[16/10] bg-slate-100 border border-hairline overflow-hidden">
+                        <img id="prop-img" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80" class="w-full h-full object-cover">
+                    </div>
+                    <div class="grid grid-cols-4 gap-4 text-center border border-hairline p-4 bg-paper font-mono">
+                        <div>
+                            <span class="block text-[9px] text-slate-400 uppercase">Luas Tanah</span>
+                            <span id="prop-lt" class="text-xs font-bold text-obsidian">90 m²</span>
+                        </div>
+                        <div>
+                            <span class="block text-[9px] text-slate-400 uppercase">Luas Bangunan</span>
+                            <span id="prop-lb" class="text-xs font-bold text-obsidian">65 m²</span>
+                        </div>
+                        <div>
+                            <span class="block text-[9px] text-slate-400 uppercase">K. Tidur</span>
+                            <span id="prop-kt" class="text-xs font-bold text-obsidian">3</span>
+                        </div>
+                        <div>
+                            <span class="block text-[9px] text-slate-400 uppercase">K. Mandi</span>
+                            <span id="prop-km" class="text-xs font-bold text-obsidian">2</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-5 space-y-6">
+                    <div class="bg-paper border border-hairline p-6 space-y-4">
+                        <span class="text-[9px] font-mono uppercase tracking-[0.2em] text-slate-400 block">Harga Penawaran Direct Owner</span>
+                        <div id="prop-price" class="text-2xl font-mono font-bold text-obsidian">Rp 890.000.000</div>
+                        <div class="text-[10px] font-mono text-emerald-600 flex items-center gap-1.5">
+                            <i class="fa-solid fa-shield-halved"></i> Audit Legalitas: SHM Ready / Bebas Sengketa
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 font-mono text-xs">
+                        <h4 class="font-bold text-obsidian uppercase tracking-wider text-[10px] text-slate-400">Fasilitas Utama</h4>
+                        <ul id="prop-features" class="space-y-2 text-slate-600 text-[11px]">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-skyaccent text-[9px]"></i> One Gate System & Security 24 Jam</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-skyaccent text-[9px]"></i> Jalan Perumahan Paving Broad 8 Meter</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-skyaccent text-[9px]"></i> Jaringan Air Bersih PDAM & PLN 2200W</li>
+                        </ul>
+                    </div>
+
+                    <div class="space-y-3 pt-2">
+                        <button onclick="requestPropertyVisit()" class="w-full py-4 bg-obsidian text-white font-mono text-[10px] uppercase tracking-[0.25em] font-bold hover:bg-skyaccent transition-colors duration-300">
+                            Jadwalkan Inspeksi Unit
+                        </button>
+                        <button onclick="calculateKprForThisUnit()" class="w-full py-3 border border-obsidian font-mono text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-obsidian hover:text-white transition-colors duration-300">
+                            Simulasi KPR Unit Ini
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PARTNER ACCREDITATION MODAL -->
+    <div id="partner-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-8 bg-obsidian/90 backdrop-blur-md overflow-y-auto">
+        <div class="bg-white max-w-xl w-full border border-hairline relative my-8 p-6 sm:p-10 space-y-6">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-slate-400 hover:text-obsidian text-xl z-10">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="space-y-2 border-b border-hairline pb-4">
+                <span class="text-[10px] font-mono uppercase tracking-[0.25em] text-skyaccent">Akreditasi Mitra</span>
+                <h3 class="text-2xl font-serif text-obsidian">Pengajuan Partner DownloadRumah</h3>
+                <p class="text-xs text-slate-500">Khusus Pemilik Properti, Agensi Resmi, atau Developer Terdaftar.</p>
+            </div>
+            <form onsubmit="submitPartnerApp(event)" class="space-y-4 text-xs font-mono">
+                <div class="space-y-1">
+                    <label class="text-[10px] text-slate-400 uppercase">Nama Lengkap / Entitas Bisnis</label>
+                    <input type="text" required placeholder="Contoh: PT Ciputra Development Tbk" class="w-full p-3 border border-hairline bg-paper text-obsidian focus:outline-none focus:border-obsidian">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[10px] text-slate-400 uppercase">Kategori Kemitraan</label>
+                    <select class="w-full p-3 border border-hairline bg-paper text-obsidian focus:outline-none focus:border-obsidian">
+                        <option>Developer / Pengembang Kawasan</option>
+                        <option>Agensi Properti Independen / Broker</option>
+                        <option>Direct Owner (Pemilik Langsung >2 Unit)</option>
+                    </select>
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[10px] text-slate-400 uppercase">Nomor WhatsApp Aktif</label>
+                    <input type="tel" required placeholder="081234567890" class="w-full p-3 border border-hairline bg-paper text-obsidian focus:outline-none focus:border-obsidian">
+                </div>
+                <button type="submit" class="w-full py-4 bg-obsidian text-white text-[10px] uppercase tracking-[0.25em] font-bold hover:bg-skyaccent transition-colors duration-300 mt-2">
+                    Kirim Berkas Akreditasi
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT & LOGIC -->
+    <script>
+        // Core Tab Engine Switching
+        function switchEngineTab(tabKey) {
+            const tabs = ['seek', 'offer', 'plan'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`tab-btn-${t}`);
+                const panel = document.getElementById(`engine-panel-${t}`);
+                
+                if (t === tabKey) {
+                    btn.className = "px-5 py-2.5 font-bold transition-all engine-tab-active";
+                    panel.classList.remove('hidden');
+                    panel.classList.add('grid');
+                } else {
+                    btn.className = "px-5 py-2.5 font-bold transition-all engine-tab-inactive";
+                    panel.classList.remove('grid');
+                    panel.classList.add('hidden');
+                }
+            });
+        }
+
+        function executeEngineAction(type) {
+            if (type === 'seek') {
+                document.getElementById('seek-section').scrollIntoView({ behavior: 'smooth' });
+            } else if (type === 'offer') {
+                document.getElementById('offer-section').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Property Database Mock
+        const propertyData = {
+            denaila: {
+                ref: 'OFFER REF: DR-4091',
+                title: 'De Naila Residence — Modern Pavilion',
+                location: 'Menganti, Kabupaten Gresik, Jawa Timur 61174',
+                price: 'Rp 890.000.000',
+                priceNum: 890000000,
+                lt: '90 m²',
+                lb: '65 m²',
+                kt: '3',
+                km: '2',
+                img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
+                features: [
+                    'One Gate System & Security 24 Jam',
+                    'Jalan Perumahan Paving Broad 8 Meter',
+                    'Akses 15 Menit ke CBD Barat Surabaya',
+                    'Sertifikat SHM Murni & IMB Lengkap'
+                ]
+            },
+            rungkut: {
+                ref: 'OFFER REF: DR-1044',
+                title: 'Rungkut Mapan Residence',
+                location: 'Rungkut Mapan Tengah, Surabaya, Jawa Timur',
+                price: 'Rp 2.100.000.000',
+                priceNum: 2100000000,
+                lt: '150 m²',
+                lb: '180 m²',
+                kt: '4',
+                km: '3',
+                img: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80',
+                features: [
+                    'Kawasan Bebas Banjir ROW Jalan 3 Mobil',
+                    'Dekat Akses MERR & Tol Juanda',
+                    'Bangunan Renovasi Modern 2 Lantai',
+                    'HGB Murni Perorangan Siap Naik SHM'
+                ]
+            },
+            waru: {
+                ref: 'OFFER REF: DR-2088',
+                title: 'Wadung Asri Compact Villa',
+                location: 'Wadung Asri, Waru, Sidoarjo, Jawa Timur',
+                price: 'Rp 780.000.000',
+                priceNum: 780000000,
+                lt: '72 m²',
+                lb: '54 m²',
+                kt: '2',
+                km: '1',
+                img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+                features: [
+                    '5 Menit dari Bandara Internasional Juanda',
+                    'Lingkungan Asri & Akses Strategis',
+                    'PLN 1300W & Air Sumur Clear Quality',
+                    'Sertifikat SHM On Hand'
+                ]
+            },
+            wiguna: {
+                ref: 'OFFER REF: DR-1102',
+                title: 'Wiguna Timur Regency',
+                location: 'Gunung Anyar / Wiguna, Surabaya Timur',
+                price: 'Rp 1.450.000.000',
+                priceNum: 1450000000,
+                lt: '105 m²',
+                lb: '90 m²',
+                kt: '3',
+                km: '2',
+                img: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=800&q=80',
+                features: [
+                    'Dekat Kampus UPN & Akses OERR Surabaya',
+                    'Desain Minimalis High Ceiling 4 Meter',
+                    'Carport 2 Mobil & Taman Depan',
+                    'SHM & IMB Siap KPR Bank Mana Saja'
+                ]
+            }
+        };
+
+        let currentActiveProp = null;
+
+        function openPropertyModal(key) {
+            const data = propertyData[key];
+            if (!data) return;
+
+            currentActiveProp = data;
+
+            document.getElementById('prop-ref').innerText = data.ref;
+            document.getElementById('prop-title').innerText = data.title;
+            document.getElementById('prop-location').innerText = data.location;
+            document.getElementById('prop-price').innerText = data.price;
+            document.getElementById('prop-lt').innerText = data.lt;
+            document.getElementById('prop-lb').innerText = data.lb;
+            document.getElementById('prop-kt').innerText = data.kt;
+            document.getElementById('prop-km').innerText = data.km;
+            document.getElementById('prop-img').src = data.img;
+
+            const featUl = document.getElementById('prop-features');
+            featUl.innerHTML = data.features.map(f => `<li class="flex items-center gap-2"><i class="fa-solid fa-check text-skyaccent text-[9px]"></i> ${f}</li>`).join('');
+
+            const modal = document.getElementById('property-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closePropertyModal() {
+            const modal = document.getElementById('property-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function requestPropertyVisit() {
+            if (currentActiveProp) {
+                alert(`Pengajuan verifikasi jadwal survei lokasi untuk unit [${currentActiveProp.title}] telah terdaftar. Tim Kurasi DownloadRumah akan menghubungi Anda via WhatsApp.`);
+                closePropertyModal();
+            }
+        }
+
+        function calculateKprForThisUnit() {
+            if (currentActiveProp) {
+                closePropertyModal();
+                rangePrice.value = currentActiveProp.priceNum;
+                calculateMortgage();
+                scrollToPlanSection();
+            }
+        }
+
+        function scrollToPlanSection() {
+            document.getElementById('plan-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Listing Region Filter
+        function filterListings(region) {
+            const buttons = ['all', 'surabaya', 'sidoarjo', 'gresik'];
+            buttons.forEach(b => {
+                const btn = document.getElementById(`filter-${b}`);
+                if (b === region) {
+                    btn.className = "text-obsidian border-b-2 border-obsidian pb-1 font-bold";
+                } else {
+                    btn.className = "text-slate-400 hover:text-obsidian pb-1 transition-colors";
+                }
+            });
+
+            const cards = document.querySelectorAll('.listing-card');
+            cards.forEach(card => {
+                if (region === 'all' || card.getAttribute('data-region') === region) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // KPR Realtime Calculation Engine Logic
+        const rangePrice = document.getElementById('range-price');
+        const rangeDp = document.getElementById('range-dp');
+        const rangeTenor = document.getElementById('range-tenor');
+
+        const valPrice = document.getElementById('val-price');
+        const valDpPercent = document.getElementById('val-dp-percent');
+        const valDpAmount = document.getElementById('val-dp-amount');
+        const valTenor = document.getElementById('val-tenor');
+        const valMonthly = document.getElementById('val-monthly');
+        const valRecommendedIncome = document.getElementById('val-recommended-income');
+
+        function formatIDR(num) {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(num);
+        }
+
+        function calculateMortgage() {
+            const price = parseFloat(rangePrice.value);
+            const dpPercent = parseFloat(rangeDp.value);
+            const tenorYears = parseFloat(rangeTenor.value);
+
+            const dpAmount = price * (dpPercent / 100);
+            const loanAmount = price - dpAmount;
+
+            const annualInterest = 0.05; // 5% fixed benchmark
+            const monthlyInterest = annualInterest / 12;
+            const totalMonths = tenorYears * 12;
+
+            const monthlyPayment = (loanAmount * monthlyInterest * Math.pow(1 + monthlyInterest, totalMonths)) / (Math.pow(1 + monthlyInterest, totalMonths) - 1);
+            const minIncome = monthlyPayment / 0.35;
+
+            valPrice.innerText = formatIDR(price);
+            valDpPercent.innerText = `${dpPercent}%`;
+            valDpAmount.innerText = formatIDR(dpAmount);
+            valTenor.innerText = `${tenorYears} Tahun`;
+            valMonthly.innerText = formatIDR(monthlyPayment);
+            valRecommendedIncome.innerText = `*Rekomendasi Min Gaji: ${formatIDR(minIncome)} / bln`;
+        }
+
+        rangePrice.addEventListener('input', calculateMortgage);
+        rangeDp.addEventListener('input', calculateMortgage);
+        rangeTenor.addEventListener('input', calculateMortgage);
+
+        // Modal Controls
+        function openModal() {
+            document.getElementById('partner-modal').classList.remove('hidden');
+            document.getElementById('partner-modal').classList.add('flex');
+        }
+
+        function closeModal() {
+            document.getElementById('partner-modal').classList.add('hidden');
+            document.getElementById('partner-modal').classList.remove('flex');
+        }
+
+        function submitPartnerApp(e) {
+            e.preventDefault();
+            alert('Dokumen verifikasi telah diterima. Tim kurasi DownloadRumah akan mengecek kredensial Anda dalam 24 jam.');
+            closeModal();
+        }
+
+        function requestConsultation() {
+            alert('Simulasi KPR tersimpan. Menghubungkan Anda dengan officer bank mitra pilihan...');
+        }
+
+        // Initialize Calculation on Load
+        document.addEventListener("DOMContentLoaded", () => {
+            calculateMortgage();
+        });
+    </script>
+</body>
+</html>

@@ -87,7 +87,7 @@
             'title' => 'Proyek per paket',
             'description' => 'Satu target yang jelas: website baru, fitur tertentu, atau perbaikan bug.',
             'price' => "Mulai dari Rp {$pricing_web_build_standard}",
-            'price_note' => 'Harga dan hasil akhir disepakati sebelum mulai.',
+            'price_note' => 'Harga dapat naik dan turun mengikuti kebutuhan pengguna dengan batasan tertentu.',
             'is_highlighted' => false,
         ],
         [
@@ -170,6 +170,8 @@
     $section_cta_sub = "Ceritakan kebutuhanmu. yoga bantu pilih solusi yang masuk akal dari sisi teknis maupun biaya.";
     $text_cta_start = "Mulai diskusi";
     $text_cta_portfolio = "Lihat portofolio";
+
+    // i saw there is bunch of repetitive html class which only has slight differences, we should exctract is as a component that scalably to be a component based, so next time we only need to call it, but make sure to make it has gracefull fallbacks so whenever i forget to put it there, at least it has default value.
 @endphp
 
 <x-layouts::guest>

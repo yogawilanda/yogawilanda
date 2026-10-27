@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VET-ARTISAN | Haute Haute Pet Clinical Nutrition & Wellness</title>
+
+    <!-- Tailwind CSS v3 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- Swiper.js CSS & JS for Cinematic Carousel -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts: Cormorant Garamond & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Outfit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        emerald: {
+                            950: '#05140F',
+                            900: '#0B2B20', // Main Luxury Emerald
+                            800: '#144233',
+                            700: '#1F5B47',
+                            600: '#2A755D',
+                        },
+                        copper: {
+                            400: '#DBB045',
+                            500: '#C59B27', // Accent Copper Gold
+                            600: '#A37D1B',
+                        },
+                        oat: {
+                            50: '#FCFBF8',
+                            100: '#F8F6F0', // Primary Light Background
+                            200: '#EAE3D2', // Soft Clay
+                            300: '#D5CBB5',
+                        },
+                        espresso: '#181311',
+                    },
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'Georgia', 'serif'],
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    letterSpacing: {
+                        'widest-xl': '0.3em',
+                        'widest-2xl': '0.4em',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Fine Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #05140F; }
+        ::-webkit-scrollbar-thumb { background: #C59B27; border-radius: 3px; }
+
+        /* Fine grain texture effect */
+        .bg-grain {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+        }
+
+        /* Swiper custom pagination & animation */
+        .swiper-pagination-bullet {
+            width: 40px !important;
+            height: 2px !important;
+            border-radius: 0 !important;
+            background: rgba(248, 246, 240, 0.3) !important;
+            opacity: 1 !important;
+            transition: all 0.4s ease !important;
+        }
+        .swiper-pagination-bullet-active {
+            background: #C59B27 !important;
+            width: 80px !important;
+        }
+
+        /* Selection styling */
+        ::selection { background-color: #C59B27; color: #05140F; }
+
+        /* Asymmetric clip path */
+        .clip-diagonal {
+            clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+        }
+    </style>
+</head>
+<body x-data="vetArtisanApp()" class="bg-oat-100 text-espresso font-sans antialiased overflow-x-hidden selection:bg-copper-500 selection:text-emerald-950 bg-grain">
+
+    <!-- TOP EDITORIAL STRIP -->
+    <aside class="bg-emerald-950 text-oat-200 text-[11px] py-2.5 px-6 border-b border-emerald-800/50 font-medium tracking-widest uppercase flex justify-between items-center relative z-50">
+        <div class="hidden lg:flex items-center space-x-8 text-oat-200/70">
+            <span class="flex items-center gap-2"><i class="fa-solid fa-microscope text-copper-500"></i> Standar Formulasi VET-ISO 17025</span>
+            <span class="flex items-center gap-2"><i class="fa-solid fa-gem text-copper-500"></i> Single-Source Traceable Protein</span>
+        </div>
+        <div class="mx-auto lg:mx-0 flex items-center gap-3">
+            <span class="bg-copper-500/20 text-copper-400 border border-copper-500/40 text-[9px] px-2 py-0.5 rounded-none uppercase font-bold tracking-widest">Preskriptif</span>
+            <span class="text-oat-100 font-serif italic text-xs tracking-normal">Konsultasi Nutrisi Klinis Bersama Dokter Hewan Spesialis</span>
+        </div>
+        <div class="hidden lg:flex items-center space-x-6 text-oat-200/70">
+            <a href="#locator" class="hover:text-copper-400 transition-colors"><i class="fa-solid fa-compass mr-1.5 text-copper-500"></i> Boutique & Klinik</a>
+            <span>|</span>
+            <button @click="lang = lang === 'ID' ? 'EN' : 'ID'" class="text-copper-400 hover:text-oat-100 font-bold" x-text="lang"></button>
+        </div>
+    </aside>
+
+    <!-- FLOATING MEGA NAVIGATION HEADER -->
+    <header class="sticky top-0 z-40 transition-all duration-500 bg-emerald-950/95 backdrop-blur-xl border-b border-emerald-800/40 py-5">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between">
+            
+            <!-- Brand Mark -->
+            <a href="#" class="flex items-center space-x-4 group">
+                <div class="w-11 h-11 border border-copper-500/80 rounded-none flex items-center justify-center text-copper-400 group-hover:bg-copper-500 group-hover:text-emerald-950 transition-all duration-500 shadow-xl shadow-copper-500/10">
+                    <span class="font-serif font-black text-xl tracking-tighter">VA</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-serif text-2xl font-semibold tracking-widest text-oat-50 uppercase group-hover:text-copper-400 transition-colors">VET<span class="text-copper-500 italic font-normal">ARTISAN</span></span>
+                    <span class="text-[8px] font-bold tracking-widest-2xl text-copper-500/80 uppercase -mt-1">Life Science & Culinary</span>
+                </div>
+            </a>
+
+            <!-- Editorial Nav Links -->
+            <nav class="hidden lg:flex items-center space-x-10 text-[11px] font-semibold uppercase tracking-widest-xl text-oat-100/80">
+                <a href="#hero" class="hover:text-copper-400 transition-colors py-2 relative group">
+                    Beranda
+                    <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-copper-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#story" class="hover:text-copper-400 transition-colors py-2 relative group">
+                    Sains & Filosofi
+                    <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-copper-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#products" class="hover:text-copper-400 transition-colors py-2 relative group">
+                    Matriks Formula
+                    <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-copper-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#diagnostic" class="hover:text-copper-400 transition-colors py-2 relative group">
+                    Kalkulator Nutrisi
+                    <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-copper-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#journal" class="hover:text-copper-400 transition-colors py-2 relative group">
+                    Jurnal Vet
+                    <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-copper-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#locator" class="hover:text-copper-400 transition-colors py-2 relative group">
+                    Lokasi Preskriptif
+                    <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-copper-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            </nav>
+
+            <!-- Action Cluster -->
+            <div class="hidden lg:flex items-center space-x-6">
+                <button @click="searchOpen = true" class="text-oat-100 hover:text-copper-400 transition-colors p-2">
+                    <i class="fa-solid fa-magnifying-glass text-sm"></i>
+                </button>
+                <a href="#diagnostic" class="border border-copper-500/80 text-copper-400 hover:bg-copper-500 hover:text-emerald-950 font-semibold text-[10px] uppercase tracking-widest-xl px-6 py-3.5 transition-all duration-500">
+                    Diagnosa Anabul
+                </a>
+            </div>
+
+            <!-- Mobile Drawer Button -->
+            <button @click="mobileMenu = !mobileMenu" class="lg:hidden text-oat-100 hover:text-copper-400 text-2xl focus:outline-none">
+                <i class="fa-solid" :class="mobileMenu ? 'fa-xmark' : 'fa-bars-staggered'"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div x-show="mobileMenu" 
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 -translate-y-4"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-4"
+             class="lg:hidden bg-emerald-950 border-b border-emerald-800/80 px-8 py-8 space-y-6">
+            <nav class="flex flex-col space-y-5 text-xs font-semibold uppercase tracking-widest text-oat-100">
+                <a @click="mobileMenu = false" href="#hero" class="hover:text-copper-400">Beranda</a>
+                <a @click="mobileMenu = false" href="#story" class="hover:text-copper-400">Sains & Filosofi</a>
+                <a @click="mobileMenu = false" href="#products" class="hover:text-copper-400">Matriks Formula</a>
+                <a @click="mobileMenu = false" href="#diagnostic" class="hover:text-copper-400">Kalkulator Nutrisi</a>
+                <a @click="mobileMenu = false" href="#journal" class="hover:text-copper-400">Jurnal Vet</a>
+                <a @click="mobileMenu = false" href="#locator" class="hover:text-copper-400">Lokasi Preskriptif</a>
+            </nav>
+            <div class="pt-6 border-t border-emerald-800/80 flex flex-col space-y-4">
+                <button @click="searchOpen = true; mobileMenu = false" class="text-left text-oat-100 flex items-center gap-3 text-xs uppercase tracking-widest">
+                    <i class="fa-solid fa-magnifying-glass text-copper-400"></i>
+                    <span>Cari Formula</span>
+                </button>
+                <a href="#diagnostic" @click="mobileMenu = false" class="w-full text-center bg-copper-500 text-emerald-950 font-bold py-3.5 uppercase tracking-widest text-[11px]">
+                    Mulai Diagnosa Diet
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- CINEMATIC FULL-BLEED HERO SLIDER -->
+    <section id="hero" class="relative w-full h-[90vh] min-h-[680px] bg-emerald-950 overflow-hidden">
+        
+        <!-- Swiper Hero Container -->
+        <div class="swiper heroSwiper w-full h-full">
+            <div class="swiper-wrapper">
+                
+                <!-- Slide 1: Feline Precision -->
+                <div class="swiper-slide relative w-full h-full overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=2000&auto=format&fit=crop" 
+                         alt="Feline Health" 
+                         class="absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.55] contrast-[1.1]">
+                    
+                    <div class="absolute inset-0 bg-gradient-to-r from-emerald-950 via-emerald-950/60 to-transparent"></div>
+                    
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="max-w-7xl mx-auto px-6 lg:px-12 w-full">
+                            <div class="max-w-2xl space-y-8">
+                                <div class="inline-flex items-center space-x-3 bg-emerald-900/80 backdrop-blur-md border border-copper-500/40 px-4 py-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-copper-500"></span>
+                                    <span class="text-copper-400 font-sans text-[10px] uppercase tracking-widest-xl font-bold">Clinical Feline Series</span>
+                                </div>
+                                <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-light text-oat-50 leading-[1.05] tracking-tight">
+                                    Arsitektur Nutrisi <br>
+                                    <span class="italic font-normal text-copper-400 font-serif">Kucing Ras Unggul</span>
+                                </h1>
+                                <p class="text-sm sm:text-base text-oat-200/80 font-light leading-relaxed max-w-xl">
+                                    Integrasi protein Salmon Atlantik liar, prebiotik FOS/MOS, serta taurin murni terhidrolisis untuk daya tahan organ vital dan masa depan tanpa gangguan ginjal.
+                                </p>
+                                <div class="flex flex-wrap items-center gap-6 pt-4">
+                                    <a href="#products" class="bg-copper-500 hover:bg-copper-600 text-emerald-950 font-bold text-[11px] uppercase tracking-widest-xl px-8 py-4.5 shadow-2xl transition-all duration-300 flex items-center gap-3">
+                                        <span>Eksplorasi Formula</span>
+                                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                                    </a>
+                                    <a href="#diagnostic" class="border border-oat-200/30 hover:border-copper-500 text-oat-100 hover:text-copper-400 font-bold text-[11px] uppercase tracking-widest-xl px-8 py-4.5 backdrop-blur-sm transition-all duration-300">
+                                        Kalkulasi Kalori
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2: Canine Vitality -->
+                <div class="swiper-slide relative w-full h-full overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1534361960057-19889db98d18?q=80&w=2000&auto=format&fit=crop" 
+                         alt="Canine Health" 
+                         class="absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.55] contrast-[1.1]">
+                    
+                    <div class="absolute inset-0 bg-gradient-to-r from-emerald-950 via-emerald-950/60 to-transparent"></div>
+                    
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="max-w-7xl mx-auto px-6 lg:px-12 w-full">
+                            <div class="max-w-2xl space-y-8">
+                                <div class="inline-flex items-center space-x-3 bg-emerald-900/80 backdrop-blur-md border border-copper-500/40 px-4 py-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-copper-500"></span>
+                                    <span class="text-copper-400 font-sans text-[10px] uppercase tracking-widest-xl font-bold">Canine Joint & Endurance</span>
+                                </div>
+                                <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-light text-oat-50 leading-[1.05] tracking-tight">
+                                    Proteksi Sendi & <br>
+                                    <span class="italic font-normal text-copper-400 font-serif">Otot Anjing Aktif</span>
+                                </h1>
+                                <p class="text-sm sm:text-base text-oat-200/80 font-light leading-relaxed max-w-xl">
+                                    Daging Sapi Padang Rumput kaya Glukosamin dan Kondroitin alami untuk integritas tulang rawan dan pemulihan sel otot pasca aktivitas fisik intensif.
+                                </p>
+                                <div class="flex flex-wrap items-center gap-6 pt-4">
+                                    <a href="#products" class="bg-copper-500 hover:bg-copper-600 text-emerald-950 font-bold text-[11px] uppercase tracking-widest-xl px-8 py-4.5 shadow-2xl transition-all duration-300 flex items-center gap-3">
+                                        <span>Lihat Seri Canine</span>
+                                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Custom Swiper Controls -->
+            <div class="absolute bottom-12 left-6 lg:left-12 z-20 flex items-center space-x-8">
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+
+        <!-- GLASSMORPHISM QUICK FILTER CARD (Floating Over Hero Bottom Right) -->
+        <div class="hidden lg:block absolute bottom-12 right-12 z-30 w-96 bg-emerald-950/80 backdrop-blur-2xl border border-copper-500/30 p-6 text-oat-100 shadow-2xl">
+            <div class="flex items-center justify-between border-b border-emerald-800/80 pb-3 mb-4">
+                <span class="text-[10px] uppercase tracking-widest-xl text-copper-400 font-bold"><i class="fa-solid fa-sliders mr-2"></i> Quick Diet Finder</span>
+                <span class="text-[9px] text-oat-200/50">VET-ALGORITHM 2.4</span>
+            </div>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="text-[10px] uppercase tracking-widest text-oat-200/70 block mb-1">Spesies Anabul:</label>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button @click="quickSpec = 'cat'" :class="quickSpec === 'cat' ? 'bg-copper-500 text-emerald-950 font-bold' : 'bg-emerald-900/60 text-oat-200 hover:border-copper-500/50'" class="py-2 text-xs border border-emerald-800 transition-colors">Kucing</button>
+                        <button @click="quickSpec = 'dog'" :class="quickSpec === 'dog' ? 'bg-copper-500 text-emerald-950 font-bold' : 'bg-emerald-900/60 text-oat-200 hover:border-copper-500/50'" class="py-2 text-xs border border-emerald-800 transition-colors">Anjing</button>
+                    </div>
+                </div>
+                <div>
+                    <label class="text-[10px] uppercase tracking-widest text-oat-200/70 block mb-1">Target Kesehatan Utama:</label>
+                    <select x-model="quickGoal" class="w-full bg-emerald-900/80 border border-emerald-800 text-oat-100 text-xs py-2.5 px-3 focus:outline-none focus:border-copper-500">
+                        <option value="digestive">Pencernaan Sensitif & Bulu Rontok</option>
+                        <option value="joint">Proteksi Sendi & Kepadatan Tulang</option>
+                        <option value="renal">Kesehatan Ginjal & Saluran Kemih</option>
+                    </select>
+                </div>
+                <button @click="applyQuickFilter()" class="w-full bg-copper-500/20 hover:bg-copper-500 hover:text-emerald-950 border border-copper-500/60 text-copper-400 text-[10px] font-bold uppercase tracking-widest py-3 transition-all duration-300">
+                    Tampilkan Recomendasi Preskriptif
+                </button>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- CERTIFICATION & LIFE SCIENCE STRIP -->
+    <section class="bg-emerald-900 border-y border-emerald-800/80 py-8 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="space-y-1">
+                    <p class="font-serif text-2xl font-bold text-copper-400">100%</p>
+                    <p class="text-[10px] uppercase tracking-widest text-oat-200/70">Human-Grade Ingredients</p>
+                </div>
+                <div class="space-y-1">
+                    <p class="font-serif text-2xl font-bold text-copper-400">Zero</p>
+                    <p class="text-[10px] uppercase tracking-widest text-oat-200/70">Corn, Wheat & Soy Fillers</p>
+                </div>
+                <div class="space-y-1">
+                    <p class="font-serif text-2xl font-bold text-copper-400">ISO-17025</p>
+                    <p class="text-[10px] uppercase tracking-widest text-oat-200/70">Lab Quality Certified</p>
+                </div>
+                <div class="space-y-1">
+                    <p class="font-serif text-2xl font-bold text-copper-400">30+ Vet</p>
+                    <p class="text-[10px] uppercase tracking-widest text-oat-200/70">European Formulators</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EDITORIAL BRAND STORY & HERITAGE SPLIT-SCREEN -->
+    <section id="story" class="py-32 bg-oat-100 text-espresso relative overflow-hidden">
+        
+        <!-- Large Editorial Watermark Text -->
+        <div class="absolute -top-10 left-0 font-serif text-[180px] sm:text-[280px] font-black text-oat-200/50 select-none pointer-events-none leading-none z-0">
+            HERITAGE
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                
+                <!-- Left: Asymmetric Multi-Layer Photography Layout -->
+                <div class="lg:col-span-6 relative">
+                    <div class="relative z-10 border-b-4 border-copper-500 shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=1200&auto=format&fit=crop" 
+                             alt="Laboratorium VET-ARTISAN" 
+                             class="w-full h-[540px] object-cover filter contrast-[1.05]">
+                    </div>
+
+                    <!-- Floating Image Overlay Badge -->
+                    <div class="absolute -bottom-10 -right-6 z-20 w-1/2 hidden sm:block border-8 border-oat-100 shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?q=80&w=800&auto=format&fit=crop" 
+                             alt="Purity Ingredients" 
+                             class="w-full h-[260px] object-cover">
+                    </div>
+
+                    <!-- Quote Floating Box -->
+                    <div class="absolute -top-8 -left-6 z-20 bg-emerald-950 text-oat-100 p-8 max-w-xs shadow-2xl border-l-2 border-copper-500">
+                        <p class="font-serif italic text-sm text-oat-200 leading-relaxed">
+                            "Kesehatan sejati peliharaan Anda ditentukan oleh molekul nutrisi terkecil yang diserap usus setiap hari."
+                        </p>
+                        <p class="text-[9px] uppercase tracking-widest text-copper-400 mt-4 font-bold">— Prof. Dr. Lucian Vance, DVM</p>
+                    </div>
+                </div>
+
+                <!-- Right: Interactive Philosophy Narrative & Tabs -->
+                <div class="lg:col-span-6 space-y-8 lg:pl-4">
+                    <div class="space-y-3">
+                        <span class="text-copper-600 font-sans text-xs uppercase tracking-widest-xl font-extrabold">Manifesto & Filosofi Medis</span>
+                        <h2 class="font-serif text-3xl sm:text-5xl font-light text-emerald-950 leading-tight">
+                            Menyatukan Kemurnian Alami Dengan Presisi Sains
+                        </h2>
+                    </div>
+
+                    <p class="text-slate-600 text-sm sm:text-base leading-relaxed font-light">
+                        VET-ARTISAN didirikan untuk menggantikan pakan industri berbahan komersial tinggi dengan formulasi preskriptif kelas satu. Kami percaya bahwa nutrisi hewan harus setara dengan standar makanan medis manusia (*Human-Grade Clinical Standard*).
+                    </p>
+
+                    <!-- Interactive Tabs -->
+                    <div class="space-y-6 pt-2">
+                        <div class="flex border-b border-oat-300 space-x-8 text-xs uppercase font-bold tracking-widest">
+                            <button @click="storyTab = 'science'" :class="storyTab === 'science' ? 'border-b-2 border-copper-500 text-emerald-950' : 'text-slate-400 hover:text-emerald-900'" class="pb-3 transition-colors">01. Sains Bio-Ketersediaan</button>
+                            <button @click="storyTab = 'sourcing'" :class="storyTab === 'sourcing' ? 'border-b-2 border-copper-500 text-emerald-950' : 'text-slate-400 hover:text-emerald-900'" class="pb-3 transition-colors">02. Integritas Bahan</button>
+                            <button @click="storyTab = 'eco'" :class="storyTab === 'eco' ? 'border-b-2 border-copper-500 text-emerald-950' : 'text-slate-400 hover:text-emerald-900'" class="pb-3 transition-colors">03. Keberlanjutan</button>
+                        </div>
+
+                        <!-- Tab Content 1 -->
+                        <div x-show="storyTab === 'science'" class="space-y-3 pt-2">
+                            <h4 class="font-serif text-xl font-bold text-emerald-950">Daya Cerna Cerna Tingkat Tinggi (>98%)</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed font-light">
+                                Menggunakan protein terhidrolisis parsial yang telah dipecah menjadi rantai asam amino pendek, meminimalkan pemicu reaksi alergi usus serta mengoptimalkan penyerapan pada kucing dan anjing usia lanjut.
+                            </p>
+                        </div>
+
+                        <!-- Tab Content 2 -->
+                        <div x-show="storyTab === 'sourcing'" class="space-y-3 pt-2" style="display:none;">
+                            <h4 class="font-serif text-xl font-bold text-emerald-950">Pelacakan Sumber Bahan Tunggal</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed font-light">
+                                Setiap gram daging sapi, salmon, dan lamb berasal dari satu peternakan/perikanan bersertifikasi ethically-sourced. Bebas dari antibiotik pencegahan dan hormon pertumbuhan buatan.
+                            </p>
+                        </div>
+
+                        <!-- Tab Content 3 -->
+                        <div x-show="storyTab === 'eco'" class="space-y-3 pt-2" style="display:none;">
+                            <h4 class="font-serif text-xl font-bold text-emerald-950">Kemasan Netral Karbon & Daur Ulang</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed font-light">
+                                Seluruh kantong pakan VET-ARTISAN menggunakan struktur barrier alumunium-free 100% yang dapat didaur ulang tanpa mengurangi kesegaran nutrisi dan aroma alami.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="pt-6">
+                        <a href="#products" class="inline-flex items-center space-x-4 text-xs font-bold uppercase tracking-widest-xl text-emerald-900 hover:text-copper-600 transition-colors border-b border-emerald-900 pb-1">
+                            <span>Jelajahi Formularium Klinis</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- LARGE VISUAL INTERACTIVE PRODUCT MATRIX -->
+    <section id="products" class="py-32 bg-emerald-950 text-oat-100 relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            
+            <!-- Section Header -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 space-y-6 md:space-y-0 border-b border-emerald-800/80 pb-10">
+                <div class="space-y-3">
+                    <span class="text-copper-400 font-sans text-xs uppercase tracking-widest-xl font-extrabold">Formularium Preskriptif</span>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-light text-oat-50">
+                        Koleksi Nutrisi VET-ARTISAN
+                    </h2>
+                </div>
+
+                <!-- Custom Category Filters -->
+                <div class="flex flex-wrap gap-2 bg-emerald-900/60 p-1.5 border border-emerald-800">
+                    <button @click="activeCat = 'all'" :class="activeCat === 'all' ? 'bg-copper-500 text-emerald-950 font-bold' : 'text-oat-200/70 hover:text-copper-400'" class="text-[10px] uppercase tracking-widest px-5 py-3 transition-all">Semua Formula</button>
+                    <button @click="activeCat = 'cat'" :class="activeCat === 'cat' ? 'bg-copper-500 text-emerald-950 font-bold' : 'text-oat-200/70 hover:text-copper-400'" class="text-[10px] uppercase tracking-widest px-5 py-3 transition-all">Feline (Kucing)</button>
+                    <button @click="activeCat = 'dog'" :class="activeCat === 'dog' ? 'bg-copper-500 text-emerald-950 font-bold' : 'text-oat-200/70 hover:text-copper-400'" class="text-[10px] uppercase tracking-widest px-5 py-3 transition-all">Canine (Anjing)</button>
+                </div>
+            </div>
+
+            <!-- Product Grid Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <template x-for="product in filteredProducts" :key="product.id">
+                    <div class="group bg-emerald-900/30 border border-emerald-800/80 hover:border-copper-500/60 transition-all duration-500 flex flex-col justify-between overflow-hidden">
+                        
+                        <!-- Image Container with Hover Zoom -->
+                        <div class="relative h-88 bg-emerald-950/80 p-8 flex items-center justify-center overflow-hidden">
+                            <span class="absolute top-4 left-4 bg-copper-500 text-emerald-950 text-[9px] font-black uppercase tracking-widest px-3 py-1 z-10" x-text="product.badge"></span>
+                            
+                            <img :src="product.image" 
+                                 :alt="product.name" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-95"
+                                 onerror="this.src='https://images.unsplash.com/photo-1589924691995-400dc9ecc119?q=80&w=800'">
+                            
+                            <!-- Quick View Overlay -->
+                            <div class="absolute inset-0 bg-emerald-950/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6">
+                                <button @click="openModal(product)" class="bg-copper-500 hover:bg-copper-600 text-emerald-950 font-bold text-[10px] uppercase tracking-widest-xl px-6 py-3.5 shadow-2xl transition-all transform hover:-translate-y-0.5">
+                                    Inspeksi Komposisi
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Product Meta -->
+                        <div class="p-8 space-y-4 flex-grow flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between text-[10px] text-copper-400/90 mb-2">
+                                    <span class="uppercase tracking-widest font-bold" x-text="product.species"></span>
+                                    <span class="font-serif italic"><i class="fa-solid fa-flask-vial text-copper-500 mr-1"></i> <span x-text="product.clinicalScore"></span> Score</span>
+                                </div>
+
+                                <h3 class="font-serif text-2xl font-bold text-oat-50 group-hover:text-copper-400 transition-colors" x-text="product.name"></h3>
+                                <p class="text-xs text-oat-200/60 mt-2 leading-relaxed font-light line-clamp-2" x-text="product.shortDesc"></p>
+                            </div>
+
+                            <div class="pt-6 border-t border-emerald-800/80 flex items-center justify-between">
+                                <div>
+                                    <span class="text-[9px] uppercase tracking-widest text-oat-200/40 block">HET Preskriptif</span>
+                                    <span class="font-serif text-xl font-bold text-copper-400" x-text="product.price"></span>
+                                </div>
+                                <button @click="openModal(product)" class="w-10 h-10 border border-copper-500/40 text-copper-400 hover:bg-copper-500 hover:text-emerald-950 flex items-center justify-center transition-colors">
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </template>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- INTERACTIVE PET NUTRITION DIAGNOSTIC / CALCULATOR TOOL -->
+    <section id="diagnostic" class="py-32 bg-oat-200 text-espresso relative overflow-hidden">
+        <div class="max-w-5xl mx-auto px-6 lg:px-12 relative z-10">
+            
+            <div class="text-center space-y-4 mb-16">
+                <span class="text-copper-600 font-sans text-xs uppercase tracking-widest-xl font-extrabold">Alat Diagnostik Presisi</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-light text-emerald-950">
+                    Kalkulator Kebutuhan Energi & Kalori
+                </h2>
+                <p class="text-slate-600 text-xs sm:text-sm font-light max-w-xl mx-auto">
+                    Masukan parameter fisiologis anabul Anda untuk mendapatkan kalkulasi *Resting Energy Requirement* (RER) dan *Daily Energy Requirement* (DER) secara instan.
+                </p>
+            </div>
+
+            <!-- Calculator Widget Frame -->
+            <div class="bg-oat-50 border border-oat-300 p-8 sm:p-12 shadow-2xl relative">
+                
+                <!-- Step Indicators -->
+                <div class="flex items-center justify-between border-b border-oat-300 pb-6 mb-8 text-xs uppercase font-bold tracking-widest">
+                    <span :class="calcStep >= 1 ? 'text-emerald-900 border-b-2 border-copper-500' : 'text-slate-400'">1. Profil Anabul</span>
+                    <span :class="calcStep >= 2 ? 'text-emerald-900 border-b-2 border-copper-500' : 'text-slate-400'">2. Bobot & Aktivitas</span>
+                    <span :class="calcStep >= 3 ? 'text-emerald-900 border-b-2 border-copper-500' : 'text-slate-400'">3. Hasil Preskriptif</span>
+                </div>
+
+                <!-- Step 1: Species & Age -->
+                <div x-show="calcStep === 1" class="space-y-6">
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-emerald-950 font-bold mb-3">Jenis Hewan Peliharaan:</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <button @click="calcData.species = 'cat'" :class="calcData.species === 'cat' ? 'bg-emerald-950 text-oat-50 border-emerald-950' : 'bg-oat-100 text-slate-700 border-oat-300'" class="p-6 border text-left flex items-center justify-between transition-colors">
+                                <div>
+                                    <span class="font-serif text-lg font-bold block">Kucing (Feline)</span>
+                                    <span class="text-[10px] text-slate-400 uppercase tracking-wider">Metabolisme Karnivora Murni</span>
+                                </div>
+                                <i class="fa-solid fa-cat text-xl text-copper-500"></i>
+                            </button>
+                            <button @click="calcData.species = 'dog'" :class="calcData.species === 'dog' ? 'bg-emerald-950 text-oat-50 border-emerald-950' : 'bg-oat-100 text-slate-700 border-oat-300'" class="p-6 border text-left flex items-center justify-between transition-colors">
+                                <div>
+                                    <span class="font-serif text-lg font-bold block">Anjing (Canine)</span>
+                                    <span class="text-[10px] text-slate-400 uppercase tracking-wider">Kebutuhan Protein & Sendi</span>
+                                </div>
+                                <i class="fa-solid fa-dog text-xl text-copper-500"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-emerald-950 font-bold mb-3">Kategori Usia Tahapan Hidup:</label>
+                        <select x-model="calcData.ageGroup" class="w-full bg-oat-100 border border-oat-300 text-emerald-950 p-4 text-xs font-bold focus:outline-none focus:border-copper-500">
+                            <option value="junior">Junior / Anak (2 - 12 Bulan)</option>
+                            <option value="adult">Dewasa / Adult (1 - 7 Tahun)</option>
+                            <option value="senior">Senior / Geriatrik (7+ Tahun)</option>
+                        </select>
+                    </div>
+
+                    <div class="pt-4 flex justify-end">
+                        <button @click="calcStep = 2" class="bg-copper-500 hover:bg-copper-600 text-emerald-950 font-bold text-xs uppercase tracking-widest px-8 py-4 transition-all">
+                            Lanjut Ke Bobot & Aktivitas <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Weight & Activity -->
+                <div x-show="calcStep === 2" class="space-y-6" style="display:none;">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="text-xs uppercase tracking-widest text-emerald-950 font-bold">Berat Badan Saat Ini (KG):</label>
+                            <span class="font-serif font-bold text-xl text-copper-600" x-text="calcData.weight + ' KG'"></span>
+                        </div>
+                        <input type="range" min="1" max="40" step="0.5" x-model="calcData.weight" class="w-full accent-copper-500 bg-oat-300 h-2">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs uppercase tracking-widest text-emerald-950 font-bold mb-3">Tingkat Aktivitas Harian:</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <button @click="calcData.activity = 1.2" :class="calcData.activity === 1.2 ? 'bg-emerald-950 text-oat-50' : 'bg-oat-100 text-slate-700 border-oat-300'" class="p-4 border text-center text-xs font-bold transition-colors">Indoor / Steril (Rendah)</button>
+                            <button @click="calcData.activity = 1.4" :class="calcData.activity === 1.4 ? 'bg-emerald-950 text-oat-50' : 'bg-oat-100 text-slate-700 border-oat-300'" class="p-4 border text-center text-xs font-bold transition-colors">Normal / Moderat</button>
+                            <button @click="calcData.activity = 1.8" :class="calcData.activity === 1.8 ? 'bg-emerald-950 text-oat-50' : 'bg-oat-100 text-slate-700 border-oat-300'" class="p-4 border text-center text-xs font-bold transition-colors">Sangat Aktif / Kerja</button>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 flex justify-between">
+                        <button @click="calcStep = 1" class="border border-slate-400 text-slate-600 font-bold text-xs uppercase tracking-widest px-6 py-4">Kembali</button>
+                        <button @click="calculateRER()" class="bg-copper-500 hover:bg-copper-600 text-emerald-950 font-bold text-xs uppercase tracking-widest px-8 py-4 transition-all">
+                            Hitung Hasil Preskriptif <i class="fa-solid fa-calculator ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Result Card -->
+                <div x-show="calcStep === 3" class="space-y-6 text-center py-4" style="display:none;">
+                    <div class="w-16 h-16 rounded-full bg-copper-500/20 text-copper-600 flex items-center justify-center mx-auto text-2xl border border-copper-500/40">
+                        <i class="fa-solid fa-square-poll-vertical"></i>
+                    </div>
+
+                    <div class="space-y-2">
+                        <span class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Hasil Rekomendasi Klinis:</span>
+                        <h3 class="font-serif text-3xl font-bold text-emerald-950" x-text="calcResult.calories + ' Kcal / Hari'"></h3>
+                        <p class="text-xs text-slate-600 max-w-md mx-auto">
+                            Estimasi porsi harian yang disarankan untuk menjaga kondisi tubuh ideal tanpa risiko obesitas abdominal.
+                        </p>
+                    </div>
+
+                    <div class="bg-emerald-950 text-oat-100 p-6 border-l-4 border-copper-500 text-left max-w-lg mx-auto space-y-2">
+                        <span class="text-[9px] uppercase tracking-widest text-copper-400 font-bold">Rekomendasi Formula Utama:</span>
+                        <h4 class="font-serif font-bold text-lg text-oat-50" x-text="calcResult.recommendedFormula"></h4>
+                        <p class="text-xs text-oat-200/70 font-light" x-text="calcResult.note"></p>
+                    </div>
+
+                    <div class="pt-4 flex justify-center gap-4">
+                        <button @click="calcStep = 1" class="border border-slate-400 text-slate-600 font-bold text-xs uppercase tracking-widest px-6 py-3">Ulangi Diagnosa</button>
+                        <a href="#locator" class="bg-copper-500 text-emerald-950 font-bold text-xs uppercase tracking-widest px-8 py-3">Pesan Dari Dokter Partner</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- "LIFE WITH PETS" EDITORIAL GALLERY & MAGAZINE STORIES -->
+    <section id="journal" class="py-32 bg-oat-100 text-espresso">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 space-y-4 md:space-y-0">
+                <div class="space-y-2">
+                    <span class="text-copper-600 font-sans text-xs uppercase tracking-widest-xl font-extrabold">Kajian & Jurnal Kedokteran Hewan</span>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-light text-emerald-950">
+                        Wawasan Kesehatan Terkini
+                    </h2>
+                </div>
+                <a href="#" class="text-xs font-bold uppercase tracking-widest text-emerald-900 hover:text-copper-600 transition-colors">Lihat Semua Arsip Riset →</a>
+            </div>
+
+            <!-- Asymmetric Editorial Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                
+                <!-- Story 1 (Col 7) -->
+                <article class="md:col-span-7 group relative bg-emerald-950 min-h-[480px] overflow-hidden flex items-end p-8 sm:p-12 cursor-pointer border border-emerald-900">
+                    <img src="https://images.unsplash.com/photo-1548767797-d8c844163c4c?q=80&w=1200&auto=format&fit=crop" 
+                         alt="Cat Health Research" 
+                         class="absolute inset-0 w-full h-full object-cover filter brightness-[0.55] group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/20 to-transparent"></div>
+                    
+                    <div class="relative z-10 space-y-3 text-oat-100">
+                        <span class="bg-copper-500 text-emerald-950 text-[9px] uppercase font-bold tracking-widest px-3 py-1">Laporan Klinis 2026</span>
+                        <h3 class="font-serif text-2xl sm:text-4xl font-bold leading-snug group-hover:text-copper-400 transition-colors">
+                            Pencegahan Pembentukan Kristal Struvit Pada Kucing Jantan Melalui Kontrol Murni Magnesium
+                        </h3>
+                        <p class="text-xs text-oat-200/70 font-light line-clamp-2">
+                            Penelitian komparatif terhadap rasio mineral makro dalam menstabilkan keasaman urin feline pada tingkat optimal pH 6.2 - 6.5.
+                        </p>
+                    </div>
+                </article>
+
+                <!-- Story 2 (Col 5) -->
+                <article class="md:col-span-5 group relative bg-emerald-950 min-h-[480px] overflow-hidden flex items-end p-8 cursor-pointer border border-emerald-900">
+                    <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=800&auto=format&fit=crop" 
+                         alt="Dog Nutrition" 
+                         class="absolute inset-0 w-full h-full object-cover filter brightness-[0.55] group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-950 via-emerald-950/20 to-transparent"></div>
+                    
+                    <div class="relative z-10 space-y-3 text-oat-100">
+                        <span class="text-copper-400 text-[9px] uppercase font-bold tracking-widest">Orthopedic Care</span>
+                        <h3 class="font-serif text-xl sm:text-2xl font-bold leading-snug group-hover:text-copper-400 transition-colors">
+                            Kombinasi Glukosamin & Green Mussel Untuk Proteksi Sendi Anjing Working Breed
+                        </h3>
+                        <span class="text-xs text-copper-400 uppercase tracking-widest font-bold block pt-2">Baca Panduan Lengkap →</span>
+                    </div>
+                </article>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- INTERACTIVE STORE / VET LOCATOR -->
+    <section id="locator" class="py-32 bg-emerald-950 text-oat-100 relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                
+                <!-- Left Control Column -->
+                <div class="lg:col-span-5 space-y-8">
+                    <div class="space-y-3">
+                        <span class="text-copper-400 font-sans text-xs uppercase tracking-widest-xl font-extrabold">Distribusi Preskriptif</span>
+                        <h2 class="font-serif text-3xl sm:text-5xl font-light text-oat-50">
+                            Lokasi Partner Resmi & Boutique
+                        </h2>
+                    </div>
+
+                    <p class="text-oat-200/70 text-xs sm:text-sm font-light leading-relaxed">
+                        Formula VET-ARTISAN didistribusikan secara eksklusif melalui jaringan Klinik Dokter Hewan Terakreditasi dan Pet Boutique Terpilih.
+                    </p>
+
+                    <!-- Region Selector -->
+                    <div class="space-y-3">
+                        <label class="block text-[10px] uppercase tracking-widest text-copper-400 font-bold">Pilih Wilayah Anda:</label>
+                        <select x-model="selectedRegion" class="w-full bg-emerald-900 border border-emerald-800 text-oat-100 px-5 py-4 text-xs font-bold focus:outline-none focus:border-copper-500">
+                            <option value="jakarta">DKI Jakarta & Sekitarnya (Flagship)</option>
+                            <option value="surabaya">Surabaya & Jawa Timur (Hub East)</option>
+                            <option value="bali">Bali & Nusa Tenggara (Boutique Resort)</option>
+                            <option value="bandung">Bandung & Jawa Barat</option>
+                        </select>
+                    </div>
+
+                    <!-- Store Items List -->
+                    <div class="space-y-3 pt-2">
+                        <template x-for="store in stores[selectedRegion]" :key="store.name">
+                            <div class="p-5 bg-emerald-900/40 border border-emerald-800 hover:border-copper-500/50 transition-colors space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-serif font-bold text-oat-50 text-base" x-text="store.name"></h4>
+                                    <span class="text-[9px] bg-copper-500/20 text-copper-400 border border-copper-500/30 px-2 py-0.5 font-bold uppercase" x-text="store.type"></span>
+                                </div>
+                                <p class="text-xs text-oat-200/60 font-light" x-text="store.address"></p>
+                                <p class="text-xs text-copper-400 font-bold"><i class="fa-solid fa-phone mr-2"></i> <span x-text="store.phone"></span></p>
+                            </div>
+                        </template>
+                    </div>
+
+                </div>
+
+                <!-- Right Mock Interactive Map Panel -->
+                <div class="lg:col-span-7 bg-emerald-900/60 border border-emerald-800 p-8 h-[560px] relative flex flex-col justify-between overflow-hidden shadow-2xl">
+                    <!-- Subtle Map Vector Texture -->
+                    <div class="absolute inset-0 bg-[radial-gradient(#C59B27_1px,transparent_1px)] [background-size:28px_28px] opacity-15"></div>
+                    
+                    <div class="relative z-10 flex items-center justify-between border-b border-emerald-800 pb-4">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+                            <span class="text-[10px] uppercase tracking-widest text-oat-200 font-bold">Verified Prescriptive Network</span>
+                        </div>
+                        <span class="text-xs text-copper-400 font-serif italic">Suhu Pengiriman Terkontrol (2-8°C)</span>
+                    </div>
+
+                    <div class="relative z-10 my-auto text-center space-y-6 max-w-md mx-auto">
+                        <div class="w-16 h-16 rounded-full bg-copper-500/10 border border-copper-500/40 text-copper-400 flex items-center justify-center mx-auto text-2xl shadow-2xl">
+                            <i class="fa-solid fa-truck-ramp-box animate-pulse"></i>
+                        </div>
+                        <div class="space-y-2">
+                            <h3 class="font-serif text-2xl font-bold text-oat-50">Layanan Layanan Concierge Medis</h3>
+                            <p class="text-xs text-oat-200/70 font-light leading-relaxed">
+                                Butuh pakan racikan khusus resep Dokter Hewan? Tim Concierge VET-ARTISAN siap memfasilitasi konsultasi langsung dan pengiriman prioritas.
+                            </p>
+                        </div>
+                        <button @click="alert('Menghubungkan ke Concierge VET-ARTISAN via Whatsapp...')" class="bg-copper-500 hover:bg-copper-600 text-emerald-950 font-bold text-xs uppercase tracking-widest px-8 py-4 transition-all">
+                            Hubungi Private Concierge
+                        </button>
+                    </div>
+
+                    <div class="relative z-10 pt-4 border-t border-emerald-800 text-center text-[10px] text-oat-200/40 uppercase tracking-widest">
+                        Pendaftaran Kemitraan Klinik Baru: partner@vet-artisan.com
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-emerald-950 text-oat-200/70 pt-24 pb-12 border-t border-emerald-800/80">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 pb-20 border-b border-emerald-800/80">
+                
+                <!-- Brand Info -->
+                <div class="lg:col-span-2 space-y-6">
+                    <a href="#" class="flex items-center space-x-3">
+                        <div class="w-9 h-9 border border-copper-500 rounded-none flex items-center justify-center text-copper-400">
+                            <span class="font-serif font-bold text-sm">VA</span>
+                        </div>
+                        <span class="font-serif text-2xl font-bold tracking-widest text-oat-50 uppercase">VET<span class="text-copper-500 italic font-normal">ARTISAN</span></span>
+                    </a>
+                    <p class="text-xs font-light text-oat-200/60 leading-relaxed max-w-sm">
+                        Merek nutrisi preskriptif pionir yang menggabungkan standar laboratorium sains kedokteran hewan Eropa dengan seni kuliner bahan murni kelas atas.
+                    </p>
+                    <div class="flex space-x-4 text-copper-400 text-sm">
+                        <a href="#" class="w-8 h-8 border border-emerald-800 hover:border-copper-500 flex items-center justify-center transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-8 h-8 border border-emerald-800 hover:border-copper-500 flex items-center justify-center transition-colors"><i class="fa-brands fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 1 -->
+                <div class="space-y-4">
+                    <h4 class="font-serif font-bold text-oat-50 text-xs tracking-widest uppercase">Formularium</h4>
+                    <ul class="space-y-2.5 text-xs font-light">
+                        <li><a href="#products" class="hover:text-copper-400 transition-colors">Feline Renal Care</a></li>
+                        <li><a href="#products" class="hover:text-copper-400 transition-colors">Canine Joint Protection</a></li>
+                        <li><a href="#products" class="hover:text-copper-400 transition-colors">Hypoallergenic Salmon</a></li>
+                        <li><a href="#products" class="hover:text-copper-400 transition-colors">Junior Growth Formula</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 2 -->
+                <div class="space-y-4">
+                    <h4 class="font-serif font-bold text-oat-50 text-xs tracking-widest uppercase">Integritas Sains</h4>
+                    <ul class="space-y-2.5 text-xs font-light">
+                        <li><a href="#story" class="hover:text-copper-400 transition-colors">Sertifikasi ISO-17025</a></li>
+                        <li><a href="#story" class="hover:text-copper-400 transition-colors">Jaringan Dokter Hewan</a></li>
+                        <li><a href="#journal" class="hover:text-copper-400 transition-colors">Arsip Jurnal Medis</a></li>
+                        <li><a href="#locator" class="hover:text-copper-400 transition-colors">Cari Klinik Rekanan</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Newsletter -->
+                <div class="space-y-4">
+                    <h4 class="font-serif font-bold text-oat-50 text-xs tracking-widest uppercase">Jurnal Bulanan</h4>
+                    <p class="text-xs text-oat-200/60 font-light">Dapatkan rangkuman riset kesehatan hewan langsung dari tim medis kami.</p>
+                    <form @submit.prevent="alert('Terima kasih! Anda telah terdaftar dalam Jurnal VET-ARTISAN.')" class="space-y-2">
+                        <input type="email" placeholder="Email Anda..." required class="w-full bg-emerald-900 border border-emerald-800 text-oat-100 px-4 py-3 text-xs focus:outline-none focus:border-copper-500">
+                        <button type="submit" class="w-full bg-copper-500 hover:bg-copper-600 text-emerald-950 font-bold text-xs uppercase tracking-widest py-3 transition-colors">
+                            Langganan
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="pt-8 flex flex-col md:flex-row items-center justify-between text-[10px] text-oat-200/40 uppercase tracking-widest space-y-4 md:space-y-0">
+                <p>&copy; 2026 PT VET-ARTISAN LIFE SCIENCE INDONESIA. Hak Cipta Dilindungi.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-oat-100">Etika Medis</a>
+                    <a href="#" class="hover:text-oat-100">Privasi Data</a>
+                    <a href="#" class="hover:text-oat-100">Ketentuan Layanan</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- INGREDIENTS QUICK-VIEW MODAL -->
+    <div x-show="modalOpen" 
+         class="fixed inset-0 z-50 bg-emerald-950/90 backdrop-blur-md flex items-center justify-center p-4"
+         style="display: none;">
+        
+        <div @click.away="modalOpen = false" 
+             class="bg-emerald-900 border border-emerald-800 max-w-3xl w-full p-8 sm:p-12 relative text-oat-100 shadow-2xl">
+            
+            <button @click="modalOpen = false" class="absolute top-6 right-6 text-oat-200/60 hover:text-copper-400 text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <template x-if="selectedProduct">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                    <div class="md:col-span-5 h-64 bg-emerald-950 border border-emerald-800 p-4">
+                        <img :src="selectedProduct.image" class="w-full h-full object-cover">
+                    </div>
+                    <div class="md:col-span-7 space-y-4">
+                        <span class="text-copper-400 text-[10px] font-bold uppercase tracking-widest" x-text="selectedProduct.badge"></span>
+                        <h3 class="font-serif text-2xl font-bold text-oat-50" x-text="selectedProduct.name"></h3>
+                        <p class="font-serif text-xl text-copper-400 font-bold" x-text="selectedProduct.price"></p>
+                        <p class="text-xs text-oat-200/80 font-light leading-relaxed" x-text="selectedProduct.fullDesc"></p>
+                        
+                        <div class="pt-4 border-t border-emerald-800 space-y-2">
+                            <p class="text-xs font-bold text-copper-400 uppercase tracking-wider">Komposisi Bahan Kunci:</p>
+                            <p class="text-xs text-oat-200/60" x-text="selectedProduct.ingredients"></p>
+                        </div>
+
+                        <div class="pt-4">
+                            <a href="#locator" @click="modalOpen = false" class="inline-block bg-copper-500 hover:bg-copper-600 text-emerald-950 font-bold text-xs uppercase tracking-widest px-8 py-3.5 transition-all">
+                                Cari Klinik Rekanan
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+
+    <!-- SEARCH OVERLAY MODAL -->
+    <div x-show="searchOpen" 
+         class="fixed inset-0 z-50 bg-emerald-950/95 backdrop-blur-md flex items-start justify-center pt-32 p-4"
+         style="display: none;">
+        <div @click.away="searchOpen = false" class="max-w-2xl w-full border-b-2 border-copper-500 pb-4">
+            <div class="flex items-center space-x-4">
+                <i class="fa-solid fa-magnifying-glass text-copper-400 text-xl"></i>
+                <input type="text" placeholder="Cari resep preskriptif (misal: Salmon, Renal, Joint, Kitten)..." class="w-full bg-transparent text-xl font-serif text-oat-50 focus:outline-none placeholder-emerald-800">
+                <button @click="searchOpen = false" class="text-oat-200/60 hover:text-copper-400 text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ALPINE JS LOGIC APP -->
+    <script>
+        function vetArtisanApp() {
+            return {
+                lang: 'ID',
+                mobileMenu: false,
+                modalOpen: false,
+                searchOpen: false,
+                storyTab: 'science',
+                activeCat: 'all',
+                selectedRegion: 'jakarta',
+                selectedProduct: null,
+
+                quickSpec: 'cat',
+                quickGoal: 'digestive',
+
+                // Calculator state
+                calcStep: 1,
+                calcData: {
+                    species: 'cat',
+                    ageGroup: 'adult',
+                    weight: 4.5,
+                    activity: 1.2
+                },
+                calcResult: {
+                    calories: 0,
+                    recommendedFormula: '',
+                    note: ''
+                },
+
+                products: [
+                    {
+                        id: 1,
+                        name: "FELINE ULTRA-SALMON HYPOALLERGENIC",
+                        category: "cat",
+                        species: "Kucing Dewasa (Adult)",
+                        clinicalScore: "99.4",
+                        price: "Rp 215.000 / 1.5KG",
+                        badge: "Single Protein",
+                        image: "https://images.unsplash.com/photo-1589924691995-400dc9ecc119?q=80&w=800",
+                        shortDesc: "Formulasi protein salmon terhidrolisis untuk mendukung integritas pencernaan dan pencegahan dermatitis.",
+                        fullDesc: "Dikembangkan khusus tanpa protein unggas atau produk olahan turunan. Kaya asam lemak Omega 3 EPA/DHA untuk proteksi folikel bulu halus.",
+                        ingredients: "Salmon Atlantik Segar (48%), Tepung Ubi Jalar Organik, Minyak Ikan Kod Terhidrolisis, Taurin Murni 0.2%, Ekstrak Cranberry."
+                    },
+                    {
+                        id: 2,
+                        name: "CANINE PRIME BEEF JOINT & MUSCLE",
+                        category: "dog",
+                        species: "Anjing Ras Sedang & Besar",
+                        clinicalScore: "98.8",
+                        price: "Rp 340.000 / 3.0KG",
+                        badge: "Joint Protection",
+                        image: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?q=80&w=800",
+                        shortDesc: "Daging sapi padang rumput dipadu Glukosamin 800mg/kg untuk kelenturan ligamen sendi.",
+                        fullDesc: "Mendukung performa fisik anjing aktif dengan profil asam amino lengkap untuk regenerasi jaringan otot terfokus.",
+                        ingredients: "Daging Sapi Padang Rumput (52%), Beras Merah Organik, Kolagen Terhidrolisis, Ekstrak Green Mussel Selandia Baru."
+                    },
+                    {
+                        id: 3,
+                        name: "FELINE RENAL CARE & URINARY pH",
+                        category: "cat",
+                        species: "Kucing Senior (7+ Thn)",
+                        clinicalScore: "99.8",
+                        price: "Rp 230.000 / 1.5KG",
+                        badge: "Prescriptive Renal",
+                        image: "https://images.unsplash.com/photo-1571566882372-1598d88abd90?q=80&w=800",
+                        shortDesc: "Kontrol presisi fosfor dan magnesium untuk pencegahan batu struvit & oxalates.",
+                        fullDesc: "Menstabilkan pH urin pada rentang aman 6.2 - 6.5. Diperkaya antioksidan botani untuk mempertahankan fungsi filtrasi ginjal.",
+                        ingredients: "Daging Kalkun Tanpa Lemak, Lemak Unggas Terstabilkan, Kalium Sitrat, Ekstrak Dandelion & Rosemary."
+                    }
+                ],
+
+                stores: {
+                    jakarta: [
+                        { name: "VET-ARTISAN Flagship Boutique Senopati", type: "Flagship", address: "Jl. Senopati No. 88, Kebayoran Baru, Jakarta Selatan", phone: "+62 21 520 8899" },
+                        { name: "Klinik Animalia Central Pondok Indah", type: "Klinik Partner", address: "Plaza Pondok Indah 2, Blok B3", phone: "+62 21 765 4321" }
+                    ],
+                    surabaya: [
+                        { name: "Surabaya Veterinary Specialty Center", type: "Klinik Partner", address: "Jl. Raya Darmo No. 102, Surabaya", phone: "+62 31 567 1122" }
+                    ],
+                    bali: [
+                        { name: "Seminyak Haute Pet Care Resort", type: "Resort Boutique", address: "Jl. Kayu Aya No. 45, Seminyak, Bali", phone: "+62 361 847 900" }
+                    ],
+                    bandung: [
+                        { name: "Bandung Pet Clinical Care Riau", type: "Klinik Partner", address: "Jl. Riau No. 112, Bandung", phone: "+62 22 420 7711" }
+                    ]
+                },
+
+                get filteredProducts() {
+                    if (this.activeCat === 'all') return this.products;
+                    return this.products.filter(p => p.category === this.activeCat);
+                },
+
+                openModal(product) {
+                    this.selectedProduct = product;
+                    this.modalOpen = true;
+                },
+
+                applyQuickFilter() {
+                    this.activeCat = this.quickSpec;
+                    const el = document.getElementById('products');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                },
+
+                calculateRER() {
+                    // RER Formula = 70 * (weight in kg)^0.75
+                    const w = parseFloat(this.calcData.weight);
+                    const rer = 70 * Math.pow(w, 0.75);
+                    const der = Math.round(rer * parseFloat(this.calcData.activity));
+
+                    this.calcResult.calories = der;
+
+                    if (this.calcData.species === 'cat') {
+                        this.calcResult.recommendedFormula = "FELINE ULTRA-SALMON HYPOALLERGENIC";
+                        this.calcResult.note = "Dosis porsi harian: ~ " + Math.round(der / 3.8) + " gram kibble per hari disajikan dalam 2-3 kali makan.";
+                    } else {
+                        this.calcResult.recommendedFormula = "CANINE PRIME BEEF JOINT & MUSCLE";
+                        this.calcResult.note = "Dosis porsi harian: ~ " + Math.round(der / 3.6) + " gram kibble per hari disajikan dalam 2 kali makan.";
+                    }
+
+                    this.calcStep = 3;
+                }
+            }
+        }
+
+        // Initialize Swiper Hero Carousel
+        document.addEventListener('DOMContentLoaded', function () {
+            const swiper = new Swiper('.heroSwiper', {
+                loop: true,
+                autoplay: {
+                    delay: 6000,
+                    disableOnInteraction: false,
+                },
+                effect: 'fade',
+                fadeEffect: {
+                    crossFade: true
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+            });
+        });
+    </script>
+</body>
+</html>

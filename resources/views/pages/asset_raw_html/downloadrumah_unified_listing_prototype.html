@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DownloadRumah — Unified Listing System</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts Inter & JetBrains Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        canvas: '#f8fafc',
+                        charcoal: {
+                            50: '#f1f5f9',
+                            100: '#e2e8f0',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            950: '#020617',
+                        },
+                        skyblue: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            950: '#082f49',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        [x-cloak] { display: none !important; }
+        * { border-radius: 0 !important; } /* MANDATORY SHARP EDGES DESIGN GUIDELINE */
+        body {
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        .border-sharp {
+            border: 1px solid #0f172a;
+        }
+        .border-sharp-light {
+            border: 1px solid #e2e8f0;
+        }
+        .border-sky-sharp {
+            border: 1px solid #0284c7;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-screen selection:bg-slate-900 selection:text-white pb-16" x-data="listingApp()">
+
+    <!-- TOP SYSTEM BANNER & BRAND HEADER -->
+    <header class="bg-charcoal-950 text-white border-b-2 border-charcoal-950 sticky top-0 z-40">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            <div class="py-3 flex items-center justify-between border-b border-slate-800">
+                <!-- Brand Identity -->
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-skyblue-600 flex items-center justify-center text-white font-mono font-bold text-sm">
+                        DR
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-black text-base tracking-tight font-sans">DOWNLOAD<span class="text-skyblue-500">RUMAH</span></span>
+                            <span class="text-[10px] font-mono px-1.5 py-0.5 bg-slate-800 text-slate-300 font-semibold uppercase tracking-wider">UNIFIED V2</span>
+                        </div>
+                        <p class="text-[10px] text-slate-400 font-mono">yogawilanda.com architecture design</p>
+                    </div>
+                </div>
+
+                <!-- Action Button -->
+                <button @click="openCreateModal()" class="bg-skyblue-600 hover:bg-skyblue-700 text-white px-3.5 py-2 font-mono text-xs font-bold transition-none flex items-center gap-2 border border-skyblue-500">
+                    <i data-lucide="plus" class="w-4 h-4 stroke-[3]"></i>
+                    <span class="hidden sm:inline uppercase tracking-wider">PASANG LISTING</span>
+                    <span class="sm:hidden font-sans uppercase">BUAT</span>
+                </button>
+            </div>
+
+            <!-- UNIFIED FEED TAB SWITCHER (STRICT SHARP TAB CONTROLS) -->
+            <div class="flex items-center bg-charcoal-900 border-t border-slate-800">
+                <button @click="activeTab = 'all'" 
+                    :class="activeTab === 'all' ? 'bg-white text-charcoal-950 border-t-2 border-t-skyblue-600 font-bold' : 'text-slate-400 hover:text-white font-medium'"
+                    class="flex-1 py-2.5 text-xs text-center transition-none flex items-center justify-center gap-2 border-r border-slate-800 font-mono uppercase tracking-wider">
+                    <span>ALL UNIFIED</span>
+                    <span class="px-1.5 py-0.2 text-[10px] font-mono" :class="activeTab === 'all' ? 'bg-charcoal-950 text-white' : 'bg-slate-800 text-slate-300'" x-text="listings.length"></span>
+                </button>
+                
+                <button @click="activeTab = 'supply'" 
+                    :class="activeTab === 'supply' ? 'bg-white text-charcoal-950 border-t-2 border-t-skyblue-600 font-bold' : 'text-slate-400 hover:text-white font-medium'"
+                    class="flex-1 py-2.5 text-xs text-center transition-none flex items-center justify-center gap-2 border-r border-slate-800 font-mono uppercase tracking-wider">
+                    <i data-lucide="home" class="w-3.5 h-3.5 text-skyblue-600"></i>
+                    <span>DIJUAL / DISEWA</span>
+                    <span class="px-1.5 py-0.2 text-[10px] font-mono" :class="activeTab === 'supply' ? 'bg-charcoal-950 text-white' : 'bg-slate-800 text-slate-300'" x-text="supplyCount"></span>
+                </button>
+
+                <button @click="activeTab = 'demand'" 
+                    :class="activeTab === 'demand' ? 'bg-skyblue-600 text-white font-bold' : 'text-slate-400 hover:text-white font-medium'"
+                    class="flex-1 py-2.5 text-xs text-center transition-none flex items-center justify-center gap-2 font-mono uppercase tracking-wider">
+                    <i data-lucide="search-code" class="w-3.5 h-3.5"></i>
+                    <span>DICARI / WTB</span>
+                    <span class="px-1.5 py-0.2 text-[10px] font-mono bg-charcoal-950 text-skyblue-400" x-text="demandCount"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-6">
+
+        <!-- SEARCH AND FILTER TOOLBAR -->
+        <div class="mb-6 p-4 bg-white border border-charcoal-950 shadow-[4px_4px_0px_0px_#0f172a]">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
+                <div class="md:col-span-6 relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i data-lucide="search" class="w-4 h-4 text-slate-500"></i>
+                    </div>
+                    <input type="text" x-model="searchQuery" placeholder="CARI LOKASI, SPESIFIKASI, JUDUL..." class="w-full pl-9 pr-3 py-2 bg-slate-50 border border-charcoal-950 text-xs font-mono text-charcoal-950 placeholder-slate-500 focus:outline-none focus:bg-white">
+                </div>
+
+                <div class="md:col-span-3">
+                    <select x-model="cityFilter" class="w-full px-3 py-2 bg-slate-50 border border-charcoal-950 text-xs font-mono font-bold text-charcoal-950 focus:outline-none">
+                        <option value="all">🌐 SEMUA KOTA</option>
+                        <option value="Sidoarjo">Sidoarjo</option>
+                        <option value="Surabaya">Surabaya</option>
+                        <option value="Gresik">Gresik</option>
+                    </select>
+                </div>
+
+                <div class="md:col-span-3">
+                    <select x-model="sortOrder" class="w-full px-3 py-2 bg-slate-50 border border-charcoal-950 text-xs font-mono font-bold text-charcoal-950 focus:outline-none">
+                        <option value="newest">⚡ TERBARU</option>
+                        <option value="price_low">💰 HARGA: LOW TO HIGH</option>
+                        <option value="price_high">💎 HARGA: HIGH TO LOW</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- UNIFIED CARDS FEED GRID -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <template x-for="item in filteredListings" :key="item.id">
+                
+                <!-- ========================================================================= -->
+                <!-- 1. SUPPLY CARD (DIJUAL / DISEWA PROPERTI) - CHARCOAL & OFFWHITE MINIMALIST -->
+                <!-- ========================================================================= -->
+                <div x-show="item.type === 'supply'" class="bg-white border-2 border-charcoal-950 p-4 shadow-[5px_5px_0px_0px_#0f172a] hover:shadow-[7px_7px_0px_0px_#0f172a] transition-none flex flex-col justify-between">
+                    <div>
+                        <!-- Header Bar -->
+                        <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-200">
+                            <span class="bg-charcoal-950 text-white px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-wider flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 bg-emerald-400"></span>
+                                <span x-text="item.transaction === 'sale' ? 'DIJUAL' : 'DISEWAKAN'"></span>
+                            </span>
+                            
+                            <span class="text-[10px] font-mono font-bold text-slate-600 uppercase border border-slate-300 px-2 py-0.5" x-text="item.certificate"></span>
+                        </div>
+
+                        <!-- Image Section -->
+                        <div class="relative h-48 bg-slate-900 border border-charcoal-950 mb-3 overflow-hidden">
+                            <img :src="item.image" :alt="item.title" class="w-full h-full object-cover">
+                            <div class="absolute bottom-0 left-0 right-0 bg-charcoal-950/90 text-white p-2 flex items-center justify-between border-t border-slate-800">
+                                <span class="text-[10px] font-mono uppercase text-slate-300" x-text="item.propertyType"></span>
+                                <span class="text-sm font-extrabold font-mono text-white" x-text="formatRupiah(item.price)"></span>
+                            </div>
+                        </div>
+
+                        <!-- Content -->
+                        <h3 class="font-bold text-charcoal-950 text-sm line-clamp-1 uppercase tracking-tight" x-text="item.title"></h3>
+                        <p class="text-xs text-slate-600 mt-1 flex items-center gap-1 font-mono font-medium">
+                            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-skyblue-600"></i>
+                            <span x-text="item.district + ', ' + item.city"></span>
+                        </p>
+
+                        <!-- Micro Spec Grid -->
+                        <div class="grid grid-cols-4 gap-1 my-3 bg-slate-100 p-2 border border-slate-300 text-center font-mono">
+                            <div class="border-r border-slate-300">
+                                <span class="block text-[9px] text-slate-500 uppercase">KT</span>
+                                <span class="text-xs font-bold text-charcoal-950" x-text="item.bedroom + ' Rm'"></span>
+                            </div>
+                            <div class="border-r border-slate-300">
+                                <span class="block text-[9px] text-slate-500 uppercase">KM</span>
+                                <span class="text-xs font-bold text-charcoal-950" x-text="item.bathroom + ' Ba'"></span>
+                            </div>
+                            <div class="border-r border-slate-300">
+                                <span class="block text-[9px] text-slate-500 uppercase">LT</span>
+                                <span class="text-xs font-bold text-charcoal-950" x-text="item.landArea + 'm²'"></span>
+                            </div>
+                            <div>
+                                <span class="block text-[9px] text-slate-500 uppercase">LB</span>
+                                <span class="text-xs font-bold text-charcoal-950" x-text="item.buildingArea + 'm²'"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer Action -->
+                    <div class="pt-3 border-t border-slate-200 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 bg-charcoal-950 text-white flex items-center justify-center text-[10px] font-mono font-bold" x-text="item.userName.charAt(0)"></div>
+                            <span class="text-xs font-mono font-bold text-slate-700 truncate max-w-[120px]" x-text="item.userName"></span>
+                        </div>
+                        <button @click="contactSeller(item)" class="bg-charcoal-950 hover:bg-slate-800 text-white px-3 py-1.5 text-xs font-mono font-bold transition-none flex items-center gap-1.5 border border-charcoal-950">
+                            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
+                            <span>DETAIL UNIT</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ========================================================================= -->
+                <!-- 2. DEMAND CARD (WTB / DICARI PROPERTI) - COMPLEMENTARY SKY BLUE HIGHLIGHT -->
+                <!-- ========================================================================= -->
+                <div x-show="item.type === 'demand'" class="bg-skyblue-50 border-2 border-skyblue-600 p-4 shadow-[5px_5px_0px_0px_#0284c7] hover:shadow-[7px_7px_0px_0px_#0284c7] transition-none flex flex-col justify-between">
+                    <div>
+                        <!-- Header Bar -->
+                        <div class="flex items-center justify-between pb-3 mb-3 border-b border-skyblue-200">
+                            <span class="bg-skyblue-600 text-white px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-wider flex items-center gap-1.5 border border-skyblue-700">
+                                <i data-lucide="search-code" class="w-3.5 h-3.5"></i>
+                                <span>DICARI / WTB</span>
+                            </span>
+
+                            <span class="bg-amber-400 text-charcoal-950 border border-charcoal-950 px-2 py-0.5 text-[10px] font-mono font-bold uppercase" x-text="item.urgency"></span>
+                        </div>
+
+                        <!-- Budget Box -->
+                        <div class="bg-white p-3 border-2 border-charcoal-950 mb-3 shadow-[2px_2px_0px_0px_#0f172a]">
+                            <span class="text-[9px] font-mono font-bold text-skyblue-700 uppercase tracking-wider block">TARGET BUDGET RANGE:</span>
+                            <div class="text-base sm:text-lg font-black font-mono text-charcoal-950 mt-0.5">
+                                <span x-text="formatRupiah(item.priceMin)"></span> <span class="text-slate-400 font-sans text-xs">S/D</span> <span x-text="formatRupiah(item.priceMax)"></span>
+                            </div>
+                        </div>
+
+                        <!-- Title & Location -->
+                        <h3 class="font-bold text-charcoal-950 text-sm line-clamp-2 uppercase tracking-tight" x-text="item.title"></h3>
+                        
+                        <div class="mt-2.5 flex items-center gap-1.5 text-xs text-charcoal-950 bg-white p-2 border border-slate-300 font-mono">
+                            <i data-lucide="crosshair" class="w-3.5 h-3.5 text-skyblue-600"></i>
+                            <span class="truncate">TARGET: <strong class="uppercase" x-text="item.targetArea"></strong></span>
+                        </div>
+
+                        <!-- Requirements Chip Grid -->
+                        <div class="my-3 p-2 bg-white border border-slate-300">
+                            <span class="text-[9px] font-mono font-bold text-slate-500 uppercase tracking-wider block mb-1">MINIMUM CRITERIA:</span>
+                            <div class="flex flex-wrap gap-1.5 text-[10px] font-mono">
+                                <span class="bg-slate-100 px-2 py-0.5 border border-slate-300 font-bold text-charcoal-950">MIN <span x-text="item.bedroomMin"></span> KT</span>
+                                <span class="bg-slate-100 px-2 py-0.5 border border-slate-300 font-bold text-charcoal-950">MIN <span x-text="item.bathroomMin"></span> KM</span>
+                                <span class="bg-slate-100 px-2 py-0.5 border border-slate-300 font-bold text-charcoal-950">LT &ge; <span x-text="item.landAreaMin"></span>m²</span>
+                            </div>
+                        </div>
+
+                        <!-- Searcher Note -->
+                        <p class="text-xs text-slate-700 italic bg-white p-2 border border-slate-200 line-clamp-2" x-text="'&ldquo;' + item.notes + '&rdquo;'"></p>
+                    </div>
+
+                    <!-- Footer & CTA Match -->
+                    <div class="pt-3 mt-3 border-t border-skyblue-200 flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 bg-skyblue-600 text-white flex items-center justify-center text-[10px] font-mono font-bold" x-text="item.userName.charAt(0)"></div>
+                            <span class="text-xs font-mono font-bold text-slate-800 truncate max-w-[110px]" x-text="item.userName"></span>
+                        </div>
+                        
+                        <!-- CTA MATCH BUTTON -->
+                        <button @click="openMatchModal(item)" class="bg-skyblue-600 hover:bg-skyblue-700 text-white px-3 py-1.5 text-xs font-mono font-bold transition-none flex items-center gap-1.5 border border-skyblue-700 shadow-[2px_2px_0px_0px_#0f172a]">
+                            <i data-lucide="send" class="w-3.5 h-3.5"></i>
+                            <span>TAWARKAN PROPERTI</span>
+                        </button>
+                    </div>
+                </div>
+
+            </template>
+        </div>
+    </main>
+
+    <!-- UNIFIED INPUT FORM MODAL (STRICT SHARP STRUCTURE) -->
+    <div x-cloak x-show="showCreateModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-charcoal-950/80 backdrop-blur-none overflow-y-auto">
+        <div @click.outside="showCreateModal = false" class="bg-white border-4 border-charcoal-950 max-w-lg w-full p-6 shadow-[10px_10px_0px_0px_#0284c7] my-8">
+            
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between border-b-2 border-charcoal-950 pb-4">
+                <div>
+                    <h3 class="font-extrabold text-charcoal-950 text-base font-mono uppercase tracking-tight">PASANG LISTING BARU</h3>
+                    <p class="text-xs text-slate-600 font-mono">Input data properti (Supply) atau Kebutuhan Beli (Demand)</p>
+                </div>
+                <button @click="showCreateModal = false" class="bg-charcoal-950 text-white p-1 hover:bg-slate-800">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <form @submit.prevent="submitListing()" class="mt-4 space-y-4">
+                
+                <!-- TYPE TOGGLE SWITCH -->
+                <div>
+                    <label class="block text-[10px] font-mono font-bold text-slate-600 uppercase tracking-wider mb-2">PILIH TIPE ENTITAS LISTING</label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="listing_type" value="supply" x-model="form.type" class="peer sr-only">
+                            <div class="p-3 border-2 border-charcoal-950 text-center peer-checked:bg-charcoal-950 peer-checked:text-white bg-slate-50 transition-none">
+                                <i data-lucide="home" class="w-5 h-5 mx-auto mb-1"></i>
+                                <div class="text-xs font-bold font-mono uppercase">🏠 PENJUAL / SUPPLY</div>
+                                <div class="text-[10px] opacity-80 font-mono">Ada Unit Properti</div>
+                            </div>
+                        </label>
+
+                        <label class="cursor-pointer">
+                            <input type="radio" name="listing_type" value="demand" x-model="form.type" class="peer sr-only">
+                            <div class="p-3 border-2 border-charcoal-950 text-center peer-checked:bg-skyblue-600 peer-checked:text-white bg-slate-50 transition-none">
+                                <i data-lucide="search-code" class="w-5 h-5 mx-auto mb-1"></i>
+                                <div class="text-xs font-bold font-mono uppercase">🔍 PENCARI / DEMAND</div>
+                                <div class="text-[10px] opacity-80 font-mono">WTB / Cari Properti</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- DYNAMIC ADAPTIVE FIELDS -->
+                <div class="bg-slate-50 p-4 border border-charcoal-950 space-y-3">
+                    
+                    <!-- Title -->
+                    <div>
+                        <label class="block text-xs font-bold font-mono text-charcoal-950 uppercase mb-1" x-text="form.type === 'supply' ? 'JUDUL PROPERTI DIJUAL' : 'JUDUL KEBUTUHAN (WTB)'"></label>
+                        <input type="text" x-model="form.title" :placeholder="form.type === 'supply' ? 'Rumah Minimalis Modern Ready Huni' : 'WTB Rumah Cluster Sidoarjo Budget Max 750JT'" class="w-full px-3 py-2 bg-white border border-charcoal-950 text-xs font-mono text-charcoal-950 focus:outline-none">
+                    </div>
+
+                    <!-- Price vs Budget Range -->
+                    <template x-if="form.type === 'supply'">
+                        <div>
+                            <label class="block text-xs font-bold font-mono text-charcoal-950 uppercase mb-1">HARGA PENAWARAN (RP)</label>
+                            <input type="number" x-model="form.price" placeholder="750000000" class="w-full px-3 py-2 bg-white border border-charcoal-950 text-xs font-mono text-charcoal-950 focus:outline-none">
+                        </div>
+                    </template>
+
+                    <template x-if="form.type === 'demand'">
+                        <div>
+                            <label class="block text-xs font-bold font-mono text-charcoal-950 uppercase mb-1">RENTANG BUDGET (MIN - MAX RP)</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <input type="number" x-model="form.priceMin" placeholder="Budget Min (500000000)" class="px-3 py-2 bg-white border border-charcoal-950 text-xs font-mono text-charcoal-950 focus:outline-none">
+                                <input type="number" x-model="form.priceMax" placeholder="Budget Max (750000000)" class="px-3 py-2 bg-white border border-charcoal-950 text-xs font-mono text-charcoal-950 focus:outline-none">
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- Location Fields -->
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-xs font-bold font-mono text-charcoal-950 uppercase mb-1">KOTA</label>
+                            <select x-model="form.city" class="w-full px-3 py-2 bg-white border border-charcoal-950 text-xs font-mono text-charcoal-950 focus:outline-none">
+                                <option value="Sidoarjo">Sidoarjo</option>
+                                <option value="Surabaya">Surabaya</option>
+                                <option value="Gresik">Gresik</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold font-mono text-charcoal-950 uppercase mb-1" x-text="form.type === 'supply' ? 'KECAMATAN' : 'TARGET AREA'"></label>
+                            <input type="text" x-model="form.district" placeholder="Waru, Candi" class="w-full px-3 py-2 bg-white border border-charcoal-950 text-xs font-mono text-charcoal-950 focus:outline-none">
+                        </div>
+                    </div>
+
+                    <!-- Specs Fields -->
+                    <div>
+                        <label class="block text-xs font-bold font-mono text-charcoal-950 uppercase mb-1" x-text="form.type === 'supply' ? 'SPESIFIKASI UNIT' : 'MINIMUM KRITERIA'"></label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <select x-model="form.bedroom" class="px-2 py-2 bg-white border border-charcoal-950 text-xs font-mono">
+                                <option value="2">2 KT</option>
+                                <option value="3">3 KT</option>
+                                <option value="4">4+ KT</option>
+                            </select>
+                            <select x-model="form.bathroom" class="px-2 py-2 bg-white border border-charcoal-950 text-xs font-mono">
+                                <option value="1">1 KM</option>
+                                <option value="2">2 KM</option>
+                                <option value="3">3 KM</option>
+                            </select>
+                            <input type="number" x-model="form.landArea" :placeholder="form.type === 'supply' ? 'LT (m²)' : 'Min LT'" class="px-2 py-2 bg-white border border-charcoal-950 text-xs font-mono focus:outline-none">
+                        </div>
+                    </div>
+
+                    <!-- Specific Image / Urgency Input -->
+                    <template x-if="form.type === 'supply'">
+                        <div>
+                            <label class="block text-xs font-bold font-mono text-charcoal-950 uppercase mb-1">URL FOTO PROPERTI</label>
+                            <input type="text" x-model="form.image" placeholder="https://..." class="w-full px-3 py-2 bg-white border border-charcoal-950 text-xs font-mono text-charcoal-950 focus:outline-none">
+                        </div>
+                    </template>
+
+                    <template x-if="form.type === 'demand'">
+                        <div>
+                            <label class="block text-xs font-bold font-mono text-charcoal-950 uppercase mb-1">URGENSI PENERIMAAN</label>
+                            <select x-model="form.urgency" class="w-full px-3 py-2 bg-white border border-charcoal-950 text-xs font-mono focus:outline-none">
+                                <option value="⚡ BUTUH CEPAT">⚡ BUTUH CEPAT (Bulan Ini)</option>
+                                <option value="📅 TARGET 1-3 BLN">📅 TARGET 1-3 BULAN</option>
+                                <option value="☕ SANTAI">☕ SANTAI CARI DULU</option>
+                            </select>
+                        </div>
+                    </template>
+
+                </div>
+
+                <button type="submit" class="w-full py-3 bg-charcoal-950 hover:bg-slate-800 text-white font-mono font-bold text-xs uppercase tracking-wider transition-none border-2 border-charcoal-950">
+                    PUBLIKASIKAN LISTING
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SELLER PROPOSAL MATCH MODAL -->
+    <div x-cloak x-show="showMatchModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-charcoal-950/80 backdrop-blur-none">
+        <div @click.outside="showMatchModal = false" class="bg-white border-4 border-charcoal-950 max-w-md w-full p-6 shadow-[10px_10px_0px_0px_#0284c7] relative">
+            
+            <button @click="showMatchModal = false" class="absolute top-4 right-4 bg-charcoal-950 text-white p-1">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div class="mb-4">
+                <span class="bg-skyblue-600 text-white px-2 py-0.5 text-[10px] font-mono font-bold uppercase">MATCHMAKING</span>
+                <h3 class="font-black text-charcoal-950 text-base font-mono uppercase tracking-tight mt-1">TAWARKAN PROPERTI ANDA</h3>
+                <p class="text-xs text-slate-600 font-mono">Pilih listing supply Anda yang cocok dengan pencari ini</p>
+            </div>
+
+            <!-- Target WTB Summary -->
+            <template x-if="selectedDemand">
+                <div class="bg-skyblue-50 p-3 border-2 border-skyblue-600 text-xs mb-4">
+                    <div class="font-bold text-charcoal-950 uppercase mb-1" x-text="selectedDemand.title"></div>
+                    <div class="text-slate-700 flex justify-between font-mono text-[11px]">
+                        <span>BUDGET MAX: <strong class="text-skyblue-700" x-text="formatRupiah(selectedDemand.priceMax)"></strong></span>
+                        <span>LOKASI: <strong class="uppercase" x-text="selectedDemand.targetArea"></strong></span>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Active Listings Selection -->
+            <div class="space-y-2 mb-4">
+                <label class="block text-xs font-mono font-bold text-charcoal-950 uppercase">PILIK UNIT SUPPLY MILIK ANDA:</label>
+                
+                <template x-for="myProp in mySupplyProperties" :key="myProp.id">
+                    <label class="flex items-center justify-between p-3 border-2 cursor-pointer transition-none" :class="selectedMyPropId === myProp.id ? 'border-skyblue-600 bg-skyblue-50' : 'border-slate-300 bg-white'">
+                        <div class="flex items-center gap-3">
+                            <input type="radio" name="my_property" :value="myProp.id" x-model="selectedMyPropId" class="text-skyblue-600 focus:ring-none">
+                            <div>
+                                <div class="text-xs font-bold text-charcoal-950 uppercase" x-text="myProp.title"></div>
+                                <div class="text-[10px] text-slate-600 font-mono" x-text="formatRupiah(myProp.price) + ' • ' + myProp.district"></div>
+                            </div>
+                        </div>
+                        <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 bg-charcoal-950 text-white">READY</span>
+                    </label>
+                </template>
+            </div>
+
+            <!-- Message Area -->
+            <div class="mb-4">
+                <label class="block text-xs font-mono font-bold text-charcoal-950 uppercase mb-1">CATATAN PENAWARAN</label>
+                <textarea x-model="matchMessage" rows="2" placeholder="Halo, saya pemilik unit di area yang Anda cari..." class="w-full px-3 py-2 bg-slate-50 border border-charcoal-950 text-xs font-mono text-charcoal-950 focus:outline-none"></textarea>
+            </div>
+
+            <button @click="sendOffer()" class="w-full py-3 bg-skyblue-600 hover:bg-skyblue-700 text-white font-mono font-bold text-xs uppercase tracking-wider transition-none border-2 border-charcoal-950 shadow-[3px_3px_0px_0px_#0f172a] flex items-center justify-center gap-2">
+                <i data-lucide="send" class="w-4 h-4"></i>
+                KIRIM PENAWARAN DIRECT
+            </button>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION SYSTEM -->
+    <div x-cloak x-show="toast.show" class="fixed bottom-5 right-5 z-50 bg-charcoal-950 text-white px-4 py-3 border-2 border-white shadow-[6px_6px_0px_0px_#0284c7] flex items-center gap-3 font-mono">
+        <i data-lucide="check-square" class="w-4 h-4 text-skyblue-400"></i>
+        <span class="text-xs font-bold uppercase" x-text="toast.message"></span>
+    </div>
+
+    <!-- ALPINE JS INTERACTIVE ENGINE -->
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('listingApp', () => ({
+                activeTab: 'all',
+                searchQuery: '',
+                cityFilter: 'all',
+                sortOrder: 'newest',
+                showCreateModal: false,
+                showMatchModal: false,
+                selectedDemand: null,
+                selectedMyPropId: 101,
+                matchMessage: '',
+
+                toast: { show: false, message: '' },
+
+                form: {
+                    type: 'supply',
+                    title: '',
+                    transaction: 'sale',
+                    price: '',
+                    priceMin: '',
+                    priceMax: '',
+                    city: 'Sidoarjo',
+                    district: '',
+                    bedroom: '2',
+                    bathroom: '1',
+                    landArea: '60',
+                    image: '',
+                    urgency: '⚡ BUTUH CEPAT'
+                },
+
+                mySupplyProperties: [
+                    { id: 101, title: 'RUMAH MINIMALIS CLUSTER LAVENDA', price: 750000000, district: 'Waru, Sidoarjo' },
+                    { id: 102, title: 'RUMAH MEWAH MODERN TROPIS GRAND ISLAND', price: 1450000000, district: 'Rungkut, Surabaya' }
+                ],
+
+                // FULLY POPULATED DUAL DATASETS (BOTH SUPPLY AND DEMAND ARE ACTIVE IN INITIAL FEED)
+                listings: [
+                    // --- SUPPLY DATA 1 ---
+                    {
+                        id: 1,
+                        type: 'supply',
+                        transaction: 'sale',
+                        title: 'Rumah Minimalis Cluster Lavenda Ready Huni',
+                        propertyType: 'Rumah Cluster',
+                        certificate: 'SHM',
+                        price: 750000000,
+                        city: 'Sidoarjo',
+                        district: 'Waru',
+                        bedroom: 3,
+                        bathroom: 2,
+                        landArea: 90,
+                        buildingArea: 70,
+                        image: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=600&q=80',
+                        userName: 'Pak Ahmad',
+                        userAvatar: 'A'
+                    },
+                    // --- DEMAND DATA 1 ---
+                    {
+                        id: 2,
+                        type: 'demand',
+                        title: 'WTB: Cari Rumah Cluster Minimal 2 KT Ready Huni',
+                        priceMin: 500000000,
+                        priceMax: 800000000,
+                        city: 'Sidoarjo',
+                        targetArea: 'Waru / Taman, Sidoarjo',
+                        bedroomMin: 2,
+                        bathroomMin: 1,
+                        landAreaMin: 60,
+                        notes: 'Bebas banjir, jalan depan 2 mobil. Siap transaksi KPR bulan ini.',
+                        urgency: '⚡ BUTUH CEPAT',
+                        userName: 'Bu Rina',
+                        userAvatar: 'R'
+                    },
+                    // --- SUPPLY DATA 2 ---
+                    {
+                        id: 3,
+                        type: 'supply',
+                        transaction: 'sale',
+                        title: 'Rumah Mewah Modern Tropis Grand Island',
+                        propertyType: 'Rumah 2 Lantai',
+                        certificate: 'SHM',
+                        price: 1450000000,
+                        city: 'Surabaya',
+                        district: 'Rungkut',
+                        bedroom: 4,
+                        bathroom: 3,
+                        landArea: 120,
+                        buildingArea: 150,
+                        image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=600&q=80',
+                        userName: 'Bpk. Hendra',
+                        userAvatar: 'H'
+                    },
+                    // --- DEMAND DATA 2 ---
+                    {
+                        id: 4,
+                        type: 'demand',
+                        title: 'Cari Rumah Surabaya Barat Dekat Akses Tol',
+                        priceMin: 900000000,
+                        priceMax: 1500000000,
+                        city: 'Surabaya',
+                        targetArea: 'Surabaya Barat / Menganti',
+                        bedroomMin: 3,
+                        bathroomMin: 2,
+                        landAreaMin: 90,
+                        notes: 'One gate system security 24 jam. Siap survei lokasi akhir pekan.',
+                        urgency: '📅 TARGET 1-3 BLN',
+                        userName: 'Dedi Kurniawan',
+                        userAvatar: 'D'
+                    },
+                    // --- SUPPLY DATA 3 ---
+                    {
+                        id: 5,
+                        type: 'supply',
+                        transaction: 'rent',
+                        title: 'Sewa Ruko 2 Lantai Strategis Depan Jalan Utama',
+                        propertyType: 'Ruko',
+                        certificate: 'HGB',
+                        price: 65000000,
+                        city: 'Sidoarjo',
+                        district: 'Candi',
+                        bedroom: 1,
+                        bathroom: 2,
+                        landArea: 75,
+                        buildingArea: 120,
+                        image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80',
+                        userName: 'Siti Rahma',
+                        userAvatar: 'S'
+                    },
+                    // --- DEMAND DATA 3 ---
+                    {
+                        id: 6,
+                        type: 'demand',
+                        title: 'WTB: Tanah Kavling Siap Bangun Area Gresik Kota',
+                        priceMin: 250000000,
+                        priceMax: 450000000,
+                        city: 'Gresik',
+                        targetArea: 'Kebomas / Gresik Kota',
+                        bedroomMin: 0,
+                        bathroomMin: 0,
+                        landAreaMin: 100,
+                        notes: 'Legalitas SHM jelas. Tidak dekat pemakaman atau SUTET.',
+                        urgency: '☕ SANTAI',
+                        userName: 'Bayu Pratama',
+                        userAvatar: 'B'
+                    }
+                ],
+
+                get supplyCount() {
+                    return this.listings.filter(i => i.type === 'supply').length;
+                },
+
+                get demandCount() {
+                    return this.listings.filter(i => i.type === 'demand').length;
+                },
+
+                get filteredListings() {
+                    let items = this.listings.filter(item => {
+                        if (this.activeTab !== 'all' && item.type !== this.activeTab) return false;
+                        if (this.cityFilter !== 'all' && item.city !== this.cityFilter) return false;
+                        if (this.searchQuery) {
+                            const q = this.searchQuery.toLowerCase();
+                            return item.title.toLowerCase().includes(q) || item.city.toLowerCase().includes(q);
+                        }
+                        return true;
+                    });
+
+                    if (this.sortOrder === 'price_low') {
+                        items.sort((a, b) => (a.price || a.priceMin) - (b.price || b.priceMin));
+                    } else if (this.sortOrder === 'price_high') {
+                        items.sort((a, b) => (b.price || b.priceMax) - (a.price || a.priceMax));
+                    }
+
+                    return items;
+                },
+
+                formatRupiah(number) {
+                    if (!number) return 'Rp 0';
+                    if (number >= 1000000000) {
+                        return 'Rp ' + (number / 1000000000).toFixed(2).replace('.00', '') + ' M';
+                    }
+                    if (number >= 1000000) {
+                        return 'Rp ' + (number / 1000000).toFixed(0) + ' JT';
+                    }
+                    return 'Rp ' + number.toLocaleString('id-ID');
+                },
+
+                openCreateModal() {
+                    this.showCreateModal = true;
+                    this.$nextTick(() => lucide.createIcons());
+                },
+
+                openMatchModal(item) {
+                    this.selectedDemand = item;
+                    this.showMatchModal = true;
+                    this.$nextTick(() => lucide.createIcons());
+                },
+
+                contactSeller(item) {
+                    this.triggerToast(`MEMBUKA DETAIL UNIT ${item.title.toUpperCase()}`);
+                },
+
+                sendOffer() {
+                    this.showMatchModal = false;
+                    this.triggerToast(`PENAWARAN BERHASIL DIKIRIM KE ${this.selectedDemand.userName.toUpperCase()}!`);
+                },
+
+                submitListing() {
+                    const newId = this.listings.length + 1;
+                    const newListing = {
+                        id: newId,
+                        type: this.form.type,
+                        title: this.form.title || (this.form.type === 'supply' ? 'Rumah Ready Huni Sidoarjo' : 'WTB Rumah Area Sidoarjo'),
+                        city: this.form.city,
+                        userName: 'Anda (User)',
+                        userAvatar: 'U'
+                    };
+
+                    if (this.form.type === 'supply') {
+                        newListing.transaction = 'sale';
+                        newListing.price = parseInt(this.form.price) || 750000000;
+                        newListing.district = this.form.district || 'Sidoarjo';
+                        newListing.propertyType = 'Rumah Minimalis';
+                        newListing.certificate = 'SHM';
+                        newListing.bedroom = parseInt(this.form.bedroom);
+                        newListing.bathroom = parseInt(this.form.bathroom);
+                        newListing.landArea = parseInt(this.form.landArea);
+                        newListing.buildingArea = 60;
+                        newListing.image = this.form.image || 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=600&q=80';
+                    } else {
+                        newListing.priceMin = parseInt(this.form.priceMin) || 500000000;
+                        newListing.priceMax = parseInt(this.form.priceMax) || 750000000;
+                        newListing.targetArea = (this.form.district || 'Pusat Kota') + ', ' + this.form.city;
+                        newListing.bedroomMin = parseInt(this.form.bedroom);
+                        newListing.bathroomMin = parseInt(this.form.bathroom);
+                        newListing.landAreaMin = parseInt(this.form.landArea);
+                        newListing.notes = 'Mencari properti dengan spesifikasi di atas. Siap transaksi cepat.';
+                        newListing.urgency = this.form.urgency;
+                    }
+
+                    this.listings.unshift(newListing);
+                    this.showCreateModal = false;
+                    this.triggerToast(`LISTING BARU BERHASIL DIPUBLIKASIKAN!`);
+                },
+
+                triggerToast(msg) {
+                    this.toast.message = msg;
+                    this.toast.show = true;
+                    setTimeout(() => { this.toast.show = false; }, 3000);
+                }
+            }));
+        });
+
+        window.addEventListener('load', () => {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

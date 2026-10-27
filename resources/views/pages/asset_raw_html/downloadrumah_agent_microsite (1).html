@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budi Santoso - Senior Property Consultant | DownloadRumah</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            gold: '#C5A059',
+                            goldhover: '#B38E46',
+                            dark: '#0F141C',
+                            slate: '#1A212D',
+                            lightbg: '#F8F9FA',
+                            border: '#E2E8F0'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts (Playfair Display for Editorial Titles + Plus Jakarta Sans for Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .editorial-shadow { box-shadow: 0 20px 40px -15px rgba(15, 20, 28, 0.07); }
+    </style>
+</head>
+<body class="bg-[#F4F5F7] text-slate-800 font-sans antialiased selection:bg-brand-gold selection:text-white" x-data="agentApp()">
+
+    <!-- TOP CORPORATE NAVIGATION BAR -->
+    <header class="bg-brand-dark border-b border-slate-800 text-white sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand & Agency Partnership Logo -->
+            <div class="flex items-center space-x-3">
+                <div class="border-r border-slate-700 pr-3 hidden sm:block">
+                    <span class="font-serif italic font-bold text-xl tracking-tight text-brand-gold">DR</span>
+                </div>
+                <div>
+                    <span class="block text-xs uppercase tracking-[0.2em] text-slate-400 font-medium">DownloadRumah Portfolio</span>
+                    <span class="text-sm sm:text-base font-semibold tracking-wide text-white">Budi Santoso Realty</span>
+                </div>
+            </div>
+
+            <!-- Header Quick Contact -->
+            <div class="flex items-center space-x-4 sm:space-x-6">
+                <div class="hidden md:flex flex-col text-right">
+                    <span class="text-[10px] uppercase tracking-wider text-slate-400">Direct Consultation</span>
+                    <a :href="'tel:+' + agent.phone" class="text-sm font-semibold text-brand-gold hover:underline">+62 812-3456-7890</a>
+                </div>
+                <button @click="shareCatalog()" class="text-xs uppercase tracking-wider font-semibold border border-slate-700 hover:border-brand-gold text-slate-200 px-4 py-2.5 transition flex items-center space-x-2">
+                    <i class="fa-solid fa-arrow-up-right-from-square text-brand-gold"></i>
+                    <span class="hidden sm:inline">Bagikan</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION (EDITORIAL FULL-WIDTH IMAGE BACKGROUND) -->
+    <section class="relative bg-brand-dark text-white min-h-[580px] lg:min-h-[640px] flex items-center">
+        <!-- High-res Architectural Overlay Image -->
+        <div class="absolute inset-0 z-0 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=80" 
+                 alt="Luxury Real Estate" 
+                 class="w-full h-full object-cover object-center opacity-30 scale-105 transform">
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/70 to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Agent Headline & Pitch -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 border border-brand-gold/40 bg-brand-gold/10 text-brand-gold text-xs uppercase tracking-[0.2em]">
+                        <i class="fa-solid fa-award text-xs"></i>
+                        <span>Senior Luxury Property Advisor</span>
+                    </div>
+
+                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal leading-[1.15] text-white tracking-tight">
+                        Temukan Hunian Eksklusif & Investasi Bernilai Tinggi
+                    </h1>
+
+                    <p class="text-slate-300 text-sm sm:text-base font-light max-w-2xl leading-relaxed">
+                        Spesialisasi pemasaran properti residensial komersial kelas atas di Surabaya Barat & Sidoarjo. Lebih dari 10 tahun mendampingi investor dan keluarga mendapatkan aset impian.
+                    </p>
+
+                    <div class="pt-2 flex flex-wrap items-center gap-4">
+                        <a :href="'https://wa.me/' + agent.phone + '?text=Halo%20' + encodeURIComponent(agent.name) + ',%20saya%20tertarik%20konsultasi%20properti.'"
+                           target="_blank" 
+                           class="bg-brand-gold hover:bg-brand-goldhover text-brand-dark font-semibold text-xs uppercase tracking-widest px-7 py-4 transition shadow-lg flex items-center space-x-3">
+                            <i class="fa-brands fa-whatsapp text-lg"></i>
+                            <span>Jadwalkan Konsultasi</span>
+                        </a>
+
+                        <button @click="scrollToCatalog()" class="border border-white/30 hover:border-white text-white font-semibold text-xs uppercase tracking-widest px-7 py-4 transition">
+                            Eksplor Katalog
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Agent Bio Card (Corporate Side Banner) -->
+                <div class="lg:col-span-5">
+                    <div class="bg-brand-slate/90 border border-slate-700/80 p-6 sm:p-8 relative backdrop-blur-md">
+                        <div class="flex items-center space-x-5 border-b border-slate-700/80 pb-6">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" 
+                                 alt="Budi Santoso" 
+                                 class="w-20 h-24 object-cover border border-brand-gold">
+                            <div>
+                                <h3 class="font-serif text-2xl font-normal text-white" x-text="agent.name"></h3>
+                                <p class="text-xs uppercase tracking-wider text-brand-gold mt-1" x-text="agent.agency"></p>
+                                <p class="text-xs text-slate-400 mt-2 flex items-center">
+                                    <i class="fa-solid fa-location-dot text-brand-gold mr-2"></i>
+                                    <span x-text="agent.specialty"></span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Stats Strip -->
+                        <div class="grid grid-cols-3 gap-4 pt-6 text-center">
+                            <div>
+                                <span class="font-serif text-2xl font-semibold text-white block" x-text="agent.stats.unitsSold"></span>
+                                <span class="text-[10px] uppercase tracking-wider text-slate-400">Unit Terjual</span>
+                            </div>
+                            <div class="border-x border-slate-700/80">
+                                <span class="font-serif text-2xl font-semibold text-white block" x-text="agent.stats.experience"></span>
+                                <span class="text-[10px] uppercase tracking-wider text-slate-400">Pengalaman</span>
+                            </div>
+                            <div>
+                                <span class="font-serif text-2xl font-semibold text-brand-gold block" x-text="agent.stats.rating"></span>
+                                <span class="text-[10px] uppercase tracking-wider text-slate-400">Kepuasan Klien</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT & FILTERABLE CATALOG -->
+    <main id="katalog" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-10">
+
+        <!-- SEARCH & EDITORIAL TABS BAR -->
+        <div class="bg-white border border-brand-border p-4 sm:p-6 editorial-shadow flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <!-- Filter Tabs -->
+            <div class="flex items-center space-x-2 overflow-x-auto no-scrollbar">
+                <template x-for="tab in filters" :key="tab.id">
+                    <button @click="activeFilter = tab.id"
+                            :class="activeFilter === tab.id 
+                                ? 'bg-brand-dark text-white border-brand-dark' 
+                                : 'bg-transparent text-slate-600 border-slate-200 hover:border-brand-dark'"
+                            class="px-5 py-2.5 border text-xs font-semibold uppercase tracking-wider transition whitespace-nowrap">
+                        <span x-text="tab.label"></span>
+                    </button>
+                </template>
+            </div>
+
+            <!-- Search Input -->
+            <div class="relative w-full lg:w-80">
+                <input type="text" 
+                       x-model="searchQuery" 
+                       placeholder="Cari lokasi, kawasan, ID..." 
+                       class="w-full bg-slate-50 border border-slate-200 pl-4 pr-10 py-2.5 text-xs focus:outline-none focus:border-brand-dark focus:bg-white transition">
+                <i class="fa-solid fa-magnifying-glass absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            </div>
+        </div>
+
+        <!-- LISTINGS GRID (LARGE WIDESCREEN EDITORIAL CARDS) -->
+        <div x-show="filteredListings.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <template x-for="item in filteredListings" :key="item.id">
+                <article class="bg-white border border-brand-border editorial-shadow group flex flex-col justify-between transition hover:-translate-y-1 duration-300">
+                    <div>
+                        <!-- High Resolution Property Image (16:9 Widescreen) -->
+                        <div class="relative aspect-[16/10] overflow-hidden bg-slate-900">
+                            <img :src="item.images[0]" :alt="item.title" class="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out">
+                            <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/80 via-transparent to-transparent opacity-60"></div>
+
+                            <!-- Status Badge -->
+                            <div class="absolute top-4 left-4 flex gap-2">
+                                <span :class="item.type === 'Dijual' ? 'bg-brand-dark text-white' : 'bg-brand-gold text-brand-dark'" 
+                                      class="text-[10px] font-bold uppercase tracking-widest px-3 py-1 shadow-md"
+                                      x-text="item.type"></span>
+                                <template x-if="item.isHot">
+                                    <span class="bg-amber-600 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 shadow-md">
+                                        Signature Collection
+                                    </span>
+                                </template>
+                            </div>
+
+                            <div class="absolute bottom-4 left-4 right-4 flex justify-between items-end text-white">
+                                <span class="font-serif text-xl sm:text-2xl font-normal text-white" x-text="formatRupiah(item.price)"></span>
+                                <span class="text-[10px] uppercase tracking-wider text-slate-300 bg-black/40 px-2 py-1 backdrop-blur-sm">
+                                    ID: <span x-text="item.id"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Content Details -->
+                        <div class="p-6 space-y-4">
+                            <div>
+                                <h3 class="font-serif text-lg font-normal text-slate-900 line-clamp-1 group-hover:text-brand-gold transition" x-text="item.title"></h3>
+                                <p class="text-xs text-slate-500 mt-1 flex items-center">
+                                    <i class="fa-solid fa-location-dot text-brand-gold mr-2 shrink-0"></i>
+                                    <span class="truncate" x-text="item.location"></span>
+                                </p>
+                            </div>
+
+                            <!-- Corporate Specs Strip -->
+                            <div class="grid grid-cols-3 gap-2 border-y border-slate-100 py-3 text-center text-xs text-slate-600">
+                                <div>
+                                    <span class="block text-[9px] uppercase tracking-widest text-slate-400">Luas T/B</span>
+                                    <span class="font-semibold text-slate-900" x-text="item.lt + ' / ' + item.lb + ' m²'"></span>
+                                </div>
+                                <div class="border-x border-slate-100">
+                                    <span class="block text-[9px] uppercase tracking-widest text-slate-400">Kamar Tidur</span>
+                                    <span class="font-semibold text-slate-900" x-text="item.kt + ' Beds'"></span>
+                                </div>
+                                <div>
+                                    <span class="block text-[9px] uppercase tracking-widest text-slate-400">Kamar Mandi</span>
+                                    <span class="font-semibold text-slate-900" x-text="item.km + ' Baths'"></span>
+                                </div>
+                            </div>
+
+                            <p class="text-xs text-slate-500 line-clamp-2 leading-relaxed font-light" x-text="item.description"></p>
+                        </div>
+                    </div>
+
+                    <!-- Action Footer -->
+                    <div class="p-6 pt-0 grid grid-cols-2 gap-3">
+                        <button @click="openModal(item)" class="border border-slate-300 hover:border-brand-dark text-slate-800 text-xs font-semibold uppercase tracking-wider py-3 transition text-center">
+                            Detail Unit
+                        </button>
+                        <a :href="generateWaLink(item)" target="_blank" class="bg-brand-dark hover:bg-brand-gold hover:text-brand-dark text-white text-xs font-semibold uppercase tracking-wider py-3 transition text-center flex items-center justify-center space-x-1">
+                            <i class="fa-brands fa-whatsapp text-sm mr-1"></i>
+                            <span>Inquiry</span>
+                        </a>
+                    </div>
+                </article>
+            </template>
+        </div>
+
+        <!-- EMPTY STATE -->
+        <div x-show="filteredListings.length === 0" class="bg-white border border-brand-border p-12 text-center space-y-3">
+            <i class="fa-solid fa-building-circle-exclamation text-4xl text-slate-300"></i>
+            <h3 class="font-serif text-xl font-normal text-slate-800">Properti Tidak Ditemukan</h3>
+            <p class="text-xs text-slate-500 max-w-md mx-auto">Tidak ada katalog yang memenuhi kriteria pencarian atau filter Anda saat ini.</p>
+            <button @click="resetFilters()" class="inline-block mt-2 text-xs font-semibold text-brand-gold uppercase tracking-wider underline">Reset Pencarian</button>
+        </div>
+
+    </main>
+
+    <!-- CORPORATE FOOTER -->
+    <footer class="bg-brand-dark text-slate-400 border-t border-slate-800 pt-16 pb-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div class="space-y-4">
+                <span class="font-serif italic font-bold text-2xl text-brand-gold">DR</span>
+                <p class="text-xs leading-relaxed text-slate-400 font-light">
+                    Katalog Resmi Mitra Agen Properti DownloadRumah. Layanan profesional dengan standar etika tinggi untuk transaksi jual, beli, dan sewa properti komersial serta hunian.
+                </p>
+            </div>
+            <div class="space-y-3">
+                <h4 class="text-xs uppercase tracking-[0.2em] text-white font-semibold">Area Operasional</h4>
+                <ul class="text-xs space-y-1.5 text-slate-400">
+                    <li>Citraland & Graha Famili Surabaya</li>
+                    <li>Pakuwon City & East Coast</li>
+                    <li>Kawasan Industri & Perumahan Sidoarjo</li>
+                    <li>Primary Developer Launching</li>
+                </ul>
+            </div>
+            <div class="space-y-3">
+                <h4 class="text-xs uppercase tracking-[0.2em] text-white font-semibold">Kantor & Kontak</h4>
+                <p class="text-xs leading-relaxed text-slate-400">
+                    Surabaya Commercial Center, Tower A Office 8<br>
+                    Email: budi.santoso@downloadrumah.com
+                </p>
+                <div class="pt-2">
+                    <button @click="openKprModal()" class="text-xs text-brand-gold uppercase tracking-wider font-semibold hover:underline">
+                        <i class="fa-solid fa-calculator mr-1"></i> Buka Simulasi KPR
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-6 border-t border-slate-800/80 text-center text-[11px] text-slate-500">
+            © 2026 DownloadRumah Real Estate Network. All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- FLOATING WHATSAPP CTA BAR -->
+    <div class="fixed bottom-0 inset-x-0 z-30 bg-brand-dark/95 border-t border-slate-800 backdrop-blur-md py-3 px-4 sm:px-8">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="hidden sm:flex items-center space-x-3">
+                <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                <span class="text-xs text-slate-300">Konsultasikan Kebutuhan Properti Anda Langsung Bersama Agen</span>
+            </div>
+            <div class="w-full sm:w-auto flex items-center justify-between sm:justify-end space-x-4">
+                <span class="text-xs text-slate-300 sm:hidden">Konsultasi Agen:</span>
+                <a :href="'https://wa.me/' + agent.phone + '?text=Halo%20' + encodeURIComponent(agent.name) + ',%20saya%20ingin%20konsultasi%20mengenai%20properti.'" 
+                   target="_blank" 
+                   class="bg-brand-gold hover:bg-brand-goldhover text-brand-dark text-xs font-bold uppercase tracking-wider px-5 py-2.5 transition flex items-center space-x-2">
+                    <i class="fa-brands fa-whatsapp text-base"></i>
+                    <span>WhatsApp Live</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: PROPERTY DETAIL SHOWCASE -->
+    <div x-show="selectedProperty" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-50 overflow-y-auto bg-brand-dark/80 backdrop-blur-sm p-4 sm:p-6 flex items-center justify-center"
+         style="display: none;">
+        
+        <div @click.away="selectedProperty = null" class="bg-white w-full max-w-4xl border border-brand-border shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col">
+            <!-- Modal Header -->
+            <div class="bg-brand-dark text-white px-6 py-4 flex items-center justify-between border-b border-slate-800">
+                <div class="flex items-center space-x-3">
+                    <span class="text-xs uppercase tracking-widest text-brand-gold">Properti Detail</span>
+                    <span class="text-xs text-slate-400">|</span>
+                    <span class="text-xs text-slate-300 font-mono" x-text="selectedProperty?.id"></span>
+                </div>
+                <button @click="selectedProperty = null" class="text-slate-400 hover:text-white transition text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Scrollable Content -->
+            <div class="p-6 sm:p-8 overflow-y-auto space-y-6">
+                <!-- Large Image Preview + Thumbnails -->
+                <div class="space-y-3">
+                    <div class="aspect-[16/9] bg-slate-900 overflow-hidden relative">
+                        <img :src="activeModalImage || selectedProperty?.images[0]" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex space-x-3 overflow-x-auto no-scrollbar py-1">
+                        <template x-for="(img, idx) in selectedProperty?.images" :key="idx">
+                            <button @click="activeModalImage = img" 
+                                    class="w-24 h-16 shrink-0 border-2 transition overflow-hidden" 
+                                    :class="activeModalImage === img ? 'border-brand-gold' : 'border-transparent opacity-60 hover:opacity-100'">
+                                <img :src="img" class="w-full h-full object-cover">
+                            </button>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Price & Title Section -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-slate-200 pb-6 gap-4">
+                    <div>
+                        <span class="text-xs uppercase tracking-widest text-slate-400 block" x-text="selectedProperty?.type"></span>
+                        <h2 class="font-serif text-2xl sm:text-3xl text-slate-900 mt-1" x-text="selectedProperty?.title"></h2>
+                        <p class="text-xs text-slate-500 mt-2 flex items-center">
+                            <i class="fa-solid fa-location-dot text-brand-gold mr-2"></i>
+                            <span x-text="selectedProperty?.location"></span>
+                        </p>
+                    </div>
+                    <div class="text-left md:text-right">
+                        <span class="text-[10px] uppercase tracking-widest text-slate-400 block">Penawaran Harga</span>
+                        <span class="font-serif text-3xl font-normal text-brand-gold" x-text="formatRupiah(selectedProperty?.price || 0)"></span>
+                    </div>
+                </div>
+
+                <!-- Grid Features -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 bg-slate-50 p-4 border border-slate-200 text-center">
+                    <div>
+                        <span class="block text-[10px] uppercase tracking-widest text-slate-400">Luas Tanah</span>
+                        <span class="font-serif text-lg font-semibold text-slate-800" x-text="selectedProperty?.lt + ' m²'"></span>
+                    </div>
+                    <div>
+                        <span class="block text-[10px] uppercase tracking-widest text-slate-400">Luas Bangunan</span>
+                        <span class="font-serif text-lg font-semibold text-slate-800" x-text="selectedProperty?.lb + ' m²'"></span>
+                    </div>
+                    <div>
+                        <span class="block text-[10px] uppercase tracking-widest text-slate-400">Kamar Tidur</span>
+                        <span class="font-serif text-lg font-semibold text-slate-800" x-text="selectedProperty?.kt"></span>
+                    </div>
+                    <div>
+                        <span class="block text-[10px] uppercase tracking-widest text-slate-400">Kamar Mandi</span>
+                        <span class="font-serif text-lg font-semibold text-slate-800" x-text="selectedProperty?.km"></span>
+                    </div>
+                </div>
+
+                <!-- Facilities List -->
+                <div class="space-y-2">
+                    <h4 class="text-xs uppercase tracking-widest text-slate-900 font-semibold">Fasilitas Utama</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <template x-for="fac in selectedProperty?.facilities" :key="fac">
+                            <span class="text-xs bg-slate-100 border border-slate-200 text-slate-700 px-3 py-1.5 flex items-center space-x-2">
+                                <i class="fa-solid fa-check text-brand-gold text-xs"></i>
+                                <span x-text="fac"></span>
+                            </span>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="space-y-2">
+                    <h4 class="text-xs uppercase tracking-widest text-slate-900 font-semibold">Deskripsi Lengkap</h4>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-light whitespace-pre-line" x-text="selectedProperty?.description"></p>
+                </div>
+            </div>
+
+            <!-- Modal Action Footer -->
+            <div class="p-4 sm:p-6 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <button @click="openKprForSelected()" class="w-full sm:w-auto border border-slate-300 hover:border-brand-dark text-slate-800 text-xs font-semibold uppercase tracking-wider px-6 py-3 transition">
+                    <i class="fa-solid fa-calculator mr-2 text-brand-gold"></i>Simulasi KPR
+                </button>
+                <a :href="generateWaLink(selectedProperty)" target="_blank" class="w-full sm:w-auto bg-brand-dark hover:bg-brand-gold hover:text-brand-dark text-white text-xs font-semibold uppercase tracking-wider px-8 py-3 transition text-center flex items-center justify-center space-x-2">
+                    <i class="fa-brands fa-whatsapp text-base"></i>
+                    <span>Hubungi Agen Mengenai Unit Ini</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: KPR CALCULATOR -->
+    <div x-show="showKprModal" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-50 overflow-y-auto bg-brand-dark/80 backdrop-blur-sm p-4 flex items-center justify-center"
+         style="display: none;">
+        
+        <div @click.away="showKprModal = false" class="bg-white w-full max-w-lg border border-brand-border shadow-2xl overflow-hidden my-auto">
+            <div class="bg-brand-dark text-white p-5 flex items-center justify-between border-b border-slate-800">
+                <h3 class="font-serif text-lg text-white">Simulasi Angsuran KPR</h3>
+                <button @click="showKprModal = false" class="text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-6 space-y-4">
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-slate-600 font-semibold mb-1">Harga Properti (Rp)</label>
+                    <input type="number" x-model.number="kpr.propertyPrice" step="10000000" class="w-full bg-slate-50 border border-slate-300 p-3 text-sm font-semibold focus:outline-none focus:border-brand-dark">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-slate-600 font-semibold mb-1">Uang Muka (%)</label>
+                        <input type="number" x-model.number="kpr.dpPercent" min="0" max="90" class="w-full bg-slate-50 border border-slate-300 p-3 text-sm font-semibold focus:outline-none focus:border-brand-dark">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-slate-600 font-semibold mb-1">Bunga Anuitas (%/Thn)</label>
+                        <input type="number" x-model.number="kpr.interestRate" step="0.1" class="w-full bg-slate-50 border border-slate-300 p-3 text-sm font-semibold focus:outline-none focus:border-brand-dark">
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex justify-between items-center mb-1">
+                        <label class="text-xs uppercase tracking-wider text-slate-600 font-semibold">Tenor (Jangka Waktu)</label>
+                        <span class="text-xs font-bold text-brand-gold" x-text="kpr.tenureYears + ' Tahun'"></span>
+                    </div>
+                    <input type="range" min="5" max="30" step="5" x-model.number="kpr.tenureYears" class="w-full accent-brand-gold">
+                </div>
+
+                <!-- Result Box -->
+                <div class="bg-brand-dark text-white p-5 border-l-4 border-brand-gold space-y-3">
+                    <div>
+                        <span class="text-[10px] uppercase tracking-widest text-slate-400 block">Estimasi Cicilan Bulanan</span>
+                        <span class="font-serif text-3xl text-brand-gold" x-text="formatRupiah(calculatedKpr.monthlyPayment)"></span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 border-t border-slate-800 pt-3 text-xs text-slate-300">
+                        <div>
+                            <span class="text-[10px] text-slate-400 block uppercase">Uang Muka (DP)</span>
+                            <span class="font-semibold text-white" x-text="formatRupiah(calculatedKpr.dpAmount)"></span>
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-slate-400 block uppercase">Plafond Pinjaman</span>
+                            <span class="font-semibold text-white" x-text="formatRupiah(calculatedKpr.loanAmount)"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-4 bg-slate-50 border-t border-slate-200">
+                <button @click="showKprModal = false" class="w-full bg-brand-dark hover:bg-brand-gold hover:text-brand-dark text-white text-xs font-semibold uppercase tracking-wider py-3 transition">
+                    Tutup Simulasi
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ALPINE LOGIC -->
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('agentApp', () => ({
+                agent: {
+                    name: 'Budi Santoso',
+                    agency: 'Senior Associate Agent - DownloadRumah',
+                    phone: '6281234567890',
+                    specialty: 'Surabaya Barat & Sidoarjo Luxury Market',
+                    stats: {
+                        unitsSold: '120+',
+                        experience: '11 Tahun',
+                        rating: '4.95 / 5'
+                    }
+                },
+
+                activeFilter: 'all',
+                searchQuery: '',
+                filters: [
+                    { id: 'all', label: 'Semua Portfolio' },
+                    { id: 'dijual', label: 'Dijual' },
+                    { id: 'disewa', label: 'Disewa' },
+                    { id: 'komersial', label: 'Komersial & Ruko' },
+                    { id: 'hot', label: 'Hot Deals' }
+                ],
+
+                listings: [
+                    {
+                        id: 'DR-SBY-01',
+                        title: 'Modern Tropis Residence Citraland Utama',
+                        price: 4250000000,
+                        type: 'Dijual',
+                        location: 'Citraland, Surabaya Barat',
+                        lt: 200,
+                        lb: 280,
+                        kt: 4,
+                        km: 4,
+                        isHot: true,
+                        isCommercial: false,
+                        images: [
+                            'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
+                            'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80'
+                        ],
+                        facilities: ['Private Swimming Pool', 'Smart Home Security', 'Marble Flooring', 'Garasi 2 Mobil', 'PLN 5500W'],
+                        description: 'Hunian eksklusif 2 lantai berdesain modern tropis di boulevard utama Citraland. Pencahayaan alami luar biasa dengan sirkulasi udara optimal. Legalitas SHM, posisi menghadap Selatan.'
+                    },
+                    {
+                        id: 'DR-SBY-02',
+                        title: 'Ruko Prime Location Mayjen Sungkono',
+                        price: 6500000000,
+                        type: 'Dijual',
+                        location: 'Mayjen Sungkono, Surabaya Pusat',
+                        lt: 120,
+                        lb: 300,
+                        kt: 0,
+                        km: 3,
+                        isHot: false,
+                        isCommercial: true,
+                        images: [
+                            'https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=1200&q=80',
+                            'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80'
+                        ],
+                        facilities: ['4 Lantai Fully Renovated', 'Parkir Luas', 'Akses Jalan Utama', 'PLN 11000W'],
+                        description: 'Aset komersial siap pakai di jalan protokol Surabaya. Sangat cocok untuk kantor perbankan, showroom, maupun restoran skala nasional.'
+                    },
+                    {
+                        id: 'DR-SDA-01',
+                        title: 'Disewakan Gudang & Kantor Modern Industri Sidoarjo',
+                        price: 180000000, // Per Tahun
+                        type: 'Disewa',
+                        location: 'Kawasan Industri Gedangan, Sidoarjo',
+                        lt: 600,
+                        lb: 450,
+                        kt: 0,
+                        km: 2,
+                        isHot: false,
+                        isCommercial: true,
+                        images: [
+                            'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80'
+                        ],
+                        facilities: ['Akses Kontainer 40ft', 'Pos Satpam', 'Kantor 2 Lantai', 'PLN 16500W'],
+                        description: 'Disewakan gudang standar industri bebas banjir dengan akses tol dekat. Dilengkapi ruang kantor representatif untuk manajemen.'
+                    },
+                    {
+                        id: 'DR-SDA-02',
+                        title: 'Rumah Ready Stock Minimalis Kahuripan Nirwana',
+                        price: 850000000,
+                        type: 'Dijual',
+                        location: 'Kahuripan Nirwana, Sidoarjo Kota',
+                        lt: 90,
+                        lb: 70,
+                        kt: 3,
+                        km: 2,
+                        isHot: true,
+                        isCommercial: false,
+                        images: [
+                            'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80'
+                        ],
+                        facilities: ['Row Jalan 10 Meter', 'One Gate System', 'Club House Cluster', 'PLN 2200W'],
+                        description: 'Pilihan tepat untuk keluarga muda. Lingkungan tenang, hijau, dan dekat dengan gerbang Tol Sidoarjo Kota. Kondisi bangunan baru gress.'
+                    }
+                ],
+
+                selectedProperty: null,
+                activeModalImage: null,
+                showKprModal: false,
+
+                kpr: {
+                    propertyPrice: 1000000000,
+                    dpPercent: 20,
+                    interestRate: 7.0,
+                    tenureYears: 15
+                },
+
+                get filteredListings() {
+                    return this.listings.filter(item => {
+                        let matchTab = true;
+                        if (this.activeFilter === 'dijual') matchTab = item.type === 'Dijual';
+                        if (this.activeFilter === 'disewa') matchTab = item.type === 'Disewa';
+                        if (this.activeFilter === 'komersial') matchTab = item.isCommercial === true;
+                        if (this.activeFilter === 'hot') matchTab = item.isHot === true;
+
+                        let matchSearch = true;
+                        if (this.searchQuery.trim() !== '') {
+                            const q = this.searchQuery.toLowerCase();
+                            matchSearch = item.title.toLowerCase().includes(q) ||
+                                          item.location.toLowerCase().includes(q) ||
+                                          item.id.toLowerCase().includes(q);
+                        }
+
+                        return matchTab && matchSearch;
+                    });
+                },
+
+                get calculatedKpr() {
+                    const price = this.kpr.propertyPrice || 0;
+                    const dp = (price * (this.kpr.dpPercent || 0)) / 100;
+                    const loan = price - dp;
+                    const annualRate = (this.kpr.interestRate || 0) / 100;
+                    const monthlyRate = annualRate / 12;
+                    const totalMonths = (this.kpr.tenureYears || 1) * 12;
+
+                    let monthlyPayment = 0;
+                    if (loan > 0 && monthlyRate > 0) {
+                        monthlyPayment = (loan * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -totalMonths));
+                    } else if (loan > 0) {
+                        monthlyPayment = loan / totalMonths;
+                    }
+
+                    return {
+                        dpAmount: Math.round(dp),
+                        loanAmount: Math.round(loan),
+                        monthlyPayment: Math.round(monthlyPayment)
+                    };
+                },
+
+                formatRupiah(num) {
+                    if (!num) return 'Rp 0';
+                    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(num);
+                },
+
+                generateWaLink(item) {
+                    if (!item) return '#';
+                    const msg = `Halo ${this.agent.name}, saya ingin menanyakan info resmi mengenai properti:\n\n*${item.title}*\nID Properti: ${item.id}\nHarga: ${this.formatRupiah(item.price)}\nLokasi: ${item.location}\n\nBisakah dikirimkan file pricelist/jadwal kunjungan lokasi? Terima kasih.`;
+                    return `https://wa.me/${this.agent.phone}?text=${encodeURIComponent(msg)}`;
+                },
+
+                openModal(item) {
+                    this.selectedProperty = item;
+                    this.activeModalImage = item.images[0];
+                },
+
+                openKprModal() {
+                    this.showKprModal = true;
+                },
+
+                openKprForSelected() {
+                    if (this.selectedProperty) {
+                        this.kpr.propertyPrice = this.selectedProperty.price;
+                    }
+                    this.selectedProperty = null;
+                    this.showKprModal = true;
+                },
+
+                resetFilters() {
+                    this.searchQuery = '';
+                    this.activeFilter = 'all';
+                },
+
+                scrollToCatalog() {
+                    document.getElementById('katalog')?.scrollIntoView({ behavior: 'smooth' });
+                },
+
+                shareCatalog() {
+                    if (navigator.share) {
+                        navigator.share({
+                            title: `Portfolio Properti ${this.agent.name}`,
+                            url: window.location.href,
+                        }).catch(() => {});
+                    } else {
+                        const d = document.createElement('input');
+                        document.body.appendChild(d);
+                        d.value = window.location.href;
+                        d.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(d);
+                        alert('Tautan halaman berhasil disalin!');
+                    }
+                }
+            }));
+        });
+    </script>
+</body>
+</html>

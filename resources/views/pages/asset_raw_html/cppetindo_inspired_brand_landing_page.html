@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Life Indonesia - Premium Pet Nutrition & Care</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            dark: '#022c22'
+                        },
+                        amber: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        },
+                        cream: '#fdfbf7'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-slide {
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            transform: scale(1.03);
+        }
+        .hero-slide.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #10b981;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #059669;
+        }
+    </style>
+</head>
+<body class="bg-cream text-slate-800 font-sans antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-brand-dark text-emerald-300 text-xs sm:text-sm py-2.5 px-4 text-center font-medium flex justify-between items-center max-w-full overflow-hidden">
+        <div class="hidden md:flex items-center space-x-6 text-xs text-emerald-200/80 container mx-auto px-4">
+            <span><i class="fa-solid fa-phone text-amber-400 mr-2"></i> Layanan Konsumen: 0800-123-PETS (Toll-Free)</span>
+            <span><i class="fa-solid fa-location-dot text-amber-400 mr-2"></i> Temukan Toko & Distributor Terdekat</span>
+        </div>
+        <div class="w-full md:w-auto text-center mx-auto md:mx-0 font-semibold tracking-wide flex items-center justify-center gap-2">
+            <span class="bg-amber-500 text-slate-950 text-[10px] uppercase font-extrabold px-2 py-0.5 rounded-full">Baru</span>
+            <span>Gratis Pengiriman Seluruh Indonesia untuk Pemesanan Nutrisi Spesial!</span>
+        </div>
+    </div>
+
+    <!-- STICKY NAVBAR WITH MEGA-MENU -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm transition-all duration-300" id="mainHeader">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo -->
+                <a href="#" class="flex items-center space-x-3 group">
+                    <div class="w-12 h-12 bg-gradient-to-tr from-brand-700 to-brand-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-brand-500/30 group-hover:scale-105 transition-transform duration-300">
+                        <i class="fa-solid fa-paw text-2xl"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-2xl font-black tracking-tight text-slate-900 group-hover:text-brand-600 transition-colors">PET<span class="text-brand-500">LIFE</span></span>
+                        <span class="text-[10px] tracking-widest font-bold text-slate-400 uppercase -mt-1">Nutrisi & Care Indonesia</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden lg:flex items-center space-x-8 font-semibold text-slate-700 text-sm">
+                    <a href="#hero" class="hover:text-brand-600 transition-colors py-2 border-b-2 border-transparent hover:border-brand-500">Beranda</a>
+                    
+                    <!-- Mega Menu Dropdown -->
+                    <div class="relative group">
+                        <button class="flex items-center space-x-1 hover:text-brand-600 transition-colors py-2 border-b-2 border-transparent hover:border-brand-500">
+                            <span>Produk Makanan</span>
+                            <i class="fa-solid fa-chevron-down text-[10px] transition-transform group-hover:rotate-180"></i>
+                        </button>
+                        
+                        <div class="absolute left-1/2 -translate-x-1/2 top-full pt-4 w-[600px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-out z-50">
+                            <div class="bg-white rounded-2xl shadow-2xl border border-slate-100 p-6 grid grid-cols-2 gap-6">
+                                <a href="#products" onclick="filterProducts('cat')" class="flex items-start space-x-4 p-3 rounded-xl hover:bg-brand-50 transition-colors group/item">
+                                    <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center shrink-0 text-xl font-bold group-hover/item:scale-110 transition-transform">
+                                        <i class="fa-solid fa-cat"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900 group-hover/item:text-brand-600">Nutrisi Kucing</h4>
+                                        <p class="text-xs text-slate-500 mt-1">Dry food, wet food pouch, kitten formula, dan suplemen harian.</p>
+                                    </div>
+                                </a>
+
+                                <a href="#products" onclick="filterProducts('dog')" class="flex items-start space-x-4 p-3 rounded-xl hover:bg-brand-50 transition-colors group/item">
+                                    <div class="w-12 h-12 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center shrink-0 text-xl font-bold group-hover/item:scale-110 transition-transform">
+                                        <i class="fa-solid fa-dog"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900 group-hover/item:text-brand-600">Nutrisi Anjing</h4>
+                                        <p class="text-xs text-slate-500 mt-1">Formula ras kecil & besar, protein tinggi, dan perawatan pencernaan.</p>
+                                    </div>
+                                </a>
+
+                                <a href="#products" onclick="filterProducts('care')" class="flex items-start space-x-4 p-3 rounded-xl hover:bg-brand-50 transition-colors group/item col-span-2">
+                                    <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 text-xl font-bold group-hover/item:scale-110 transition-transform">
+                                        <i class="fa-solid fa-pump-soap"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900 group-hover/item:text-brand-600">Perawatan & Grooming Premium</h4>
+                                        <p class="text-xs text-slate-500 mt-1">Shampo anti-bakteri, pasir kucing (*cat litter*), vitamin bulu & tulang.</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#categories" class="hover:text-brand-600 transition-colors py-2 border-b-2 border-transparent hover:border-brand-500">Kategori</a>
+                    <a href="#story" class="hover:text-brand-600 transition-colors py-2 border-b-2 border-transparent hover:border-brand-500">Tentang Kami</a>
+                    <a href="#articles" class="hover:text-brand-600 transition-colors py-2 border-b-2 border-transparent hover:border-brand-500">Edukasi & Artikel</a>
+                </nav>
+
+                <!-- Search & Actions -->
+                <div class="hidden sm:flex items-center space-x-4">
+                    <button onclick="toggleSearchModal()" class="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition-colors">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <a href="#store-locator" class="bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm px-5 py-2.5 rounded-full shadow-lg shadow-brand-600/25 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                        <i class="fa-solid fa-store text-xs"></i>
+                        <span>Cari Toko</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="lg:hidden text-slate-700 hover:text-brand-600 focus:outline-none p-2">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-white border-b border-slate-200 px-6 py-6 space-y-4 shadow-xl">
+            <a href="#hero" class="block font-semibold text-slate-800 hover:text-brand-600 py-1">Beranda</a>
+            <a href="#categories" class="block font-semibold text-slate-800 hover:text-brand-600 py-1">Kategori Utama</a>
+            <a href="#products" class="block font-semibold text-slate-800 hover:text-brand-600 py-1">Produk Unggulan</a>
+            <a href="#story" class="block font-semibold text-slate-800 hover:text-brand-600 py-1">Kisah Brand</a>
+            <a href="#articles" class="block font-semibold text-slate-800 hover:text-brand-600 py-1">Artikel Pet Care</a>
+            <div class="pt-4 border-t border-slate-100 flex flex-col space-y-3">
+                <a href="#store-locator" class="w-full text-center bg-brand-600 text-white font-bold py-3 rounded-xl">
+                    <i class="fa-solid fa-store mr-2"></i> Lokasi Toko Mitra
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- FULL-WIDTH HIGH-IMPACT HERO CAROUSEL -->
+    <section id="hero" class="relative w-full h-[600px] sm:h-[700px] lg:h-[800px] overflow-hidden bg-slate-900">
+        
+        <!-- Slide 1 -->
+        <div class="hero-slide active">
+            <img src="https://images.unsplash.com/photo-1548767797-d8c844163c4c?q=80&w=2000&auto=format&fit=crop" 
+                 alt="Kucing Sehat dan Bahagia" 
+                 class="w-full h-full object-cover object-center brightness-[0.75]" 
+                 onerror="this.src='https://placehold.co/2000x1000/059669/FFFFFF?text=Pet+Life+Nutrisi+Kucing'">
+            <div class="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/40 to-transparent"></div>
+            <div class="absolute inset-0 flex items-center">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-2xl text-white space-y-6">
+                        <span class="inline-block bg-brand-500/90 text-white font-extrabold text-xs uppercase tracking-widest px-4 py-1.5 rounded-full backdrop-blur-md">
+                            Nutrisi Kucing Standar Internasional
+                        </span>
+                        <h1 class="text-4xl sm:text-6xl font-black leading-tight tracking-tight">
+                            Beri Kasih Sayang Terbaik Lewat <span class="text-amber-400">Nutrisi Seimbang</span>
+                        </h1>
+                        <p class="text-lg sm:text-xl text-slate-200 font-medium leading-relaxed">
+                            Formulasi kaya protein tinggi, Omega 3 & 6, serta vitamin lengkap untuk menjaga kesehatan bulu, pencernaan, dan daya tahan tubuh anabul kesayangan Anda.
+                        </p>
+                        <div class="flex flex-wrap gap-4 pt-4">
+                            <a href="#products" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-8 py-4 rounded-xl shadow-xl shadow-brand-500/30 transition-all transform hover:-translate-y-1 flex items-center gap-3">
+                                <span>Lihat Katalog Produk</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                            <a href="#story" class="bg-white/10 hover:bg-white/20 text-white font-bold px-8 py-4 rounded-xl border border-white/30 backdrop-blur-md transition-all">
+                                Pelajari Keunggulan
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="hero-slide">
+            <img src="https://images.unsplash.com/photo-1534361960057-19889db98d18?q=80&w=2000&auto=format&fit=crop" 
+                 alt="Anjing Aktif dan Sehat" 
+                 class="w-full h-full object-cover object-center brightness-[0.75]"
+                 onerror="this.src='https://placehold.co/2000x1000/047857/FFFFFF?text=Pet+Life+Nutrisi+Anjing'">
+            <div class="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/40 to-transparent"></div>
+            <div class="absolute inset-0 flex items-center">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-2xl text-white space-y-6">
+                        <span class="inline-block bg-amber-500 text-slate-950 font-extrabold text-xs uppercase tracking-widest px-4 py-1.5 rounded-full">
+                            Energi & Vitalitas Anjing
+                        </span>
+                        <h1 class="text-4xl sm:text-6xl font-black leading-tight tracking-tight">
+                            Pertumbuhan Optimal Setiap <span class="text-brand-400">Tahap Usia</span>
+                        </h1>
+                        <p class="text-lg sm:text-xl text-slate-200 font-medium leading-relaxed">
+                            Bahan alami terpilih tanpa pengawet buatan. Didesain khusus untuk memperkuat sendi, tulang, dan imunitas anjing dari puppy hingga dewasa.
+                        </p>
+                        <div class="flex flex-wrap gap-4 pt-4">
+                            <a href="#products" onclick="filterProducts('dog')" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-8 py-4 rounded-xl shadow-xl shadow-amber-500/30 transition-all transform hover:-translate-y-1 flex items-center gap-3">
+                                <span>Temukan Makanan Anjing</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide Controls -->
+        <button onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/20 hover:bg-white/40 text-white backdrop-blur-md flex items-center justify-center transition-all z-20">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/20 hover:bg-white/40 text-white backdrop-blur-md flex items-center justify-center transition-all z-20">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+
+        <!-- Slide Dots -->
+        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-3 z-20">
+            <button onclick="goToSlide(0)" class="slide-dot w-10 h-2 rounded-full bg-white transition-all"></button>
+            <button onclick="goToSlide(1)" class="slide-dot w-3 h-2 rounded-full bg-white/50 transition-all"></button>
+        </div>
+    </section>
+
+    <!-- BRAND HIGHLIGHT STRIP / METRICS -->
+    <section class="bg-white border-b border-slate-100 py-10">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="space-y-1 border-r border-slate-100 last:border-0">
+                    <p class="text-3xl sm:text-4xl font-black text-brand-600">100%</p>
+                    <p class="text-xs sm:text-sm font-semibold text-slate-500 uppercase tracking-wider">Bahan Alami Teruji</p>
+                </div>
+                <div class="space-y-1 border-r border-slate-100 last:border-0">
+                    <p class="text-3xl sm:text-4xl font-black text-brand-600">500.000+</p>
+                    <p class="text-xs sm:text-sm font-semibold text-slate-500 uppercase tracking-wider">Anabul Bahagia</p>
+                </div>
+                <div class="space-y-1 border-r border-slate-100 last:border-0">
+                    <p class="text-3xl sm:text-4xl font-black text-brand-600">2.500+</p>
+                    <p class="text-xs sm:text-sm font-semibold text-slate-500 uppercase tracking-wider">Mitra Petshop & Klinik</p>
+                </div>
+                <div class="space-y-1">
+                    <p class="text-3xl sm:text-4xl font-black text-brand-600">ISO 22000</p>
+                    <p class="text-xs sm:text-sm font-semibold text-slate-500 uppercase tracking-wider">Sertifikasi Keamanan</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LARGE VISUAL CATEGORY CARDS SECTION -->
+    <section id="categories" class="py-20 bg-cream">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-brand-600 font-extrabold text-sm uppercase tracking-widest bg-brand-100 px-4 py-1.5 rounded-full inline-block mb-3">
+                    Solusi Peliharaan Anda
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
+                    Kategori Produk Utama
+                </h2>
+                <p class="text-slate-600 text-lg mt-4">
+                    Dirancang khusus dengan standar ahli nutrisi hewan dunia untuk penuhi kebutuhan nutrisi setiap fase kehidupan.
+                </p>
+            </div>
+
+            <!-- Visual Cards Grid (Large aspect ratios) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Category Card 1: Cats -->
+                <div class="group relative rounded-3xl overflow-hidden shadow-2xl h-[480px] bg-slate-900 cursor-pointer" onclick="filterProducts('cat')">
+                    <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=1000&auto=format&fit=crop" 
+                         alt="Cat Food Category" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out brightness-90 group-hover:brightness-75"
+                         onerror="this.src='https://placehold.co/800x1000/059669/FFFFFF?text=Nutrisi+Kucing'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-90"></div>
+                    <div class="absolute top-6 left-6">
+                        <span class="bg-amber-500 text-slate-950 font-black text-xs px-3 py-1.5 rounded-full uppercase">Paling Populer</span>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8 text-white space-y-3 transform group-hover:-translate-y-2 transition-transform duration-300">
+                        <div class="w-12 h-12 rounded-2xl bg-brand-500/80 backdrop-blur-md flex items-center justify-center text-white text-xl">
+                            <i class="fa-solid fa-cat"></i>
+                        </div>
+                        <h3 class="text-2xl font-black">Nutrisi Kucing Premium</h3>
+                        <p class="text-sm text-slate-300 line-clamp-2">Formula pencernaan sensitif, pencegahan hairball, serta kilau bulu maksimal.</p>
+                        <div class="pt-2 flex items-center text-amber-400 font-bold text-sm">
+                            <span>Jelajahi Makanan Kucing</span>
+                            <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category Card 2: Dogs -->
+                <div class="group relative rounded-3xl overflow-hidden shadow-2xl h-[480px] bg-slate-900 cursor-pointer" onclick="filterProducts('dog')">
+                    <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=1000&auto=format&fit=crop" 
+                         alt="Dog Food Category" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out brightness-90 group-hover:brightness-75"
+                         onerror="this.src='https://placehold.co/800x1000/047857/FFFFFF?text=Nutrisi+Anjing'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-90"></div>
+                    <div class="absolute top-6 left-6">
+                        <span class="bg-brand-500 text-white font-black text-xs px-3 py-1.5 rounded-full uppercase">Formula Aktif</span>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8 text-white space-y-3 transform group-hover:-translate-y-2 transition-transform duration-300">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-500/80 backdrop-blur-md flex items-center justify-center text-slate-950 text-xl">
+                            <i class="fa-solid fa-dog"></i>
+                        </div>
+                        <h3 class="text-2xl font-black">Makanan & Camilan Anjing</h3>
+                        <p class="text-sm text-slate-300 line-clamp-2">Kaya protein otot, mendukung pertumbuhan otot dan kesehatan sendi.</p>
+                        <div class="pt-2 flex items-center text-amber-400 font-bold text-sm">
+                            <span>Jelajahi Makanan Anjing</span>
+                            <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category Card 3: Grooming & Care -->
+                <div class="group relative rounded-3xl overflow-hidden shadow-2xl h-[480px] bg-slate-900 cursor-pointer" onclick="filterProducts('care')">
+                    <img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?q=80&w=1000&auto=format&fit=crop" 
+                         alt="Pet Care Category" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out brightness-90 group-hover:brightness-75"
+                         onerror="this.src='https://placehold.co/800x1000/065f46/FFFFFF?text=Perawatan+Kucing+Anjing'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-90"></div>
+                    <div class="absolute top-6 left-6">
+                        <span class="bg-emerald-600 text-white font-black text-xs px-3 py-1.5 rounded-full uppercase">Hygiene & Care</span>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8 text-white space-y-3 transform group-hover:-translate-y-2 transition-transform duration-300">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-500/80 backdrop-blur-md flex items-center justify-center text-white text-xl">
+                            <i class="fa-solid fa-pump-soap"></i>
+                        </div>
+                        <h3 class="text-2xl font-black">Perawatan & Kebersihan</h3>
+                        <p class="text-sm text-slate-300 line-clamp-2">Pasir kucing aroma alami, shampo medicated, dan perawatan gigi.</p>
+                        <div class="pt-2 flex items-center text-amber-400 font-bold text-sm">
+                            <span>Jelajahi Solusi Grooming</span>
+                            <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- BRAND STORY & LIFESTYLE EXPERIENCE SECTION -->
+    <section id="story" class="py-24 bg-white overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                
+                <!-- Left: Large Lifestyle Photography Grid -->
+                <div class="relative">
+                    <div class="relative z-10 rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                        <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=1200&auto=format&fit=crop" 
+                             alt="Pemilik dengan Peliharaan" 
+                             class="w-full h-[450px] object-cover"
+                             onerror="this.src='https://placehold.co/1200x800/059669/FFFFFF?text=Kisah+Pet+Life'">
+                    </div>
+                    <!-- Secondary Overlapping Image -->
+                    <div class="absolute -bottom-10 -right-6 z-20 w-2/3 rounded-2xl overflow-hidden shadow-2xl border-4 border-white hidden sm:block">
+                        <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?q=80&w=800&auto=format&fit=crop" 
+                             alt="Produk Nutrisi Sehat" 
+                             class="w-full h-[250px] object-cover"
+                             onerror="this.src='https://placehold.co/800x500/f59e0b/FFFFFF?text=Kualitas+Terjamin'">
+                    </div>
+                    <!-- Decorative Badge -->
+                    <div class="absolute -top-6 -left-6 z-20 bg-brand-600 text-white p-6 rounded-2xl shadow-xl flex items-center space-x-4">
+                        <i class="fa-solid fa-shield-cat text-4xl text-amber-400"></i>
+                        <div>
+                            <p class="font-black text-2xl">10+ Tahun</p>
+                            <p class="text-xs font-medium text-emerald-100">Setia Melayani Indonesia</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: High-Contrast Copy -->
+                <div class="space-y-8">
+                    <span class="text-brand-600 font-extrabold text-sm uppercase tracking-widest bg-brand-50 px-4 py-1.5 rounded-full inline-block">
+                        Kisah & Komitmen Kami
+                    </span>
+                    <h2 class="text-3xl sm:text-5xl font-black text-slate-900 leading-tight">
+                        Menghadirkan Kebahagiaan Nyata di Setiap Mangkuk Makan
+                    </h2>
+                    <p class="text-slate-600 text-lg leading-relaxed">
+                        Kami percaya bahwa peliharaan adalah anggota keluarga yang berhak mendapatkan makanan lezat dan bernutrisi tinggi. Terinspirasi dari cinta mendalam terhadap hewan, kami menghadirkan formulasi standar internasional yang diolah secara higienis di pabrik modern.
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-brand-100 text-brand-600 flex items-center justify-center shrink-0 font-bold">
+                                <i class="fa-solid fa-leaf"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Bahan Alami Pilihan</h4>
+                                <p class="text-xs text-slate-500 mt-1">Tanpa pewarna sintetik dan pengawet berbahaya.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center shrink-0 font-bold">
+                                <i class="fa-solid fa-vial"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900">Riset Dokter Hewan</h4>
+                                <p class="text-xs text-slate-500 mt-1">Diformulasikan bersama tim pakar nutrisi hewan.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-100 flex items-center space-x-6">
+                        <a href="#store-locator" class="bg-slate-900 hover:bg-brand-600 text-white font-bold px-8 py-4 rounded-xl shadow-lg transition-all">
+                            Temukan Distributor Kami
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED PRODUCTS SHOWCASE GRID WITH FILTER TABS -->
+    <section id="products" class="py-24 bg-slate-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <span class="text-brand-600 font-extrabold text-sm uppercase tracking-widest bg-brand-100 px-4 py-1.5 rounded-full inline-block mb-3">
+                        Katalog Unggulan
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-black text-slate-900">
+                        Produk Favorit Komunitas
+                    </h2>
+                </div>
+
+                <!-- Category Tab Buttons -->
+                <div class="flex flex-wrap gap-2 mt-6 md:mt-0 bg-white p-1.5 rounded-2xl border border-slate-200 shadow-sm">
+                    <button onclick="filterProducts('all')" id="btn-all" class="product-tab-btn active font-bold text-sm px-5 py-2.5 rounded-xl transition-all bg-brand-600 text-white shadow-md">
+                        Semua
+                    </button>
+                    <button onclick="filterProducts('cat')" id="btn-cat" class="product-tab-btn font-bold text-sm px-5 py-2.5 rounded-xl transition-all text-slate-600 hover:text-brand-600">
+                        <i class="fa-solid fa-cat mr-1"></i> Kucing
+                    </button>
+                    <button onclick="filterProducts('dog')" id="btn-dog" class="product-tab-btn font-bold text-sm px-5 py-2.5 rounded-xl transition-all text-slate-600 hover:text-brand-600">
+                        <i class="fa-solid fa-dog mr-1"></i> Anjing
+                    </button>
+                    <button onclick="filterProducts('care')" id="btn-care" class="product-tab-btn font-bold text-sm px-5 py-2.5 rounded-xl transition-all text-slate-600 hover:text-brand-600">
+                        <i class="fa-solid fa-sparkles mr-1"></i> Care & Grooming
+                    </button>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="productContainer">
+                
+                <!-- Product Card 1 -->
+                <div class="product-card cat bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col group">
+                    <div class="relative h-64 bg-slate-100 overflow-hidden flex items-center justify-center p-4">
+                        <span class="absolute top-4 left-4 bg-amber-500 text-slate-950 text-xs font-black px-3 py-1 rounded-full uppercase z-10">BEST SELLER</span>
+                        <img src="https://images.unsplash.com/photo-1589924691995-400dc9ecc119?q=80&w=800&auto=format&fit=crop" 
+                             alt="MaxiCat Premium Dry Food" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                             onerror="this.src='https://placehold.co/600x600/059669/FFFFFF?text=MaxiCat+Dry+Food'">
+                        <button onclick="openProductModal('MaxiCat Adult Salmon Premium', 'Rp 85.000', 'Makanan kering formula salmon utuh kaya Omega 3 & 6. Menjaga kelembutan bulu dan mencegah rontok berlebih.', '4.9', 'cat', 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?q=80&w=800&auto=format&fit=crop')" class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-bold text-sm">
+                            <span class="bg-white text-slate-900 px-4 py-2 rounded-xl shadow-lg hover:bg-brand-500 hover:text-white transition-colors">Lihat Detail</span>
+                        </button>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div class="flex items-center space-x-1 text-amber-400 text-xs mb-2">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <span class="text-slate-400 font-semibold ml-1">(4.9 / 128 Ulasan)</span>
+                        </div>
+                        <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">Kucing Dewasa</span>
+                        <h3 class="font-extrabold text-slate-900 text-lg mt-1 group-hover:text-brand-600 transition-colors">MaxiCat Adult Salmon Premium 1.2kg</h3>
+                        <p class="text-xs text-slate-500 mt-2 line-clamp-2">Kaya akan salmon murni dan taurin untuk kesehatan mata serta jantung.</p>
+                        <div class="mt-auto pt-4 flex items-center justify-between border-t border-slate-100">
+                            <div>
+                                <span class="text-xs text-slate-400 block">Harga Rekomendasi</span>
+                                <span class="text-xl font-black text-slate-900">Rp 85.000</span>
+                            </div>
+                            <button onclick="openProductModal('MaxiCat Adult Salmon Premium', 'Rp 85.000', 'Makanan kering formula salmon utuh kaya Omega 3 & 6. Menjaga kelembutan bulu dan mencegah rontok berlebih.', '4.9', 'cat', 'https://images.unsplash.com/photo-1589924691995-400dc9ecc119?q=80&w=800&auto=format&fit=crop')" class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 hover:bg-brand-600 hover:text-white flex items-center justify-center transition-colors">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="product-card dog bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col group">
+                    <div class="relative h-64 bg-slate-100 overflow-hidden flex items-center justify-center p-4">
+                        <span class="absolute top-4 left-4 bg-brand-500 text-white text-xs font-black px-3 py-1 rounded-full uppercase z-10">FORMULA BARU</span>
+                        <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?q=80&w=800&auto=format&fit=crop" 
+                             alt="ProDog Active Power Beef" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                             onerror="this.src='https://placehold.co/600x600/047857/FFFFFF?text=ProDog+Active+Beef'">
+                        <button onclick="openProductModal('ProDog Active Power Beef 3kg', 'Rp 145.000', 'Nutrisi tinggi protein otot dari daging sapi segar untuk anjing ras sedang & besar.', '4.8', 'dog', 'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?q=80&w=800&auto=format&fit=crop')" class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-bold text-sm">
+                            <span class="bg-white text-slate-900 px-4 py-2 rounded-xl shadow-lg hover:bg-brand-500 hover:text-white transition-colors">Lihat Detail</span>
+                        </button>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div class="flex items-center space-x-1 text-amber-400 text-xs mb-2">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                            <span class="text-slate-400 font-semibold ml-1">(4.8 / 94 Ulasan)</span>
+                        </div>
+                        <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">Anjing Aktif</span>
+                        <h3 class="font-extrabold text-slate-900 text-lg mt-1 group-hover:text-brand-600 transition-colors">ProDog Active Power Beef 3kg</h3>
+                        <p class="text-xs text-slate-500 mt-2 line-clamp-2">Nutrisi lengkap untuk menjaga daya tahan tubuh dan vitalitas harian.</p>
+                        <div class="mt-auto pt-4 flex items-center justify-between border-t border-slate-100">
+                            <div>
+                                <span class="text-xs text-slate-400 block">Harga Rekomendasi</span>
+                                <span class="text-xl font-black text-slate-900">Rp 145.000</span>
+                            </div>
+                            <button onclick="openProductModal('ProDog Active Power Beef 3kg', 'Rp 145.000', 'Nutrisi tinggi protein otot dari daging sapi segar untuk anjing ras sedang & besar.', '4.8', 'dog', 'https://images.unsplash.com/photo-1601758228041-f3b2795255f1?q=80&w=800&auto=format&fit=crop')" class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 hover:bg-brand-600 hover:text-white flex items-center justify-center transition-colors">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="product-card cat bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col group">
+                    <div class="relative h-64 bg-slate-100 overflow-hidden flex items-center justify-center p-4">
+                        <img src="https://images.unsplash.com/photo-1571566882372-1598d88abd90?q=80&w=800&auto=format&fit=crop" 
+                             alt="Kitten Grow Formula" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                             onerror="this.src='https://placehold.co/600x600/059669/FFFFFF?text=Kitten+Grow+Formula'">
+                        <button onclick="openProductModal('Kitten Growth Starter Tuna 800g', 'Rp 62.000', 'Diformulasikan khusus untuk anak kucing usia 2-12 bulan. Mengandung DHA untuk kecerdasan otak.', '5.0', 'cat', 'https://images.unsplash.com/photo-1571566882372-1598d88abd90?q=80&w=800&auto=format&fit=crop')" class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-bold text-sm">
+                            <span class="bg-white text-slate-900 px-4 py-2 rounded-xl shadow-lg hover:bg-brand-500 hover:text-white transition-colors">Lihat Detail</span>
+                        </button>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div class="flex items-center space-x-1 text-amber-400 text-xs mb-2">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <span class="text-slate-400 font-semibold ml-1">(5.0 / 210 Ulasan)</span>
+                        </div>
+                        <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">Anak Kucing</span>
+                        <h3 class="font-extrabold text-slate-900 text-lg mt-1 group-hover:text-brand-600 transition-colors">Kitten Growth Starter Tuna 800g</h3>
+                        <p class="text-xs text-slate-500 mt-2 line-clamp-2">Tekstur kibble kecil mudah dikunyah dengan vitamin penunjang pertumbuhan gigi.</p>
+                        <div class="mt-auto pt-4 flex items-center justify-between border-t border-slate-100">
+                            <div>
+                                <span class="text-xs text-slate-400 block">Harga Rekomendasi</span>
+                                <span class="text-xl font-black text-slate-900">Rp 62.000</span>
+                            </div>
+                            <button onclick="openProductModal('Kitten Growth Starter Tuna 800g', 'Rp 62.000', 'Diformulasikan khusus untuk anak kucing usia 2-12 bulan. Mengandung DHA untuk kecerdasan otak.', '5.0', 'cat', 'https://images.unsplash.com/photo-1571566882372-1598d88abd90?q=80&w=800&auto=format&fit=crop')" class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 hover:bg-brand-600 hover:text-white flex items-center justify-center transition-colors">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 4 -->
+                <div class="product-card care bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col group">
+                    <div class="relative h-64 bg-slate-100 overflow-hidden flex items-center justify-center p-4">
+                        <span class="absolute top-4 left-4 bg-emerald-600 text-white text-xs font-black px-3 py-1 rounded-full uppercase z-10">ODOR CONTROL</span>
+                        <img src="https://images.unsplash.com/photo-1545249390-6bdfa286032f?q=80&w=800&auto=format&fit=crop" 
+                             alt="UltraClump Bentonite Cat Litter" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                             onerror="this.src='https://placehold.co/600x600/065f46/FFFFFF?text=Bentonite+Cat+Litter'">
+                        <button onclick="openProductModal('UltraClump Bentonite Litter Apple 5L', 'Rp 48.000', 'Pasir bentonite daya gumpal ekstra kuat dengan aroma apel segar pengontrol bau maksimal.', '4.7', 'care', 'https://images.unsplash.com/photo-1545249390-6bdfa286032f?q=80&w=800&auto=format&fit=crop')" class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-bold text-sm">
+                            <span class="bg-white text-slate-900 px-4 py-2 rounded-xl shadow-lg hover:bg-brand-500 hover:text-white transition-colors">Lihat Detail</span>
+                        </button>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div class="flex items-center space-x-1 text-amber-400 text-xs mb-2">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                            <span class="text-slate-400 font-semibold ml-1">(4.7 / 82 Ulasan)</span>
+                        </div>
+                        <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">Pasir & Sanitasi</span>
+                        <h3 class="font-extrabold text-slate-900 text-lg mt-1 group-hover:text-brand-600 transition-colors">UltraClump Bentonite Litter Apple 5L</h3>
+                        <p class="text-xs text-slate-500 mt-2 line-clamp-2">Bebas debu 99%, tidak menempel di tapak kaki anabul.</p>
+                        <div class="mt-auto pt-4 flex items-center justify-between border-t border-slate-100">
+                            <div>
+                                <span class="text-xs text-slate-400 block">Harga Rekomendasi</span>
+                                <span class="text-xl font-black text-slate-900">Rp 48.000</span>
+                            </div>
+                            <button onclick="openProductModal('UltraClump Bentonite Litter Apple 5L', 'Rp 48.000', 'Pasir bentonite daya gumpal ekstra kuat dengan aroma apel segar pengontrol bau maksimal.', '4.7', 'care', 'https://images.unsplash.com/photo-1545249390-6bdfa286032f?q=80&w=800&auto=format&fit=crop')" class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 hover:bg-brand-600 hover:text-white flex items-center justify-center transition-colors">
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PET CARE TIPS & ARTICLES SECTION -->
+    <section id="articles" class="py-24 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16">
+                <div>
+                    <span class="text-brand-600 font-extrabold text-sm uppercase tracking-widest bg-brand-100 px-4 py-1.5 rounded-full inline-block mb-3">
+                        Pusat Edukasi & Artikel
+                    </span>
+                    <h2 class="text-3xl sm:text-5xl font-black text-slate-900">
+                        Tips & Panduan Pemeliharaan
+                    </h2>
+                </div>
+                <a href="#" class="mt-4 md:mt-0 font-bold text-brand-600 hover:text-brand-700 flex items-center gap-2 group">
+                    <span>Lihat Semua Artikel</span>
+                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Article Card 1 -->
+                <article class="bg-cream rounded-3xl overflow-hidden border border-slate-100 hover:shadow-xl transition-all duration-300 flex flex-col group">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8?q=80&w=800&auto=format&fit=crop" 
+                             alt="Tips Bulu Kucing" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                             onerror="this.src='https://placehold.co/800x500/059669/FFFFFF?text=Edukasi+PetCare'">
+                        <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-slate-900 text-xs font-bold px-3 py-1 rounded-full">
+                            Nutrisi & Bulu
+                        </span>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <span class="text-xs font-medium text-slate-400">22 Oktober 2026 • 4 Menit Baca</span>
+                        <h3 class="text-xl font-bold text-slate-900 mt-2 group-hover:text-brand-600 transition-colors leading-snug">
+                            5 Rahasia Menjaga Bulu Kucing Tetap Lebat, Halus, dan Tidak Rontok
+                        </h3>
+                        <p class="text-sm text-slate-600 mt-3 line-clamp-3 leading-relaxed">
+                            Bulu rontok seringkali disebabkan oleh kekurangan asupan protein dan asam lemak esensial. Simak rekomendasi pakar nutrisi berikut.
+                        </p>
+                        <div class="mt-auto pt-6 flex items-center font-bold text-sm text-brand-600">
+                            <span>Baca Selengkapnya</span>
+                            <i class="fa-solid fa-chevron-right text-xs ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article Card 2 -->
+                <article class="bg-cream rounded-3xl overflow-hidden border border-slate-100 hover:shadow-xl transition-all duration-300 flex flex-col group">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?q=80&w=800&auto=format&fit=crop" 
+                             alt="Pencernaan Anjing" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                             onerror="this.src='https://placehold.co/800x500/047857/FFFFFF?text=Kesehatan+Anjing'">
+                        <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-slate-900 text-xs font-bold px-3 py-1 rounded-full">
+                            Kesehatan Anjing
+                        </span>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <span class="text-xs font-medium text-slate-400">18 Oktober 2026 • 5 Menit Baca</span>
+                        <h3 class="text-xl font-bold text-slate-900 mt-2 group-hover:text-brand-600 transition-colors leading-snug">
+                            Ciri-Ciri Anjing Mengalami Masalah Pencernaan & Cara Mengatasinya
+                        </h3>
+                        <p class="text-sm text-slate-600 mt-3 line-clamp-3 leading-relaxed">
+                            Memahami tanda alergi makanan pada anjing serta langkah tepat memilih jenis serat dan sumber protein hipoalergenik.
+                        </p>
+                        <div class="mt-auto pt-6 flex items-center font-bold text-sm text-brand-600">
+                            <span>Baca Selengkapnya</span>
+                            <i class="fa-solid fa-chevron-right text-xs ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article Card 3 -->
+                <article class="bg-cream rounded-3xl overflow-hidden border border-slate-100 hover:shadow-xl transition-all duration-300 flex flex-col group">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1548767797-d8c844163c4c?q=80&w=800&auto=format&fit=crop" 
+                             alt="Masa Transisi Pakan" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                             onerror="this.src='https://placehold.co/800x500/065f46/FFFFFF?text=Panduan+Transisi'">
+                        <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-slate-900 text-xs font-bold px-3 py-1 rounded-full">
+                            Panduan Transisi
+                        </span>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <span class="text-xs font-medium text-slate-400">10 Oktober 2026 • 3 Menit Baca</span>
+                        <h3 class="text-xl font-bold text-slate-900 mt-2 group-hover:text-brand-600 transition-colors leading-snug">
+                            Aturan 7 Hari Mengganti Makanan Peliharaan Tanpa Stres Pencernaan
+                        </h3>
+                        <p class="text-sm text-slate-600 mt-3 line-clamp-3 leading-relaxed">
+                            Jangan langsung mengganti pakan secara mendadak! Ikuti perbandingan rasio harian agar lambung anabul beradaptasi dengan baik.
+                        </p>
+                        <div class="mt-auto pt-6 flex items-center font-bold text-sm text-brand-600">
+                            <span>Baca Selengkapnya</span>
+                            <i class="fa-solid fa-chevron-right text-xs ml-2 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- STORE LOCATOR & DISTRIBUTOR CALLOUT -->
+    <section id="store-locator" class="py-20 bg-brand-dark text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="bg-gradient-to-r from-brand-800 to-brand-900 rounded-3xl p-8 sm:p-12 border border-brand-700/50 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8">
+                <div class="space-y-4 max-w-2xl text-center lg:text-left">
+                    <span class="bg-amber-500 text-slate-950 font-black text-xs px-3 py-1 rounded-full uppercase">Jaringan Distribusi Terluas</span>
+                    <h2 class="text-3xl sm:text-4xl font-black tracking-tight">Dapatkan Produk Kami di Petshop Terdekat Anda</h2>
+                    <p class="text-emerald-100 text-base">Tersedia di lebih dari 2.500 toko hewan peliharaan, supermarket, dan klinik hewan di seluruh Indonesia.</p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-4 w-full lg:w-auto shrink-0">
+                    <button class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold px-8 py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>Cari Lokasi Toko</span>
+                    </button>
+                    <button class="bg-white/10 hover:bg-white/20 text-white font-bold px-8 py-4 rounded-xl border border-white/20 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-handshake"></i>
+                        <span>Jadi Mitra Distributor</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RICH COMPREHENSIVE FOOTER -->
+    <footer class="bg-slate-950 text-slate-400 pt-16 pb-12 border-t border-slate-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 pb-16 border-b border-slate-800">
+                
+                <!-- Brand Info -->
+                <div class="lg:col-span-2 space-y-6">
+                    <a href="#" class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-brand-500 rounded-xl flex items-center justify-center text-white">
+                            <i class="fa-solid fa-paw text-xl"></i>
+                        </div>
+                        <span class="text-2xl font-black tracking-tight text-white">PET<span class="text-brand-500">LIFE</span></span>
+                    </a>
+                    <p class="text-sm text-slate-400 leading-relaxed max-w-sm">
+                        Produsen dan distributor pakan serta perawatan hewan peliharaan tepercaya di Indonesia. Berkomitmen menghadirkan nutrisi berkualitas tinggi untuk kebahagiaan anabul Anda.
+                    </p>
+                    <div class="flex space-x-4 text-slate-400">
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-900 hover:bg-brand-600 hover:text-white flex items-center justify-center transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-900 hover:bg-brand-600 hover:text-white flex items-center justify-center transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-900 hover:bg-brand-600 hover:text-white flex items-center justify-center transition-colors"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-900 hover:bg-brand-600 hover:text-white flex items-center justify-center transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links 1 -->
+                <div>
+                    <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Produk</h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="#products" onclick="filterProducts('cat')" class="hover:text-brand-400 transition-colors">Makanan Kucing</a></li>
+                        <li><a href="#products" onclick="filterProducts('dog')" class="hover:text-brand-400 transition-colors">Makanan Anjing</a></li>
+                        <li><a href="#products" class="hover:text-brand-400 transition-colors">Camilan & Treat</a></li>
+                        <li><a href="#products" onclick="filterProducts('care')" class="hover:text-brand-400 transition-colors">Pasir Kucing Bentonite</a></li>
+                        <li><a href="#products" onclick="filterProducts('care')" class="hover:text-brand-400 transition-colors">Shampo & Grooming</a></li>
+                    </ul>
+                </div>
+
+                <!-- Quick Links 2 -->
+                <div>
+                    <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Perusahaan</h4>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="#story" class="hover:text-brand-400 transition-colors">Tentang Pet Life</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Sertifikasi Kualitas</a></li>
+                        <li><a href="#articles" class="hover:text-brand-400 transition-colors">Pusat Edukasi</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Karir & Karir Mitra</a></li>
+                        <li><a href="#" class="hover:text-brand-400 transition-colors">Hubungi Kami</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter Signup -->
+                <div class="space-y-4">
+                    <h4 class="text-white font-bold text-sm uppercase tracking-wider">Newsletter Pet Care</h4>
+                    <p class="text-xs text-slate-400">Dapatkan tips perawatan harian dan promo eksklusif langsung di email Anda.</p>
+                    <form onsubmit="handleNewsletter(event)" class="space-y-2">
+                        <input type="email" placeholder="Email Anda..." required class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500">
+                        <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm py-3 rounded-xl transition-colors">
+                            Berlangganan
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+
+            <!-- Bottom Credits -->
+            <div class="pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 space-y-4 md:space-y-0">
+                <p>&copy; 2026 PT Pet Life Indonesia. Hak Cipta Dilindungi Undang-Undang.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-slate-400">Kebijakan Privasi</a>
+                    <a href="#" class="hover:text-slate-400">Syarat & Ketentuan</a>
+                    <a href="#" class="hover:text-slate-400">Peta Situs</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PRODUCT DETAIL MODAL -->
+    <div id="productModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 opacity-0 invisible transition-all duration-300 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl transform scale-95 transition-all duration-300 relative" id="modalCard">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center z-10 transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="grid grid-cols-1 md:grid-cols-2">
+                <div class="h-64 md:h-auto bg-slate-100">
+                    <img id="modalImg" src="" alt="Product Detail" class="w-full h-full object-cover">
+                </div>
+                <div class="p-8 flex flex-col space-y-4">
+                    <div class="flex items-center space-x-2 text-amber-400 text-xs">
+                        <i class="fa-solid fa-star"></i>
+                        <span id="modalRating" class="text-slate-700 font-bold"></span>
+                    </div>
+                    <h3 id="modalTitle" class="text-2xl font-black text-slate-900 leading-tight"></h3>
+                    <p id="modalPrice" class="text-2xl font-black text-brand-600"></p>
+                    <p id="modalDesc" class="text-sm text-slate-600 leading-relaxed"></p>
+
+                    <div class="pt-4 border-t border-slate-100 space-y-3">
+                        <a href="#store-locator" onclick="closeProductModal()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 rounded-xl shadow-lg flex items-center justify-center gap-2 transition-colors">
+                            <i class="fa-solid fa-store"></i>
+                            <span>Cari Toko Penjual</span>
+                        </a>
+                        <p class="text-[11px] text-center text-slate-400">*Tersedia di Petshop mitra resmi seluruh wilayah Indonesia.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEARCH MODAL -->
+    <div id="searchModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 opacity-0 invisible transition-all duration-300 flex items-start justify-center pt-24 p-4">
+        <div class="bg-white rounded-2xl max-w-xl w-full p-6 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                <div class="flex items-center space-x-3 w-full">
+                    <i class="fa-solid fa-magnifying-glass text-slate-400 text-lg"></i>
+                    <input type="text" id="searchInput" placeholder="Cari makanan kucing, anjing, atau produk care..." class="w-full text-slate-800 placeholder-slate-400 focus:outline-none text-base font-medium">
+                </div>
+                <button onclick="toggleSearchModal()" class="text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div class="text-xs text-slate-400 space-y-2">
+                <p class="font-bold uppercase text-slate-500">Pencarian Populer:</p>
+                <div class="flex flex-wrap gap-2">
+                    <span onclick="quickSearch('Salmon')" class="bg-slate-100 hover:bg-brand-100 hover:text-brand-600 text-slate-600 px-3 py-1 rounded-lg cursor-pointer">Salmon</span>
+                    <span onclick="quickSearch('Puppy')" class="bg-slate-100 hover:bg-brand-100 hover:text-brand-600 text-slate-600 px-3 py-1 rounded-lg cursor-pointer">Puppy</span>
+                    <span onclick="quickSearch('Bentonite')" class="bg-slate-100 hover:bg-brand-100 hover:text-brand-600 text-slate-600 px-3 py-1 rounded-lg cursor-pointer">Bentonite</span>
+                    <span onclick="quickSearch('Kitten')" class="bg-slate-100 hover:bg-brand-100 hover:text-brand-600 text-slate-600 px-3 py-1 rounded-lg cursor-pointer">Kitten</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Hero Slider Controls
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.slide-dot');
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (dots[i]) {
+                    dots[i].classList.remove('bg-white', 'w-10');
+                    dots[i].classList.add('bg-white/50', 'w-3');
+                }
+            });
+
+            currentSlide = (index + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+            if (dots[currentSlide]) {
+                dots[currentSlide].classList.add('bg-white', 'w-10');
+                dots[currentSlide].classList.remove('bg-white/50');
+            }
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        function goToSlide(index) {
+            showSlide(index);
+        }
+
+        // Auto slide hero banner
+        setInterval(nextSlide, 6000);
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Category Filter Logic
+        function filterProducts(category) {
+            const cards = document.querySelectorAll('.product-card');
+            const btns = document.querySelectorAll('.product-tab-btn');
+
+            // Update Tab active styling
+            btns.forEach(btn => {
+                btn.classList.remove('bg-brand-600', 'text-white', 'shadow-md');
+                btn.classList.add('text-slate-600');
+            });
+
+            const activeBtn = document.getElementById(`btn-${category}`);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-brand-600', 'text-white', 'shadow-md');
+                activeBtn.classList.remove('text-slate-600');
+            }
+
+            // Show/Hide product cards
+            cards.forEach(card => {
+                if (category === 'all' || card.classList.contains(category)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Product Modal Logic
+        function openProductModal(title, price, desc, rating, category, imageSrc) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalPrice').innerText = price;
+            document.getElementById('modalDesc').innerText = desc;
+            document.getElementById('modalRating').innerText = `${rating} / 5.0`;
+            document.getElementById('modalImg').src = imageSrc;
+
+            const modal = document.getElementById('productModal');
+            const card = document.getElementById('modalCard');
+            modal.classList.remove('opacity-0', 'invisible');
+            card.classList.remove('scale-95');
+            card.classList.add('scale-100');
+        }
+
+        function closeProductModal() {
+            const modal = document.getElementById('productModal');
+            const card = document.getElementById('modalCard');
+            card.classList.remove('scale-100');
+            card.classList.add('scale-95');
+            modal.classList.add('opacity-0', 'invisible');
+        }
+
+        // Search Modal Logic
+        function toggleSearchModal() {
+            const modal = document.getElementById('searchModal');
+            modal.classList.toggle('opacity-0');
+            modal.classList.toggle('invisible');
+            if (!modal.classList.contains('invisible')) {
+                document.getElementById('searchInput').focus();
+            }
+        }
+
+        function quickSearch(keyword) {
+            document.getElementById('searchInput').value = keyword;
+        }
+
+        // Handle Newsletter Mock
+        function handleNewsletter(event) {
+            event.preventDefault();
+            alert('Terima kasih! Anda telah terdaftar untuk menerima berita & penawaran spesial dari Pet Life Indonesia.');
+            event.target.reset();
+        }
+    </script>
+</body>
+</html>

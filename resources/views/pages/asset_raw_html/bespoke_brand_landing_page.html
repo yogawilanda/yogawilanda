@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VETRANUTRA | Ultra-Premium Pet Nutrition & Wellness</title>
+
+    <!-- Tailwind CSS v3 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js for seamless UI state management -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- FontAwesome 6 Pro/Free Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Playfair Display + Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        forest: {
+                            950: '#04170E',
+                            900: '#0B3C26', // Primary Accent
+                            800: '#125235',
+                            700: '#196B47',
+                        },
+                        ivory: {
+                            50: '#FFFEFA',
+                            100: '#FBF9F4', // Warm Ivory Background
+                            200: '#F4EFE6',
+                            300: '#E8DFC1',
+                        },
+                        gold: {
+                            400: '#E5C07B',
+                            500: '#D4A359', // Warm Gold Accent
+                            600: '#B88439',
+                        },
+                        charcoal: '#1A202C'
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    animation: {
+                        'ken-burns': 'kenburns 20s ease infinite alternate',
+                        'float': 'float 6s ease-in-out infinite',
+                        'marquee': 'marquee 35s linear infinite',
+                    },
+                    keyframes: {
+                        kenburns: {
+                            '0%': { transform: 'scale(1) translate(0, 0)' },
+                            '100%': { transform: 'scale(1.1) translate(-1%, -1%)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0B3C26; }
+        ::-webkit-scrollbar-thumb { background: #D4A359; border-radius: 4px; }
+        
+        /* Hide scrollbar for carousel */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Custom selection */
+        ::selection { background-color: #D4A359; color: #04170E; }
+    </style>
+</head>
+<body x-data="appData()" class="bg-ivory-100 text-charcoal font-sans antialiased overflow-x-hidden selection:bg-gold-500 selection:text-forest-950">
+
+    <!-- ANNOUNCEMENT STRIP -->
+    <div class="bg-forest-950 text-gold-400 text-xs py-2.5 px-6 border-b border-forest-800/60 font-medium tracking-widest uppercase flex justify-between items-center z-50 relative">
+        <div class="hidden lg:flex items-center space-x-6 text-[11px] text-ivory-200/70">
+            <span><i class="fa-solid fa-award text-gold-500 mr-2"></i> Standar Nutrisi Sertifikasi VET-Europe 2026</span>
+            <span><i class="fa-solid fa-phone text-gold-500 mr-2"></i> Private Concierge: +62 800-1-VETRA</span>
+        </div>
+        <div class="mx-auto lg:mx-0 text-center flex items-center gap-3">
+            <span class="bg-gold-500/20 text-gold-400 border border-gold-500/40 text-[9px] px-2 py-0.5 rounded uppercase font-bold tracking-wider">Eksklusif</span>
+            <span>Konsultasi Formulasi Nutrisi Custom Bersama Tim Dokter Hewan Preskriptif</span>
+        </div>
+        <div class="hidden lg:block text-[11px] text-ivory-200/70 hover:text-gold-400 transition-colors">
+            <a href="#store-finder"><i class="fa-solid fa-location-dot mr-1"></i> Lokasi Klinik & Boutique Partner</a>
+        </div>
+    </div>
+
+    <!-- MAIN EDITORIAL HEADER -->
+    <header class="sticky top-0 z-40 transition-all duration-500" 
+            :class="scrolled ? 'bg-forest-950/95 backdrop-blur-md py-4 shadow-2xl border-b border-forest-800/40' : 'bg-gradient-to-b from-forest-950/90 to-transparent py-6'"
+            @scroll.window="scrolled = (window.pageYOffset > 50)">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between">
+            
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="w-11 h-11 border-2 border-gold-500/80 rounded-full flex items-center justify-center text-gold-400 group-hover:bg-gold-500 group-hover:text-forest-950 transition-all duration-500 shadow-lg shadow-gold-500/10">
+                    <i class="fa-solid fa-shield-cat text-lg"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-serif text-2xl font-black tracking-wider text-ivory-50 uppercase group-hover:text-gold-400 transition-colors">VETRA<span class="text-gold-500 italic font-normal">NUTRA</span></span>
+                    <span class="text-[9px] font-bold tracking-[0.3em] text-gold-500/80 uppercase -mt-1">Haute Pet Culinary</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden lg:flex items-center space-x-10 text-xs font-semibold uppercase tracking-[0.2em] text-ivory-100/90">
+                <a href="#hero" class="hover:text-gold-400 transition-colors py-2 relative group">
+                    Beranda
+                    <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-gold-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#story" class="hover:text-gold-400 transition-colors py-2 relative group">
+                    Filosofi Nutrisi
+                    <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-gold-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#products" class="hover:text-gold-400 transition-colors py-2 relative group">
+                    Koleksi Formula
+                    <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-gold-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#lifestyle" class="hover:text-gold-400 transition-colors py-2 relative group">
+                    Edukasi Vet
+                    <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-gold-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#store-finder" class="hover:text-gold-400 transition-colors py-2 relative group">
+                    Mitra Resmi
+                    <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-gold-500 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="hidden lg:flex items-center space-x-6">
+                <button @click="searchOpen = true" class="text-ivory-100 hover:text-gold-400 transition-colors">
+                    <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                </button>
+                <a href="#store-finder" class="border border-gold-500 text-gold-400 hover:bg-gold-500 hover:text-forest-950 font-bold text-xs uppercase tracking-widest px-6 py-3 rounded-none transition-all duration-300 transform hover:-translate-y-0.5">
+                    Cari Boutique
+                </a>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button @click="mobileMenu = !mobileMenu" class="lg:hidden text-ivory-100 hover:text-gold-400 text-2xl focus:outline-none">
+                <i class="fa-solid" :class="mobileMenu ? 'fa-xmark' : 'fa-bars-staggered'"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div x-show="mobileMenu" 
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 -translate-y-4"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-4"
+             class="lg:hidden bg-forest-950 border-b border-forest-800/60 px-8 py-8 space-y-6">
+            <nav class="flex flex-col space-y-5 text-sm font-semibold uppercase tracking-widest text-ivory-100">
+                <a @click="mobileMenu = false" href="#hero" class="hover:text-gold-400">Beranda</a>
+                <a @click="mobileMenu = false" href="#story" class="hover:text-gold-400">Filosofi Nutrisi</a>
+                <a @click="mobileMenu = false" href="#products" class="hover:text-gold-400">Koleksi Formula</a>
+                <a @click="mobileMenu = false" href="#lifestyle" class="hover:text-gold-400">Edukasi Vet</a>
+                <a @click="mobileMenu = false" href="#store-finder" class="hover:text-gold-400">Mitra Resmi</a>
+            </nav>
+            <div class="pt-6 border-t border-forest-800/60 flex flex-col space-y-4">
+                <button @click="searchOpen = true; mobileMenu = false" class="text-left text-ivory-100 flex items-center gap-3">
+                    <i class="fa-solid fa-magnifying-glass text-gold-400"></i>
+                    <span>Cari Formula</span>
+                </button>
+                <a href="#store-finder" @click="mobileMenu = false" class="w-full text-center bg-gold-500 text-forest-950 font-bold py-3 uppercase tracking-widest text-xs">
+                    Temukan Toko Partner
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- CINEMATIC 100VH FULL-BLEED HERO SLIDER -->
+    <section id="hero" class="relative w-full h-screen min-h-[700px] bg-forest-950 overflow-hidden -mt-24">
+        
+        <!-- Background Slides -->
+        <template x-for="(slide, index) in slides" :key="index">
+            <div x-show="activeSlide === index"
+                 x-transition:enter="transition ease-out duration-1000"
+                 x-transition:enter-start="opacity-0 scale-105"
+                 x-transition:enter-end="opacity-100 scale-100"
+                 x-transition:leave="transition ease-in duration-700"
+                 x-transition:leave-start="opacity-100 scale-100"
+                 x-transition:leave-end="opacity-0 scale-95"
+                 class="absolute inset-0 w-full h-full">
+                
+                <img :src="slide.image" 
+                     :alt="slide.title" 
+                     class="w-full h-full object-cover object-center animate-ken-burns filter brightness-[0.65] contrast-[1.1]"
+                     onerror="this.src='https://images.unsplash.com/photo-1548767797-d8c844163c4c?q=80&w=2000&auto=format&fit=crop'">
+                
+                <!-- Editorial Vignette & Gradient Layer -->
+                <div class="absolute inset-0 bg-gradient-to-t from-forest-950 via-forest-950/40 to-forest-950/60"></div>
+                
+                <!-- Slide Content Content Container -->
+                <div class="absolute inset-0 flex items-center">
+                    <div class="max-w-7xl mx-auto px-6 lg:px-12 w-full pt-20">
+                        <div class="max-w-3xl space-y-8">
+                            
+                            <!-- Subtitle Tag -->
+                            <div class="inline-flex items-center space-x-3 bg-forest-900/80 backdrop-blur-md border border-gold-500/30 px-5 py-2 rounded-none">
+                                <span class="w-2 h-2 rounded-full bg-gold-500 animate-pulse"></span>
+                                <span class="text-gold-400 font-sans text-xs uppercase tracking-[0.25em] font-bold" x-text="slide.tagline"></span>
+                            </div>
+
+                            <!-- Main Editorial Title -->
+                            <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-black text-ivory-50 leading-[1.08] tracking-tight">
+                                <span x-text="slide.titleStart"></span>
+                                <span class="block italic font-normal text-gold-400 font-serif" x-text="slide.titleItalic"></span>
+                            </h1>
+
+                            <!-- Description -->
+                            <p class="text-base sm:text-xl text-ivory-200/90 font-light leading-relaxed max-w-2xl font-sans" x-text="slide.description"></p>
+
+                            <!-- CTAs -->
+                            <div class="flex flex-wrap items-center gap-6 pt-4">
+                                <a href="#products" class="bg-gold-500 hover:bg-gold-600 text-forest-950 font-bold text-xs uppercase tracking-[0.2em] px-8 py-5 shadow-2xl transition-all duration-300 transform hover:-translate-y-1 flex items-center gap-4">
+                                    <span>Jelajahi Formula</span>
+                                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                                </a>
+                                <a href="#story" class="border border-ivory-200/30 hover:border-gold-500 text-ivory-100 hover:text-gold-400 font-bold text-xs uppercase tracking-[0.2em] px-8 py-5 backdrop-blur-sm transition-all duration-300">
+                                    Filosofi Formulasi
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Floating Editorial Badge Element -->
+                <div class="hidden lg:flex absolute bottom-16 right-16 items-center space-x-4 bg-forest-950/80 backdrop-blur-xl border border-gold-500/30 p-6 max-w-sm animate-float">
+                    <div class="w-14 h-14 rounded-full bg-gold-500/20 text-gold-400 flex items-center justify-center shrink-0 border border-gold-500/40 text-2xl font-serif italic">
+                        99%
+                    </div>
+                    <div>
+                        <p class="text-xs uppercase tracking-wider text-gold-400 font-bold">Digestibility Score</p>
+                        <p class="text-xs text-ivory-200/80 mt-1 leading-snug">Riset klinis membuktikan penyerapan nutrisi maksimal tanpa iritasi saluran cerna.</p>
+                    </div>
+                </div>
+
+            </div>
+        </template>
+
+        <!-- Slider Navigation Controls -->
+        <div class="absolute bottom-10 left-6 lg:left-12 z-30 flex items-center space-x-8">
+            <div class="flex space-x-3">
+                <template x-for="(slide, i) in slides" :key="i">
+                    <button @click="activeSlide = i" 
+                            class="h-1 transition-all duration-500"
+                            :class="activeSlide === i ? 'w-12 bg-gold-500' : 'w-4 bg-ivory-200/30 hover:bg-ivory-200/60'"></button>
+                </template>
+            </div>
+            <div class="text-ivory-200/60 font-serif text-sm tracking-widest">
+                0<span x-text="activeSlide + 1"></span> / 0<span x-text="slides.length"></span>
+            </div>
+        </div>
+
+        <!-- Slider Arrow Controls -->
+        <div class="absolute bottom-8 right-6 lg:right-12 z-30 flex space-x-3">
+            <button @click="prevSlide()" class="w-12 h-12 border border-gold-500/30 bg-forest-950/60 hover:bg-gold-500 hover:text-forest-950 text-gold-400 flex items-center justify-center transition-all duration-300">
+                <i class="fa-solid fa-chevron-left text-xs"></i>
+            </button>
+            <button @click="nextSlide()" class="w-12 h-12 border border-gold-500/30 bg-forest-950/60 hover:bg-gold-500 hover:text-forest-950 text-gold-400 flex items-center justify-center transition-all duration-300">
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- BRAND CERTIFICATION MARQUEE STRIP -->
+    <section class="bg-forest-900 border-y border-forest-800/80 py-6 overflow-hidden">
+        <div class="flex whitespace-nowrap animate-marquee space-x-16 text-ivory-200/60 text-xs uppercase tracking-[0.3em] font-semibold items-center">
+            <span class="flex items-center gap-3"><i class="fa-solid fa-check text-gold-500"></i> Non-GMO Certified Ingredients</span>
+            <span class="text-gold-500/40">◆</span>
+            <span class="flex items-center gap-3"><i class="fa-solid fa-check text-gold-500"></i> Zero Artificial Preservatives</span>
+            <span class="text-gold-500/40">◆</span>
+            <span class="flex items-center gap-3"><i class="fa-solid fa-check text-gold-500"></i> Clinical Digestive Tolerance</span>
+            <span class="text-gold-500/40">◆</span>
+            <span class="flex items-center gap-3"><i class="fa-solid fa-check text-gold-500"></i> Formulated by European Vets</span>
+            <span class="text-gold-500/40">◆</span>
+            <span class="flex items-center gap-3"><i class="fa-solid fa-check text-gold-500"></i> Sustainable Ocean Sourcing</span>
+            <span class="text-gold-500/40">◆</span>
+            <span class="flex items-center gap-3"><i class="fa-solid fa-check text-gold-500"></i> Non-GMO Certified Ingredients</span>
+            <span class="text-gold-500/40">◆</span>
+            <span class="flex items-center gap-3"><i class="fa-solid fa-check text-gold-500"></i> Zero Artificial Preservatives</span>
+        </div>
+    </section>
+
+    <!-- CUSTOM EDITORIAL STORYTELLER SECTION -->
+    <section id="story" class="py-32 bg-ivory-100 relative overflow-hidden">
+        <!-- Signature Background Watermark -->
+        <div class="absolute -top-20 right-0 font-serif text-[180px] sm:text-[260px] font-black text-ivory-200/40 select-none pointer-events-none leading-none z-0">
+            NUTRITION
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                
+                <!-- Left: Asymmetric Overlapping Photography Composition -->
+                <div class="lg:col-span-6 relative">
+                    <div class="relative z-10">
+                        <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?q=80&w=1200&auto=format&fit=crop" 
+                             alt="Pakar Nutrisi Hewan" 
+                             class="w-full h-[520px] object-cover rounded-none shadow-2xl filter contrast-[1.05]"
+                             onerror="this.src='https://images.unsplash.com/photo-1548767797-d8c844163c4c?q=80&w=1200'">
+                    </div>
+                    <!-- Secondary Accent Image Overlay -->
+                    <div class="absolute -bottom-12 -right-8 z-20 w-3/5 hidden sm:block border-8 border-ivory-100 shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?q=80&w=800&auto=format&fit=crop" 
+                             alt="Bahan Alami Pilihan" 
+                             class="w-full h-[280px] object-cover">
+                    </div>
+                    <!-- Floating Quote Chip -->
+                    <div class="absolute -top-8 -left-8 z-20 bg-forest-950 text-ivory-100 p-8 max-w-xs shadow-2xl border-l-4 border-gold-500">
+                        <p class="font-serif italic text-sm text-ivory-200">"Makanan bukan sekadar pemuas lapar, tapi fondasi utama kualitas hidup anabul."</p>
+                        <p class="text-[10px] uppercase tracking-widest text-gold-400 mt-4 font-bold">— Dr. Aris Budiarto, M.Vet</p>
+                    </div>
+                </div>
+
+                <!-- Right: Editorial Narrative -->
+                <div class="lg:col-span-6 space-y-8 lg:pl-6">
+                    <div class="space-y-3">
+                        <span class="text-gold-600 font-sans text-xs uppercase tracking-[0.3em] font-extrabold">Filosofi & Dedikasi Preskriptif</span>
+                        <h2 class="font-serif text-3xl sm:text-5xl font-black text-forest-950 leading-tight">
+                            Sains Tingkat Tinggi Berpadu Kemurnian Alami
+                        </h2>
+                    </div>
+
+                    <p class="text-slate-600 text-base leading-relaxed font-light">
+                        VETRANUTRA lahir dari hasrat murni untuk mendefinisikan ulang standar makanan hewan peliharaan di Indonesia. Terinspirasi dari riset nutrisi klinis Eropa, setiap resep dikurasi secara presisi dari protein daging tunggal (*single animal protein*), biji-bijian purba, dan antioksidan botanical.
+                    </p>
+
+                    <!-- Key Pillars -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-4">
+                        <div class="border-l-2 border-gold-500 pl-6 space-y-2">
+                            <h4 class="font-serif font-bold text-lg text-forest-950">Bahan Baku Grade A</h4>
+                            <p class="text-xs text-slate-500 leading-relaxed">Daging sapi padang rumput dan salmon Atlantik liar tanpa produk sampingan (*no by-products*).</p>
+                        </div>
+                        <div class="border-l-2 border-gold-500 pl-6 space-y-2">
+                            <h4 class="font-serif font-bold text-lg text-forest-950">Mikrobioma Usus</h4>
+                            <p class="text-xs text-slate-500 leading-relaxed">Diperkaya prebiotik FOS/MOS dan kultur probiotik hidup untuk absorpsi usus optimal.</p>
+                        </div>
+                    </div>
+
+                    <!-- Live Stats Strip -->
+                    <div class="pt-8 border-t border-ivory-300/60 grid grid-cols-3 gap-6 text-center">
+                        <div>
+                            <p class="font-serif text-3xl font-black text-forest-900">100%</p>
+                            <p class="text-[10px] uppercase tracking-wider text-slate-500 font-bold mt-1">Human-Grade Sourcing</p>
+                        </div>
+                        <div>
+                            <p class="font-serif text-3xl font-black text-forest-900">24/7</p>
+                            <p class="text-[10px] uppercase tracking-wider text-slate-500 font-bold mt-1">Vet Advisory Line</p>
+                        </div>
+                        <div>
+                            <p class="font-serif text-3xl font-black text-forest-900">0%</p>
+                            <p class="text-[10px] uppercase tracking-wider text-slate-500 font-bold mt-1">Filler & Jagung</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- DYNAMIC INTERACTIVE PRODUCT SHOWCASE -->
+    <section id="products" class="py-32 bg-forest-950 text-ivory-100 relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            
+            <!-- Section Header -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 space-y-6 md:space-y-0 border-b border-forest-800/80 pb-10">
+                <div class="space-y-3">
+                    <span class="text-gold-400 font-sans text-xs uppercase tracking-[0.3em] font-extrabold">Katalog Mahakarya Nutrisi</span>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-black text-ivory-50">
+                        Formula Preskriptif VETRANUTRA
+                    </h2>
+                </div>
+
+                <!-- Custom Filter Tabs -->
+                <div class="flex flex-wrap gap-3 bg-forest-900/80 p-1.5 border border-forest-800">
+                    <button @click="activeCategory = 'all'" 
+                            :class="activeCategory === 'all' ? 'bg-gold-500 text-forest-950 font-bold' : 'text-ivory-200/70 hover:text-gold-400'"
+                            class="text-xs uppercase tracking-widest px-6 py-3 transition-all duration-300">
+                        Semua
+                    </button>
+                    <button @click="activeCategory = 'cat'" 
+                            :class="activeCategory === 'cat' ? 'bg-gold-500 text-forest-950 font-bold' : 'text-ivory-200/70 hover:text-gold-400'"
+                            class="text-xs uppercase tracking-widest px-6 py-3 transition-all duration-300">
+                        Kucing (Feline)
+                    </button>
+                    <button @click="activeCategory = 'dog'" 
+                            :class="activeCategory === 'dog' ? 'bg-gold-500 text-forest-950 font-bold' : 'text-ivory-200/70 hover:text-gold-400'"
+                            class="text-xs uppercase tracking-widest px-6 py-3 transition-all duration-300">
+                        Anjing (Canine)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Products Carousel Horizontal Scroll Area -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <template x-for="product in filteredProducts" :key="product.id">
+                    <div class="group bg-forest-900/40 border border-forest-800/80 hover:border-gold-500/60 transition-all duration-500 flex flex-col justify-between overflow-hidden">
+                        
+                        <!-- Image Container with Overlays -->
+                        <div class="relative h-80 bg-forest-950/60 p-8 flex items-center justify-center overflow-hidden">
+                            <span class="absolute top-4 left-4 bg-gold-500 text-forest-950 text-[10px] font-black uppercase tracking-widest px-3 py-1 z-10" x-text="product.badge"></span>
+                            
+                            <img :src="product.image" 
+                                 :alt="product.name" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 filter brightness-95"
+                                 onerror="this.src='https://images.unsplash.com/photo-1589924691995-400dc9ecc119?q=80&w=800'">
+                            
+                            <!-- Quick View Hover Button Overlay -->
+                            <div class="absolute inset-0 bg-forest-950/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6">
+                                <button @click="openModal(product)" class="bg-gold-500 hover:bg-gold-600 text-forest-950 font-bold text-xs uppercase tracking-widest px-6 py-3.5 shadow-2xl transition-all transform hover:-translate-y-1">
+                                    Lihat Profil Nutrisi
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Content Details -->
+                        <div class="p-8 space-y-4 flex-grow flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between text-xs text-gold-400/80 mb-2">
+                                    <span class="uppercase tracking-widest font-bold" x-text="product.species"></span>
+                                    <span class="font-serif italic"><i class="fa-solid fa-star text-gold-500 mr-1"></i> <span x-text="product.rating"></span></span>
+                                </div>
+
+                                <h3 class="font-serif text-xl font-bold text-ivory-50 group-hover:text-gold-400 transition-colors" x-text="product.name"></h3>
+                                <p class="text-xs text-ivory-200/60 mt-2 line-clamp-2 leading-relaxed" x-text="product.shortDesc"></p>
+                            </div>
+
+                            <div class="pt-6 border-t border-forest-800/80 flex items-center justify-between">
+                                <div>
+                                    <span class="text-[10px] uppercase tracking-wider text-ivory-200/40 block">Rekomendasi Vet</span>
+                                    <span class="font-serif text-xl font-bold text-gold-400" x-text="product.price"></span>
+                                </div>
+                                <button @click="openModal(product)" class="w-10 h-10 border border-gold-500/40 text-gold-400 hover:bg-gold-500 hover:text-forest-950 flex items-center justify-center transition-colors">
+                                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </template>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ASYMMETRIC MAGAZINE LIFESTYLE GALLERY / CARE HUB -->
+    <section id="lifestyle" class="py-32 bg-ivory-100 text-charcoal">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            
+            <div class="text-center max-w-3xl mx-auto mb-20 space-y-4">
+                <span class="text-gold-600 font-sans text-xs uppercase tracking-[0.3em] font-extrabold">Edukasi & Gaya Hidup Modern</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-black text-forest-950">
+                    Jurnal Kesehatan & Perawatan Pet
+                </h2>
+                <p class="text-slate-600 text-base font-light">
+                    Wawasan ilmiah teraktual dari para praktisi medis hewan untuk mengoptimalkan kebugaran fisik dan kebahagiaan mental anabul.
+                </p>
+            </div>
+
+            <!-- Asymmetric Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                
+                <!-- Main Large Feature Story (Col 8) -->
+                <article class="md:col-span-8 group relative bg-forest-950 min-h-[500px] overflow-hidden flex items-end p-8 sm:p-12 cursor-pointer" @click="alert('Membuka Artikel Lengkap...')">
+                    <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?q=80&w=1200&auto=format&fit=crop" 
+                         alt="Artikel Utama" 
+                         class="absolute inset-0 w-full h-full object-cover filter brightness-[0.6] group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-forest-950 via-forest-950/30 to-transparent"></div>
+                    
+                    <div class="relative z-10 space-y-4 text-ivory-100 max-w-2xl">
+                        <span class="bg-gold-500 text-forest-950 text-[10px] uppercase font-bold tracking-widest px-3 py-1">Laporan Klinis</span>
+                        <h3 class="font-serif text-2xl sm:text-4xl font-bold leading-snug group-hover:text-gold-400 transition-colors">
+                            Pentingnya Keseimbangan Asam Lemak Omega-3 & 6 Dalam Mencegah Dermatitis Kucing
+                        </h3>
+                        <p class="text-xs sm:text-sm text-ivory-200/80 font-light line-clamp-2">
+                            Analisis mendalam mengenai rasio asam lemak esensial terhadap perbaikan regenerasi sel kulit dan pencegahan kerontokan bulu bermusim.
+                        </p>
+                        <div class="pt-2 flex items-center text-xs font-bold text-gold-400 tracking-widest uppercase">
+                            <span>Baca Riset Selengkapnya</span>
+                            <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Side Feature Card 1 (Col 4) -->
+                <article class="md:col-span-4 group relative bg-forest-950 min-h-[500px] overflow-hidden flex items-end p-8 cursor-pointer" @click="alert('Membuka Artikel Lengkap...')">
+                    <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=800&auto=format&fit=crop" 
+                         alt="Artikel 2" 
+                         class="absolute inset-0 w-full h-full object-cover filter brightness-[0.6] group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-forest-950 via-forest-950/30 to-transparent"></div>
+                    
+                    <div class="relative z-10 space-y-3 text-ivory-100">
+                        <span class="text-gold-400 text-[10px] uppercase font-bold tracking-widest">Nutrisi Anjing Ras Besar</span>
+                        <h3 class="font-serif text-xl font-bold leading-snug group-hover:text-gold-400 transition-colors">
+                            Proteksi Kepadatan Tulang & Sendi Glukosamin
+                        </h3>
+                        <div class="pt-2 flex items-center text-xs font-bold text-gold-400 tracking-widest uppercase">
+                            <span>Baca Panduan</span>
+                            <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- WHERE TO BUY / INTERACTIVE BOUTIQUE & DISTRIBUTOR FINDER -->
+    <section id="store-finder" class="py-32 bg-forest-900 text-ivory-100 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                
+                <!-- Left Details & Search -->
+                <div class="lg:col-span-5 space-y-8">
+                    <div class="space-y-3">
+                        <span class="text-gold-400 font-sans text-xs uppercase tracking-[0.3em] font-extrabold">Jaringan Mitra Eksklusif</span>
+                        <h2 class="font-serif text-3xl sm:text-5xl font-black text-ivory-50 leading-tight">
+                            Temukan Boutique & Klinik Partner
+                        </h2>
+                    </div>
+
+                    <p class="text-ivory-200/80 text-sm font-light leading-relaxed">
+                        Produk VETRANUTRA tersedia secara terbatas di jaringan klinik hewan resmi, dokter preskriptif, dan *haute pet boutique* terpercaya di kota Anda.
+                    </p>
+
+                    <!-- Interactive Region Selector -->
+                    <div class="space-y-4">
+                        <label class="block text-xs uppercase tracking-widest text-gold-400 font-bold">Pilih Wilayah Anda:</label>
+                        <select x-model="selectedRegion" class="w-full bg-forest-950 border border-forest-800 text-ivory-100 px-5 py-4 text-sm font-medium focus:outline-none focus:border-gold-500 transition-colors">
+                            <option value="jakarta">DKI Jakarta & Diberlakukan (Central Boutique)</option>
+                            <option value="surabaya">Surabaya & Jawa Timur (East Region)</option>
+                            <option value="bali">Bali & Nusa Tenggara (Resort & Spa)</option>
+                            <option value="bandung">Bandung & West Java Hub</option>
+                        </select>
+                    </div>
+
+                    <!-- Filtered Store List Preview -->
+                    <div class="space-y-4 pt-2">
+                        <template x-for="store in stores[selectedRegion]" :key="store.name">
+                            <div class="p-5 bg-forest-950/80 border border-forest-800 hover:border-gold-500/50 transition-colors space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-serif font-bold text-ivory-50" x-text="store.name"></h4>
+                                    <span class="text-[10px] bg-gold-500/20 text-gold-400 border border-gold-500/30 px-2 py-0.5 font-bold uppercase" x-text="store.type"></span>
+                                </div>
+                                <p class="text-xs text-ivory-200/60" x-text="store.address"></p>
+                                <p class="text-xs text-gold-400 font-medium"><i class="fa-solid fa-phone mr-1"></i> <span x-text="store.phone"></span></p>
+                            </div>
+                        </template>
+                    </div>
+
+                </div>
+
+                <!-- Right Mock Map Interactive Card -->
+                <div class="lg:col-span-7 bg-forest-950 border border-forest-800 p-8 h-[580px] relative flex flex-col justify-between overflow-hidden shadow-2xl">
+                    <!-- Subtle Stylized Map Vector Background -->
+                    <div class="absolute inset-0 bg-[radial-gradient(#D4A359_1px,transparent_1px)] [background-size:24px_24px] opacity-10"></div>
+                    
+                    <div class="relative z-10 flex items-center justify-between border-b border-forest-800 pb-4">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-3 h-3 rounded-full bg-emerald-500 animate-ping"></span>
+                            <span class="text-xs uppercase tracking-widest text-ivory-200 font-bold">Peta Lokasi Live Preskriptif</span>
+                        </div>
+                        <span class="text-xs text-gold-400 font-serif italic">Verified Partner Network</span>
+                    </div>
+
+                    <!-- Central Interactive Pin Card Mock -->
+                    <div class="relative z-10 my-auto text-center space-y-6 max-w-md mx-auto">
+                        <div class="w-20 h-20 rounded-full bg-gold-500/10 border-2 border-gold-500 text-gold-400 flex items-center justify-center mx-auto text-3xl shadow-2xl">
+                            <i class="fa-solid fa-location-dot animate-bounce"></i>
+                        </div>
+                        <div class="space-y-2">
+                            <h3 class="font-serif text-2xl font-bold text-ivory-50">Layanan Layanan Antar Concierge</h3>
+                            <p class="text-xs text-ivory-200/70 font-light">Untuk pemesanan jumlah khusus atau pakan racikan khusus dari resep Dokter Hewan Anda, manfaatkan pengiriman suhu terkontrol *VETRA-EXPRESS*.</p>
+                        </div>
+                        <button class="bg-gold-500 hover:bg-gold-600 text-forest-950 font-bold text-xs uppercase tracking-widest px-8 py-4 transition-all">
+                            Hubungi Concierge Sekarang
+                        </button>
+                    </div>
+
+                    <div class="relative z-10 pt-4 border-t border-forest-800 text-center text-[11px] text-ivory-200/40">
+                        Ingin mendaftarkan Klinik atau Pet Boutique Anda sebagai Mitra Resmi VETRANUTRA? <a href="#" class="text-gold-400 underline">Klik di sini</a>.
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- LUXURY FOOTER -->
+    <footer class="bg-forest-950 text-ivory-200/80 pt-24 pb-12 border-t border-forest-800/80">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 pb-20 border-b border-forest-800/80">
+                
+                <!-- Brand Info -->
+                <div class="lg:col-span-2 space-y-6">
+                    <a href="#" class="flex items-center space-x-3">
+                        <div class="w-10 h-10 border border-gold-500 rounded-full flex items-center justify-center text-gold-400">
+                            <i class="fa-solid fa-shield-cat"></i>
+                        </div>
+                        <span class="font-serif text-2xl font-black tracking-wider text-ivory-50 uppercase">VETRA<span class="text-gold-500 italic">NUTRA</span></span>
+                    </a>
+                    <p class="text-xs font-light text-ivory-200/60 leading-relaxed max-w-sm">
+                        Pelopor nutrisi preskriptif dan makanan kesehatan tingkat tinggi untuk kucing dan anjing di Indonesia. Teruji secara klinis untuk masa depan peliharaan yang panjang dan berenergi.
+                    </p>
+                    <div class="flex space-x-4 text-gold-400 text-sm">
+                        <a href="#" class="w-9 h-9 border border-forest-800 hover:border-gold-500 flex items-center justify-center transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-9 h-9 border border-forest-800 hover:border-gold-500 flex items-center justify-center transition-colors"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#" class="w-9 h-9 border border-forest-800 hover:border-gold-500 flex items-center justify-center transition-colors"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <!-- Navigation 1 -->
+                <div class="space-y-4">
+                    <h4 class="font-serif font-bold text-ivory-50 text-sm tracking-wider uppercase">Formula Preskriptif</h4>
+                    <ul class="space-y-2.5 text-xs font-light">
+                        <li><a href="#products" class="hover:text-gold-400 transition-colors">Feline Digestive Care</a></li>
+                        <li><a href="#products" class="hover:text-gold-400 transition-colors">Canine Joint & Bone Support</a></li>
+                        <li><a href="#products" class="hover:text-gold-400 transition-colors">Kitten & Puppy Growth</a></li>
+                        <li><a href="#products" class="hover:text-gold-400 transition-colors">Hypoallergenic Salmon Single Protein</a></li>
+                    </ul>
+                </div>
+
+                <!-- Navigation 2 -->
+                <div class="space-y-4">
+                    <h4 class="font-serif font-bold text-ivory-50 text-sm tracking-wider uppercase">Perusahaan</h4>
+                    <ul class="space-y-2.5 text-xs font-light">
+                        <li><a href="#story" class="hover:text-gold-400 transition-colors">Filosofi & Riset Medis</a></li>
+                        <li><a href="#" class="hover:text-gold-400 transition-colors">Sertifikasi Klinis Europe</a></li>
+                        <li><a href="#store-finder" class="hover:text-gold-400 transition-colors">Jaringan Dokter Hewan</a></li>
+                        <li><a href="#" class="hover:text-gold-400 transition-colors">Private Vet Concierge</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div class="space-y-4">
+                    <h4 class="font-serif font-bold text-ivory-50 text-sm tracking-wider uppercase">Wawasan Vet Bulanan</h4>
+                    <p class="text-xs text-ivory-200/60 font-light">Dapatkan jurnal nutrisi klinis khusus pemilik anabul.</p>
+                    <form @submit.prevent="alert('Terima kasih telah mendaftar di Jurnal VETRANUTRA.')" class="space-y-2">
+                        <input type="email" placeholder="Alamat Email Anda..." required class="w-full bg-forest-900 border border-forest-800 text-ivory-100 px-4 py-3 text-xs focus:outline-none focus:border-gold-500">
+                        <button type="submit" class="w-full bg-gold-500 hover:bg-gold-600 text-forest-950 font-bold text-xs uppercase tracking-widest py-3 transition-colors">
+                            Langganan Jurnal
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="pt-8 flex flex-col md:flex-row items-center justify-between text-[11px] text-ivory-200/40 space-y-4 md:space-y-0">
+                <p>&copy; 2026 PT VETRANUTRA INDONESIA. All rights reserved. Registered Trademark.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-ivory-200">Kebijakan Privasi Medis</a>
+                    <a href="#" class="hover:text-ivory-200">Syarat & Ketentuan</a>
+                    <a href="#" class="hover:text-ivory-200">Standar Sertifikasi</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- QUICK-VIEW NUTRITION PROFILE MODAL -->
+    <div x-show="modalOpen" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-50 bg-forest-950/90 backdrop-blur-md flex items-center justify-center p-4"
+         style="display: none;">
+        
+        <div @click.away="modalOpen = false" 
+             class="bg-forest-900 border border-forest-800 max-w-3xl w-full p-8 lg:p-12 relative text-ivory-100 shadow-2xl">
+            
+            <button @click="modalOpen = false" class="absolute top-6 right-6 text-ivory-200/60 hover:text-gold-400 text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <template x-if="selectedProduct">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                    <div class="md:col-span-5 h-64 bg-forest-950 border border-forest-800 p-4">
+                        <img :src="selectedProduct.image" class="w-full h-full object-cover">
+                    </div>
+                    <div class="md:col-span-7 space-y-4">
+                        <span class="text-gold-400 text-[10px] font-bold uppercase tracking-widest" x-text="selectedProduct.badge"></span>
+                        <h3 class="font-serif text-2xl font-bold text-ivory-50" x-text="selectedProduct.name"></h3>
+                        <p class="font-serif text-xl text-gold-400 font-bold" x-text="selectedProduct.price"></p>
+                        <p class="text-xs text-ivory-200/80 font-light leading-relaxed" x-text="selectedProduct.fullDesc"></p>
+                        
+                        <div class="pt-4 border-t border-forest-800 space-y-2">
+                            <p class="text-xs font-bold text-gold-400 uppercase tracking-wider">Komposisi Kunci:</p>
+                            <p class="text-xs text-ivory-200/60" x-text="selectedProduct.ingredients"></p>
+                        </div>
+
+                        <div class="pt-4">
+                            <a href="#store-finder" @click="modalOpen = false" class="inline-block bg-gold-500 hover:bg-gold-600 text-forest-950 font-bold text-xs uppercase tracking-widest px-8 py-4 transition-all">
+                                Cari Toko Penjual Preskriptif
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+
+    <!-- SEARCH MODAL -->
+    <div x-show="searchOpen" 
+         class="fixed inset-0 z-50 bg-forest-950/95 backdrop-blur-md flex items-start justify-center pt-32 p-4"
+         style="display: none;">
+        <div @click.away="searchOpen = false" class="max-w-2xl w-full border-b-2 border-gold-500 pb-4">
+            <div class="flex items-center space-x-4">
+                <i class="fa-solid fa-magnifying-glass text-gold-400 text-2xl"></i>
+                <input type="text" placeholder="Ketik kata kunci formula (misal: Salmon, Joint, Kitten)..." class="w-full bg-transparent text-2xl font-serif text-ivory-50 focus:outline-none placeholder-forest-800">
+                <button @click="searchOpen = false" class="text-ivory-200/60 hover:text-gold-400 text-xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ALPINE JS DATA & LOGIC STATE -->
+    <script>
+        function appData() {
+            return {
+                scrolled: false,
+                mobileMenu: false,
+                modalOpen: false,
+                searchOpen: false,
+                activeSlide: 0,
+                activeCategory: 'all',
+                selectedRegion: 'jakarta',
+                selectedProduct: null,
+
+                slides: [
+                    {
+                        tagline: "Preskriptif Feline Nutrition",
+                        titleStart: "Nutrisi Murni Untuk",
+                        titleItalic: "Vitalitas Kucing Dewasa",
+                        description: "Diformulasikan secara khusus menggunakan protein salmon Atlantik segar tanpa tambahan tepung unggas untuk mendukung kilau bulu dan kesehatan ginjal.",
+                        image: "https://images.unsplash.com/photo-1548767797-d8c844163c4c?q=80&w=2000&auto=format&fit=crop"
+                    },
+                    {
+                        tagline: "Canine Joint & Endurance",
+                        titleStart: "Performa Maksimal Rasa",
+                        titleItalic: "Daging Sapi Padang Rumput",
+                        description: "Kaya akan Glukosamin dan Kondroitin alami untuk perlindungan sendi aktif anjing ras sedang hingga besar.",
+                        image: "https://images.unsplash.com/photo-1534361960057-19889db98d18?q=80&w=2000&auto=format&fit=crop"
+                    }
+                ],
+
+                products: [
+                    {
+                        id: 1,
+                        name: "VETRA-FELINE Salmon Hypoallergenic",
+                        category: "cat",
+                        species: "Kucing Dewasa",
+                        price: "Rp 185.000 / 1.5kg",
+                        rating: "4.9",
+                        badge: "Best Preskriptif",
+                        image: "https://images.unsplash.com/photo-1589924691995-400dc9ecc119?q=80&w=800",
+                        shortDesc: "Formula protein tunggal ikan salmon liar untuk pencegahan alergi kulit & sistem kemih.",
+                        fullDesc: "Formula preskriptif tanpa bahan pengisi jagung atau gandum. Dirancang khusus oleh dokter hewan Eropa untuk menjaga pH urin seimbang dan mencegah terbentuknya batu ginjal.",
+                        ingredients: "Daging Salmon Utuh 45%, Ubi Jalar, Minyak Ikan Kod, Cranberry Alami, Kultur Probiotik."
+                    },
+                    {
+                        id: 2,
+                        name: "VETRA-CANINE Prime Beef Active",
+                        category: "dog",
+                        species: "Anjing Ras Besar",
+                        price: "Rp 295.000 / 3.0kg",
+                        rating: "5.0",
+                        badge: "Joint Protection",
+                        image: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?q=80&w=800",
+                        shortDesc: "Perlindungan tulang rawan sendi dengan kadar protein otot 32% dari daging sapi segar.",
+                        fullDesc: "Kombinasi nutrisi tinggi kalori & protein terhidrolisis yang memberikan energi bertahap tanpa memicu penumpukan lemak berlebih.",
+                        ingredients: "Daging Sapi Australia 50%, Beras Merah Organik, Kolagen Sapi, Ekstrak Green Mussel."
+                    },
+                    {
+                        id: 3,
+                        name: "VETRA-KITTEN Growth & Brain DHA",
+                        category: "cat",
+                        species: "Anak Kucing (2-12 bln)",
+                        price: "Rp 145.000 / 1.0kg",
+                        rating: "4.8",
+                        badge: "Growth Booster",
+                        image: "https://images.unsplash.com/photo-1571566882372-1598d88abd90?q=80&w=800",
+                        shortDesc: "Kaya akan DHA dari minyak mikroalga untuk stimulasi kecerdasan dan pertumbuhan otak.",
+                        fullDesc: "Partikel kibble mikro bertekstur renyah dengan kemudahan cerna tinggi untuk anak kucing usia dini.",
+                        ingredients: "Daging Ayam Bebas Kandang, Kuning Telur Organik, Minyak Alga DHA, Taurin Murni."
+                    }
+                ],
+
+                stores: {
+                    jakarta: [
+                        { name: "VETRANUTRA Boutique Senopati", type: "Flagship Boutique", address: "Jl. Senopati No. 42, Kebayoran Baru, Jakarta Selatan", phone: "(021) 520-1928" },
+                        { name: "Klinik Animalia Central Pondok Indah", type: "Klinik Partner", address: "Plaza Pondok Indah 2, Blok B3", phone: "(021) 765-9921" }
+                    ],
+                    surabaya: [
+                        { name: "Surabaya Pet Hospital & Clinic", type: "Klinik Preskriptif", address: "Jl. Raya Darmo No. 110, Surabaya", phone: "(031) 567-8822" }
+                    ],
+                    bali: [
+                        { name: "Seminyak Haute Pet Care Center", type: "Resort Partner", address: "Jl. Kayu Aya No. 88, Seminyak, Bali", phone: "(0361) 847-1029" }
+                    ],
+                    bandung: [
+                        { name: "Bandung Vet Specialty Center", type: "Klinik Partner", address: "Jl. Riau No. 128, Bandung", phone: "(022) 420-3391" }
+                    ]
+                },
+
+                get filteredProducts() {
+                    if (this.activeCategory === 'all') return this.products;
+                    return this.products.filter(p => p.category === this.activeCategory);
+                },
+
+                nextSlide() {
+                    this.activeSlide = (this.activeSlide + 1) % this.slides.length;
+                },
+
+                prevSlide() {
+                    this.activeSlide = (this.activeSlide - 1 + this.slides.length) % this.slides.length;
+                },
+
+                openModal(product) {
+                    this.selectedProduct = product;
+                    this.modalOpen = true;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

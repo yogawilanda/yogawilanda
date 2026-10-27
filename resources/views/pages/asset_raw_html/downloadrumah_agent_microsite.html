@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog Properti Agent - DownloadRumah</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            900: '#064e3b',
+                        },
+                        navy: {
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        accent: {
+                            gold: '#f59e0b',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Font Family Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Alpine.js for lightweight interactive state -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <style>
+        /* Custom scrollbar for horizontal pill tabs */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased pb-20 md:pb-10" x-data="agentApp()">
+
+    <!-- TOP NAV / BRAND BAR -->
+    <header class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm">
+        <div class="max-w-md md:max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-white font-bold text-lg shadow-md shadow-emerald-200">
+                    <i class="fa-solid fa-house"></i>
+                </div>
+                <span class="font-bold text-slate-900 tracking-tight text-lg">Download<span class="text-emerald-600">Rumah</span></span>
+            </div>
+            <button @click="shareProfile()" class="text-xs font-semibold px-3 py-1.5 rounded-full bg-slate-100 text-slate-700 hover:bg-slate-200 transition flex items-center space-x-1">
+                <i class="fa-solid fa-share-nodes text-emerald-600"></i>
+                <span>Bagikan Profil</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER (MOBILE FIRST CONTAINER) -->
+    <main class="max-w-md md:max-w-4xl mx-auto px-4 pt-4 space-y-6">
+
+        <!-- 1. HERO AGENT SECTION -->
+        <section class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100 relative overflow-hidden">
+            <div class="absolute top-0 right-0 -mt-6 -mr-6 w-32 h-32 bg-emerald-50 rounded-full blur-2xl pointer-events-none"></div>
+
+            <div class="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+                <!-- Avatar with Online Status Badge -->
+                <div class="relative shrink-0">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=250&q=80" 
+                         alt="Foto Agent" 
+                         class="w-24 h-24 rounded-2xl object-cover border-2 border-emerald-500 shadow-md">
+                    <span class="absolute bottom-1 right-1 w-4 h-4 bg-emerald-500 border-2 border-white rounded-full" title="Online Status"></span>
+                </div>
+
+                <!-- Agent Details -->
+                <div class="space-y-1.5 flex-1">
+                    <div class="flex items-center justify-center sm:justify-start gap-2 flex-wrap">
+                        <h1 class="text-xl font-bold text-slate-900" x-text="agent.name"></h1>
+                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200">
+                            <i class="fa-solid fa-shield-halved mr-1 text-amber-500"></i> Verified
+                        </span>
+                    </div>
+
+                    <p class="text-xs text-slate-500 font-medium" x-text="agent.agency"></p>
+
+                    <div class="flex flex-wrap items-center justify-center sm:justify-start gap-1.5 pt-1">
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700">
+                            <i class="fa-solid fa-location-dot mr-1"></i> <span x-text="agent.specialty"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Action Buttons -->
+            <div class="grid grid-cols-2 gap-3 mt-5">
+                <a :href="'https://wa.me/' + agent.phone + '?text=Halo%20' + encodeURIComponent(agent.name) + ',%20saya%20ingin%20konsultasi%20mengenai%20properti%20di%20DownloadRumah.'" 
+                   target="_blank"
+                   class="flex items-center justify-center space-x-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 px-4 rounded-xl shadow-md shadow-emerald-100 transition active:scale-[0.98]">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span class="text-sm">Konsultasi WA</span>
+                </a>
+                <button @click="openKprModal()" class="flex items-center justify-center space-x-2 bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold py-2.5 px-4 rounded-xl transition active:scale-[0.98]">
+                    <i class="fa-solid fa-calculator text-emerald-600"></i>
+                    <span class="text-sm">Simulasi KPR</span>
+                </button>
+            </div>
+
+            <!-- Stats Counter Bar -->
+            <div class="grid grid-cols-3 gap-2 mt-5 pt-4 border-t border-slate-100 text-center">
+                <div class="p-2">
+                    <p class="text-lg font-bold text-slate-900" x-text="agent.stats.activeListings"></p>
+                    <p class="text-[11px] text-slate-500 uppercase tracking-wider font-semibold">Listing Aktif</p>
+                </div>
+                <div class="p-2 border-x border-slate-100">
+                    <p class="text-lg font-bold text-slate-900" x-text="agent.stats.unitsSold"></p>
+                    <p class="text-[11px] text-slate-500 uppercase tracking-wider font-semibold">Unit Terjual</p>
+                </div>
+                <div class="p-2">
+                    <div class="flex items-center justify-center text-lg font-bold text-slate-900">
+                        <i class="fa-solid fa-star text-amber-400 text-sm mr-1"></i>
+                        <span x-text="agent.stats.rating"></span>
+                    </div>
+                    <p class="text-[11px] text-slate-500 uppercase tracking-wider font-semibold">Rating Client</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. QUICK FILTER & SEARCH BAR -->
+        <section class="space-y-3 sticky top-[57px] z-20 bg-slate-50/95 pt-2 pb-1 backdrop-blur-sm">
+            <!-- Search Bar -->
+            <div class="relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                <input type="text" 
+                       x-model="searchQuery" 
+                       placeholder="Cari lokasi, nama properti, atau keyword..." 
+                       class="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent shadow-sm">
+                <button x-show="searchQuery" @click="searchQuery = ''" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Scrollable Pill Filters -->
+            <div class="flex space-x-2 overflow-x-auto no-scrollbar py-1">
+                <template x-for="filter in filters" :key="filter.id">
+                    <button @click="activeFilter = filter.id"
+                            :class="activeFilter === filter.id ? 'bg-slate-900 text-white shadow-sm' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'"
+                            class="px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-200 shrink-0 flex items-center space-x-1.5">
+                        <span x-text="filter.label"></span>
+                    </button>
+                </template>
+            </div>
+        </section>
+
+        <!-- 3. LISTING SHOWCASE (GRID LAYOUT) -->
+        <section class="space-y-4">
+            <div class="flex items-center justify-between">
+                <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                    <span>Daftar Katalog Properti</span>
+                    <span class="text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full" x-text="filteredListings.length"></span>
+                </h2>
+                <span class="text-xs text-slate-500" x-show="searchQuery || activeFilter !== 'all'">Filter aktif</span>
+            </div>
+
+            <!-- Empty State -->
+            <div x-show="filteredListings.length === 0" class="bg-white rounded-2xl p-8 text-center border border-slate-100">
+                <i class="fa-solid fa-house-circle-exclamation text-4xl text-slate-300 mb-2"></i>
+                <p class="text-slate-700 font-semibold text-sm">Tidak ada properti yang cocok</p>
+                <p class="text-slate-400 text-xs mt-1">Coba sesuaikan kata kunci atau filter pencarian Anda.</p>
+                <button @click="resetFilters()" class="mt-3 text-xs text-emerald-600 font-semibold underline">Reset Semua Filter</button>
+            </div>
+
+            <!-- Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <template x-for="item in filteredListings" :key="item.id">
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden hover:shadow-md transition group flex flex-col justify-between">
+                        <!-- Card Header / Image -->
+                        <div class="relative aspect-[16/10] overflow-hidden bg-slate-100">
+                            <img :src="item.images[0]" :alt="item.title" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            
+                            <!-- Badges -->
+                            <div class="absolute top-3 left-3 flex flex-wrap gap-1">
+                                <span :class="item.type === 'Dijual' ? 'bg-emerald-600' : 'bg-blue-600'" 
+                                      class="text-white font-bold text-[10px] uppercase px-2.5 py-1 rounded-md shadow-sm"
+                                      x-text="item.type"></span>
+                                <template x-if="item.isHot">
+                                    <span class="bg-amber-500 text-white font-bold text-[10px] uppercase px-2.5 py-1 rounded-md shadow-sm">
+                                        <i class="fa-solid fa-fire"></i> Hot Deal
+                                    </span>
+                                </template>
+                            </div>
+
+                            <div class="absolute bottom-3 right-3 bg-slate-900/80 backdrop-blur-md text-white text-xs px-2 py-1 rounded-md flex items-center space-x-1">
+                                <i class="fa-solid fa-camera"></i>
+                                <span x-text="item.images.length"></span>
+                            </div>
+                        </div>
+
+                        <!-- Card Body -->
+                        <div class="p-4 flex-1 flex flex-col justify-between space-y-3">
+                            <div>
+                                <div class="text-emerald-700 font-extrabold text-lg" x-text="formatRupiah(item.price)"></div>
+                                <h3 class="font-bold text-slate-800 text-sm line-clamp-1 mt-0.5" x-text="item.title"></h3>
+                                <p class="text-xs text-slate-500 mt-1 flex items-center">
+                                    <i class="fa-solid fa-location-dot text-slate-400 mr-1.5 shrink-0"></i>
+                                    <span class="truncate" x-text="item.location"></span>
+                                </p>
+                            </div>
+
+                            <!-- Specs Grid -->
+                            <div class="grid grid-cols-3 gap-2 bg-slate-50 p-2.5 rounded-xl text-center text-slate-700 text-xs">
+                                <div>
+                                    <span class="block text-slate-400 text-[10px] uppercase">LT/LB</span>
+                                    <span class="font-semibold text-slate-800" x-text="item.lt + '/' + item.lb + 'm²'"></span>
+                                </div>
+                                <div>
+                                    <span class="block text-slate-400 text-[10px] uppercase">K. Tidur</span>
+                                    <span class="font-semibold text-slate-800"><i class="fa-solid fa-bed text-emerald-600 mr-1"></i><span x-text="item.kt"></span></span>
+                                </div>
+                                <div>
+                                    <span class="block text-slate-400 text-[10px] uppercase">K. Mandi</span>
+                                    <span class="font-semibold text-slate-800"><i class="fa-solid fa-bath text-emerald-600 mr-1"></i><span x-text="item.km"></span></span>
+                                </div>
+                            </div>
+
+                            <!-- Card Action Buttons -->
+                            <div class="grid grid-cols-2 gap-2 pt-1">
+                                <button @click="openDetailModal(item)" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold py-2 px-3 rounded-xl text-xs transition">
+                                    Detail & Survey
+                                </button>
+                                <a :href="generateWaLink(item)" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2 px-3 rounded-xl text-xs transition flex items-center justify-center space-x-1 shadow-sm">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                    <span>Tanya via WA</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </section>
+
+        <!-- FOOTER BRANDING -->
+        <footer class="text-center py-6 text-xs text-slate-400 border-t border-slate-200/60 mt-10">
+            <p>© 2026 Powered by <span class="font-bold text-slate-600">DownloadRumah</span> — Platform Katalog Digital Agent</p>
+        </footer>
+    </main>
+
+    <!-- FLOATING DIRECT WHATSAPP BUTTON -->
+    <a :href="'https://wa.me/' + agent.phone + '?text=Halo%20' + encodeURIComponent(agent.name) + ',%20saya%20ingin%20tanya-tanya%20properti.'" 
+       target="_blank"
+       aria-label="Contact via WhatsApp"
+       class="fixed bottom-5 right-5 z-40 bg-emerald-500 hover:bg-emerald-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg shadow-emerald-500/30 transition hover:scale-110 active:scale-95">
+        <i class="fa-brands fa-whatsapp text-3xl"></i>
+    </a>
+
+    <!-- MODAL 1: DETAIL PROPERTI -->
+    <div x-show="selectedProperty" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm p-3 sm:p-6 flex items-center justify-center"
+         style="display: none;">
+        
+        <div @click.away="selectedProperty = null" 
+             class="bg-white w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl my-auto max-h-[90vh] flex flex-col">
+            
+            <!-- Modal Header -->
+            <div class="p-4 border-b border-slate-100 flex items-center justify-between sticky top-0 bg-white z-10">
+                <span class="font-bold text-slate-800 text-sm line-clamp-1" x-text="selectedProperty?.title"></span>
+                <button @click="selectedProperty = null" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content Scrollable -->
+            <div class="p-4 space-y-5 overflow-y-auto">
+                <!-- Main Image Preview & Gallery Miniatures -->
+                <div class="space-y-2">
+                    <div class="aspect-video bg-slate-100 rounded-2xl overflow-hidden relative">
+                        <img :src="activeModalImage || selectedProperty?.images[0]" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex space-x-2 overflow-x-auto no-scrollbar py-1">
+                        <template x-for="(img, idx) in selectedProperty?.images" :key="idx">
+                            <button @click="activeModalImage = img" class="shrink-0 w-16 h-12 rounded-lg overflow-hidden border-2 transition" :class="activeModalImage === img ? 'border-emerald-600' : 'border-transparent opacity-70'">
+                                <img :src="img" class="w-full h-full object-cover">
+                            </button>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Title & Price -->
+                <div>
+                    <div class="flex items-center justify-between flex-wrap gap-2">
+                        <div class="text-2xl font-extrabold text-emerald-600" x-text="formatRupiah(selectedProperty?.price || 0)"></div>
+                        <span class="text-xs bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full font-semibold" x-text="selectedProperty?.type"></span>
+                    </div>
+                    <h2 class="text-base font-bold text-slate-900 mt-1" x-text="selectedProperty?.title"></h2>
+                    <p class="text-xs text-slate-500 mt-1 flex items-center">
+                        <i class="fa-solid fa-location-dot text-slate-400 mr-1"></i>
+                        <span x-text="selectedProperty?.location"></span>
+                    </p>
+                </div>
+
+                <!-- Key Specs Grid -->
+                <div class="grid grid-cols-4 gap-2 bg-slate-50 p-3 rounded-2xl text-center text-xs">
+                    <div>
+                        <span class="block text-slate-400 text-[10px]">LUAS TANAH</span>
+                        <span class="font-bold text-slate-800" x-text="selectedProperty?.lt + ' m²'"></span>
+                    </div>
+                    <div>
+                        <span class="block text-slate-400 text-[10px]">LUAS BANGUNAN</span>
+                        <span class="font-bold text-slate-800" x-text="selectedProperty?.lb + ' m²'"></span>
+                    </div>
+                    <div>
+                        <span class="block text-slate-400 text-[10px]">K. TIDUR</span>
+                        <span class="font-bold text-slate-800" x-text="selectedProperty?.kt"></span>
+                    </div>
+                    <div>
+                        <span class="block text-slate-400 text-[10px]">K. MANDI</span>
+                        <span class="font-bold text-slate-800" x-text="selectedProperty?.km"></span>
+                    </div>
+                </div>
+
+                <!-- Features & Facilities -->
+                <div class="space-y-2">
+                    <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Fasilitas Properti</h3>
+                    <div class="flex flex-wrap gap-1.5">
+                        <template x-for="facility in selectedProperty?.facilities" :key="facility">
+                            <span class="text-xs bg-slate-100 text-slate-700 px-2.5 py-1 rounded-lg flex items-center gap-1">
+                                <i class="fa-solid fa-circle-check text-emerald-500 text-[10px]"></i>
+                                <span x-text="facility"></span>
+                            </span>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="space-y-2">
+                    <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Deskripsi Properti</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed whitespace-pre-line" x-text="selectedProperty?.description"></p>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-4 border-t border-slate-100 bg-slate-50 flex items-center gap-2">
+                <button @click="openKprModalForProperty(selectedProperty)" class="w-1/2 bg-white border border-slate-200 text-slate-800 font-semibold py-2.5 px-3 rounded-xl text-xs hover:bg-slate-100 transition">
+                    <i class="fa-solid fa-calculator text-emerald-600 mr-1"></i> Hitung KPR
+                </button>
+                <a :href="generateWaLink(selectedProperty)" target="_blank" class="w-1/2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 px-3 rounded-xl text-xs transition text-center flex items-center justify-center space-x-1 shadow-sm">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span>Tanya Agen</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: KALKULATOR KPR -->
+    <div x-show="showKprModal" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         class="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm p-3 sm:p-6 flex items-center justify-center"
+         style="display: none;">
+        
+        <div @click.away="showKprModal = false" class="bg-white w-full max-w-md rounded-3xl overflow-hidden shadow-2xl my-auto">
+            <!-- Modal Header -->
+            <div class="p-4 border-b border-slate-100 flex items-center justify-between bg-white">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-calculator text-emerald-600"></i>
+                    <span class="font-bold text-slate-800 text-sm">Simulasi Angsuran KPR</span>
+                </div>
+                <button @click="showKprModal = false" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body (Form & Output) -->
+            <div class="p-5 space-y-4">
+                <!-- Input Harga Properti -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 mb-1">Harga Properti (Rp)</label>
+                    <input type="number" x-model.number="kpr.propertyPrice" step="10000000" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm font-semibold focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                </div>
+
+                <!-- Input DP (%) -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Uang Muka (%)</label>
+                        <input type="number" x-model.number="kpr.dpPercent" min="0" max="90" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm font-semibold focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">Suku Bunga (%/Thn)</label>
+                        <input type="number" x-model.number="kpr.interestRate" step="0.1" class="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm font-semibold focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <!-- Input Tenor (Tahun) -->
+                <div>
+                    <div class="flex justify-between items-center mb-1">
+                        <label class="text-xs font-semibold text-slate-700">Jangka Waktu / Tenor</label>
+                        <span class="text-xs font-bold text-emerald-600" x-text="kpr.tenureYears + ' Tahun'"></span>
+                    </div>
+                    <input type="range" min="5" max="30" step="5" x-model.number="kpr.tenureYears" class="w-full accent-emerald-600">
+                    <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+                        <span>5 Thn</span>
+                        <span>15 Thn</span>
+                        <span>30 Thn</span>
+                    </div>
+                </div>
+
+                <!-- Output Box -->
+                <div class="bg-emerald-900 text-white p-4 rounded-2xl space-y-2">
+                    <div class="text-center">
+                        <span class="text-[11px] text-emerald-200 uppercase tracking-wider block">Estimasi Angsuran / Bulan</span>
+                        <span class="text-2xl font-extrabold text-white" x-text="formatRupiah(calculatedKpr.monthlyPayment)"></span>
+                    </div>
+                    <div class="border-t border-emerald-800 pt-2 grid grid-cols-2 text-[11px] text-emerald-100">
+                        <div>
+                            <span>Nilai DP:</span>
+                            <span class="font-bold block text-white" x-text="formatRupiah(calculatedKpr.dpAmount)"></span>
+                        </div>
+                        <div>
+                            <span>Plafond KPR:</span>
+                            <span class="font-bold block text-white" x-text="formatRupiah(calculatedKpr.loanAmount)"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-[10px] text-slate-400 text-center italic">*Perhitungan ini bersifat estimasi dan simulasi awal. Suku bunga dan ketentuan riil tergantung kebijakan bank penyedia KPR.</p>
+            </div>
+
+            <div class="p-4 border-t border-slate-100 bg-slate-50">
+                <button @click="showKprModal = false" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl text-xs transition">
+                    Tutup & Lanjutkan Cari Rumah
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC VIA ALPINE.JS -->
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('agentApp', () => ({
+                // Agent Profile Data
+                agent: {
+                    name: 'Budi Santoso',
+                    agency: 'Official Agent DownloadRumah',
+                    phone: '6281234567890', // Nomor WA Agen (Format Internasional tanpa +)
+                    specialty: 'Sidoarjo & Surabaya Barat',
+                    stats: {
+                        activeListings: 18,
+                        unitsSold: 42,
+                        rating: 4.9
+                    }
+                },
+
+                // Filters Configuration
+                activeFilter: 'all',
+                searchQuery: '',
+                filters: [
+                    { id: 'all', label: 'Semua' },
+                    { id: 'dijual', label: 'Dijual' },
+                    { id: 'disewa', label: 'Disewa' },
+                    { id: 'under500m', label: '< 500 Juta' },
+                    { id: 'minimalis', label: 'Modern Minimalis' }
+                ],
+
+                // Property Catalog Data
+                listings: [
+                    {
+                        id: 'DR-001',
+                        title: 'Rumah Minimalis Modern Ready Stock Tropodo',
+                        price: 485000000,
+                        type: 'Dijual',
+                        location: 'Tropodo, Waru, Sidoarjo',
+                        lt: 72,
+                        lb: 45,
+                        kt: 2,
+                        km: 1,
+                        isHot: true,
+                        tags: ['dijual', 'under500m', 'minimalis'],
+                        images: [
+                            'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+                            'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=800&q=80',
+                            'https://images.unsplash.com/photo-1600573472550-8090b5e0745e?auto=format&fit=crop&w=800&q=80'
+                        ],
+                        facilities: ['Carport 1 Mobil', 'SHM On Hand', 'Row Jalan 8 Meter', 'PLN 1300W', 'Air PDAM'],
+                        description: 'Hunian nyaman berdesain modern minimalis di lokasi strategis Tropodo Waru. Dekat dengan Akses Tol Juanda, Bandara International, dan pusat perbelanjaan. Bebas banjir dan lingkungan tenang aman 24 jam.'
+                    },
+                    {
+                        id: 'DR-002',
+                        title: 'Rumah Mewah 2 Lantai Citraland Utama',
+                        price: 2250000000,
+                        type: 'Dijual',
+                        location: 'Citraland, Surabaya Barat',
+                        lt: 135,
+                        lb: 160,
+                        kt: 4,
+                        km: 3,
+                        isHot: true,
+                        tags: ['dijual', 'minimalis'],
+                        images: [
+                            'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80',
+                            'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80'
+                        ],
+                        facilities: ['Smart Home System', 'Club House Access', 'Kanopi Alderon', 'PLN 3500W', 'One Gate System'],
+                        description: 'Rumah idaman keluarga di kawasan elit Surabaya Barat. Konstruksi kokoh, tata ruang maksimal dengan pencerahan alami yang baik. Siap huni tanpa perlu renovasi.'
+                    },
+                    {
+                        id: 'DR-003',
+                        title: 'Disewakan Rumah Asri Sidoarjo Kota',
+                        price: 28000000, // Per Tahun
+                        type: 'Disewa',
+                        location: 'Ketingan, Sidoarjo Kota',
+                        lt: 90,
+                        lb: 60,
+                        kt: 2,
+                        km: 1,
+                        isHot: false,
+                        tags: ['disewa', 'under500m'],
+                        images: [
+                            'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80',
+                            'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80'
+                        ],
+                        facilities: ['Dapur Samping', 'Pagar Keliling', 'Dekat Alun-alun', 'Listrik 1300W'],
+                        description: 'Sewa rumah harian/tahunan murah di Sidoarjo Kota. Akses mudah ke stasiun dan alun-alun. Lingkungan ramah dan bebas banjir.'
+                    },
+                    {
+                        id: 'DR-004',
+                        title: 'Rumah Compact Millennial DP 0% Kahuripan',
+                        price: 420000000,
+                        type: 'Dijual',
+                        location: 'Kahuripan Nirwana, Sidoarjo',
+                        lt: 60,
+                        lb: 36,
+                        kt: 2,
+                        km: 1,
+                        isHot: false,
+                        tags: ['dijual', 'under500m', 'minimalis'],
+                        images: [
+                            'https://images.unsplash.com/photo-1598228723793-52759bba239c?auto=format&fit=crop&w=800&q=80'
+                        ],
+                        facilities: ['DP 0%', 'Free Biaya KPR', 'Taman Depan', 'Security 24 Jam'],
+                        description: 'Promo khusus bulan ini! Rumah milenial minimalis dengan angsuran terjangkau mulai 2 jutaan per bulan.'
+                    }
+                ],
+
+                // Modal States
+                selectedProperty: null,
+                activeModalImage: null,
+                showKprModal: false,
+
+                // KPR Calculator State
+                kpr: {
+                    propertyPrice: 500000000,
+                    dpPercent: 10,
+                    interestRate: 7.5,
+                    tenureYears: 20
+                },
+
+                // Computed / Getters
+                get filteredListings() {
+                    return this.listings.filter(item => {
+                        // Filter by tab
+                        let matchesTab = true;
+                        if (this.activeFilter === 'dijual') matchesTab = item.type === 'Dijual';
+                        if (this.activeFilter === 'disewa') matchesTab = item.type === 'Disewa';
+                        if (this.activeFilter === 'under500m') matchesTab = item.price <= 500000000;
+                        if (this.activeFilter === 'minimalis') matchesTab = item.tags.includes('minimalis');
+
+                        // Filter by search query
+                        let matchesSearch = true;
+                        if (this.searchQuery.trim() !== '') {
+                            const query = this.searchQuery.toLowerCase();
+                            matchesSearch = item.title.toLowerCase().includes(query) || 
+                                            item.location.toLowerCase().includes(query) ||
+                                            item.id.toLowerCase().includes(query);
+                        }
+
+                        return matchesTab && matchesSearch;
+                    });
+                },
+
+                get calculatedKpr() {
+                    const price = this.kpr.propertyPrice || 0;
+                    const dp = (price * (this.kpr.dpPercent || 0)) / 100;
+                    const loan = price - dp;
+                    
+                    const annualRate = (this.kpr.interestRate || 0) / 100;
+                    const monthlyRate = annualRate / 12;
+                    const totalMonths = (this.kpr.tenureYears || 1) * 12;
+
+                    let monthlyPayment = 0;
+                    if (loan > 0 && monthlyRate > 0) {
+                        monthlyPayment = (loan * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -totalMonths));
+                    } else if (loan > 0) {
+                        monthlyPayment = loan / totalMonths;
+                    }
+
+                    return {
+                        dpAmount: Math.round(dp),
+                        loanAmount: Math.round(loan),
+                        monthlyPayment: Math.round(monthlyPayment)
+                    };
+                },
+
+                // Helper Functions
+                formatRupiah(number) {
+                    if (!number) return 'Rp 0';
+                    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(number);
+                },
+
+                generateWaLink(item) {
+                    if (!item) return '#';
+                    const message = `Halo ${this.agent.name}, saya berminat dengan properti di DownloadRumah:\n\n*${item.title}*\nID: ${item.id}\nHarga: ${this.formatRupiah(item.price)}\nLokasi: ${item.location}\n\nMohon informasi lebih lanjut / jadwal survey lokasi. Terima kasih.`;
+                    return `https://wa.me/${this.agent.phone}?text=${encodeURIComponent(message)}`;
+                },
+
+                openDetailModal(item) {
+                    this.selectedProperty = item;
+                    this.activeModalImage = item.images[0];
+                },
+
+                openKprModal() {
+                    this.showKprModal = true;
+                },
+
+                openKprModalForProperty(item) {
+                    if (item && item.price) {
+                        this.kpr.propertyPrice = item.price;
+                    }
+                    this.selectedProperty = null;
+                    this.showKprModal = true;
+                },
+
+                resetFilters() {
+                    this.searchQuery = '';
+                    this.activeFilter = 'all';
+                },
+
+                shareProfile() {
+                    if (navigator.share) {
+                        navigator.share({
+                            title: `Katalog Properti - ${this.agent.name}`,
+                            text: `Cek daftar rumah & properti pilihan dari ${this.agent.name} di DownloadRumah.`,
+                            url: window.location.href,
+                        }).catch(() => {});
+                    } else {
+                        // Fallback copy clipboard
+                        const dummy = document.createElement('input');
+                        document.body.appendChild(dummy);
+                        dummy.value = window.location.href;
+                        dummy.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(dummy);
+                        alert('Link katalog telah disalin ke clipboard!');
+                    }
+                }
+            }));
+        });
+    </script>
+</body>
+</html>
