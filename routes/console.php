@@ -18,6 +18,9 @@ Schedule::command('insights:daily-report --provider=github --username=yogawiland
     ->dailyAt('23:59')
     ->emailOutputOnFailure(config('mail.from.address'));
 
+// generate sitemap daily to balance updates and prevent spamming to update sitemaps.
+Schedule::command('sitemap:generate')->daily();
+
 // Clean up old records (pruning)
 Schedule::command('model:prune')
     ->daily();
