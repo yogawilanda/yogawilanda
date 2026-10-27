@@ -3,34 +3,36 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Spatie\Sitemap\SitemapGenerator;
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\Tags\Url;
 
 class GenerateSitemap extends Command
 {
     protected $signature = 'sitemap:generate';
-    protected $description = 'Generate sitemap by crawling public pages';
+
+    protected $description = 'Generate sitemap from public application routes';
 
     public function handle(): int
     {
-        $url = rtrim(config('app.url'), '/');
+        $baseUrl = rtrim(config('app.url'), '/');
 
-        if (! filter_var($url, FILTER_VALIDATE_URL)) {
+        if (! filter_var($baseUrl, FILTER_VALIDATE_URL)) {
             $this->error('APP_URL must be a valid URL.');
 
             return self::FAILURE;
         }
 
-        SitemapGenerator::create($url)
-            ->setConcurrency(1)
-            ->shouldCrawl(function (string $url): bool {
-                $path = parse_url($url, PHP_URL_PATH) ?? '/';
+        $sitemap = Sitemap::create();
 
-                return ! preg_match(
-                    '#^/(login|register|logout|dashboard|settings|profile-views|forgot-password|reset-password)(/|$)#i',
-                    $path
-                );
-            })
-            ->writeToFile(public_path('sitemap.xml'));
+        foreach (['/', '/about', '/services'] as $path) {
+            $sitemap->add(
+                Url::create($baseUrl . $path)
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY)
+                    ->setPriority($path === '/' ? 1.0 : 0.8)
+            );
+        }
+
+        $sitemap->writeToFile(public_path('sitemap.xml'));
 
         $this->info('Sitemap generated: ' . public_path('sitemap.xml'));
 
