@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV. ADIKARYA PLASTINDO - Pabrik Plastik Industri & Pertanian</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            900: '#0f172a'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Modern Industrial Aesthetic Rules - Sharp & Solid */
+        * {
+            border-radius: 0px !important; /* Enforce zero border radius */
+        }
+        body {
+            background-color: #f8fafc;
+            color: #0f172a;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            scroll-behavior: smooth;
+        }
+        .grid-bg {
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-sky-500 selection:text-white">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-slate-900 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2 text-center md:text-left">
+            <div class="flex items-center gap-3">
+                <span class="inline-block w-2 h-2 bg-emerald-500"></span>
+                <span>Pabrik & Produsen Langsung | Siap Melayani Pengiriman Seluruh Indonesia</span>
+            </div>
+            <div class="flex items-center gap-6 font-mono text-slate-400">
+                <span><strong class="text-slate-200">Email:</strong> sales@adikaryaplastindo.com</span>
+                <span><strong class="text-slate-200">Jam Operasional:</strong> Senin - Sabtu (08.00 - 17.00 WIB)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <header class="sticky top-0 z-50 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Brand Logo -->
+            <a href="#" class="flex flex-col">
+                <span class="text-xl sm:text-2xl font-black tracking-tight text-white font-mono uppercase">
+                    ADIKARYA <span class="text-sky-500">PLASTINDO</span>
+                </span>
+                <span class="text-[10px] tracking-widest text-slate-400 uppercase font-semibold">
+                    CV. ADIKARYA PLASTINDO &bull; PLASTIC MANUFACTURER
+                </span>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold tracking-wide uppercase text-slate-300">
+                <a href="#keunggulan" class="hover:text-sky-400 transition-colors">Keunggulan</a>
+                <a href="#katalog" class="hover:text-sky-400 transition-colors">Katalog Produk</a>
+                <a href="#kalkulator" class="hover:text-sky-400 transition-colors">Hitung Spesifikasi</a>
+                <a href="#profil" class="hover:text-sky-400 transition-colors">Tentang Kami</a>
+            </nav>
+
+            <!-- Direct Contact CTA -->
+            <div class="hidden sm:flex items-center gap-3">
+                <a id="navWhatsappBtn" href="https://wa.me/6281234567890?text=Halo%20CV.%20Adikarya%20Plastindo,%20saya%20ingin%20berdiskusi%20mengenai%20kebutuhan%20plastik%20industri." target="_blank" rel="noopener noreferrer" class="bg-sky-600 hover:bg-sky-500 text-white font-bold py-3 px-5 text-sm uppercase tracking-wider transition-all duration-200 flex items-center gap-2 border border-sky-400">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.572-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                    <span>Hubungi Pabrik</span>
+                </a>
+            </div>
+
+            <!-- Mobile menu button -->
+            <div class="md:hidden flex items-center">
+                <button id="mobileMenuBtn" class="text-slate-300 hover:text-white p-2 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-slate-900 border-b border-slate-800 px-4 pt-2 pb-6 space-y-3 font-semibold text-sm">
+            <a href="#keunggulan" class="block text-slate-300 hover:text-sky-400 py-2">Keunggulan</a>
+            <a href="#katalog" class="block text-slate-300 hover:text-sky-400 py-2">Katalog Produk</a>
+            <a href="#kalkulator" class="block text-slate-300 hover:text-sky-400 py-2">Hitung Spesifikasi</a>
+            <a href="#profil" class="block text-slate-300 hover:text-sky-400 py-2">Tentang Kami</a>
+            <a href="https://wa.me/6281234567890" target="_blank" class="block w-full text-center bg-sky-600 text-white py-3 font-bold uppercase tracking-wider">Hubungi via WhatsApp</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-slate-900 text-white border-b border-slate-800 grid-bg py-16 lg:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Left / Content -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center gap-2 bg-slate-800 border border-slate-700 px-3 py-1.5 text-xs font-mono text-sky-400 uppercase tracking-widest">
+                        <span class="w-2 h-2 bg-sky-500"></span> Direct Manufacturer & Exporter
+                    </div>
+                    
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight leading-tight">
+                        Pabrik Plastik Industri: <span class="text-sky-500">Polybag, Sampah, Cor, Sungkup & Inner Bag</span>
+                    </h1>
+                    
+                    <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl font-normal">
+                        CV. ADIKARYA PLASTINDO memproduksi dan memasok plastik bermutu tinggi untuk kebutuhan sektor pertanian, perkebunan, konstruksi, medis, hingga pengemasan industri skala besar dengan ketebalan & ukuran yang fleksibel.
+                    </p>
+
+                    <!-- Key stats strip -->
+                    <div class="grid grid-cols-3 gap-4 pt-4 border-t border-slate-800 max-w-xl">
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-black text-sky-400 font-mono">100%</div>
+                            <div class="text-xs text-slate-400 font-medium uppercase mt-1">Produsen Langsung</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-black text-sky-400 font-mono">Custom</div>
+                            <div class="text-xs text-slate-400 font-medium uppercase mt-1">Ukuran & Micron</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-black text-sky-400 font-mono">Nasional</div>
+                            <div class="text-xs text-slate-400 font-medium uppercase mt-1">Jangkauan Kirim</div>
+                        </div>
+                    </div>
+
+                    <!-- CTA Group -->
+                    <div class="pt-4 flex flex-col sm:flex-row gap-4">
+                        <a href="#kalkulator" class="bg-sky-600 hover:bg-sky-500 text-white font-bold px-8 py-4 text-center text-sm uppercase tracking-wider border border-sky-400 transition-all">
+                            Minta Penawaran Harga (RFQ)
+                        </a>
+                        <a href="#katalog" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-8 py-4 text-center text-sm uppercase tracking-wider border border-slate-700 transition-all">
+                            Lihat Produk Kami
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Right / Featured Specification Card -->
+                <div class="lg:col-span-5">
+                    <div class="bg-slate-950 border-2 border-slate-800 p-6 sm:p-8 space-y-6 relative shadow-2xl">
+                        <div class="absolute -top-3 right-6 bg-sky-600 text-white text-[10px] font-mono font-bold px-3 py-1 uppercase tracking-widest">
+                            B2B Wholesale Only
+                        </div>
+
+                        <h3 class="text-lg font-bold text-white uppercase tracking-wide border-b border-slate-800 pb-3 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            Kapasitas & Layanan Pabrik
+                        </h3>
+
+                        <ul class="space-y-4 text-sm text-slate-300">
+                            <li class="flex items-start gap-3">
+                                <span class="bg-sky-950 text-sky-400 font-mono font-bold px-2 py-0.5 text-xs border border-sky-800">01</span>
+                                <div>
+                                    <strong class="text-white block font-semibold">Bahan Baku Premium & Recycled</strong>
+                                    <span>Tersedia pilihan Original (Murni) & Daur Ulang High Grade sesuai budget operasional.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="bg-sky-950 text-sky-400 font-mono font-bold px-2 py-0.5 text-xs border border-sky-800">02</span>
+                                <div>
+                                    <strong class="text-white block font-semibold">Custom Size & Perforasi</strong>
+                                    <span>Pilihan lubang perforasi polybag, ketebalan tinggi (heavy duty), & seal tahan bocor.</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="bg-sky-950 text-sky-400 font-mono font-bold px-2 py-0.5 text-xs border border-sky-800">03</span>
+                                <div>
+                                    <strong class="text-white block font-semibold">Kontrak Pasokan Rutin</strong>
+                                    <span>Siap melayani suplai jangka panjang untuk perkebunan sawit, proyek konstruksi & RS.</span>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <div class="bg-slate-900 border border-slate-800 p-4 font-mono text-xs text-slate-400 space-y-1">
+                            <p class="text-sky-400 font-bold uppercase">&gt; Sistem Pembelian B2B:</p>
+                            <p>&bull; Minimum Order Quantity (MOQ) Adaptif</p>
+                            <p>&bull; Pengiriman Container / Ekspedisi Truk</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- KEY ADVANTAGES SECTION -->
+    <section id="keunggulan" class="py-16 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-sky-600 font-mono text-xs font-bold uppercase tracking-widest">Mengapa Memilih Kami</span>
+                <h2 class="text-2xl sm:text-3xl font-black uppercase text-slate-900 mt-1">Keunggulan Utama CV. ADIKARYA PLASTINDO</h2>
+                <div class="w-16 h-1 bg-sky-600 mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Advantage 1 -->
+                <div class="bg-slate-50 border border-slate-200 p-6 hover:border-sky-600 transition-colors group">
+                    <div class="w-12 h-12 bg-slate-900 text-sky-400 flex items-center justify-center font-mono font-bold text-xl mb-4 group-hover:bg-sky-600 group-hover:text-white transition-colors">
+                        01
+                    </div>
+                    <h3 class="text-lg font-bold uppercase text-slate-900 mb-2">Harga Pabrik Langsung</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Tanpa perantara. Efisiensi biaya produksi tinggi untuk memberikan penawaran harga kompetitif bagi distributor maupun end-user industri.
+                    </p>
+                </div>
+
+                <!-- Advantage 2 -->
+                <div class="bg-slate-50 border border-slate-200 p-6 hover:border-sky-600 transition-colors group">
+                    <div class="w-12 h-12 bg-slate-900 text-sky-400 flex items-center justify-center font-mono font-bold text-xl mb-4 group-hover:bg-sky-600 group-hover:text-white transition-colors">
+                        02
+                    </div>
+                    <h3 class="text-lg font-bold uppercase text-slate-900 mb-2">Presisi Kustomisasi</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Dapat disesuaikan sepenuhnya: lebar, panjang, ketebalan (micron), warna, serta penambahan lubang udara/sistem perforasi khusus.
+                    </p>
+                </div>
+
+                <!-- Advantage 3 -->
+                <div class="bg-slate-50 border border-slate-200 p-6 hover:border-sky-600 transition-colors group">
+                    <div class="w-12 h-12 bg-slate-900 text-sky-400 flex items-center justify-center font-mono font-bold text-xl mb-4 group-hover:bg-sky-600 group-hover:text-white transition-colors">
+                        03
+                    </div>
+                    <h3 class="text-lg font-bold uppercase text-slate-900 mb-2">Ketahanan Tinggi</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Diproduksi dengan ketahanan seal kuat, tidak mudah robek, dan tahan benturan/paparan cuaca untuk aplikasi outdoor maupun berat.
+                    </p>
+                </div>
+
+                <!-- Advantage 4 -->
+                <div class="bg-slate-50 border border-slate-200 p-6 hover:border-sky-600 transition-colors group">
+                    <div class="w-12 h-12 bg-slate-900 text-sky-400 flex items-center justify-center font-mono font-bold text-xl mb-4 group-hover:bg-sky-600 group-hover:text-white transition-colors">
+                        04
+                    </div>
+                    <h3 class="text-lg font-bold uppercase text-slate-900 mb-2">Distribusi Nasional</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Pengalaman memasok kebutuhan material ke seluruh pelosok Indonesia dengan dukungan ekosistem logistik darat dan laut yang andal.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT CATALOG SECTION WITH INTERACTIVE TABS -->
+    <section id="katalog" class="py-16 bg-slate-100 border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 pb-6 border-b border-slate-300 gap-4">
+                <div>
+                    <span class="text-sky-600 font-mono text-xs font-bold uppercase tracking-widest">Katalog Manufaktur</span>
+                    <h2 class="text-2xl sm:text-3xl font-black uppercase text-slate-900 mt-1">Produk Unggulan Pabrik</h2>
+                </div>
+                <p class="text-sm text-slate-600 max-w-md">
+                    Pilih kategori produk di bawah ini untuk melihat spesifikasi detail dan peruntukan industri.
+                </p>
+            </div>
+
+            <!-- Interactive Tab Buttons -->
+            <div class="flex flex-wrap gap-2 mb-8" id="productTabs">
+                <button onclick="filterProduct('all')" class="tab-btn active bg-slate-900 text-white font-mono text-xs uppercase font-bold py-3 px-5 border border-slate-900 transition-all">
+                    Semua Produk
+                </button>
+                <button onclick="filterProduct('polybag')" class="tab-btn bg-white text-slate-700 hover:bg-slate-200 font-mono text-xs uppercase font-bold py-3 px-5 border border-slate-300 transition-all">
+                    Polybag Pertanian
+                </button>
+                <button onclick="filterProduct('sampah')" class="tab-btn bg-white text-slate-700 hover:bg-slate-200 font-mono text-xs uppercase font-bold py-3 px-5 border border-slate-300 transition-all">
+                    Plastik Sampah
+                </button>
+                <button onclick="filterProduct('cor')" class="tab-btn bg-white text-slate-700 hover:bg-slate-200 font-mono text-xs uppercase font-bold py-3 px-5 border border-slate-300 transition-all">
+                    Plastik Cor
+                </button>
+                <button onclick="filterProduct('sungkup')" class="tab-btn bg-white text-slate-700 hover:bg-slate-200 font-mono text-xs uppercase font-bold py-3 px-5 border border-slate-300 transition-all">
+                    Plastik Sungkup
+                </button>
+                <button onclick="filterProduct('inner')" class="tab-btn bg-white text-slate-700 hover:bg-slate-200 font-mono text-xs uppercase font-bold py-3 px-5 border border-slate-300 transition-all">
+                    Inner Bag Industri
+                </button>
+            </div>
+
+            <!-- Product Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="productGrid">
+                
+                <!-- Product 1: Polybag -->
+                <div class="product-card bg-white border border-slate-300 p-6 flex flex-col justify-between" data-category="polybag">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-emerald-100 text-emerald-800 text-[10px] font-mono font-bold px-2 py-1 uppercase">Pertanian & Perkebunan</span>
+                            <span class="text-xs font-mono text-slate-400">CAT: PLB-01</span>
+                        </div>
+                        <h3 class="text-xl font-black uppercase text-slate-900 mb-2">Plastik Polybag Pertanian</h3>
+                        <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+                            Kantong plastik pembibitan tanaman (sawit, karet, holtikultura, kebun bibit) dengan bahan elastis, tahan panas matahari, & dilindungi sistem drainase presisi.
+                        </p>
+                        <div class="bg-slate-50 border border-slate-200 p-3 mb-6 space-y-1 font-mono text-xs text-slate-700">
+                            <div class="flex justify-between"><span>Ukuran:</span> <strong class="text-slate-900">Custom / Standar Semai</strong></div>
+                            <div class="flex justify-between"><span>Ketebalan:</span> <strong class="text-slate-900">0.03 mm - 0.15 mm</strong></div>
+                            <div class="flex justify-between"><span>Fitur:</span> <strong class="text-slate-900">Perforasi / Lubang Udara</strong></div>
+                        </div>
+                    </div>
+                    <button onclick="selectProductQuote('Plastik Polybag Pertanian')" class="w-full bg-slate-900 hover:bg-sky-600 text-white font-bold py-3 text-xs uppercase tracking-wider transition-colors">
+                        Minta Sampel / Pesan
+                    </button>
+                </div>
+
+                <!-- Product 2: Plastik Sampah -->
+                <div class="product-card bg-white border border-slate-300 p-6 flex flex-col justify-between" data-category="sampah">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-amber-100 text-amber-800 text-[10px] font-mono font-bold px-2 py-1 uppercase">Industrial & Medis</span>
+                            <span class="text-xs font-mono text-slate-400">CAT: SMP-02</span>
+                        </div>
+                        <h3 class="text-xl font-black uppercase text-slate-900 mb-2">Plastik Sampah Heavy Duty</h3>
+                        <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+                            Kantong sampah ekstra kuat untuk kebutuhan hotel, rumah sakit, pabrik, & tempat umum. Tahan bocor, tidak mudah robek saat menampung beban berat.
+                        </p>
+                        <div class="bg-slate-50 border border-slate-200 p-3 mb-6 space-y-1 font-mono text-xs text-slate-700">
+                            <div class="flex justify-between"><span>Warna:</span> <strong class="text-slate-900">Hitam, Kuning Medis, Merah, Dll.</strong></div>
+                            <div class="flex justify-between"><span>Kapasitas:</span> <strong class="text-slate-900">40L, 60L, 90L, 120L, Custom</strong></div>
+                            <div class="flex justify-between"><span>Seal:</span> <strong class="text-slate-900">Bottom Double Seal</strong></div>
+                        </div>
+                    </div>
+                    <button onclick="selectProductQuote('Plastik Sampah Heavy Duty')" class="w-full bg-slate-900 hover:bg-sky-600 text-white font-bold py-3 text-xs uppercase tracking-wider transition-colors">
+                        Minta Sampel / Pesan
+                    </button>
+                </div>
+
+                <!-- Product 3: Plastik Cor -->
+                <div class="product-card bg-white border border-slate-300 p-6 flex flex-col justify-between" data-category="cor">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-blue-100 text-blue-800 text-[10px] font-mono font-bold px-2 py-1 uppercase">Konstruksi & Bangunan</span>
+                            <span class="text-xs font-mono text-slate-400">CAT: COR-03</span>
+                        </div>
+                        <h3 class="text-xl font-black uppercase text-slate-900 mb-2">Plastik Cor Konstruksi</h3>
+                        <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+                            Plastik pelapis lantai kerja cor beton untuk mencegah perembesan air semen ke dalam tanah. Memaksimalkan kekuatan hasil pengecoran bangunan & jalan.
+                        </p>
+                        <div class="bg-slate-50 border border-slate-200 p-3 mb-6 space-y-1 font-mono text-xs text-slate-700">
+                            <div class="flex justify-between"><span>Bentuk:</span> <strong class="text-slate-900">Roll / Kantong Slongsong</strong></div>
+                            <div class="flex justify-between"><span>Warna:</span> <strong class="text-slate-900">Bening, Hijau, Buram, Hitam</strong></div>
+                            <div class="flex justify-between"><span>Daya Tahan:</span> <strong class="text-slate-900">Tahan Gesekan & Beban</strong></div>
+                        </div>
+                    </div>
+                    <button onclick="selectProductQuote('Plastik Cor Konstruksi')" class="w-full bg-slate-900 hover:bg-sky-600 text-white font-bold py-3 text-xs uppercase tracking-wider transition-colors">
+                        Minta Sampel / Pesan
+                    </button>
+                </div>
+
+                <!-- Product 4: Plastik Sungkup -->
+                <div class="product-card bg-white border border-slate-300 p-6 flex flex-col justify-between" data-category="sungkup">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-green-100 text-green-800 text-[10px] font-mono font-bold px-2 py-1 uppercase">Agrikultur & Greenhouse</span>
+                            <span class="text-xs font-mono text-slate-400">CAT: SGK-04</span>
+                        </div>
+                        <h3 class="text-xl font-black uppercase text-slate-900 mb-2">Plastik Sungkup Tanaman</h3>
+                        <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+                            Plastik penutup bedengan atau persemaian bibit untuk melindungi tanaman muda dari intensitas hujan berlebih, hama, dan perubahan suhu ekstrem.
+                        </p>
+                        <div class="bg-slate-50 border border-slate-200 p-3 mb-6 space-y-1 font-mono text-xs text-slate-700">
+                            <div class="flex justify-between"><span>Tipe Material:</span> <strong class="text-slate-900">UV Protection Available</strong></div>
+                            <div class="flex justify-between"><span>Format:</span> <strong class="text-slate-900">Roll / Lembaran Panjang</strong></div>
+                            <div class="flex justify-between"><span>Keunggulan:</span> <strong class="text-slate-900">Transparansi Cahaya Optimal</strong></div>
+                        </div>
+                    </div>
+                    <button onclick="selectProductQuote('Plastik Sungkup Tanaman')" class="w-full bg-slate-900 hover:bg-sky-600 text-white font-bold py-3 text-xs uppercase tracking-wider transition-colors">
+                        Minta Sampel / Pesan
+                    </button>
+                </div>
+
+                <!-- Product 5: Inner Bag -->
+                <div class="product-card bg-white border border-slate-300 p-6 flex flex-col justify-between" data-category="inner">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-purple-100 text-purple-800 text-[10px] font-mono font-bold px-2 py-1 uppercase">Packaging Industri</span>
+                            <span class="text-xs font-mono text-slate-400">CAT: INR-05</span>
+                        </div>
+                        <h3 class="text-xl font-black uppercase text-slate-900 mb-2">Inner Bag Plastik (Pelapis)</h3>
+                        <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+                            Plastik liner atau dalaman karung/jumbo bag untuk menjaga kelembapan produk seperti bahan kimia, tepung, gula, pupuk, dan komoditas ekspor.
+                        </p>
+                        <div class="bg-slate-50 border border-slate-200 p-3 mb-6 space-y-1 font-mono text-xs text-slate-700">
+                            <div class="flex justify-between"><span>Bahan:</span> <strong class="text-slate-900">HDPE / LDPE / LLDPE</strong></div>
+                            <div class="flex justify-between"><span>Sifat:</span> <strong class="text-slate-900">Kedap Udara & Lembap</strong></div>
+                            <div class="flex justify-between"><span>Aplikasi:</span> <strong class="text-slate-900">Liner Karung & Box</strong></div>
+                        </div>
+                    </div>
+                    <button onclick="selectProductQuote('Inner Bag Plastik')" class="w-full bg-slate-900 hover:bg-sky-600 text-white font-bold py-3 text-xs uppercase tracking-wider transition-colors">
+                        Minta Sampel / Pesan
+                    </button>
+                </div>
+
+                <!-- Product 6: Custom Plastic Roll -->
+                <div class="product-card bg-white border border-slate-300 p-6 flex flex-col justify-between" data-category="cor inner">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-slate-200 text-slate-800 text-[10px] font-mono font-bold px-2 py-1 uppercase">Custom Orders</span>
+                            <span class="text-xs font-mono text-slate-400">CAT: CUST-06</span>
+                        </div>
+                        <h3 class="text-xl font-black uppercase text-slate-900 mb-2">Plastik Roll & Sheet Custom</h3>
+                        <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+                            Layanan manufaktur spesifikasi khusus sesuai gambar teknik atau standar pabrikasi Anda. Penyesuaian aditif masterbatch warna & formulasi khusus.
+                        </p>
+                        <div class="bg-slate-50 border border-slate-200 p-3 mb-6 space-y-1 font-mono text-xs text-slate-700">
+                            <div class="flex justify-between"><span>Spesifikasi:</span> <strong class="text-slate-900">Tailor-Made Spec</strong></div>
+                            <div class="flex justify-between"><span>Additives:</span> <strong class="text-slate-900">Anti-Static / Anti-UV</strong></div>
+                            <div class="flex justify-between"><span>Kapasitas:</span> <strong class="text-slate-900">Skala Tonase</strong></div>
+                        </div>
+                    </div>
+                    <button onclick="selectProductQuote('Plastik Custom Roll Sheet')" class="w-full bg-slate-900 hover:bg-sky-600 text-white font-bold py-3 text-xs uppercase tracking-wider transition-colors">
+                        Minta Sampel / Pesan
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE B2B SPEC & QUOTE CALCULATOR WIDGET -->
+    <section id="kalkulator" class="py-16 bg-slate-900 text-white border-b border-slate-800 grid-bg">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="border-2 border-sky-500 bg-slate-950 p-6 sm:p-10 shadow-2xl">
+                
+                <div class="mb-8">
+                    <span class="bg-sky-600 text-white text-[10px] font-mono font-bold px-2.5 py-1 uppercase tracking-widest">
+                        Interactive B2B Quotation Tool
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-black uppercase mt-3 text-white">
+                        Kalkulator & Estimator Spesifikasi Order
+                    </h2>
+                    <p class="text-slate-400 text-sm mt-1">
+                        Isi parameter spesifikasi produk plastik yang Anda butuhkan. Sistem kami akan menyusun format permintaan harga resmi secara otomatis untuk dikirim via WhatsApp.
+                    </p>
+                </div>
+
+                <form id="quoteForm" onsubmit="generateWhatsAppQuote(event)" class="space-y-6">
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        
+                        <!-- Jenis Produk -->
+                        <div>
+                            <label class="block text-xs font-mono font-bold uppercase text-slate-300 mb-2">
+                                1. Jenis Produk Plastik *
+                            </label>
+                            <select id="calcProduct" class="w-full bg-slate-900 border border-slate-700 text-white p-3 text-sm focus:border-sky-500 focus:outline-none font-sans">
+                                <option value="Plastik Polybag Pertanian">Plastik Polybag Pertanian / Semai</option>
+                                <option value="Plastik Sampah Heavy Duty">Plastik Sampah Heavy Duty / Medis</option>
+                                <option value="Plastik Cor Konstruksi">Plastik Cor Bangunan / Jalan</option>
+                                <option value="Plastik Sungkup Tanaman">Plastik Sungkup Perkebunan</option>
+                                <option value="Inner Bag Plastik">Inner Bag Plastik / Liner Karung</option>
+                                <option value="Plastik Custom Roll/Sheet">Plastik Roll / Lembaran Custom</option>
+                            </select>
+                        </div>
+
+                        <!-- Kualitas Bahan Baku -->
+                        <div>
+                            <label class="block text-xs font-mono font-bold uppercase text-slate-300 mb-2">
+                                2. Kualitas / Grade Bahan *
+                            </label>
+                            <select id="calcGrade" class="w-full bg-slate-900 border border-slate-700 text-white p-3 text-sm focus:border-sky-500 focus:outline-none font-sans">
+                                <option value="Super Original (Bening/Murni)">Super Original (Murni / Premium Transparency)</option>
+                                <option value="Standard Grade (Campuran/Recycled High)">Standard Grade (Recycled Super - Ekonomis & Strong)</option>
+                                <option value="Black Grade (Khusus Hitam/Polybag/Sampah)">Black Grade (Khusus Hitam Standard Industri)</option>
+                            </select>
+                        </div>
+
+                        <!-- Lebar -->
+                        <div>
+                            <label class="block text-xs font-mono font-bold uppercase text-slate-300 mb-2">
+                                3. Lebar (cm) *
+                            </label>
+                            <input type="number" id="calcWidth" placeholder="Contoh: 30" required class="w-full bg-slate-900 border border-slate-700 text-white p-3 text-sm focus:border-sky-500 focus:outline-none font-sans">
+                        </div>
+
+                        <!-- Panjang -->
+                        <div>
+                            <label class="block text-xs font-mono font-bold uppercase text-slate-300 mb-2">
+                                4. Panjang / Tinggi (cm) *
+                            </label>
+                            <input type="number" id="calcLength" placeholder="Contoh: 40" required class="w-full bg-slate-900 border border-slate-700 text-white p-3 text-sm focus:border-sky-500 focus:outline-none font-sans">
+                        </div>
+
+                        <!-- Ketebalan Micron -->
+                        <div>
+                            <label class="block text-xs font-mono font-bold uppercase text-slate-300 mb-2">
+                                5. Estimasi Ketebalan (Micron / mm) *
+                            </label>
+                            <input type="text" id="calcThickness" placeholder="Contoh: 0.05 mm atau 50 Micron" required class="w-full bg-slate-900 border border-slate-700 text-white p-3 text-sm focus:border-sky-500 focus:outline-none font-sans">
+                        </div>
+
+                        <!-- Volume / Estimasi Kuantitas -->
+                        <div>
+                            <label class="block text-xs font-mono font-bold uppercase text-slate-300 mb-2">
+                                6. Estimasi Jumlah Order (Kg / Ton / Ball) *
+                            </label>
+                            <input type="text" id="calcQuantity" placeholder="Contoh: 500 Kg / 2 Ton" required class="w-full bg-slate-900 border border-slate-700 text-white p-3 text-sm focus:border-sky-500 focus:outline-none font-sans">
+                        </div>
+
+                    </div>
+
+                    <!-- Catatan Tambahan -->
+                    <div>
+                        <label class="block text-xs font-mono font-bold uppercase text-slate-300 mb-2">
+                            7. Catatan / Permintaan Khusus (Opsional)
+                        </label>
+                        <textarea id="calcNotes" rows="3" placeholder="Contoh: Minta lubang perforasi 4 titik, pengiriman ke area perkebunan Riau, warna plastik kuning medis, dll." class="w-full bg-slate-900 border border-slate-700 text-white p-3 text-sm focus:border-sky-500 focus:outline-none font-sans"></textarea>
+                    </div>
+
+                    <!-- Output & Submit Button -->
+                    <div class="pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="text-xs text-slate-400 font-mono">
+                            * Pesanan Anda akan diformat otomatis & langsung terhubung ke Tim Sales
+                        </div>
+                        <button type="submit" class="w-full sm:w-auto bg-sky-600 hover:bg-sky-500 text-white font-black py-4 px-8 text-sm uppercase tracking-wider transition-all border border-sky-400 flex items-center justify-center gap-3">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.572-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                            <span>Kirim Request via WhatsApp</span>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPANY PROFILE & COMMITMENT SECTION -->
+    <section id="profil" class="py-16 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <div class="lg:col-span-6 space-y-6">
+                    <span class="text-sky-600 font-mono text-xs font-bold uppercase tracking-widest">Profil Manufaktur</span>
+                    <h2 class="text-2xl sm:text-3xl font-black uppercase text-slate-900 leading-tight">
+                        Dedikasi Pada Kualitas & Ketepatan Pasokan
+                    </h2>
+                    <p class="text-slate-600 leading-relaxed text-sm">
+                        <strong class="text-slate-900">CV. ADIKARYA PLASTINDO</strong> adalah perusahaan manufaktur plastik yang bergerak dibidang ekstrusi dan konversi plastik PE (Polyethylene), HDPE, & LDPE. Kami berfokus memenuhi kebutuhan rantai pasok industri nasional, sektor perkebunan kelapa sawit, holtikultura, sarana konstruksi, serta rumah sakit.
+                    </p>
+                    <p class="text-slate-600 leading-relaxed text-sm">
+                        Dengan dukungan mesin ekstrusi modern dan tenaga kerja berpengalaman, kami berkomitmen memberikan standar presisi ketebalan yang konsisten, kualitas seal yang kokoh, serta pengiriman tepat waktu sesuai jadwal operasional klien kami.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-4 pt-4 border-t border-slate-200 font-mono text-xs text-slate-800">
+                        <div class="bg-slate-50 p-4 border border-slate-200">
+                            <strong class="block text-sky-600 font-bold mb-1">KOMITMEN MUTU</strong>
+                            <span>Pengawasan QC ketat dari bahan bijih plastik hingga barang jadi.</span>
+                        </div>
+                        <div class="bg-slate-50 p-4 border border-slate-200">
+                            <strong class="block text-sky-600 font-bold mb-1">RAMAH LINGKUNGAN</strong>
+                            <span>Pilihan material daur ulang terkelola untuk keberlanjutan.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6">
+                    <div class="bg-slate-900 text-white p-8 border-2 border-slate-800 space-y-6">
+                        <h3 class="text-lg font-bold uppercase tracking-wider text-sky-400 border-b border-slate-800 pb-3">
+                            Informasi Pabrik & Layanan
+                        </h3>
+
+                        <div class="space-y-4 text-sm text-slate-300">
+                            <div>
+                                <strong class="block text-white uppercase text-xs font-mono text-slate-400">Pusat Produksi & Operasional:</strong>
+                                <span>Kawasan Industri Jawa Timur (Surabaya / Sidoarjo Region) &bull; Indonesia</span>
+                            </div>
+
+                            <div>
+                                <strong class="block text-white uppercase text-xs font-mono text-slate-400">Jangkauan Ekspedisi:</strong>
+                                <span>Layanan kirim Port-to-Port / Door-to-Door ke Jawa, Sumatra, Kalimantan, Sulawesi, hingga Papua.</span>
+                            </div>
+
+                            <div>
+                                <strong class="block text-white uppercase text-xs font-mono text-slate-400">Kemudahan Pembayaran & B2B Term:</strong>
+                                <span>Dukungan faktur pajak resmi (PKP) dan opsi kesepakatan kerjasama B2B.</span>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-sky-950 border border-sky-800 text-xs text-sky-200 font-mono">
+                            Dapatkan sampel fisik produk sebelum melakukan pemesanan dalam skala tonase. Hubungi tim representatif kami.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 pb-12 border-b border-slate-900">
+                
+                <!-- Col 1: Brand Info -->
+                <div class="md:col-span-5 space-y-4">
+                    <span class="text-xl font-black text-white font-mono uppercase tracking-tight">
+                        CV. ADIKARYA <span class="text-sky-500">PLASTINDO</span>
+                    </span>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Pabrik Plastik Polybag, Plastik Sampah, Plastik Cor, Plastik Sungkup, & Inner Bag Terpercaya. Melayani pengadaan skala menengah hingga besar di seluruh Indonesia.
+                    </p>
+                    <div class="text-xs font-mono text-slate-500">
+                        &copy; <span id="year"></span> CV. ADIKARYA PLASTINDO. All Rights Reserved.
+                    </div>
+                </div>
+
+                <!-- Col 2: Quick Links -->
+                <div class="md:col-span-3 space-y-3">
+                    <h4 class="text-xs font-mono font-bold uppercase text-white tracking-widest">Produk Utama</h4>
+                    <ul class="text-xs space-y-2">
+                        <li><a href="#katalog" onclick="filterProduct('polybag')" class="hover:text-sky-400 transition-colors">Polybag Pertanian Sawit</a></li>
+                        <li><a href="#katalog" onclick="filterProduct('sampah')" class="hover:text-sky-400 transition-colors">Plastik Sampah Medis & Industri</a></li>
+                        <li><a href="#katalog" onclick="filterProduct('cor')" class="hover:text-sky-400 transition-colors">Plastik Cor Jalan & Bangunan</a></li>
+                        <li><a href="#katalog" onclick="filterProduct('sungkup')" class="hover:text-sky-400 transition-colors">Plastik Sungkup Perkebunan</a></li>
+                        <li><a href="#katalog" onclick="filterProduct('inner')" class="hover:text-sky-400 transition-colors">Inner Bag Liner Karung</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Contact Info -->
+                <div class="md:col-span-4 space-y-3">
+                    <h4 class="text-xs font-mono font-bold uppercase text-white tracking-widest">Kontak & Layanan Sales</h4>
+                    <div class="text-xs space-y-2 text-slate-300 font-mono">
+                        <p><strong class="text-slate-400">WhatsApp Sales:</strong> +62 812-3456-7890</p>
+                        <p><strong class="text-slate-400">Email:</strong> sales@adikaryaplastindo.com</p>
+                        <p><strong class="text-slate-400">Lokasi:</strong> Jawa Timur, Indonesia</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="pt-6 text-center text-[10px] font-mono text-slate-600">
+                Halaman Penawaran Web Enablement B2B &bull; Standar Kompatibilitas WordPress HTML & Custom Template
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Set dynamic current year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // WhatsApp Base Number (ganti dengan nomor asli)
+        const waPhoneNumber = "6281234567890";
+
+        // Mobile Menu Toggle Logic
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Filter Product Cards by Category Tab
+        function filterProduct(category) {
+            const cards = document.querySelectorAll('.product-card');
+            const buttons = document.querySelectorAll('.tab-btn');
+
+            // Update Tab UI States
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-slate-900', 'text-white');
+                btn.classList.add('bg-white', 'text-slate-700');
+            });
+
+            // Highlight Active Button
+            event?.currentTarget?.classList?.remove('bg-white', 'text-slate-700');
+            event?.currentTarget?.classList?.add('bg-slate-900', 'text-white');
+
+            // Show/Hide Cards
+            cards.forEach(card => {
+                const categories = card.getAttribute('data-category');
+                if (category === 'all' || categories.includes(category)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Quick Select Product to Calculator Widget
+        function selectProductQuote(productName) {
+            const productSelect = document.getElementById('calcProduct');
+            if (productSelect) {
+                productSelect.value = productName;
+                // Scroll smoothly to Calculator Section
+                document.getElementById('kalkulator').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Interactive WhatsApp Quote Request Generator
+        function generateWhatsAppQuote(event) {
+            event.preventDefault();
+
+            const product = document.getElementById('calcProduct').value;
+            const grade = document.getElementById('calcGrade').value;
+            const width = document.getElementById('calcWidth').value;
+            const length = document.getElementById('calcLength').value;
+            const thickness = document.getElementById('calcThickness').value;
+            const quantity = document.getElementById('calcQuantity').value;
+            const notes = document.getElementById('calcNotes').value || 'Tidak ada catatan tambahan';
+
+            // Construct neat B2B WhatsApp Message Template
+            const message = 
+`Halo Tim Sales CV. ADIKARYA PLASTINDO,
+Saya ingin mengajukan Penawaran Harga (RFQ) spesifikasi custom berikut:
+
+----------------------------------
+📌 *PERMINTAAN PENAWARAN HARGA (RFQ)*
+----------------------------------
+• *Jenis Produk:* ${product}
+• *Kualitas Material:* ${grade}
+• *Ukuran (Lebar x Panjang):* ${width} cm x ${length} cm
+• *Ketebalan:* ${thickness}
+• *Estimasi Order:* ${quantity}
+• *Catatan Tambahan:* ${notes}
+----------------------------------
+
+Mohon informasi harga terbaik, minimum order (MOQ), serta estimasi waktu produksi. Terima kasih!`;
+
+            const encodedMessage = encodeURIComponent(message);
+            const targetUrl = `https://wa.me/${waPhoneNumber}?text=${encodedMessage}`;
+
+            // Open WhatsApp link in new tab safely
+            window.open(targetUrl, '_blank');
+        }
+    </script>
+</body>
+</html>

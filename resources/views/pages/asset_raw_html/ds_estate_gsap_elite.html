@@ -1,0 +1,2017 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SUNYA — Private Villas · Uluwatu, Bali</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --ink:#0A0A09;
+    --ink-2:#111110;
+    --ink-3:#1A1916;
+    --paper:#F2EDE4;
+    --gold:#C9A961;
+    --terra:#B86B4A;
+    --muted:#8B8478;
+    --rule:rgba(242,237,228,0.14);
+    --disp:"Fraunces",Georgia,serif;
+    --sans:"Manrope",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,monospace;
+  }
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--ink);color:var(--paper);
+    font-family:var(--sans);font-size:16px;line-height:1.6;
+    font-weight:300;-webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--gold);color:var(--ink)}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  h1,h2,h3,h4,p,ul,li,figure{margin:0;padding:0}
+  ul{list-style:none}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+
+  .shell{max-width:1440px;margin:0 auto;padding:0 48px}
+
+  /* grain overlay */
+  body::after{
+    content:"";position:fixed;inset:0;z-index:9998;pointer-events:none;
+    opacity:0.035;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode:overlay;
+  }
+
+  /* mouse glow */
+  .cursor-glow{
+    position:fixed;top:0;left:0;width:600px;height:600px;border-radius:50%;
+    background:radial-gradient(circle, rgba(201,169,97,0.10) 0%, transparent 55%);
+    pointer-events:none;z-index:1;
+    transform:translate(-50%,-50%);
+    will-change:transform;
+    mix-blend-mode:screen;
+  }
+
+  /* ============ LOADER ============ */
+  .loader{
+    position:fixed;inset:0;z-index:10001;
+    background:var(--ink);
+    display:flex;align-items:center;justify-content:center;
+    padding:40px;
+  }
+  .loader-inner{
+    width:100%;max-width:1100px;
+    display:flex;flex-direction:column;align-items:center;gap:40px;
+  }
+  .loader-svg{
+    width:220px;height:220px;
+    color:var(--paper);
+    will-change:transform;
+  }
+  .loader-svg path,
+  .loader-svg circle{
+    fill:none;stroke:currentColor;stroke-width:1;
+  }
+  .loader-svg .morph-shape{fill:var(--gold);stroke:none}
+  .loader-meta{
+    display:flex;justify-content:space-between;align-items:center;
+    width:100%;max-width:600px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--muted);
+  }
+  .loader-count{
+    display:flex;align-items:baseline;gap:4px;
+    font-family:var(--mono);font-size:14px;
+    color:var(--paper);letter-spacing:.05em;
+  }
+
+  /* ============ PROGRESS ============ */
+  .progress{
+    position:fixed;top:0;left:0;right:0;height:2px;z-index:9997;
+    background:transparent;pointer-events:none;
+  }
+  .progress-fill{
+    height:100%;background:var(--gold);
+    transform-origin:0 50%;transform:scaleX(0);
+    will-change:transform;
+  }
+
+  /* ============ NAV ============ */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    padding:32px 48px;
+    display:flex;align-items:center;justify-content:space-between;
+    transition:padding .4s ease,background .4s ease,backdrop-filter .4s ease;
+    will-change:transform;
+  }
+  .nav.is-scrolled{
+    padding:18px 48px;
+    background:rgba(10,10,9,.78);
+    backdrop-filter:blur(24px) saturate(140%);
+    -webkit-backdrop-filter:blur(24px) saturate(140%);
+    border-bottom:1px solid var(--rule);
+  }
+  .nav-logo{
+    font-family:var(--disp);font-weight:400;font-size:22px;
+    letter-spacing:.08em;line-height:1;text-transform:uppercase;
+    font-variation-settings:"SOFT" 60,"WONK" 1;
+    display:flex;align-items:center;gap:12px;
+  }
+  .nav-logo svg{width:24px;height:24px;color:var(--gold)}
+  .nav-links{display:flex;gap:40px;align-items:center}
+  .nav-links a{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--muted);
+    transition:color .3s ease;position:relative;
+  }
+  .nav-links a::after{
+    content:"";position:absolute;left:0;right:0;bottom:-8px;
+    height:1px;background:var(--gold);
+    transform:scaleX(0);transform-origin:0 50%;
+    transition:transform .4s cubic-bezier(.7,0,.2,1);
+  }
+  .nav-links a:hover{color:var(--paper)}
+  .nav-links a:hover::after{transform:scaleX(1)}
+  .nav-cta{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;
+    text-transform:uppercase;padding:14px 24px;
+    border:1px solid var(--rule);border-radius:100px;
+    transition:background .3s ease,color .3s ease,border-color .3s ease;
+  }
+  .nav-cta:hover{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+
+  /* ============ BUTTONS ============ */
+  .btn{
+    display:inline-flex;align-items:center;gap:12px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;padding:18px 30px;
+    border:1px solid var(--paper);border-radius:100px;
+    background:var(--paper);color:var(--ink);
+    transition:background .4s ease,color .4s ease,border-color .4s ease;
+    cursor:pointer;position:relative;overflow:hidden;
+    will-change:transform;
+  }
+  .btn:hover{background:var(--gold);border-color:var(--gold);color:var(--ink)}
+  .btn-ghost{background:transparent;color:var(--paper)}
+  .btn-ghost:hover{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+  .btn-lg{padding:24px 40px;font-size:12px}
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative;height:100vh;min-height:720px;
+    overflow:hidden;display:flex;align-items:flex-end;
+  }
+  .hero-media{
+    position:absolute;inset:0;z-index:0;overflow:hidden;
+  }
+  .hero-media img{
+    position:absolute;inset:-10% 0;width:100%;height:120%;
+    object-fit:cover;object-position:center 55%;
+    will-change:transform;
+    filter:brightness(.65) saturate(1.15);
+  }
+  .hero-media::after{
+    content:"";position:absolute;inset:0;z-index:2;
+    background:
+      linear-gradient(180deg, rgba(10,10,9,.7) 0%, rgba(10,10,9,.1) 35%, rgba(10,10,9,.05) 55%, rgba(10,10,9,.95) 100%),
+      linear-gradient(90deg, rgba(10,10,9,.65) 0%, transparent 50%);
+  }
+  .hero-content{
+    position:relative;z-index:3;width:100%;
+    padding:0 48px 90px;
+  }
+  .hero-eyebrow{
+    display:flex;align-items:center;gap:16px;
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--muted);
+    margin-bottom:40px;
+  }
+  .hero-eyebrow::before{
+    content:"";width:32px;height:1px;background:var(--gold);
+  }
+  .hero-title{
+    font-family:var(--disp);font-weight:400;
+    font-size:clamp(58px,11vw,180px);
+    line-height:.84;letter-spacing:-.045em;
+    font-variation-settings:"SOFT" 60,"WONK" 1;
+    max-width:1200px;
+  }
+  .hero-title .line{display:block;overflow:hidden;padding-bottom:.04em}
+  .hero-title .char{display:inline-block;will-change:transform}
+  .hero-title em{
+    font-style:italic;color:var(--gold);font-weight:300;
+    font-variation-settings:"SOFT" 100,"WONK" 1;
+  }
+  .hero-bottom{
+    display:grid;grid-template-columns:1fr auto;
+    gap:60px;align-items:end;
+    margin-top:56px;padding-top:36px;
+    border-top:1px solid var(--rule);
+  }
+  .hero-lede{
+    max-width:46ch;font-size:16px;line-height:1.7;color:#C7C0B3;
+  }
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
+  .hero-meta-right{
+    text-align:right;font-family:var(--mono);font-size:10.5px;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+    line-height:2;
+  }
+  .hero-meta-right b{
+    display:block;color:var(--paper);font-weight:500;
+    font-family:var(--disp);font-size:22px;letter-spacing:-.01em;
+    text-transform:none;margin-bottom:4px;
+    font-variation-settings:"SOFT" 60,"WONK" 1;
+  }
+
+  /* hero scroll indicator */
+  .hero-scroll{
+    position:absolute;left:48px;bottom:32px;z-index:4;
+    display:flex;align-items:center;gap:14px;
+    font-family:var(--mono);font-size:10px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--muted);
+  }
+  .hero-scroll svg{animation:bob 1.8s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+  /* ============ MARQUEE ============ */
+  .marquee{
+    position:relative;padding:40px 0;
+    border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+    overflow:hidden;background:var(--ink-2);
+  }
+  .marquee-track{
+    display:flex;width:max-content;gap:64px;align-items:center;
+    will-change:transform;
+  }
+  .marquee-group{
+    display:flex;align-items:center;gap:64px;
+    font-family:var(--disp);font-weight:400;
+    font-size:clamp(28px,3.6vw,52px);
+    letter-spacing:-.02em;color:var(--paper);
+    font-variation-settings:"SOFT" 60,"WONK" 1;white-space:nowrap;
+  }
+  .marquee-group em{font-style:italic;color:var(--gold)}
+  .marquee-group .dot{color:var(--gold);font-size:.6em}
+
+  /* ============ SECTION BASE ============ */
+  .section{padding:180px 0;position:relative}
+  .section-label{
+    display:flex;align-items:center;gap:16px;
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--muted);
+    margin-bottom:56px;
+  }
+  .section-label::before{content:"";width:32px;height:1px;background:var(--gold)}
+
+  /* ============ MANIFESTO ============ */
+  .manifesto{background:var(--ink);overflow:hidden}
+  .manifesto::before{
+    content:"";position:absolute;
+    width:800px;height:800px;border-radius:50%;
+    background:radial-gradient(circle, rgba(201,169,97,.08) 0%, transparent 65%);
+    left:-200px;top:20%;pointer-events:none;
+  }
+  .manifesto-inner{max-width:1280px;margin:0 auto;padding:0 48px;position:relative}
+  .manifesto-text{
+    font-family:var(--disp);font-weight:400;
+    font-size:clamp(30px,4.4vw,64px);
+    line-height:1.14;letter-spacing:-.025em;
+    font-variation-settings:"SOFT" 60,"WONK" 1;
+    max-width:1200px;
+  }
+  .manifesto-text em{font-style:italic;color:var(--gold)}
+  .manifesto-text .word{display:inline-block;overflow:hidden;vertical-align:top;margin-right:.25em;padding-bottom:.05em}
+  .manifesto-text .word-inner{display:inline-block;color:var(--muted);will-change:color}
+
+  /* ============ VILLAS (HORIZONTAL) ============ */
+  .villas{
+    position:relative;height:100vh;overflow:hidden;
+    background:var(--ink-2);
+    border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  }
+  .villas-pin{
+    height:100vh;display:flex;flex-direction:column;
+    justify-content:center;padding:0 0 0 48px;
+  }
+  .villas-head{
+    padding:40px 48px 40px 0;flex-shrink:0;
+    display:flex;justify-content:space-between;align-items:flex-end;
+  }
+  .villas-head h2{
+    font-family:var(--disp);font-weight:400;
+    font-size:clamp(36px,5vw,76px);line-height:.9;
+    letter-spacing:-.035em;
+    font-variation-settings:"SOFT" 60,"WONK" 1;
+    max-width:800px;
+  }
+  .villas-head h2 em{font-style:italic;color:var(--gold);font-weight:300}
+  .villas-head .count{
+    font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--muted);white-space:nowrap;
+  }
+  .villas-track{
+    display:flex;gap:32px;align-items:center;
+    will-change:transform;padding-right:48px;flex-shrink:0;
+  }
+  .villa-card{flex:0 0 auto;width:min(580px,72vw);display:flex;flex-direction:column}
+  .villa-image-wrap{
+    position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;
+    background:var(--ink-3);
+  }
+  .villa-image{
+    width:100%;height:100%;object-fit:cover;
+    will-change:transform;transform:scale(1.15);
+  }
+  .villa-image-wrap::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 55%, rgba(10,10,9,.7) 100%);
+    pointer-events:none;
+  }
+  .villa-index{
+    position:absolute;top:24px;left:24px;z-index:2;
+    font-family:var(--mono);font-size:11px;letter-spacing:.2em;
+    color:var(--paper);opacity:.85;
+    padding:8px 14px;border:1px solid rgba(242,237,228,.3);border-radius:100px;
+    backdrop-filter:blur(12px);background:rgba(10,10,9,.35);
+  }
+  .villa-badge{
+    position:absolute;bottom:24px;right:24px;z-index:2;
+    font-family:var(--mono);font-size:10px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--gold);
+    padding:8px 14px;border:1px solid rgba(201,169,97,.5);border-radius:100px;
+    backdrop-filter:blur(12px);background:rgba(10,10,9,.4);
+  }
+  .villa-meta{
+    padding:28px 4px 0;display:grid;
+    grid-template-columns:1fr auto;gap:24px;align-items:start;
+  }
+  .villa-name h3{
+    font-family:var(--disp);font-weight:400;
+    font-size:clamp(24px,2.8vw,40px);line-height:1;
+    letter-spacing:-.02em;
+    font-variation-settings:"SOFT" 60,"WONK" 1;
+  }
+  .villa-name h3 em{font-style:italic;color:var(--gold)}
+  .villa-name span{
+    display:block;margin-top:8px;
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--muted);
+  }
+  .villa-specs{
+    display:flex;gap:28px;margin-top:16px;
+    font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  }
+  .villa-specs div{display:flex;flex-direction:column;gap:5px}
+  .villa-specs dt{color:var(--muted)}
+  .villa-specs dd{color:var(--paper);font-weight:500}
+  .villa-price{
+    font-family:var(--disp);font-weight:400;
+    font-size:clamp(20px,2.2vw,28px);letter-spacing:-.02em;
+    color:var(--gold);white-space:nowrap;text-align:right;
+    font-variation-settings:"SOFT" 60,"WONK" 1;
+  }
+  .villa-price span{
+    display:block;font-family:var(--mono);font-size:9.5px;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+    margin-top:5px;font-weight:400;
+  }
+
+  /* ============ FLOORPLAN ============ */
+  .floorplan{
+    position:relative;padding:180px 0;background:var(--ink);
+    border-top:1px solid var(--rule);
+  }
+  .floorplan-inner{
+    max-width:1280px;margin:0 auto;padding:0 48px;
+    display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+  }
+  .floorplan-copy h2{
+    font-family:var(--disp);font-weight:400;
+    font-size:clamp(36px,4.6vw,68px);line-height:.9;
+    letter-spacing:-.035em;margin-top:20px;
+    font-variation-settings:"SOFT" 60,"WONK" 1;
+  }
+  .floorplan-copy h2 em{font-style:italic;color:var(--gold);font-weight:300}
+  .floorplan-copy p{
+    margin-top:24px;font-size:16px;line-height:1.75;
+    color:#B8B1A3;max-width:44ch;
+  }
+  .fp-specs{margin-top:40px;border-top:1px solid var(--rule)}
+  .fp-specs li{
+    display:flex;justify-content:space-between;gap:24px;
+    padding:16px 0;border-bottom:1px solid var(--rule);
+    font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+  }
+  .fp-specs li span:first-child{color:var(--muted)}
+  .fp-specs li span:last-child{color:var(--gold);font-weight:500}
+
+  .floorplan-visual{position:relative;aspect-ratio:1/1;width:100%}
+  .floorplan-svg{width:100%;height:100%;overflow:visible}
+  .fp-outline,.fp-room,.fp-detail{
+    fill:none;stroke:var(--rule);stroke-width:1;
+  }
+  .fp-room{stroke:var(--paper);stroke-opacity:.4}
+  .fp-detail{stroke:var(--gold);stroke-opacity:.6}
+  .fp-motion-dot{fill:var(--gold)}
+  .fp-label{
+    font-family:"JetBrains Mono",monospace;
+    font-size:8px;letter-spacing:.1em;
+    fill:var(--muted);text-transform:uppercase;
+  }
+  .fp-motion-path{fill:none;stroke:var(--gold);stroke-width:.8;stroke-dasharray:2 4;opacity:.3}
+
+  /* ============ STATS ============ */
+  .stats{padding:180px 0;background:var(--ink-2);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+  .stats-inner{max-width:1280px;margin:0 auto;padding:0 48px}
+  .stats-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+    border-top:1px solid var(--rule);
+  }
+  .stat{
+    padding:48px 40px 0 0;border-right:1px solid var(--rule);position:relative;
+  }
+  .stat:last-child{border-right:0;padding-right:0}
+  .stat-num{
+    font-family:var(--disp);font-weight:400;
+    font-size:clamp(56px,6.4vw,104px);line-height:.9;
+    letter-spacing:-.04em;color:var(--paper);
+    font-variation-settings:"SOFT" 60,"WONK" 1;
+    display:flex;align-items:baseline;gap:6px;overflow:hidden;
+  }
+  .stat-num .num-inner{display:inline-block;will-change:transform}
+  .stat-num em{font-style:italic;color:var(--gold);font-size:.45em;font-weight:300}
+  .stat-label{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--muted);margin-top:20px;line-height:1.7;
+  }
+
+  /* ============ GALLERY (DRAG) ============ */
+  .gallery{
+    position:relative;padding:180px 0;background:var(--ink);
+    border-top:1px solid var(--rule);overflow:hidden;
+  }
+  .gallery-head{
+    max-width:1280px;margin:0 auto 80px;padding:0 48px;
+    display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap;
+  }
+  .gallery-head h2{
+    font-family:var(--disp);font-weight:400;
+    font-size:clamp(36px,5vw,72px);line-height:.9;
+    letter-spacing:-.035em;max-width:700px;
+    font-variation-settings:"SOFT" 60,"WONK" 1;
+  }
+  .gallery-head h2 em{font-style:italic;color:var(--gold);font-weight:300}
+  .gallery-hint{
+    font-family:var(--mono);font-size:10px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--muted);
+    display:flex;align-items:center;gap:10px;
+  }
+  .gallery-hint svg{animation:slideX 2s ease-in-out infinite}
+  @keyframes slideX{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
+
+  .filter-bar{
+    max-width:1280px;margin:0 auto 40px;padding:0 48px;
+    display:flex;gap:10px;flex-wrap:wrap;
+  }
+  .filter-bar button{
+    font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+    text-transform:uppercase;padding:10px 18px;
+    border:1px solid var(--rule);border-radius:100px;
+    background:transparent;color:var(--muted);cursor:pointer;
+    transition:background .3s ease,color .3s ease,border-color .3s ease;
+  }
+  .filter-bar button:hover{color:var(--paper);border-color:var(--paper)}
+  .filter-bar button.is-active{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+
+  .gallery-track-wrap{
+    position:relative;width:100%;
+    overflow:hidden;
+  }
+  .gallery-track{
+    display:flex;gap:24px;
+    padding:0 48px;
+    will-change:transform;
+    cursor:grab;
+    width:max-content;
+  }
+  .gallery-track:active{cursor:grabbing}
+  .gallery-item{
+    flex:0 0 auto;width:340px;height:440px;
+    position:relative;overflow:hidden;
+    background:var(--ink-3);
+  }
+  .gallery-item img{
+    width:100%;height:100%;object-fit:cover;
+    will-change:transform;pointer-events:none;
+    transition:transform .9s cubic-bezier(.22,.61,.36,1);
+  }
+  .gallery-item:hover img{transform:scale(1.06)}
+  .gallery-item::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 60%, rgba(10,10,9,.7) 100%);
+    pointer-events:none;
+  }
+  .gallery-item .g-cap{
+    position:absolute;bottom:20px;left:20px;right:20px;z-index:2;
+    display:flex;justify-content:space-between;gap:12px;
+    font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--paper);pointer-events:none;
+  }
+  .gallery-item .g-cap span:first-child{color:var(--gold)}
+
+  /* ============ SPOTLIGHT + TYPEWRITER ============ */
+  .spotlight{
+    position:relative;background:var(--ink-2);
+    border-top:1px solid var(--rule);
+  }
+  .spotlight-inner{
+    max-width:1600px;margin:0 auto;
+    padding:0 48px;display:grid;grid-template-columns:1fr 1fr;gap:80px;
+  }
+  .spotlight-media{
+    position:sticky;top:0;height:100vh;
+    display:flex;align-items:center;justify-content:center;padding:80px 0;
+  }
+  .spotlight-img-wrap{
+    position:relative;width:100%;height:100%;max-height:780px;
+    overflow:hidden;background:var(--ink-3);
+  }
+  .spotlight-img{
+    width:100%;height:100%;object-fit:cover;
+    will-change:transform;transform:scale(1.2);
+  }
+  .spotlight-img-wrap::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 55%, rgba(10,10,9,.55) 100%);
+    pointer-events:none;
+  }
+  .spotlight-caption{
+    position:absolute;bottom:28px;left:28px;right:28px;z-index:2;
+    display:flex;justify-content:space-between;gap:20px;
+    font-family:var(--mono);font-size:10px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--paper);opacity:.9;
+  }
+  .spotlight-caption span:first-child{color:var(--gold)}
+
+  .spotlight-copy{
+    padding:14vh 0 20vh;display:flex;flex-direction:column;
+  }
+  .spotlight-block{
+    padding:100px 0;border-bottom:1px solid var(--rule);
+  }
+  .spotlight-block:first-child{border-top:1px solid var(--rule)}
+  .spotlight-block .label{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--gold);
+    display:flex;align-items:center;gap:12px;margin-bottom:28px;
+  }
+  .spotlight-block .label::before{content:"";width:24px;height:1px;background:var(--gold)}
+  .spotlight-block h3{
+    font-family:var(--disp);font-weight:400;
+    font-size:clamp(30px,3.6vw,56px);line-height:1;
+    letter-spacing:-.03em;margin-bottom:24px;
+    font-variation-settings:"SOFT" 60,"WONK" 1;
+  }
+  .spotlight-block h3 em{font-style:italic;color:var(--gold);font-weight:300}
+  .spotlight-block p{
+    font-size:15.5px;line-height:1.75;color:#B8B1A3;
+    max-width:44ch;
+  }
+  .typewriter{
+    font-family:var(--disp);font-weight:400;font-style:italic;
+    font-size:clamp(28px,3.4vw,52px);line-height:1.2;
+    letter-spacing:-.02em;color:var(--gold);
+    margin-top:40px;min-height:1.3em;
+    font-variation-settings:"SOFT" 100,"WONK" 1;
+  }
+  .typewriter::after{
+    content:"_";color:var(--paper);animation:blink 1s step-end infinite;
+  }
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+  .tw-sig{
+    margin-top:24px;font-family:var(--mono);font-size:10.5px;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+  }
+
+  /* ============ CTA (MORPH) ============ */
+  .cta{
+    position:relative;padding:180px 0 200px;overflow:hidden;
+    border-top:1px solid var(--rule);background:var(--ink);
+  }
+  .cta-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+  .cta-bg img{
+    width:100%;height:100%;object-fit:cover;
+    filter:brightness(.25) saturate(.7);will-change:transform;
+  }
+  .cta-inner{
+    max-width:1100px;margin:0 auto;padding:0 48px;
+    position:relative;z-index:2;text-align:center;
+  }
+  .cta-morph-svg{
+    width:120px;height:120px;margin:0 auto 60px;
+    color:var(--gold);
+  }
+  .cta h2{
+    font-family:var(--disp);font-weight:400;
+    font-size:clamp(44px,7.5vw,120px);line-height:.88;
+    letter-spacing:-.045em;margin-bottom:40px;
+    font-variation-settings:"SOFT" 60,"WONK" 1;
+  }
+  .cta h2 em{font-style:italic;color:var(--gold);font-weight:300}
+  .cta p{
+    font-size:16px;line-height:1.7;color:#C7C0B3;
+    max-width:52ch;margin:0 auto 44px;
+  }
+  .cta-actions{
+    display:flex;gap:16px;justify-content:center;flex-wrap:wrap;
+  }
+
+  /* ============ FOOTER ============ */
+  .footer{
+    border-top:1px solid var(--rule);padding:80px 0 0;background:var(--ink-2);
+    position:relative;overflow:hidden;
+  }
+  .footer-marquee{
+    overflow:hidden;margin-bottom:60px;
+    border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+    padding:32px 0;
+  }
+  .footer-marquee .marquee-track{
+    display:flex;width:max-content;gap:60px;align-items:center;
+    font-family:var(--disp);font-weight:400;
+    font-size:clamp(48px,8vw,120px);letter-spacing:-.04em;
+    font-variation-settings:"SOFT" 60,"WONK" 1;
+  }
+  .footer-marquee .marquee-track em{font-style:italic;color:var(--gold)}
+  .footer-marquee .marquee-track .dot{color:var(--gold);font-size:.4em}
+
+  .footer-inner{
+    max-width:1280px;margin:0 auto;padding:0 48px 80px;
+    display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;
+  }
+  .footer-brand .nav-logo{font-size:32px}
+  .footer-tagline{
+    margin-top:20px;font-size:14px;line-height:1.9;
+    color:var(--muted);max-width:32ch;
+  }
+  .footer-col h4{
+    font-family:var(--mono);font-size:10px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:22px;
+    font-weight:400;
+  }
+  .footer-col p,.footer-col a{
+    font-size:14px;line-height:2.1;color:#B8B1A3;
+    transition:color .3s ease;
+  }
+  .footer-col a:hover{color:var(--gold)}
+  .footer-base{
+    max-width:1280px;margin:0 auto;padding:24px 48px;
+    display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;
+    border-top:1px solid var(--rule);
+    font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--muted);
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:1100px){
+    .floorplan-inner{grid-template-columns:1fr;gap:60px}
+    .spotlight-inner{grid-template-columns:1fr;gap:0;padding:0 32px}
+    .spotlight-media{position:relative;height:auto;padding:60px 0;top:auto}
+    .spotlight-img-wrap{aspect-ratio:4/3;max-height:none}
+    .spotlight-copy{padding:0 0 60px}
+    .spotlight-block{padding:60px 0}
+  }
+  @media (max-width:980px){
+    .shell{padding:0 24px}
+    .nav{padding:24px}
+    .nav.is-scrolled{padding:14px 24px}
+    .nav-links{display:none}
+    .hero-content{padding:0 24px 80px}
+    .hero-scroll{left:24px;bottom:24px}
+    .hero-bottom{grid-template-columns:1fr;gap:32px}
+    .hero-meta-right{text-align:left}
+    .section{padding:120px 0}
+    .manifesto-inner{padding:0 24px}
+    .villas{padding:60px 0}
+    .villas-pin{height:auto;padding:0 24px}
+    .villas-head{flex-direction:column;align-items:flex-start;gap:16px;padding:0 0 24px}
+    .villas-track{flex-direction:column;align-items:stretch;padding:0;gap:40px;transform:none!important}
+    .villa-card{width:100%}
+    .villa-image{transform:none!important}
+    .villa-image-wrap{aspect-ratio:4/3}
+    .floorplan{padding:120px 0}
+    .floorplan-inner{padding:0 24px}
+    .stats{padding:120px 0}
+    .stats-inner{padding:0 24px}
+    .stats-grid{grid-template-columns:repeat(2,1fr)}
+    .stat{padding:32px 24px 32px 0;border-bottom:1px solid var(--rule)}
+    .stat:nth-child(2n){border-right:0;padding-right:0}
+    .stat:nth-last-child(-n+2){border-bottom:0}
+    .gallery{padding:120px 0}
+    .gallery-head{padding:0 24px;margin-bottom:60px}
+    .filter-bar{padding:0 24px}
+    .gallery-track{padding:0 24px}
+    .gallery-item{width:280px;height:380px}
+    .cta{padding:120px 0}
+    .cta-inner{padding:0 24px}
+    .footer-inner{grid-template-columns:1fr 1fr;gap:40px;padding:0 24px 60px}
+    .footer-brand{grid-column:1 / -1}
+    .footer-base{padding:24px}
+  }
+  @media (max-width:640px){
+    .nav{padding:16px 20px}
+    .hero-content{padding:0 20px 60px}
+    .hero-eyebrow{font-size:9px;gap:10px;margin-bottom:24px}
+    .hero-actions{flex-direction:column;align-items:stretch}
+    .section{padding:80px 0}
+    .manifesto-inner,.villas-pin,.floorplan-inner,.stats-inner{padding:0 20px}
+    .gallery-head,.filter-bar,.gallery-track{padding:0 20px}
+    .gallery-item{width:240px;height:320px}
+    .cta-inner{padding:0 20px}
+    .footer-inner{grid-template-columns:1fr;gap:32px}
+    .footer-base{padding:20px;flex-direction:column;gap:8px}
+    .loader-svg{width:160px;height:160px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ CURSOR GLOW ============ -->
+<div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+
+<!-- ============ LOADER ============ -->
+<div class="loader" id="loader">
+  <div class="loader-inner">
+    <svg class="loader-svg" viewBox="0 0 200 200" aria-hidden="true">
+      <circle class="loader-circle" cx="100" cy="100" r="78"/>
+      <circle class="loader-circle-inner" cx="100" cy="100" r="60"/>
+      <path class="loader-ray" d="M100 8v18M100 174v18M8 100h18M174 100h18M34 34l13 13M153 153l13 13M34 166l13-13M153 47l13-13"/>
+      <path class="morph-shape" d="M100 30 A70 70 0 1 0 100 170 A70 70 0 1 0 100 30 Z" fill="#C9A961"/>
+    </svg>
+    <div class="loader-meta">
+      <span>Memuat Sunya</span>
+      <span class="loader-count"><span id="loader-num">00</span><span>%</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PROGRESS ============ -->
+<div class="progress" aria-hidden="true"><div class="progress-fill" id="progress-fill"></div></div>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <a href="#hero" class="nav-logo">
+    <svg viewBox="0 0 40 40" aria-hidden="true">
+      <circle cx="20" cy="20" r="8" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <line x1="20" y1="4" x2="20" y2="9" stroke="currentColor" stroke-width="1.2"/>
+      <line x1="20" y1="31" x2="20" y2="36" stroke="currentColor" stroke-width="1.2"/>
+      <line x1="4" y1="20" x2="9" y2="20" stroke="currentColor" stroke-width="1.2"/>
+      <line x1="31" y1="20" x2="36" y2="20" stroke="currentColor" stroke-width="1.2"/>
+    </svg>
+    <span>Sunya</span>
+  </a>
+  <div class="nav-links">
+    <a href="#manifesto" data-scroll>Filosofi</a>
+    <a href="#villas" data-scroll>Villa</a>
+    <a href="#floorplan" data-scroll>Denah</a>
+    <a href="#gallery" data-scroll>Galeri</a>
+    <a href="#kontak" data-scroll>Kontak</a>
+  </div>
+  <a href="#kontak" class="nav-cta magnetic" data-scroll>Buat Janji</a>
+</nav>
+
+<!-- ============ SMOOTH WRAPPER ============ -->
+<div id="smooth-wrapper">
+<div id="smooth-content">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="hero">
+    <div class="hero-media">
+      <img id="hero-img"
+           src="https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=2400&q=85"
+           alt="Villa mewah Uluwatu dengan kolam renang"
+           fetchpriority="high">
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">Uluwatu · Bali · Sejak 2019</div>
+      <h1 class="hero-title" id="hero-title">
+        <span class="line"><span class="title-inner">Rumah</span></span>
+        <span class="line"><span class="title-inner">di atas</span></span>
+        <span class="line"><span class="title-inner"><em>samudra.</em></span></span>
+      </h1>
+
+      <div class="hero-bottom">
+        <div>
+          <p class="hero-lede">
+            Lima villa privat di tebing Uluwatu, masing-masing dengan kolam
+            infinity sendiri dan pemandangan Samudra Hindia tanpa batas.
+            Dirancang oleh arsitek Bali, dibangun dengan tangan lokal.
+          </p>
+          <div class="hero-actions">
+            <a href="#villas" class="btn magnetic" data-scroll>Lihat villa</a>
+            <a href="#floorplan" class="btn btn-ghost magnetic" data-scroll>Pelajari denah →</a>
+          </div>
+        </div>
+        <div class="hero-meta-right">
+          <b>Rp 12,5 M</b>
+          Mulai dari
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <span>Gulir</span>
+      <svg width="14" height="20" viewBox="0 0 14 20" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+        <path d="M7 2v14M2 11l5 5 5-5"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============ MARQUEE ============ -->
+  <div class="marquee">
+    <div class="marquee-track" id="marquee">
+      <div class="marquee-group">
+        <span>Uluwatu</span><span class="dot">✦</span>
+        <span>Bali</span><span class="dot">✦</span>
+        <em>Private Villas</em><span class="dot">✦</span>
+        <span>Infinity Pool</span><span class="dot">✦</span>
+        <span>Ocean View</span><span class="dot">✦</span>
+        <em>Freehold</em><span class="dot">✦</span>
+      </div>
+      <div class="marquee-group" aria-hidden="true">
+        <span>Uluwatu</span><span class="dot">✦</span>
+        <span>Bali</span><span class="dot">✦</span>
+        <em>Private Villas</em><span class="dot">✦</span>
+        <span>Infinity Pool</span><span class="dot">✦</span>
+        <span>Ocean View</span><span class="dot">✦</span>
+        <em>Freehold</em><span class="dot">✦</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MANIFESTO ============ -->
+  <section class="manifesto section" id="manifesto">
+    <div class="manifesto-inner">
+      <div class="section-label">01 — Filosofi</div>
+      <p class="manifesto-text" id="manifesto-text">
+        Sunya berarti <em>kosong.</em> Bukan kekosongan yang hampa, melainkan ruang yang sengaja dibiarkan terbuka. Setiap villa kami rancang agar pemandangan samudra menjadi dinding yang sesungguhnya, dan langit Bali menjadi atap yang sebenarnya.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ VILLAS (HORIZONTAL) ============ -->
+  <section class="villas" id="villas">
+    <div class="villas-pin">
+      <div class="villas-head">
+        <h2>Lima villa. <em>Satu samudra.</em></h2>
+        <div class="count">05 — Unit</div>
+      </div>
+      <div class="villas-track" id="villas-track">
+
+        <article class="villa-card">
+          <div class="villa-image-wrap">
+            <img class="villa-image" src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1400&q=80" alt="Villa Anjani">
+            <div class="villa-index">01 / 05</div>
+            <div class="villa-badge">Tersedia</div>
+          </div>
+          <div class="villa-meta">
+            <div>
+              <div class="villa-name">
+                <h3>Villa <em>Anjani</em></h3>
+                <span>Cliffside Estate — 620 m²</span>
+              </div>
+              <dl class="villa-specs">
+                <div><dt>Kamar</dt><dd>4</dd></div>
+                <div><dt>Kolam</dt><dd>Infinity</dd></div>
+                <div><dt>View</dt><dd>Samudra</dd></div>
+              </dl>
+            </div>
+            <div class="villa-price">
+              Rp 12,5 M
+              <span>Freehold</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="villa-card">
+          <div class="villa-image-wrap">
+            <img class="villa-image" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1400&q=80" alt="Villa Kalyana">
+            <div class="villa-index">02 / 05</div>
+            <div class="villa-badge">Tersedia</div>
+          </div>
+          <div class="villa-meta">
+            <div>
+              <div class="villa-name">
+                <h3>Villa <em>Kalyana</em></h3>
+                <span>Garden Retreat — 480 m²</span>
+              </div>
+              <dl class="villa-specs">
+                <div><dt>Kamar</dt><dd>3</dd></div>
+                <div><dt>Kolam</dt><dd>Private</dd></div>
+                <div><dt>View</dt><dd>Taman</dd></div>
+              </dl>
+            </div>
+            <div class="villa-price">
+              Rp 8,9 M
+              <span>Freehold</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="villa-card">
+          <div class="villa-image-wrap">
+            <img class="villa-image" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=80" alt="Villa Santhi">
+            <div class="villa-index">03 / 05</div>
+            <div class="villa-badge">Terbatas</div>
+          </div>
+          <div class="villa-meta">
+            <div>
+              <div class="villa-name">
+                <h3>Villa <em>Santhi</em></h3>
+                <span>Ocean Pavilion — 780 m²</span>
+              </div>
+              <dl class="villa-specs">
+                <div><dt>Kamar</dt><dd>5</dd></div>
+                <div><dt>Kolam</dt><dd>Infinity</dd></div>
+                <div><dt>View</dt><dd>Samudra</dd></div>
+              </dl>
+            </div>
+            <div class="villa-price">
+              Rp 18,4 M
+              <span>Freehold</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="villa-card">
+          <div class="villa-image-wrap">
+            <img class="villa-image" src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1400&q=80" alt="Villa Widya">
+            <div class="villa-index">04 / 05</div>
+            <div class="villa-badge">Tersedia</div>
+          </div>
+          <div class="villa-meta">
+            <div>
+              <div class="villa-name">
+                <h3>Villa <em>Widya</em></h3>
+                <span>Cliffside — 560 m²</span>
+              </div>
+              <dl class="villa-specs">
+                <div><dt>Kamar</dt><dd>4</dd></div>
+                <div><dt>Kolam</dt><dd>Infinity</dd></div>
+                <div><dt>View</dt><dd>Samudra</dd></div>
+              </dl>
+            </div>
+            <div class="villa-price">
+              Rp 14,2 M
+              <span>Freehold</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="villa-card">
+          <div class="villa-image-wrap">
+            <img class="villa-image" src="https://images.unsplash.com/photo-1571939228382-b2f2b585ce15?auto=format&fit=crop&w=1400&q=80" alt="Villa Prasetya">
+            <div class="villa-index">05 / 05</div>
+            <div class="villa-badge">Terbatas</div>
+          </div>
+          <div class="villa-meta">
+            <div>
+              <div class="villa-name">
+                <h3>Villa <em>Prasetya</em></h3>
+                <span>Signature Estate — 940 m²</span>
+              </div>
+              <dl class="villa-specs">
+                <div><dt>Kamar</dt><dd>6</dd></div>
+                <div><dt>Kolam</dt><dd>Infinity</dd></div>
+                <div><dt>View</dt><dd>Samudra</dd></div>
+              </dl>
+            </div>
+            <div class="villa-price">
+              Rp 24,8 M
+              <span>Freehold</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FLOORPLAN (DrawSVG + MotionPath) ============ -->
+  <section class="floorplan" id="floorplan">
+    <div class="floorplan-inner">
+
+      <div class="floorplan-copy">
+        <div class="section-label">02 — Denah</div>
+        <h2>Setiap meter <em>bermakna.</em></h2>
+        <p>
+          Denah villa Anjani dirancang mengikuti kontur tebing. Setiap ruang
+          menghadap samudra, setiap koridor mempertahankan privasi. Garis-garis
+          di samping bukan hiasan — ini denah yang sesungguhnya.
+        </p>
+        <ul class="fp-specs">
+          <li><span>Luas tanah</span><span>840 m²</span></li>
+          <li><span>Luas bangunan</span><span>620 m²</span></li>
+          <li><span>Kamar tidur</span><span>4 + 1</span></li>
+          <li><span>Kolam infinity</span><span>18 × 5 m</span></li>
+          <li><span>Ketinggian tebing</span><span>62 m dpl</span></li>
+        </ul>
+      </div>
+
+      <div class="floorplan-visual">
+        <svg class="floorplan-svg" viewBox="0 0 500 500" aria-hidden="true">
+          <defs>
+            <path id="fp-motion-path" class="fp-motion-path"
+                  d="M 60 260 Q 60 60 250 60 Q 440 60 440 260 Q 440 440 250 440 Q 60 440 60 260 Z"/>
+          </defs>
+
+          <!-- outer boundary -->
+          <rect class="fp-outline" x="40" y="40" width="420" height="420" rx="2"/>
+
+          <!-- rooms -->
+          <path class="fp-room" d="M 40 40 L 260 40 L 260 200 L 40 200 Z"/>
+          <path class="fp-room" d="M 260 40 L 460 40 L 460 200 L 260 200 Z"/>
+          <path class="fp-room" d="M 40 200 L 200 200 L 200 300 L 40 300 Z"/>
+          <path class="fp-room" d="M 40 300 L 200 300 L 200 460 L 40 460 Z"/>
+          <path class="fp-room" d="M 200 200 L 460 200 L 460 340 L 200 340 Z"/>
+          <path class="fp-room" d="M 200 340 L 460 340 L 460 460 L 200 460 Z"/>
+
+          <!-- interior details -->
+          <line class="fp-detail" x1="140" y1="40" x2="140" y2="200"/>
+          <line class="fp-detail" x1="360" y1="40" x2="360" y2="200"/>
+          <line class="fp-detail" x1="260" y1="120" x2="460" y2="120"/>
+          <line class="fp-detail" x1="120" y1="300" x2="200" y2="300"/>
+          <line class="fp-detail" x1="330" y1="200" x2="330" y2="340"/>
+          <line class="fp-detail" x1="200" y1="400" x2="460" y2="400"/>
+
+          <!-- door indicators -->
+          <path class="fp-detail" d="M 200 220 Q 220 220 220 240" fill="none"/>
+          <path class="fp-detail" d="M 340 200 Q 340 180 360 180" fill="none"/>
+          <path class="fp-detail" d="M 260 320 Q 260 340 280 340" fill="none"/>
+
+          <!-- labels -->
+          <text class="fp-label" x="70" y="60">MASTER</text>
+          <text class="fp-label" x="290" y="60">LIVING</text>
+          <text class="fp-label" x="70" y="220">POOL</text>
+          <text class="fp-label" x="290" y="220">DINING</text>
+          <text class="fp-label" x="70" y="320">GARDEN</text>
+          <text class="fp-label" x="290" y="360">SUITE 02</text>
+          <text class="fp-label" x="290" y="420">SUITE 03</text>
+
+          <!-- motion path dot -->
+          <circle class="fp-motion-dot" r="4" cx="60" cy="260"/>
+        </svg>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ STATS ============ -->
+  <section class="stats">
+    <div class="stats-inner">
+      <div class="section-label" style="max-width:1280px;margin:0 auto 56px;padding:0 0">03 — Angka</div>
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="stat-num"><span class="num-inner" data-count="5">0</span></div>
+          <div class="stat-label">Villa privat<br>di tebing Uluwatu</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num"><span class="num-inner" data-count="620">0</span><em>m²</em></div>
+          <div class="stat-label">Rata-rata luas<br>bangunan</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num"><span class="num-inner" data-count="62">0</span><em>m</em></div>
+          <div class="stat-label">Ketinggian tebing<br>di atas laut</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num"><span class="num-inner" data-count="24">0</span><em>bln</em></div>
+          <div class="stat-label">Garansi struktur<br>dan MEP</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GALLERY (Draggable + Inertia + Flip) ============ -->
+  <section class="gallery" id="gallery">
+    <div class="gallery-head">
+      <h2>Potret <em>kehidupan.</em></h2>
+      <div class="gallery-hint">
+        <span>Geser galeri</span>
+        <svg width="20" height="10" viewBox="0 0 20 10" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+          <path d="M1 5h17M13 1l5 4-5 4"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="filter-bar">
+      <button class="is-active" data-filter="semua">Semua</button>
+      <button data-filter="eksterior">Eksterior</button>
+      <button data-filter="interior">Interior</button>
+      <button data-filter="pemandangan">Pemandangan</button>
+    </div>
+
+    <div class="gallery-track-wrap">
+      <div class="gallery-track" id="gallery-track">
+        <figure class="gallery-item" data-cat="eksterior">
+          <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=900&q=80" alt="Kolam infinity">
+          <div class="g-cap"><span>01 — Kolam</span><span>Anjani</span></div>
+        </figure>
+        <figure class="gallery-item" data-cat="interior">
+          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80" alt="Ruang tamu">
+          <div class="g-cap"><span>02 — Living</span><span>Anjani</span></div>
+        </figure>
+        <figure class="gallery-item" data-cat="pemandangan">
+          <img src="https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?auto=format&fit=crop&w=900&q=80" alt="Pemandangan samudra">
+          <div class="g-cap"><span>03 — Samudra</span><span>Uluwatu</span></div>
+        </figure>
+        <figure class="gallery-item" data-cat="interior">
+          <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=900&q=80" alt="Kamar utama">
+          <div class="g-cap"><span>04 — Suite</span><span>Santhi</span></div>
+        </figure>
+        <figure class="gallery-item" data-cat="eksterior">
+          <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=900&q=80" alt="Fasad villa">
+          <div class="g-cap"><span>05 — Fasad</span><span>Kalyana</span></div>
+        </figure>
+        <figure class="gallery-item" data-cat="pemandangan">
+          <img src="https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=900&q=80" alt="Matahari terbenam">
+          <div class="g-cap"><span>06 — Senja</span><span>Uluwatu</span></div>
+        </figure>
+        <figure class="gallery-item" data-cat="eksterior">
+          <img src="https://images.unsplash.com/photo-1571939228382-b2f2b585ce15?auto=format&fit=crop&w=900&q=80" alt="Teras villa">
+          <div class="g-cap"><span>07 — Teras</span><span>Prasetya</span></div>
+        </figure>
+        <figure class="gallery-item" data-cat="interior">
+          <img src="https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&w=900&q=80" alt="Ruang makan">
+          <div class="g-cap"><span>08 — Dining</span><span>Widya</span></div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SPOTLIGHT + TYPEWRITER ============ -->
+  <section class="spotlight">
+    <div class="spotlight-inner">
+
+      <div class="spotlight-media">
+        <div class="spotlight-img-wrap">
+          <img class="spotlight-img" id="spotlight-img"
+               src="https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1600&q=80"
+               alt="Detail arsitektur villa">
+          <div class="spotlight-caption">
+            <span>04 — Detail</span>
+            <span>Villa Anjani · Uluwatu</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="spotlight-copy">
+
+        <div class="spotlight-block" data-spot-block>
+          <div class="label">Arsitektur</div>
+          <h3>Batu, kayu, <em>cahaya.</em></h3>
+          <p>
+            Struktur beton bertulang disembunyikan di balik batu paras Uluwatu
+            yang dipotong tangan. Setiap villa memiliki langit-langit setinggi
+            lima meter, jendela penuh dari lantai ke langit-langit, dan
+            pencahayaan alami yang dirancang mengikuti jalur matahari.
+          </p>
+        </div>
+
+        <div class="spotlight-block" data-spot-block>
+          <div class="label">Filosofi</div>
+          <h3>Sunya. <em>Ruang yang utuh.</em></h3>
+          <p>
+            Kami tidak membangun sebanyak mungkin. Kami membangun seperlunya.
+            Kolam infinity bukan untuk gaya — ia menciptakan garis cakrawala
+            yang menyatukan air kolam dan air laut menjadi satu.
+          </p>
+          <p class="typewriter" id="typewriter"></p>
+          <p class="tw-sig">— Ibu Wayan Sukma, Arsitek Utama</p>
+        </div>
+
+        <div class="spotlight-block" data-spot-block>
+          <div class="label">Legalitas</div>
+          <h3>Freehold. <em>Tanpa drama.</em></h3>
+          <p>
+            Setiap villa sudah memiliki SHM pecahan, PBG lengkap, dan izin
+            lingkungan dari desa adat setempat. Proses notaris dan AJB
+            difasilitasi penuh oleh tim legal kami.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ CTA (MorphSVG) ============ -->
+  <section class="cta" id="kontak">
+    <div class="cta-bg">
+      <img id="cta-bg-img"
+           src="https://images.unsplash.com/photo-1571939228382-b2f2b585ce15?auto=format&fit=crop&w=2000&q=80"
+           alt="">
+    </div>
+    <div class="cta-inner">
+      <svg class="cta-morph-svg" viewBox="0 0 200 200" aria-hidden="true">
+        <path id="cta-morph-shape"
+              d="M100 30 A70 70 0 1 1 99.9 30 Z"
+              fill="none" stroke="currentColor" stroke-width="1.4"/>
+      </svg>
+      <h2>Mari <em>berbincang.</em></h2>
+      <p>
+        Kunjungan pribadi ke lokasi dibuka setiap Selasa dan Sabtu.
+        Satu advisor akan menemani Anda dari gerbang hingga kolam terakhir.
+      </p>
+      <div class="cta-actions">
+        <a href="tel:+6236112345" class="btn btn-lg magnetic">+62 361 1234 5</a>
+        <a href="#" class="btn btn-lg btn-ghost magnetic">WhatsApp →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer-marquee">
+      <div class="marquee-track" id="footer-marquee">
+        <span>SUNYA</span><span class="dot">✦</span>
+        <em>Private Villas</em><span class="dot">✦</span>
+        <span>Uluwatu, Bali</span><span class="dot">✦</span>
+        <span>SUNYA</span><span class="dot">✦</span>
+        <em>Private Villas</em><span class="dot">✦</span>
+        <span>Uluwatu, Bali</span><span class="dot">✦</span>
+      </div>
+    </div>
+
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#hero" class="nav-logo" data-scroll>
+          <svg viewBox="0 0 40 40" aria-hidden="true">
+            <circle cx="20" cy="20" r="8" fill="none" stroke="currentColor" stroke-width="1.2"/>
+            <line x1="20" y1="4" x2="20" y2="9" stroke="currentColor" stroke-width="1.2"/>
+            <line x1="20" y1="31" x2="20" y2="36" stroke="currentColor" stroke-width="1.2"/>
+            <line x1="4" y1="20" x2="9" y2="20" stroke="currentColor" stroke-width="1.2"/>
+            <line x1="31" y1="20" x2="36" y2="20" stroke="currentColor" stroke-width="1.2"/>
+          </svg>
+          <span>Sunya</span>
+        </a>
+        <p class="footer-tagline">
+          Lima villa privat di tebing Uluwatu. Kolam infinity, samudra
+          tanpa batas, dan arsitektur yang lahir dari tanah Bali.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Jelajahi</h4>
+        <p>
+          <a href="#villas" data-scroll>Villa</a><br>
+          <a href="#floorplan" data-scroll>Denah</a><br>
+          <a href="#gallery" data-scroll>Galeri</a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Showroom</h4>
+        <p>
+          Jl. Raya Uluwatu No. 88<br>
+          Pecatu, Bali 80361<br>
+          <a href="tel:+6236112345">+62 361 1234 5</a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Ikuti</h4>
+        <p>
+          <a href="#">Instagram</a><br>
+          <a href="#">YouTube</a><br>
+          <a href="#">Surat kabar</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-base">
+      <span>© 2025 Sunya Nusantara</span>
+      <span>Dibangun di Uluwatu — untuk samudra.</span>
+    </div>
+  </footer>
+
+</div>
+</div>
+
+<!-- ============ GSAP 3.13 (all plugins free) ============ -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/DrawSVGPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/MorphSVGPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/MotionPathPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/CustomEase.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Draggable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/InertiaPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Flip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Observer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/TextPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js"></script>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ============================================================
+     REGISTER ALL PLUGINS
+     ============================================================ */
+  gsap.registerPlugin(
+    ScrollTrigger, ScrollSmoother, SplitText, DrawSVGPlugin,
+    MorphSVGPlugin, MotionPathPlugin, CustomEase, Draggable,
+    InertiaPlugin, Flip, Observer, TextPlugin, ScrollToPlugin
+  );
+
+  /* ============================================================
+     1. CUSTOM EASING — branded for the studio
+     ============================================================ */
+  CustomEase.create('sunya', 'M0,0 C0.16,1 0.3,1 1,1');           // signature ease
+  CustomEase.create('sunya.in', 'M0,0 C0.7,0 0.84,0 1,1');        // in
+  CustomEase.create('sunya.out', 'M0,0 C0.16,1 0.3,1 1,1');       // out
+  CustomEase.create('luxe', 'M0,0 C0.25,0.1 0.25,1 1,1');         // luxe
+  CustomEase.create('cinematic', 'M0,0 C0.6,0.05 0.25,1 1,1');    // cinematic
+
+  /* ============================================================
+     2. SCROLLSMOOTHER — smooth page scroll
+     ============================================================ */
+  const smoother = ScrollSmoother.create({
+    wrapper: '#smooth-wrapper',
+    content: '#smooth-content',
+    smooth: 1.4,
+    effects: true,
+    smoothTouch: 0.1,
+    normalizeScroll: true,
+  });
+
+  /* ============================================================
+     3. MOUSE FOLLOW GLOW
+     ============================================================ */
+  const glow = document.getElementById('cursor-glow');
+  const glowX = gsap.quickTo(glow, 'x', { duration: 0.8, ease: 'power3.out' });
+  const glowY = gsap.quickTo(glow, 'y', { duration: 0.8, ease: 'power3.out' });
+  document.addEventListener('mousemove', (e) => {
+    glowX(e.clientX);
+    glowY(e.clientY);
+  });
+
+  /* ============================================================
+     4. LOADER — DrawSVG + counter + MorphSVG
+     ============================================================ */
+  const loader = document.getElementById('loader');
+  const loaderNum = document.getElementById('loader-num');
+  const loaderCounter = { val: 0 };
+
+  // Set initial states
+  gsap.set('.loader-circle', { drawSVG: '0%' });
+  gsap.set('.loader-circle-inner', { drawSVG: '0%' });
+  gsap.set('.loader-ray', { drawSVG: '0%' });
+  gsap.set('.morph-shape', {
+    scale: 0.3,
+    transformOrigin: 'center center',
+    opacity: 0,
+  });
+  gsap.set('.loader-meta', { opacity: 0, y: 12 });
+  gsap.set('#hero-img', { scale: 1.25 });
+  gsap.set('.hero-title .title-inner', { yPercent: 110 });
+  gsap.set('.hero-eyebrow, .hero-lede, .hero-actions, .hero-meta-right, .hero-scroll', {
+    opacity: 0, y: 24,
+  });
+
+  // Loader entrance timeline
+  const loaderIntro = gsap.timeline();
+  loaderIntro
+    .to('.loader-circle', { drawSVG: '100%', duration: 1.2, ease: 'sunya' })
+    .to('.loader-circle-inner', { drawSVG: '100%', duration: 1, ease: 'sunya' }, '-=0.9')
+    .to('.loader-ray', { drawSVG: '100%', duration: 0.7, ease: 'sunya', stagger: 0.04 }, '-=0.8')
+    .to('.morph-shape', {
+      scale: 1,
+      opacity: 1,
+      duration: 1.4,
+      ease: 'sunya',
+      morphSVG: {
+        shape: 'M100 30 A70 70 0 1 0 100 170 A70 70 0 1 0 100 30 Z',
+        shapeIndex: 'auto',
+      },
+    }, '-=1')
+    .to('.loader-meta', { opacity: 1, y: 0, duration: 0.6, ease: 'sunya.out' }, '-=0.4');
+
+  // Counter animation
+  gsap.to(loaderCounter, {
+    val: 100,
+    duration: 2.4,
+    ease: 'sunya.in',
+    onUpdate: () => {
+      loaderNum.textContent = String(Math.round(loaderCounter.val)).padStart(2, '0');
+    },
+    onComplete: () => {
+      // Curtain lift
+      const exitTl = gsap.timeline();
+      exitTl
+        .to('.morph-shape', {
+          scale: 30,
+          duration: 1.4,
+          ease: 'sunya.in',
+          transformOrigin: 'center center',
+        }, 0)
+        .to('.loader-meta', { opacity: 0, y: -20, duration: 0.4 }, 0)
+        .to('.loader-svg', {
+          rotation: 180,
+          duration: 1.4,
+          ease: 'sunya.in',
+        }, 0)
+        .to(loader, {
+          yPercent: -100,
+          duration: 1.2,
+          ease: 'sunya.in',
+          onComplete: () => {
+            loader.style.display = 'none';
+            playHero();
+            ScrollTrigger.refresh();
+          }
+        }, 0.6);
+    }
+  });
+
+  /* ============================================================
+     5. HERO INTRO — SplitText + parallax + CustomEase
+     ============================================================ */
+  function playHero() {
+    const split = new SplitText('#hero-title', {
+      type: 'chars,words,lines',
+      linesClass: 'hero-line',
+      charsClass: 'hero-char',
+    });
+
+    const tl = gsap.timeline({ defaults: { ease: 'sunya' } });
+
+    tl
+      .to('#hero-img', {
+        scale: 1,
+        duration: 2.4,
+        ease: 'sunya',
+      }, 0)
+      .to('.hero-title .title-inner', {
+        yPercent: 0,
+        duration: 1.6,
+        stagger: 0.14,
+        ease: 'sunya',
+      }, 0.15)
+      .from(split.chars, {
+        rotate: 6,
+        yPercent: 20,
+        duration: 0.9,
+        stagger: 0.012,
+        ease: 'sunya',
+      }, 0.3)
+      .to('.hero-eyebrow', { opacity: 1, y: 0, duration: 1 }, 0.4)
+      .to('.hero-lede', { opacity: 1, y: 0, duration: 1.2 }, 0.6)
+      .to('.hero-actions', { opacity: 1, y: 0, duration: 1 }, 0.8)
+      .to('.hero-meta-right', { opacity: 1, y: 0, duration: 1 }, 0.9)
+      .to('.hero-scroll', { opacity: 1, y: 0, duration: 1 }, 1.1);
+
+    // Hero parallax on scroll
+    gsap.to('#hero-img', {
+      yPercent: 18,
+      scale: 1.08,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1,
+      }
+    });
+
+    gsap.to('.hero-content', {
+      yPercent: 18,
+      opacity: 0.4,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1,
+      }
+    });
+
+    // Refresh split after
+    ScrollTrigger.refresh();
+  }
+
+  /* ============================================================
+     6. NAV — hide/show + scrolled state
+     ============================================================ */
+  const nav = document.getElementById('nav');
+  const progressFill = document.getElementById('progress-fill');
+
+  ScrollTrigger.create({
+    start: 'top -80',
+    end: 99999,
+    onUpdate: (self) => {
+      nav.classList.toggle('is-scrolled', self.scroll() > 80);
+    }
+  });
+
+  ScrollTrigger.create({
+    start: 0,
+    end: 'max',
+    onUpdate: (self) => {
+      progressFill.style.transform = `scaleX(${self.progress})`;
+    }
+  });
+
+  /* ============================================================
+     7. MARQUEE — velocity driven
+     ============================================================ */
+  const marquee = document.getElementById('marquee');
+  const marqueeTween = gsap.to(marquee, {
+    xPercent: -50,
+    duration: 40,
+    ease: 'none',
+    repeat: -1,
+  });
+
+  ScrollTrigger.create({
+    trigger: '.marquee',
+    start: 'top bottom',
+    end: 'bottom top',
+    onUpdate: (self) => {
+      const v = self.getVelocity() / 300;
+      gsap.to(marquee, {
+        skewX: Math.max(-12, Math.min(12, -v)),
+        duration: 0.6,
+        ease: 'power3.out',
+        overwrite: 'auto',
+      });
+      marqueeTween.timeScale(1 + Math.min(3, Math.abs(v) * 0.15));
+    }
+  });
+
+  /* ============================================================
+     8. MANIFESTO — SplitText word-by-word color reveal
+     ============================================================ */
+  (function splitManifesto() {
+    const el = document.getElementById('manifesto-text');
+    if (!el) return;
+
+    // Custom split preserving <em>
+    const walk = (node) => {
+      const children = Array.from(node.childNodes);
+      children.forEach((child) => {
+        if (child.nodeType === 3) {
+          const words = child.textContent.split(/(\s+)/);
+          const frag = document.createDocumentFragment();
+          words.forEach((w) => {
+            if (w.trim() === '') {
+              frag.appendChild(document.createTextNode(w));
+            } else {
+              const span = document.createElement('span');
+              span.className = 'word';
+              const inner = document.createElement('span');
+              inner.className = 'word-inner';
+              inner.textContent = w;
+              span.appendChild(inner);
+              frag.appendChild(span);
+            }
+          });
+          child.replaceWith(frag);
+        } else if (child.nodeType === 1) {
+          walk(child);
+        }
+      });
+    };
+    walk(el);
+
+    gsap.to('#manifesto-text .word-inner', {
+      color: '#F2EDE4',
+      stagger: 0.06,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 80%',
+        end: 'bottom 55%',
+        scrub: 1,
+      }
+    });
+
+    // Section label slide
+    gsap.from('.manifesto .section-label', {
+      opacity: 0,
+      x: -30,
+      duration: 1.2,
+      ease: 'sunya',
+      scrollTrigger: { trigger: '.manifesto', start: 'top 75%' },
+    });
+  })();
+
+  /* ============================================================
+     9. VILLAS — horizontal pin with counter-parallax
+     ============================================================ */
+  const mm = gsap.matchMedia();
+
+  mm.add('(min-width: 981px)', () => {
+    const villas = document.querySelector('.villas');
+    const track = document.getElementById('villas-track');
+    if (!villas || !track) return;
+
+    const getAmount = () => -(track.scrollWidth - window.innerWidth + 96);
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: villas,
+        start: 'top top',
+        end: () => `+=${Math.abs(getAmount())}`,
+        pin: true,
+        scrub: 1,
+        invalidateOnRefresh: true,
+        anticipatePin: 1,
+      }
+    });
+
+    tl.to(track, { x: getAmount, ease: 'none' }, 0);
+
+    // Counter parallax on images
+    tl.to('.villa-image', {
+      xPercent: 14,
+      scale: 1.05,
+      ease: 'none',
+    }, 0);
+
+    // Cards entrance
+    gsap.from('.villa-card', {
+      y: 80,
+      opacity: 0,
+      stagger: 0.1,
+      duration: 1.1,
+      ease: 'sunya',
+      scrollTrigger: {
+        trigger: villas,
+        start: 'top 70%',
+        once: true,
+      }
+    });
+  });
+
+  /* ============================================================
+     10. FLOORPLAN — DrawSVG + MotionPath
+     ============================================================ */
+  gsap.set('.fp-outline', { drawSVG: '0%' });
+  gsap.set('.fp-room', { drawSVG: '0%' });
+  gsap.set('.fp-detail', { drawSVG: '0%' });
+  gsap.set('.fp-label', { opacity: 0, y: 6 });
+  gsap.set('.fp-motion-dot', { opacity: 0 });
+
+  ScrollTrigger.create({
+    trigger: '.floorplan',
+    start: 'top 65%',
+    once: true,
+    onEnter: () => {
+      const tl = gsap.timeline();
+      tl
+        .to('.fp-outline', { drawSVG: '100%', duration: 1.4, ease: 'sunya' })
+        .to('.fp-room', { drawSVG: '100%', duration: 1.6, ease: 'sunya', stagger: 0.08 }, '-=1')
+        .to('.fp-detail', { drawSVG: '100%', duration: 1.2, ease: 'sunya', stagger: 0.05 }, '-=1')
+        .to('.fp-label', { opacity: 1, y: 0, duration: 0.6, stagger: 0.04, ease: 'sunya.out' }, '-=0.6')
+        .to('.fp-motion-dot', { opacity: 1, duration: 0.4 }, '-=0.4');
+
+      // MotionPath — dot travels the outline endlessly
+      gsap.to('.fp-motion-dot', {
+        motionPath: {
+          path: '#fp-motion-path',
+          align: '#fp-motion-path',
+          alignOrigin: [0.5, 0.5],
+        },
+        duration: 18,
+        repeat: -1,
+        ease: 'none',
+      });
+    }
+  });
+
+  // Floorplan copy reveal
+  gsap.from('.floorplan-copy > *', {
+    y: 40,
+    opacity: 0,
+    duration: 1,
+    stagger: 0.1,
+    ease: 'sunya',
+    scrollTrigger: { trigger: '.floorplan', start: 'top 70%' },
+  });
+
+  /* ============================================================
+     11. STATS — counter with mask reveal
+     ============================================================ */
+  document.querySelectorAll('[data-count]').forEach((el) => {
+    const target = parseInt(el.dataset.count, 10);
+    const obj = { val: 0 };
+
+    gsap.set(el, { yPercent: 110 });
+
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 85%',
+      once: true,
+      onEnter: () => {
+        gsap.to(el, {
+          yPercent: 0,
+          duration: 1.4,
+          ease: 'sunya',
+        });
+        gsap.to(obj, {
+          val: target,
+          duration: 2.2,
+          ease: 'power3.out',
+          onUpdate: () => {
+            el.textContent = Math.round(obj.val);
+          }
+        });
+      }
+    });
+  });
+
+  gsap.from('.stat', {
+    opacity: 0,
+    y: 30,
+    duration: 1,
+    stagger: 0.1,
+    ease: 'sunya',
+    scrollTrigger: { trigger: '.stats-grid', start: 'top 80%' },
+  });
+
+  /* ============================================================
+     12. GALLERY — Draggable + Inertia + Flip
+     ============================================================ */
+  const galleryTrack = document.getElementById('gallery-track');
+  if (galleryTrack) {
+    const items = galleryTrack.querySelectorAll('.gallery-item');
+    const totalWidth = galleryTrack.scrollWidth - window.innerWidth + 96;
+
+    // Draggable + Inertia
+    Draggable.create(galleryTrack, {
+      type: 'x',
+      bounds: { minX: -totalWidth, maxX: 0 },
+      inertia: true,
+      edgeResistance: 0.85,
+      cursor: 'grab',
+      activeCursor: 'grabbing',
+      onDrag: function () {
+        // Subtle skew during drag
+        const vel = this.getVelocity();
+        gsap.to(galleryTrack, {
+          skewX: Math.max(-5, Math.min(5, -vel / 1000)),
+          duration: 0.4,
+          ease: 'power2.out',
+        });
+      },
+      onRelease: () => {
+        gsap.to(galleryTrack, { skewX: 0, duration: 0.6, ease: 'sunya' });
+      }
+    });
+
+    // Filter with Flip
+    const filterButtons = document.querySelectorAll('.filter-bar button');
+    filterButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach((b) => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+
+        const filter = btn.dataset.filter;
+        const itemsToShow = Array.from(items).filter((item) =>
+          filter === 'semua' || item.dataset.cat === filter
+        );
+
+        // Capture state
+        const state = Flip.getState(items);
+
+        items.forEach((item) => {
+          const shouldShow = filter === 'semua' || item.dataset.cat === filter;
+          item.style.display = shouldShow ? '' : 'none';
+        });
+
+        Flip.from(state, {
+          duration: 0.7,
+          ease: 'sunya',
+          stagger: 0.03,
+          absolute: true,
+          onComplete: () => {
+            // Reset Draggable bounds after Flip
+            const newWidth = galleryTrack.scrollWidth - window.innerWidth + 96;
+            const d = Draggable.get(galleryTrack);
+            if (d) {
+              d.applyBounds({ minX: -Math.max(0, newWidth), maxX: 0 });
+            }
+          }
+        });
+      });
+    });
+
+    // Entrance
+    gsap.from('.gallery-item', {
+      y: 60,
+      opacity: 0,
+      duration: 1,
+      stagger: 0.06,
+      ease: 'sunya',
+      scrollTrigger: { trigger: '.gallery', start: 'top 70%' },
+    });
+  }
+
+  /* ============================================================
+     13. SPOTLIGHT — sticky image parallax + typewriter
+     ============================================================ */
+  const spotImg = document.getElementById('spotlight-img');
+  if (spotImg) {
+    gsap.to(spotImg, {
+      yPercent: -12,
+      scale: 1.3,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.spotlight',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1,
+      }
+    });
+  }
+
+  document.querySelectorAll('[data-spot-block]').forEach((block) => {
+    gsap.from(block, {
+      y: 70,
+      opacity: 0,
+      duration: 1.2,
+      ease: 'sunya',
+      scrollTrigger: {
+        trigger: block,
+        start: 'top 82%',
+        once: true,
+      }
+    });
+  });
+
+  // Typewriter — TextPlugin
+  const typewriter = document.getElementById('typewriter');
+  if (typewriter) {
+    const phrase = '"Ruang yang utuh bukan yang penuh, melainkan yang sengaja dibiarkan kosong agar cahaya bisa masuk."';
+    ScrollTrigger.create({
+      trigger: typewriter,
+      start: 'top 85%',
+      once: true,
+      onEnter: () => {
+        gsap.to(typewriter, {
+          duration: phrase.length * 0.04,
+          text: { value: phrase, delimiter: '' },
+          ease: 'none',
+        });
+      }
+    });
+  }
+
+  /* ============================================================
+     14. CTA — MorphSVG + bg parallax + reveal
+     ============================================================ */
+  const ctaBg = document.getElementById('cta-bg-img');
+  if (ctaBg) {
+    gsap.fromTo(ctaBg,
+      { yPercent: -15, scale: 1.15 },
+      {
+        yPercent: 15,
+        scale: 1.15,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.cta',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1,
+        }
+      }
+    );
+  }
+
+  // MorphSVG — sun → crescent on scroll
+  const ctaShape = document.getElementById('cta-morph-shape');
+  if (ctaShape) {
+    ScrollTrigger.create({
+      trigger: '.cta',
+      start: 'top 80%',
+      end: 'top 40%',
+      scrub: 1,
+      onUpdate: (self) => {
+        const p = self.progress;
+        // Alternate morph between sun and crescent using scrub progress
+        gsap.to(ctaShape, {
+          morphSVG: p > 0.5
+            ? 'M100 30 A70 70 0 1 0 100 170 A55 55 0 1 1 100 30 Z'
+            : 'M100 30 A70 70 0 1 1 99.9 30 Z',
+          duration: 0.5,
+          ease: 'sunya',
+          overwrite: true,
+        });
+      }
+    });
+
+    // Rotation on scroll
+    gsap.to(ctaShape, {
+      rotation: 360,
+      transformOrigin: 'center center',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.cta',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1,
+      }
+    });
+  }
+
+  gsap.from('.cta h2, .cta p, .cta-actions, .cta-morph-svg', {
+    y: 60,
+    opacity: 0,
+    stagger: 0.14,
+    duration: 1.2,
+    ease: 'sunya',
+    scrollTrigger: { trigger: '.cta', start: 'top 70%' },
+  });
+
+  /* ============================================================
+     15. FOOTER MARQUEE — velocity driven
+     ============================================================ */
+  const footerMarquee = document.getElementById('footer-marquee');
+  if (footerMarquee) {
+    gsap.to(footerMarquee, {
+      xPercent: -50,
+      duration: 30,
+      ease: 'none',
+      repeat: -1,
+    });
+  }
+
+  /* ============================================================
+     16. MAGNETIC BUTTONS
+     ============================================================ */
+  document.querySelectorAll('.magnetic').forEach((btn) => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      gsap.to(btn, {
+        x: x * 0.35,
+        y: y * 0.35,
+        duration: 0.5,
+        ease: 'sunya',
+      });
+    });
+    btn.addEventListener('mouseleave', () => {
+      gsap.to(btn, {
+        x: 0,
+        y: 0,
+        duration: 1,
+        ease: 'elastic.out(1, 0.4)',
+      });
+    });
+  });
+
+  /* ============================================================
+     17. SMOOTH ANCHOR SCROLL
+     ============================================================ */
+  document.querySelectorAll('[data-scroll]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      const href = a.getAttribute('href');
+      if (!href || href.length < 2 || !href.startsWith('#')) return;
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      smoother.scrollTo(target, true, 'top top');
+    });
+  });
+
+  /* ============================================================
+     18. OBSERVER — hover state on gallery for touch/no-cursor
+     ============================================================ */
+  Observer.create({
+    target: galleryTrack,
+    type: 'pointer,touch',
+    onPress: () => { galleryTrack.style.cursor = 'grabbing'; },
+    onRelease: () => { galleryTrack.style.cursor = 'grab'; },
+  });
+
+  /* ============================================================
+     19. REFRESH AFTER LOAD
+     ============================================================ */
+  window.addEventListener('load', () => {
+    setTimeout(() => ScrollTrigger.refresh(), 300);
+  });
+
+})();
+</script>
+</body>
+</html>

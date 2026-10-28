@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ruang Temu — Ruang Kreatif & Komunitas di Bandung</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Manrope:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  /* ... (semua CSS Anda tetap sama) ... */
+  /* Tambahan: gaya untuk transisi fragmen */
+  .fragment-container {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  html.is-animating .fragment-container {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+</style>
+</head>
+<body>
+
+  <!-- ... (header dan footer tetap sama) ... -->
+
+  <!-- Kontainer utama Swup -->
+  <main id="swup" class="fragment-container">
+    <!--
+      Ini adalah fragmen default yang akan dimuat pertama kali.
+      Kontennya sama dengan halaman "Beranda" pada kode sebelumnya.
+    -->
+    <section class="page" data-page="beranda">
+      <!-- ... (konten beranda) ... -->
+    </section>
+  </main>
+
+  <!--
+    Template untuk fragmen halaman lain.
+    Plugin Fragment akan mengambil konten dari sini.
+  -->
+  <template id="fragment-program">
+    <section class="page" data-page="program">
+      <!-- ... (konten halaman program) ... -->
+    </section>
+  </template>
+
+  <template id="fragment-ruang">
+    <section class="page" data-page="ruang">
+      <!-- ... (konten halaman ruang) ... -->
+    </section>
+  </template>
+
+  <template id="fragment-tentang">
+    <section class="page" data-page="tentang">
+      <!-- ... (konten halaman tentang) ... -->
+    </section>
+  </template>
+
+  <template id="fragment-kontak">
+    <section class="page" data-page="kontak">
+      <!-- ... (konten halaman kontak) ... -->
+    </section>
+  </template>
+
+  <!-- ============ SCRIPTS ============ -->
+  <script src="https://unpkg.com/swup@4"></script>
+  <script src="https://unpkg.com/@swup/progress-plugin@3"></script>
+  <script src="https://unpkg.com/@swup/preload-plugin@3"></script>
+  <script src="https://unpkg.com/@swup/scroll-plugin@3"></script>
+  <script src="https://unpkg.com/@swup/a11y-plugin@4"></script>
+  <script src="https://unpkg.com/@swup/fragment-plugin@3"></script> <!-- Plugin Fragment -->
+
+  <script>
+    /* ---------------------------------------------------------
+       1. Siapkan data fragmen dari template
+       --------------------------------------------------------- */
+    const fragments = {};
+    document.querySelectorAll('template[id^="fragment-"]').forEach((tpl) => {
+      const pageName = tpl.id.replace('fragment-', '');
+      fragments[pageName] = tpl.innerHTML;
+    });
+
+    /* ---------------------------------------------------------
+       2. Buat URL khusus untuk setiap fragmen (menggunakan hash)
+          Ini adalah trik agar Swup bisa "mengunjungi" fragmen.
+       --------------------------------------------------------- */
+    const fragmentUrls = {};
+    Object.keys(fragments).forEach((pageName) => {
+      // Buat URL unik, misalnya: /#program
+      const url = new URL(window.location.href);
+      url.hash = pageName;
+      fragmentUrls[pageName] = url.pathname + url.hash;
+    });
+
+    /* ---------------------------------------------------------
+       3. Hubungkan tautan navigasi ke URL fragmen
+       --------------------------------------------------------- */
+    document.querySelectorAll('[data-nav]').forEach((el) => {
+      const pageName = el.dataset.nav;
+      if (fragmentUrls[pageName]) {
+        el.setAttribute('href', fragmentUrls[pageName]);
+      }
+    });
+
+    /* ---------------------------------------------------------
+       4. Inisialisasi Swup + Plugin (termasuk Fragment Plugin)
+       --------------------------------------------------------- */
+    const plugins = [];
+    if (window.SwupProgressPlugin) plugins.push(new SwupProgressPlugin({ delay: 200 }));
+    if (window.SwupPreloadPlugin) plugins.push(new SwupPreloadPlugin({ preloadHoveredLinks: true }));
+    if (window.SwupScrollPlugin) plugins.push(new SwupScrollPlugin({ animateScroll: true }));
+    if (window.SwupA11yPlugin) plugins.push(new SwupA11yPlugin({ announcement: 'Halaman dimuat' }));
+
+    // Daftarkan Fragment Plugin
+    if (window.SwupFragmentPlugin) {
+      plugins.push(new SwupFragmentPlugin({
+        // Aturan: jika URL mengandung hash (misal #program), gunakan fragmen yang sesuai
+        rules: [
+          {
+            from: '/*', // Dari halaman apa pun
+            to: '/*#program', // Ke URL dengan hash #program
+            fragment: 'program' // Nama fragmen (akan mencari elemen dengan data-fragment="program")
+          },
+          {
+            from: '/*',
+            to: '/*#ruang',
+            fragment: 'ruang'
+          },
+          {
+            from: '/*',
+            to: '/*#tentang',
+            fragment: 'tentang'
+          },
+          {
+            from: '/*',
+            to: '/*#kontak',
+            fragment: 'kontak'
+          },
+          // Aturan untuk kembali ke beranda (tanpa hash)
+          {
+            from: '/*',
+            to: '/*',
+            fragment: 'beranda'
+          }
+        ]
+      }));
+    }
+
+    const swup = new Swup({
+      containers: ['#swup'],
+      // Animasi akan diterapkan pada kontainer fragmen
+      animationSelector: '.fragment-container',
+      plugins,
+      linkSelector: 'a[href]',
+      cache: true,
+      hooks: {
+        'visit:start': () => {
+          document.documentElement.classList.add('is-animating');
+        },
+        'visit:end': () => {
+          document.documentElement.classList.remove('is-animating');
+        },
+        'page:view': (visit) => {
+          const pageName = visit.to.url.split('#')[1] || 'beranda';
+          document.body.dataset.page = pageName;
+          updateAriaCurrent(pageName);
+          runPageScripts(pageName);
+        }
+      }
+    });
+
+    /* ---------------------------------------------------------
+       5. Fungsi-fungsi pendukung (sama seperti sebelumnya)
+       --------------------------------------------------------- */
+    function updateAriaCurrent(pageName) {
+      document.querySelectorAll('[data-nav]').forEach((a) => {
+        if (a.dataset.nav === pageName) {
+          a.setAttribute('aria-current', 'page');
+        } else {
+          a.removeAttribute('aria-current');
+        }
+      });
+    }
+
+    function runPageScripts(pageName) {
+      if (pageName === 'tentang') {
+        animateCounters();
+      }
+      if (pageName === 'program') {
+        initFilters();
+      }
+    }
+
+    function animateCounters() {
+      const els = document.querySelectorAll('[data-count]');
+      els.forEach((el) => {
+        const target = parseInt(el.dataset.count, 10);
+        const duration = 900;
+        const start = performance.now();
+
+        function tick(now) {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.round(target * eased).toString();
+          if (progress < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+    }
+
+    function initFilters() {
+      const buttons = document.querySelectorAll('.filter-bar button');
+      const items = document.querySelectorAll('.prog');
+      if (!buttons.length) return;
+
+      buttons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          buttons.forEach((b) => b.classList.remove('is-active'));
+          btn.classList.add('is-active');
+          const filter = btn.dataset.filter;
+          items.forEach((item) => {
+            const show = filter === 'semua' || item.dataset.cat === filter;
+            item.style.display = show ? '' : 'none';
+          });
+        });
+      });
+    }
+  </script>
+</body>
+</html>

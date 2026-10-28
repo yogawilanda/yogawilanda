@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GARASI — Mobil Bekas Premium Pilihan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2400&q=85">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#0A0A0A;
+    --bg-2:#131210;
+    --bg-3:#1A1815;
+    --ink:#F5F1E8;
+    --muted:#8C8578;
+    --accent:#C9A24B;
+    --rule:rgba(245,241,232,0.12);
+    --disp:"Fraunces",Georgia,serif;
+    --sans:"Manrope",system-ui,-apple-system,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,monospace;
+  }
+  html{-webkit-text-size-adjust:100%;scroll-behavior:auto}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:var(--sans);font-size:16px;line-height:1.6;
+    font-weight:400;-webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--accent);color:var(--bg)}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  h1,h2,h3,h4,p,ul,li,dl,dd,dt,figure{margin:0;padding:0}
+  ul{list-style:none}
+  .shell{max-width:1440px;margin:0 auto;padding:0 40px}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+
+  /* film grain */
+  body::after{
+    content:"";position:fixed;inset:0;z-index:9998;pointer-events:none;
+    opacity:0.035;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode:overlay;
+  }
+
+  /* ============ LOADER ============ */
+  .loader{
+    position:fixed;inset:0;z-index:10000;background:var(--bg);
+    display:flex;align-items:center;justify-content:center;
+    padding:40px;
+  }
+  .loader-inner{width:100%;max-width:900px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px}
+  .loader-brand{
+    font-family:var(--disp);font-weight:400;font-size:clamp(48px,8vw,120px);
+    letter-spacing:-.04em;line-height:.85;
+    font-variation-settings:"SOFT" 60,"WONK" 1;
+  }
+  .loader-brand em{font-style:italic;color:var(--accent)}
+  .loader-count{
+    font-family:var(--mono);font-size:clamp(40px,6vw,80px);
+    font-weight:400;letter-spacing:-.03em;line-height:1;color:var(--muted);
+    display:flex;align-items:baseline;gap:4px;
+  }
+  .loader-count span:first-child{color:var(--ink)}
+
+  /* ============ PROGRESS BAR ============ */
+  .progress-bar{
+    position:fixed;top:0;left:0;right:0;height:2px;z-index:9997;
+    background:transparent;pointer-events:none;
+  }
+  .progress-fill{
+    height:100%;background:var(--accent);
+    transform-origin:0 50%;transform:scaleX(0);
+    will-change:transform;
+  }
+
+  /* ============ NAV ============ */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    padding:28px 40px;
+    display:flex;align-items:center;justify-content:space-between;
+    transition:background .4s ease,padding .4s ease,backdrop-filter .4s ease;
+  }
+  .nav.is-scrolled{
+    padding:16px 40px;
+    background:rgba(10,10,10,.78);
+    backdrop-filter:blur(20px) saturate(140%);
+    -webkit-backdrop-filter:blur(20px) saturate(140%);
+    border-bottom:1px solid var(--rule);
+  }
+  .nav-logo{
+    font-family:var(--disp);font-weight:400;font-size:24px;
+    letter-spacing:-.02em;line-height:1;
+    font-variation-settings:"SOFT" 60,"WONK" 1;
+  }
+  .nav-logo em{font-style:italic;color:var(--accent)}
+  .nav-links{display:flex;gap:36px;align-items:center}
+  .nav-links a{
+    font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--muted);
+    transition:color .2s ease;
+  }
+  .nav-links a:hover{color:var(--ink)}
+  .nav-cta{
+    font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;padding:12px 20px;
+    border:1px solid var(--rule);border-radius:100px;
+    color:var(--ink);transition:background .3s ease,color .3s ease,border-color .3s ease;
+  }
+  .nav-cta:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative;height:100vh;min-height:720px;overflow:hidden;
+    display:flex;align-items:flex-end;
+  }
+  .hero-layers{position:absolute;inset:0;z-index:0;overflow:hidden}
+  .hero-bg-img{
+    position:absolute;inset:-10% 0;
+    width:100%;height:120%;
+    object-fit:cover;object-position:center 60%;
+    filter:brightness(.75) saturate(1.1);
+    will-change:transform;
+    z-index:1;
+  }
+  .hero-overlay{
+    position:absolute;inset:0;z-index:2;
+    background:
+      linear-gradient(180deg, rgba(10,10,10,.7) 0%, rgba(10,10,10,.15) 35%, rgba(10,10,10,.1) 60%, rgba(10,10,10,.95) 100%),
+      linear-gradient(90deg, rgba(10,10,10,.6) 0%, transparent 45%);
+  }
+  .hero-glow{
+    position:absolute;z-index:2;
+    width:60vw;height:60vw;max-width:900px;max-height:900px;
+    right:-10vw;top:20%;
+    background:radial-gradient(circle, rgba(201,162,75,.16) 0%, transparent 65%);
+    pointer-events:none;filter:blur(40px);
+    will-change:transform;
+  }
+  .hero-content{
+    position:relative;z-index:3;width:100%;
+    padding:0 40px 100px;
+  }
+  .hero-meta{
+    display:flex;gap:20px;align-items:center;
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--muted);
+    margin-bottom:32px;
+  }
+  .hero-meta .sep{width:20px;height:1px;background:var(--rule);display:inline-block}
+  .hero-title{
+    font-family:var(--disp);font-weight:400;
+    font-size:clamp(58px,10.5vw,168px);
+    line-height:.85;letter-spacing:-.045em;
+    font-variation-settings:"SOFT" 60,"WONK" 1;
+    max-width:1100px;
+  }
+  .hero-title .line{display:block;overflow:hidden;padding-bottom:.02em}
+  .hero-title .line > span{display:inline-block;will-change:transform}
+  .hero-title em{
+    font-style:italic;font-weight:300;color:var(--accent);
+    font-variation-settings:"SOFT" 100,"WONK" 1;
+  }
+  .hero-bottom{
+    display:grid;grid-template-columns:1fr auto;
+    gap:60px;align-items:end;margin-top:56px;
+    padding-top:36px;border-top:1px solid var(--rule);
+  }
+  .hero-lede{
+    max-width:44ch;font-size:16px;line-height:1.7;color:#C7C0B3;font-weight:300;
+  }
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;padding:16px 26px;
+    border:1px solid var(--ink);border-radius:100px;
+    background:var(--ink);color:var(--bg);
+    transition:background .3s ease,color .3s ease,border-color .3s ease;
+    cursor:pointer;position:relative;will-change:transform;
+  }
+  .btn:hover{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+  .btn-ghost{background:transparent;color:var(--ink)}
+  .btn-ghost:hover{background:var(--ink);color:var(--bg)}
+
+  .hero-side-tag{
+    position:absolute;right:40px;top:50%;transform:translateY(-50%) rotate(180deg);
+    writing-mode:vertical-rl;
+    font-family:var(--mono);font-size:10px;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--muted);z-index:4;
+  }
+  .hero-scroll{
+    position:absolute;left:40px;bottom:32px;z-index:4;
+    display:flex;align-items:center;gap:14px;
+    font-family:var(--mono);font-size:10px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--muted);
+  }
+  .hero-scroll svg{animation:scrollBob 1.8s ease-in-out infinite}
+  @keyframes scrollBob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+
+  /* ============ MARQUEE ============ */
+  .marquee-wrap{
+    padding:32px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+    overflow:hidden;background:var(--bg-2);position:relative;z-index:5;
+  }
+  .marquee-track{
+    display:flex;width:max-content;gap:56px;align-items:center;
+    will-change:transform;
+  }
+  .marquee-item{
+    display:flex;align-items:center;gap:56px;
+    font-family:var(--disp);font-weight:400;font-size:clamp(28px,3.4vw,44px);
+    letter-spacing:-.02em;color:var(--ink);white-space:nowrap;
+    font-variation-settings:"SOFT" 60,"WONK" 1;
+  }
+  .marquee-item em{font-style:italic;color:var(--accent)}
+  .marquee-item .dot{color:var(--accent);font-size:.7em}
+
+  /* ============ MANIFESTO ============ */
+  .manifesto{
+    position:relative;padding:180px 0 200px;
+    background:var(--bg);overflow:hidden;
+  }
+  .manifesto::before{
+    content:"";position:absolute;
+    width:700px;height:700px;border-radius:50%;
+    background:radial-gradient(circle, rgba(201,162,75,.08) 0%, transparent 65%);
+    left:-200px;top:20%;pointer-events:none;
+  }
+  .manifesto-inner{
+    max-width:1200px;margin:0 auto;padding:0 40px;position:relative;z-index:1;
+  }
+  .section-label{
+    display:flex;align-items:center;gap:16px;
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--muted);
+    margin-bottom:56px;
+  }
+  .section-label::before{
+    content:"";width:32px;height:1px;background:var(--accent);
+  }
+  .manifesto-text{
+    font-family:var(--disp);font-weight:400;
+    font-size:clamp(28px,4vw,58px);
+    line-height:1.15;letter-spacing:-.025em;
+    font-variation-settings:"SOFT" 60,"WONK" 1;
+    max-width:1100px;
+  }
+  .manifesto-text em{font-style:italic;color:var(--accent)}
+  .manifesto-text .word{display:inline-block;overflow:hidden;vertical-align:top;margin-right:.28em}
+  .manifesto-text .word-inner{
+    display:inline-block;color:var(--muted);
+    will-change:color;
+  }
+
+  .stats{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+    margin-top:120px;border-top:1px solid var(--rule);padding-top:0;
+  }
+  .stat{
+    padding:40px 32px 0 0;border-right:1px solid var(--rule);
+    position:relative;
+  }
+  .stat:last-child{border-right:0;padding-right:0}
+  .stat-num{
+    font-family:var(--disp);font-weight:400;
+    font-size:clamp(52px,6vw,96px);line-height:.9;
+    letter-spacing:-.04em;color:var(--ink);
+    font-variation-settings:"SOFT" 60,"WONK" 1;
+    display:flex;align-items:baseline;gap:4px;
+  }
+  .stat-num em{font-style:italic;color:var(--accent);font-size:.5em;font-weight:300}
+  .stat-label{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--muted);margin-top:18px;
+    line-height:1.6;
+  }
+
+  /* ============ FEATURED (HORIZONTAL PIN) ============ */
+  .featured{
+    position:relative;height:100vh;overflow:hidden;
+    background:var(--bg-2);border-top:1px solid var(--rule);
+    border-bottom:1px solid var(--rule);
+  }
+  .featured-pin{
+    height:100vh;display:flex;flex-direction:column;
+    justify-content:center;padding:0 0 0 40px;
+  }
+  .featured-head{
+    padding:40px 0 40px;flex-shrink:0;
+    display:flex;justify-content:space-between;align-items:flex-end;
+    padding-right:40px;
+  }
+  .featured-head h2{
+    font-family:var(--disp);font-weight:400;
+    font-size:clamp(36px,5vw,72px);line-height:.9;
+    letter-spacing:-.035em;
+    font-variation-settings:"SOFT" 60,"WONK" 1;
+    max-width:800px;
+  }
+  .featured-head h2 em{font-style:italic;color:var(--accent);font-weight:300}
+  .featured-head .count{
+    font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--muted);
+    white-space:nowrap;
+  }
+  .featured-track{
+    display:flex;gap:32px;align-items:center;
+    will-change:transform;padding-right:40px;
+    flex-shrink:0;
+  }
+  .car-card{
+    flex:0 0 auto;width:min(560px,72vw);
+    display:flex;flex-direction:column;
+  }
+  .car-image-wrap{
+    position:relative;width:100%;
+    aspect-ratio:4/3;overflow:hidden;border-radius:4px;
+    background:var(--bg-3);
+  }
+  .car-image{
+    width:100%;height:100%;object-fit:cover;
+    will-change:transform;transform:scale(1.15);
+  }
+  .car-image-wrap::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 60%, rgba(10,10,10,.55) 100%);
+    pointer-events:none;
+  }
+  .car-index{
+    position:absolute;top:20px;left:20px;z-index:2;
+    font-family:var(--mono);font-size:11px;letter-spacing:.2em;
+    color:var(--ink);opacity:.7;
+    padding:6px 12px;border:1px solid rgba(245,241,232,.3);border-radius:100px;
+    backdrop-filter:blur(10px);background:rgba(10,10,10,.3);
+  }
+  .car-badge{
+    position:absolute;bottom:20px;right:20px;z-index:2;
+    font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--accent);
+    padding:6px 12px;border:1px solid rgba(201,162,75,.4);border-radius:100px;
+    backdrop-filter:blur(10px);background:rgba(10,10,10,.4);
+  }
+  .car-meta{
+    padding:24px 4px 0;display:grid;
+    grid-template-columns:1fr auto;gap:20px;align-items:start;
+  }
+  .car-name h3{
+    font-family:var(--disp);font-weight:400;
+    font-size:clamp(24px,2.8vw,38px);line-height:1;
+    letter-spacing:-.02em;
+    font-variation-settings:"SOFT" 60,"WONK" 1;
+  }
+  .car-name h3 em{font-style:italic;color:var(--accent)}
+  .car-name span{
+    display:block;margin-top:6px;
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--muted);
+  }
+  .car-specs{
+    display:flex;gap:24px;margin-top:14px;
+    font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  }
+  .car-specs div{display:flex;flex-direction:column;gap:4px}
+  .car-specs dt{color:var(--muted)}
+  .car-specs dd{color:var(--ink);font-weight:500}
+  .car-price{
+    font-family:var(--disp);font-weight:400;
+    font-size:clamp(20px,2.2vw,28px);letter-spacing:-.02em;
+    color:var(--accent);white-space:nowrap;text-align:right;
+    font-variation-settings:"SOFT" 60,"WONK" 1;
+  }
+  .car-price span{
+    display:block;font-family:var(--mono);font-size:9.5px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+    margin-top:4px;font-weight:400;
+  }
+
+  /* ============ SPOTLIGHT ============ */
+  .spotlight{
+    position:relative;background:var(--bg);
+    border-top:1px solid var(--rule);
+  }
+  .spotlight-inner{
+    display:grid;grid-template-columns:1fr 1fr;
+    max-width:1600px;margin:0 auto;
+    padding:0 40px;gap:80px;
+  }
+  .spotlight-media{
+    position:sticky;top:0;height:100vh;
+    display:flex;align-items:center;justify-content:center;
+    padding:80px 0;
+  }
+  .spotlight-img-wrap{
+    position:relative;width:100%;height:100%;
+    max-height:760px;overflow:hidden;border-radius:4px;
+    background:var(--bg-3);
+  }
+  .spotlight-img{
+    width:100%;height:100%;object-fit:cover;
+    will-change:transform;transform:scale(1.2);
+  }
+  .spotlight-img-wrap::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg, transparent 60%, rgba(10,10,10,.5) 100%);
+    pointer-events:none;
+  }
+  .spotlight-caption{
+    position:absolute;bottom:24px;left:24px;right:24px;z-index:2;
+    display:flex;justify-content:space-between;gap:20px;
+    font-family:var(--mono);font-size:10px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--ink);opacity:.85;
+  }
+  .spotlight-caption span:first-child{color:var(--accent)}
+
+  .spotlight-copy{
+    padding:14vh 0 20vh;
+    display:flex;flex-direction:column;gap:0;
+  }
+  .spotlight-block{
+    padding:100px 0;
+    border-bottom:1px solid var(--rule);
+  }
+  .spotlight-block:first-child{border-top:1px solid var(--rule)}
+  .spotlight-block .label{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--accent);
+    display:flex;align-items:center;gap:12px;margin-bottom:28px;
+  }
+  .spotlight-block .label::before{
+    content:"";width:24px;height:1px;background:var(--accent);
+  }
+  .spotlight-block h3{
+    font-family:var(--disp);font-weight:400;
+    font-size:clamp(30px,3.6vw,52px);line-height:1;
+    letter-spacing:-.03em;
+    font-variation-settings:"SOFT" 60,"WONK" 1;
+    margin-bottom:24px;
+  }
+  .spotlight-block h3 em{font-style:italic;color:var(--accent);font-weight:300}
+  .spotlight-block p{
+    font-size:15.5px;line-height:1.75;color:#B8B1A3;
+    max-width:44ch;font-weight:300;
+  }
+  .spotlight-block .detail-list{
+    margin-top:32px;display:grid;gap:0;
+  }
+  .spotlight-block .detail-list li{
+    display:flex;justify-content:space-between;gap:20px;
+    padding:16px 0;border-bottom:1px solid var(--rule);
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;
+    color:var(--ink);
+  }
+  .spotlight-block .detail-list li span:first-child{color:var(--muted)}
+  .spotlight-block .detail-list li span:last-child{color:var(--accent);font-weight:500}
+
+  /* ============ DETAIL GRID ============ */
+  .detail{
+    padding:160px 0;background:var(--bg-2);
+    border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  }
+  .detail-head{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    gap:40px;margin-bottom:80px;flex-wrap:wrap;
+  }
+  .detail-head h2{
+    font-family:var(--disp);font-weight:400;
+    font-size:clamp(36px,5vw,72px);line-height:.9;
+    letter-spacing:-.035em;
+    font-variation-settings:"SOFT" 60,"WONK" 1;
+    max-width:600px;
+  }
+  .detail-head h2 em{font-style:italic;color:var(--accent);font-weight:300}
+  .detail-head p{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--muted);max-width:32ch;
+    line-height:2;text-align:right;
+  }
+  .detail-grid{
+    display:grid;grid-template-columns:1.4fr 1fr 1fr;
+    gap:20px;grid-template-rows:auto auto;
+  }
+  .detail-img{
+    position:relative;overflow:hidden;border-radius:4px;
+    background:var(--bg-3);
+    will-change:transform;
+  }
+  .detail-img img{
+    width:100%;height:100%;object-fit:cover;
+    will-change:transform;
+    transition:transform 1.2s cubic-bezier(.22,.61,.36,1);
+  }
+  .detail-img:hover img{transform:scale(1.06)}
+  .detail-img.tall{grid-row:span 2;aspect-ratio:3/5}
+  .detail-img.wide{aspect-ratio:4/3}
+  .detail-img.square{aspect-ratio:1/1}
+  .detail-img figcaption{
+    position:absolute;bottom:16px;left:16px;right:16px;
+    font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--ink);opacity:.75;
+    display:flex;justify-content:space-between;gap:12px;
+  }
+  .detail-img::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg, transparent 70%, rgba(10,10,10,.4) 100%);
+    pointer-events:none;
+  }
+
+  /* ============ CTA ============ */
+  .cta{
+    position:relative;padding:180px 0 200px;overflow:hidden;
+    border-top:1px solid var(--rule);
+  }
+  .cta-bg{
+    position:absolute;inset:0;z-index:0;overflow:hidden;
+  }
+  .cta-bg img{
+    width:100%;height:100%;object-fit:cover;
+    filter:brightness(.28) saturate(.7);
+    will-change:transform;
+  }
+  .cta-inner{
+    max-width:1100px;margin:0 auto;padding:0 40px;
+    position:relative;z-index:2;text-align:center;
+  }
+  .cta h2{
+    font-family:var(--disp);font-weight:400;
+    font-size:clamp(44px,7.5vw,120px);line-height:.88;
+    letter-spacing:-.045em;
+    font-variation-settings:"SOFT" 60,"WONK" 1;
+    margin-bottom:40px;
+  }
+  .cta h2 em{font-style:italic;color:var(--accent);font-weight:300}
+  .cta p{
+    font-size:16px;line-height:1.7;color:#C7C0B3;
+    max-width:48ch;margin:0 auto 44px;font-weight:300;
+  }
+  .cta-actions{
+    display:flex;gap:16px;justify-content:center;flex-wrap:wrap;
+  }
+  .cta .btn-lg{
+    padding:22px 38px;font-size:12px;
+  }
+
+  /* ============ FOOTER ============ */
+  .footer{
+    border-top:1px solid var(--rule);padding:80px 0 0;
+    background:var(--bg);
+  }
+  .footer-inner{
+    display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+    gap:60px;padding-bottom:80px;
+  }
+  .footer-brand .nav-logo{font-size:32px}
+  .footer-tagline{
+    margin-top:20px;font-size:14px;line-height:1.8;
+    color:var(--muted);max-width:30ch;font-weight:300;
+  }
+  .footer-col h4{
+    font-family:var(--mono);font-size:10px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--muted);margin-bottom:20px;font-weight:400;
+  }
+  .footer-col p,.footer-col a{
+    font-size:14px;line-height:2;color:#B8B1A3;
+    transition:color .2s ease;font-weight:300;
+  }
+  .footer-col a:hover{color:var(--accent)}
+  .footer-base{
+    border-top:1px solid var(--rule);
+    padding:24px 0;
+    display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;
+    font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--muted);
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width:1100px){
+    .spotlight-inner{grid-template-columns:1fr;gap:0;padding:0 40px}
+    .spotlight-media{position:relative;height:auto;padding:60px 0;top:auto}
+    .spotlight-img-wrap{aspect-ratio:4/3;max-height:none}
+    .spotlight-copy{padding:0 0 60px}
+    .spotlight-block{padding:60px 0}
+  }
+  @media (max-width:980px){
+    .nav-links{display:none}
+    .shell{padding:0 24px}
+    .hero-content{padding:0 24px 80px}
+    .hero-side-tag{display:none}
+    .hero-scroll{left:24px}
+    .hero-bottom{grid-template-columns:1fr;gap:32px}
+    .stats{grid-template-columns:repeat(2,1fr);gap:0}
+    .stat{padding:32px 24px 32px 0;border-bottom:1px solid var(--rule)}
+    .stat:nth-child(2n){border-right:0;padding-right:0}
+    .stat:nth-last-child(-n+2){border-bottom:0}
+    .featured{height:auto;padding:80px 0}
+    .featured-pin{height:auto;padding:0 24px}
+    .featured-track{flex-direction:column;align-items:stretch;padding:0;gap:40px;transform:none!important}
+    .car-card{width:100%}
+    .car-image{transform:none!important}
+    .detail-grid{grid-template-columns:1fr 1fr}
+    .detail-img.tall{grid-row:auto;aspect-ratio:4/3}
+    .detail-head p{text-align:left}
+    .footer-inner{grid-template-columns:1fr 1fr;gap:40px}
+    .footer-brand{grid-column:1 / -1}
+  }
+  @media (max-width:640px){
+    .shell{padding:0 20px}
+    .hero-content{padding:0 20px 60px}
+    .hero-scroll{left:20px;bottom:20px;font-size:9px}
+    .hero-meta{font-size:9.5px;gap:12px;flex-wrap:wrap}
+    .hero-actions{flex-direction:column;align-items:flex-start}
+    .manifesto{padding:100px 0 120px}
+    .manifesto-inner{padding:0 20px}
+    .stats{margin-top:60px}
+    .stat-num{font-size:48px}
+    .featured{padding:60px 0}
+    .featured-pin{padding:0 20px}
+    .featured-head{flex-direction:column;align-items:flex-start;gap:16px}
+    .spotlight-inner{padding:0 20px}
+    .detail{padding:80px 0}
+    .detail-grid{grid-template-columns:1fr}
+    .detail-img.tall,.detail-img.wide,.detail-img.square{aspect-ratio:4/3}
+    .cta{padding:100px 0 120px}
+    .cta-inner{padding:0 20px}
+    .footer-inner{grid-template-columns:1fr;gap:32px}
+    .loader-inner{flex-direction:column;align-items:flex-start;gap:20px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .hero-bg-img,.hero-title .line > span,.car-image,.spotlight-img,.cta-bg img{transform:none!important}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ LOADER ============ -->
+<div class="loader" id="loader">
+  <div class="loader-inner">
+    <div class="loader-brand">GARASI<em>.</em></div>
+    <div class="loader-count">
+      <span id="loader-num">0</span>
+      <span>%</span>
+    </div>
+  </div>
+</div>
+
+<!-- progress bar -->
+<div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">GARASI<em>.</em></a>
+  <div class="nav-links">
+    <a href="#koleksi">Koleksi</a>
+    <a href="#spotlight">Spotlight</a>
+    <a href="#detail">Detail</a>
+    <a href="#kontak">Kontak</a>
+  </div>
+  <a href="#kontak" class="nav-cta magnetic">Buat Janji</a>
+</nav>
+
+<main>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="beranda">
+    <div class="hero-layers">
+      <img class="hero-bg-img"
+           src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2400&q=85"
+           alt="Porsche 911 di jalan pegunungan"
+           fetchpriority="high">
+      <div class="hero-glow"></div>
+      <div class="hero-overlay"></div>
+    </div>
+
+    <div class="hero-side-tag">Est. 2014 — Jakarta, Indonesia</div>
+
+    <div class="hero-content">
+      <div class="hero-meta">
+        <span>Kurasi Mobil Bekas Premium</span>
+        <span class="sep"></span>
+        <span>Jl. Senopati No. 88, Jakarta</span>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="line"><span>Setiap</span></span>
+        <span class="line"><span>mesin</span></span>
+        <span class="line"><span><em>bercerita.</em></span></span>
+      </h1>
+
+      <div class="hero-bottom">
+        <div>
+          <p class="hero-lede">
+            Kami hanya mengambil mobil bekas yang layak masuk garasi sendiri.
+            Inspeksi 240 titik, riwayat servis lengkap, dan garansi mesin 12 bulan
+            untuk setiap unit yang keluar dari showroom.
+          </p>
+          <div class="hero-actions">
+            <a href="#koleksi" class="btn magnetic">Lihat koleksi</a>
+            <a href="#kontak" class="btn btn-ghost magnetic">Buat janji →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <span>Gulir</span>
+      <svg width="14" height="20" viewBox="0 0 14 20" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+        <path d="M7 2v14M2 11l5 5 5-5"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============ MARQUEE ============ -->
+  <div class="marquee-wrap">
+    <div class="marquee-track" id="marquee">
+      <div class="marquee-item">
+        <span>Porsche</span><span class="dot">✦</span>
+        <span>BMW</span><span class="dot">✦</span>
+        <span>Mercedes-AMG</span><span class="dot">✦</span>
+        <span>Audi</span><span class="dot">✦</span>
+        <span>Toyota GR</span><span class="dot">✦</span>
+        <em>Kurasi. Inspeksi. Garansi.</em><span class="dot">✦</span>
+      </div>
+      <div class="marquee-item" aria-hidden="true">
+        <span>Porsche</span><span class="dot">✦</span>
+        <span>BMW</span><span class="dot">✦</span>
+        <span>Mercedes-AMG</span><span class="dot">✦</span>
+        <span>Audi</span><span class="dot">✦</span>
+        <span>Toyota GR</span><span class="dot">✦</span>
+        <em>Kurasi. Inspeksi. Garansi.</em><span class="dot">✦</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MANIFESTO ============ -->
+  <section class="manifesto" id="manifesto">
+    <div class="manifesto-inner">
+      <div class="section-label">01 — Filosofi</div>
+      <p class="manifesto-text" id="manifesto-text">
+        Mobil bekas bukan berarti <em>kompromi.</em> Setiap unit yang kami terima melewati inspeksi 240 titik, verifikasi riwayat servis, dan uji jalan 50 kilometer. Yang tidak lolos, tidak kami jual.
+      </p>
+
+      <div class="stats" id="stats">
+        <div class="stat">
+          <div class="stat-num"><span data-count="240">0</span></div>
+          <div class="stat-label">Titik inspeksi<br>per unit</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num"><span data-count="12">0</span><em>bln</em></div>
+          <div class="stat-label">Garansi mesin<br>dan transmisi</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num"><span data-count="1280">0</span><em>+</em></div>
+          <div class="stat-label">Mobil<br>terjual</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num"><span data-count="49" data-decimal="true">0</span><em>/50</em></div>
+          <div class="stat-label">Rating<br>pembeli</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURED (HORIZONTAL) ============ -->
+  <section class="featured" id="koleksi">
+    <div class="featured-pin">
+      <div class="featured-head">
+        <h2>Unit yang sedang <em>tersedia.</em></h2>
+        <div class="count">05 — Unit</div>
+      </div>
+      <div class="featured-track" id="featured-track">
+
+        <article class="car-card">
+          <div class="car-image-wrap">
+            <img class="car-image" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1400&q=80" alt="Porsche 911">
+            <div class="car-index">01 / 05</div>
+            <div class="car-badge">Ready</div>
+          </div>
+          <div class="car-meta">
+            <div>
+              <div class="car-name">
+                <h3>Porsche <em>911</em></h3>
+                <span>Carrera S — 2021</span>
+              </div>
+              <dl class="car-specs">
+                <div><dt>KM</dt><dd>12.400</dd></div>
+                <div><dt>Transmisi</dt><dd>PDK</dd></div>
+                <div><dt>Warna</dt><dd>GT Silver</dd></div>
+              </dl>
+            </div>
+            <div class="car-price">
+              Rp 4.200.000.000
+              <span>Nego di tempat</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="car-card">
+          <div class="car-image-wrap">
+            <img class="car-image" src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1400&q=80" alt="BMW M5">
+            <div class="car-index">02 / 05</div>
+            <div class="car-badge">Ready</div>
+          </div>
+          <div class="car-meta">
+            <div>
+              <div class="car-name">
+                <h3>BMW <em>M5</em></h3>
+                <span>Competition — 2020</span>
+              </div>
+              <dl class="car-specs">
+                <div><dt>KM</dt><dd>24.800</dd></div>
+                <div><dt>Transmisi</dt><dd>M-DCT</dd></div>
+                <div><dt>Warna</dt><dd>Marina Bay</dd></div>
+              </dl>
+            </div>
+            <div class="car-price">
+              Rp 2.350.000.000
+              <span>Tunai / kredit</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="car-card">
+          <div class="car-image-wrap">
+            <img class="car-image" src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1400&q=80" alt="Mercedes-AMG">
+            <div class="car-index">03 / 05</div>
+            <div class="car-badge">Langka</div>
+          </div>
+          <div class="car-meta">
+            <div>
+              <div class="car-name">
+                <h3>Mercedes <em>AMG GT</em></h3>
+                <span>63 S — 2019</span>
+              </div>
+              <dl class="car-specs">
+                <div><dt>KM</dt><dd>18.200</dd></div>
+                <div><dt>Transmisi</dt><dd>MCT</dd></div>
+                <div><dt>Warna</dt><dd>Obsidian</dd></div>
+              </dl>
+            </div>
+            <div class="car-price">
+              Rp 3.850.000.000
+              <span>Unit terbatas</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="car-card">
+          <div class="car-image-wrap">
+            <img class="car-image" src="https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1400&q=80" alt="Audi RS7">
+            <div class="car-index">04 / 05</div>
+            <div class="car-badge">Ready</div>
+          </div>
+          <div class="car-meta">
+            <div>
+              <div class="car-name">
+                <h3>Audi <em>RS7</em></h3>
+                <span>Sportback — 2022</span>
+              </div>
+              <dl class="car-specs">
+                <div><dt>KM</dt><dd>8.900</dd></div>
+                <div><dt>Transmisi</dt><dd>Tiptronic</dd></div>
+                <div><dt>Warna</dt><dd>Daytona</dd></div>
+              </dl>
+            </div>
+            <div class="car-price">
+              Rp 3.100.000.000
+              <span>Low mileage</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="car-card">
+          <div class="car-image-wrap">
+            <img class="car-image" src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1400&q=80" alt="Toyota GR Supra">
+            <div class="car-index">05 / 05</div>
+            <div class="car-badge">Ready</div>
+          </div>
+          <div class="car-meta">
+            <div>
+              <div class="car-name">
+                <h3>Toyota <em>GR Supra</em></h3>
+                <span>3.0 A/T — 2021</span>
+              </div>
+              <dl class="car-specs">
+                <div><dt>KM</dt><dd>15.600</dd></div>
+                <div><dt>Transmisi</dt><dd>8-AT</dd></div>
+                <div><dt>Warna</dt><dd>Renaissance</dd></div>
+              </dl>
+            </div>
+            <div class="car-price">
+              Rp 1.250.000.000
+              <span>Pajak hidup</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SPOTLIGHT ============ -->
+  <section class="spotlight" id="spotlight">
+    <div class="spotlight-inner">
+
+      <div class="spotlight-media">
+        <div class="spotlight-img-wrap">
+          <img class="spotlight-img" id="spotlight-img"
+               src="https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1600&q=80"
+               alt="Detail Porsche 911">
+          <div class="spotlight-caption">
+            <span>01 — Spotlight</span>
+            <span>Porsche 911 Carrera S</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="spotlight-copy">
+        <div class="spotlight-block" data-spot-block>
+          <div class="label">Mesin</div>
+          <h3>3.0L Twin-Turbo <em>Flat-Six.</em></h3>
+          <p>
+            Mesin boxer generasi 992 yang responsif dan halus. Dilengkapi
+            PDK 8-percepatan dengan mode Sport Chrono. Setiap unit diuji
+            kompresi, oli, dan kebocoran sebelum masuk garasi kami.
+          </p>
+          <ul class="detail-list">
+            <li><span>Tenaga</span><span>450 hp</span></li>
+            <li><span>Torsi</span><span>530 Nm</span></li>
+            <li><span>0–100 km/j</span><span>3,7 detik</span></li>
+            <li><span>Top speed</span><span>308 km/jam</span></li>
+          </ul>
+        </div>
+
+        <div class="spotlight-block" data-spot-block>
+          <div class="label">Riwayat</div>
+          <h3>Servis lengkap. <em>Terjaga.</em></h3>
+          <p>
+            Unit satu tangan, seluruh servis dikerjakan di dealer resmi Porsche
+            Indonesia. Buku servis tersedia, kilometer terverifikasi melalui
+            sistem Porsche, dan tidak pernah mengalami perbaikan rangka.
+          </p>
+          <ul class="detail-list">
+            <li><span>Pemilik</span><span>1 (satu tangan)</span></li>
+            <li><span>Servis terakhir</span><span>Okt 2024</span></li>
+            <li><span>Rangka</span><span>Original</span></li>
+            <li><span>Pajak</span><span>Hidup — 2026</span></li>
+          </ul>
+        </div>
+
+        <div class="spotlight-block" data-spot-block>
+          <div class="label">Garansi</div>
+          <h3>12 bulan. <em>Tanpa drama.</em></h3>
+          <p>
+            Setiap unit GARASI dilindungi garansi mesin dan transmisi selama
+            12 bulan, berikut layanan darurat 24 jam di seluruh Jawa.
+            Tidak ada klaim yang dipersulit — cukup satu telepon.
+          </p>
+          <ul class="detail-list">
+            <li><span>Mesin</span><span>12 bulan</span></li>
+            <li><span>Transmisi</span><span>12 bulan</span></li>
+            <li><span>Darurat 24 jam</span><span>Jawa &amp; Bali</span></li>
+            <li><span>Bebas banjir</span><span>Terverifikasi</span></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ DETAIL GRID ============ -->
+  <section class="detail" id="detail">
+    <div class="shell">
+      <div class="detail-head">
+        <h2>Detail yang <em>berbicara.</em></h2>
+        <p>Setiap sudut difoto<br>oleh tim kami sendiri.<br>Tanpa rekayasa.</p>
+      </div>
+
+      <div class="detail-grid">
+        <figure class="detail-img tall">
+          <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80" alt="Eksterior mobil">
+          <figcaption><span>Eksterior</span><span>01</span></figcaption>
+        </figure>
+        <figure class="detail-img wide">
+          <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&w=1200&q=80" alt="Dashboard interior">
+          <figcaption><span>Interior</span><span>02</span></figcaption>
+        </figure>
+        <figure class="detail-img square">
+          <img src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1200&q=80" alt="Detail kemudi">
+          <figcaption><span>Setir</span><span>03</span></figcaption>
+        </figure>
+        <figure class="detail-img wide">
+          <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1200&q=80" alt="Detail mesin">
+          <figcaption><span>Mesin</span><span>04</span></figcaption>
+        </figure>
+        <figure class="detail-img square">
+          <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80" alt="Tampak depan">
+          <figcaption><span>Tampak depan</span><span>05</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="cta" id="kontak">
+    <div class="cta-bg">
+      <img id="cta-bg-img" src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=2000&q=80" alt="">
+    </div>
+    <div class="cta-inner">
+      <h2>Buat janji <em>kunjungan.</em></h2>
+      <p>
+        Showroom buka Senin–Sabtu, 09.00–19.00. Setiap kunjungan
+        dilayani satu advisor — tidak perlu antre, tidak perlu dikejar-kejar.
+      </p>
+      <div class="cta-actions">
+        <a href="tel:+622112345678" class="btn btn-lg magnetic">+62 21 1234 5678</a>
+        <a href="#" class="btn btn-lg btn-ghost magnetic">WhatsApp →</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="shell">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo">GARASI<em>.</em></a>
+        <p class="footer-tagline">
+          Kurasi mobil bekas premium di Jakarta. Inspeksi 240 titik,
+          garansi 12 bulan, dan layanan purna jual yang jujur.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Jelajahi</h4>
+        <p>
+          <a href="#koleksi">Koleksi</a><br>
+          <a href="#spotlight">Spotlight</a><br>
+          <a href="#detail">Detail</a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Showroom</h4>
+        <p>
+          Jl. Senopati No. 88<br>
+          Kebayoran Baru, Jakarta 12190<br>
+          <a href="tel:+622112345678">+62 21 1234 5678</a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Ikuti</h4>
+        <p>
+          <a href="#">Instagram</a><br>
+          <a href="#">YouTube</a><br>
+          <a href="#">TikTok</a>
+        </p>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© 2025 GARASI Nusantara</span>
+      <span>Dibuat di Jakarta — untuk pencinta mesin.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ SCRIPTS ============ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+
+<script>
+(function () {
+  'use strict';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* ============================================================
+     1. Lenis smooth scroll + sinkron ScrollTrigger
+     ============================================================ */
+  const lenis = new Lenis({
+    duration: 1.15,
+    easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+    smoothTouch: false,
+    wheelMultiplier: 1,
+  });
+
+  lenis.on('scroll', ScrollTrigger.update);
+
+  gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+  gsap.ticker.lagSmoothing(0);
+
+  /* ============================================================
+     2. Split text menjadi <span class="word">
+     ============================================================ */
+  function splitWords(el) {
+    const html = el.innerHTML;
+    const temp = document.createElement('div');
+    temp.innerHTML = html;
+    const walker = document.createTreeWalker(temp, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    let n;
+    while ((n = walker.nextNode())) nodes.push(n);
+
+    nodes.forEach((node) => {
+      const parts = node.textContent.split(/(\s+)/);
+      const frag = document.createDocumentFragment();
+      parts.forEach((p) => {
+        if (p.trim() === '') {
+          frag.appendChild(document.createTextNode(p));
+        } else {
+          const w = document.createElement('span');
+          w.className = 'word';
+          const inner = document.createElement('span');
+          inner.className = 'word-inner';
+          inner.textContent = p;
+          w.appendChild(inner);
+          frag.appendChild(w);
+        }
+      });
+      node.replaceWith(frag);
+    });
+    return temp.innerHTML;
+  }
+
+  const manifestoText = document.getElementById('manifesto-text');
+  if (manifestoText) manifestoText.innerHTML = splitWords(manifestoText);
+
+  /* ============================================================
+     3. Loader + hero reveal
+     ============================================================ */
+  const loader = document.getElementById('loader');
+  const loaderNum = document.getElementById('loader-num');
+  const counter = { val: 0 };
+
+  // Set initial hero state
+  gsap.set('.hero-title .line > span', { yPercent: 110 });
+  gsap.set('.hero-meta, .hero-bottom > div, .hero-scroll', { opacity: 0, y: 24 });
+  gsap.set('.hero-bg-img', { scale: 1.15 });
+  gsap.set('.hero-side-tag', { opacity: 0 });
+
+  function playHero() {
+    const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
+    tl.to('.hero-title .line > span', {
+      yPercent: 0,
+      duration: 1.5,
+      stagger: 0.14,
+    }, 0)
+    .to('.hero-meta', { opacity: 1, y: 0, duration: 1.2 }, 0.2)
+    .to('.hero-bottom > div', { opacity: 1, y: 0, duration: 1.3 }, 0.5)
+    .to('.hero-scroll', { opacity: 1, y: 0, duration: 1 }, 0.8)
+    .to('.hero-side-tag', { opacity: 1, duration: 1.2 }, 0.9)
+    .to('.hero-bg-img', {
+      scale: 1,
+      duration: 2.4,
+      ease: 'expo.out',
+    }, 0);
+  }
+
+  gsap.to(counter, {
+    val: 100,
+    duration: 1.7,
+    ease: 'power2.inOut',
+    onUpdate: () => { loaderNum.textContent = Math.round(counter.val); },
+    onComplete: () => {
+      gsap.to(loader, {
+        yPercent: -100,
+        duration: 1.1,
+        ease: 'expo.inOut',
+        onComplete: () => {
+          loader.style.display = 'none';
+          playHero();
+          ScrollTrigger.refresh();
+        }
+      });
+    }
+  });
+
+  /* ============================================================
+     4. Nav scroll state
+     ============================================================ */
+  const nav = document.getElementById('nav');
+  ScrollTrigger.create({
+    start: 'top -80',
+    end: 99999,
+    onUpdate: (self) => {
+      nav.classList.toggle('is-scrolled', self.scroll() > 80);
+    }
+  });
+
+  /* ============================================================
+     5. Progress bar
+     ============================================================ */
+  const progressFill = document.getElementById('progress-fill');
+  ScrollTrigger.create({
+    start: 0,
+    end: 'max',
+    onUpdate: (self) => {
+      progressFill.style.transform = `scaleX(${self.progress})`;
+    }
+  });
+
+  /* ============================================================
+     6. HERO parallax — multi-layer
+     ============================================================ */
+  const heroTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: 1,
+    }
+  });
+  heroTl
+    .to('.hero-bg-img', { yPercent: 18, scale: 1.08, ease: 'none' }, 0)
+    .to('.hero-glow', { yPercent: 30, xPercent: -8, ease: 'none' }, 0)
+    .to('.hero-content', { yPercent: 12, opacity: 0.35, ease: 'none' }, 0)
+    .to('.hero-side-tag', { yPercent: -40, opacity: 0, ease: 'none' }, 0);
+
+  /* ============================================================
+     7. Marquee — infinite + scroll-skew
+     ============================================================ */
+  const marquee = document.getElementById('marquee');
+  if (marquee) {
+    const marqueeTween = gsap.to(marquee, {
+      xPercent: -50,
+      duration: 40,
+      ease: 'none',
+      repeat: -1,
+    });
+
+    ScrollTrigger.create({
+      trigger: '.marquee-wrap',
+      start: 'top bottom',
+      end: 'bottom top',
+      onUpdate: (self) => {
+        const v = self.getVelocity() / 400;
+        gsap.to(marquee, {
+          skewX: Math.max(-14, Math.min(14, -v)),
+          duration: 0.6,
+          ease: 'power3.out',
+          overwrite: 'auto',
+        });
+        // speed up marquee slightly with scroll velocity
+        marqueeTween.timeScale(1 + Math.min(2, Math.abs(v) * 0.1));
+      }
+    });
+  }
+
+  /* ============================================================
+     8. Manifesto — word-by-word color reveal
+     ============================================================ */
+  gsap.to('#manifesto-text .word-inner', {
+    color: '#F5F1E8',
+    stagger: 0.06,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '#manifesto-text',
+      start: 'top 75%',
+      end: 'bottom 55%',
+      scrub: 1,
+    }
+  });
+
+  // section label slide in
+  gsap.from('.section-label', {
+    opacity: 0,
+    x: -20,
+    duration: 1,
+    ease: 'expo.out',
+    scrollTrigger: { trigger: '.manifesto', start: 'top 70%' }
+  });
+
+  /* ============================================================
+     9. Stats counter
+     ============================================================ */
+  document.querySelectorAll('[data-count]').forEach((el) => {
+    const target = parseInt(el.dataset.count, 10);
+    const isDecimal = el.dataset.decimal === 'true';
+    const obj = { val: 0 };
+
+    gsap.to(obj, {
+      val: target,
+      duration: 2.2,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 85%',
+        once: true,
+      },
+      onUpdate: () => {
+        if (isDecimal) {
+          el.textContent = (obj.val / 10).toFixed(1);
+        } else {
+          el.textContent = Math.round(obj.val).toLocaleString('id-ID');
+        }
+      }
+    });
+  });
+
+  /* ============================================================
+     10. Featured — horizontal pin
+     ============================================================ */
+  const mm = gsap.matchMedia();
+
+  mm.add('(min-width: 981px)', () => {
+    const featured = document.querySelector('.featured');
+    const track = document.getElementById('featured-track');
+    if (!featured || !track) return;
+
+    const getScrollAmount = () => -(track.scrollWidth - window.innerWidth + 80);
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: featured,
+        start: 'top top',
+        end: () => `+=${Math.abs(getScrollAmount())}`,
+        pin: true,
+        scrub: 1,
+        invalidateOnRefresh: true,
+        anticipatePin: 1,
+      }
+    });
+
+    tl.to(track, { x: getScrollAmount, ease: 'none' }, 0);
+
+    // counter-parallax: images slide opposite direction
+    tl.to('.car-image', {
+      xPercent: 12,
+      scale: 1.05,
+      ease: 'none',
+    }, 0);
+
+    // card index scale in
+    gsap.from('.car-card', {
+      y: 60,
+      opacity: 0,
+      stagger: 0.1,
+      duration: 1,
+      ease: 'expo.out',
+      scrollTrigger: {
+        trigger: featured,
+        start: 'top 80%',
+        once: true,
+      }
+    });
+  });
+
+  /* ============================================================
+     11. Spotlight — image parallax + block reveals
+     ============================================================ */
+  const spotImg = document.getElementById('spotlight-img');
+  if (spotImg) {
+    gsap.to(spotImg, {
+      yPercent: -12,
+      scale: 1.28,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.spotlight',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1,
+      }
+    });
+  }
+
+  document.querySelectorAll('[data-spot-block]').forEach((block) => {
+    gsap.from(block, {
+      y: 60,
+      opacity: 0,
+      duration: 1.1,
+      ease: 'expo.out',
+      scrollTrigger: {
+        trigger: block,
+        start: 'top 80%',
+        toggleActions: 'play none none none',
+      }
+    });
+  });
+
+  /* ============================================================
+     12. Detail grid — clip-path wipe reveal
+     ============================================================ */
+  document.querySelectorAll('.detail-img').forEach((el, i) => {
+    gsap.fromTo(el,
+      { clipPath: 'inset(0 0 100% 0)' },
+      {
+        clipPath: 'inset(0 0 0% 0)',
+        duration: 1.4,
+        ease: 'expo.out',
+        delay: (i % 3) * 0.08,
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 88%',
+          once: true,
+        }
+      }
+    );
+    // counter-parallax on image inside
+    const img = el.querySelector('img');
+    if (img) {
+      gsap.fromTo(img,
+        { yPercent: -8, scale: 1.1 },
+        {
+          yPercent: 8,
+          scale: 1.1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1,
+          }
+        }
+      );
+    }
+  });
+
+  gsap.from('.detail-head h2', {
+    y: 40,
+    opacity: 0,
+    duration: 1.2,
+    ease: 'expo.out',
+    scrollTrigger: { trigger: '.detail', start: 'top 75%' }
+  });
+
+  /* ============================================================
+     13. CTA — bg parallax + title reveal
+     ============================================================ */
+  const ctaBg = document.getElementById('cta-bg-img');
+  if (ctaBg) {
+    gsap.fromTo(ctaBg,
+      { yPercent: -15, scale: 1.15 },
+      {
+        yPercent: 15,
+        scale: 1.15,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.cta',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1,
+        }
+      }
+    );
+  }
+
+  gsap.from('.cta h2, .cta p, .cta-actions', {
+    y: 50,
+    opacity: 0,
+    stagger: 0.12,
+    duration: 1.2,
+    ease: 'expo.out',
+    scrollTrigger: { trigger: '.cta', start: 'top 70%' }
+  });
+
+  /* ============================================================
+     14. Magnetic buttons
+     ============================================================ */
+  document.querySelectorAll('.magnetic').forEach((btn) => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.5, ease: 'power2.out' });
+    });
+    btn.addEventListener('mouseleave', () => {
+      gsap.to(btn, { x: 0, y: 0, duration: 0.9, ease: 'elastic.out(1, 0.4)' });
+    });
+  });
+
+  /* ============================================================
+     15. Anchor smooth scroll via Lenis
+     ============================================================ */
+  document.querySelectorAll('a[href^="#"]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href');
+      if (id.length < 2) return;
+      const target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      lenis.scrollTo(target, { offset: -20, duration: 1.4 });
+    });
+  });
+
+  /* ============================================================
+     16. Refresh setelah semua image load
+     ============================================================ */
+  window.addEventListener('load', () => {
+    setTimeout(() => ScrollTrigger.refresh(), 200);
+  });
+
+})();
+</script>
+</body>
+</html>

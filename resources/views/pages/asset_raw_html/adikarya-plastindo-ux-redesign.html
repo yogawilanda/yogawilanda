@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f5f0">
+  <meta name="description" content="Kebutuhan plastik industri dan pertanian dari Adikarya Plastindo. Konsultasikan jenis produk, ukuran, dan volume pesanan untuk mendapatkan penawaran.">
+  <title>Adikarya Plastindo — Solusi Plastik untuk Kebutuhan Industri</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #182c28;
+      --muted: #66736d;
+      --paper: #f6f5f0;
+      --white: #fffefa;
+      --green: #244e40;
+      --green-dark: #17382e;
+      --lime: #d7e7a2;
+      --line: #dfe4da;
+      --soft: #edf0e7;
+      --shadow: 0 18px 50px rgba(24, 44, 40, .08);
+      --radius: 20px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: "DM Sans", sans-serif; line-height: 1.6; }
+    body, button, input, select, textarea { font-family: "DM Sans", sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid #8aa85c; outline-offset: 3px; }
+    img { max-width: 100%; display: block; }
+    .container { width: min(1160px, calc(100% - 40px)); margin-inline: auto; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; color: var(--green); font-size: .76rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 22px; height: 2px; background: #8ba55b; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { font-family: Manrope, sans-serif; letter-spacing: -.04em; line-height: 1.12; }
+    h1 { font-size: clamp(2.6rem, 5.4vw, 4.7rem); font-weight: 700; max-width: 760px; margin: 22px 0; }
+    h2 { font-size: clamp(2rem, 3.6vw, 3.1rem); margin: 12px 0 16px; font-weight: 700; }
+    h3 { font-size: 1.24rem; margin-bottom: 10px; }
+    .section { padding: 92px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 34px; }
+    .section-head > div { max-width: 650px; }
+    .section-head p { max-width: 400px; color: var(--muted); margin-bottom: 5px; }
+    .muted { color: var(--muted); }
+    .btn { display: inline-flex; justify-content: center; align-items: center; gap: 10px; min-height: 48px; padding: 13px 20px; border: 1px solid transparent; border-radius: 999px; font-weight: 700; cursor: pointer; transition: transform .2s, background .2s, border-color .2s; }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary { color: white; background: var(--green); }
+    .btn-primary:hover { background: var(--green-dark); }
+    .btn-light { color: var(--ink); background: var(--white); border-color: var(--line); }
+    .btn-light:hover { border-color: #aebbad; }
+    .btn-text { color: var(--green); font-weight: 700; display: inline-flex; align-items: center; gap: 7px; }
+    .topline { background: var(--green-dark); color: #e9eee7; font-size: .8rem; }
+    .topline-inner { display: flex; justify-content: space-between; align-items: center; gap: 16px; min-height: 36px; }
+    .topline p { margin: 0; }
+    .topline-right { color: #c8d4c9; }
+    .site-header { position: sticky; z-index: 20; top: 0; background: rgba(246,245,240,.93); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(223,228,218,.9); }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; flex-shrink: 0; }
+    .brand-mark { width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center; background: var(--green); color: var(--lime); font-family: Manrope, sans-serif; font-weight: 800; letter-spacing: -.08em; }
+    .brand-name { display: block; font-family: Manrope, sans-serif; font-size: 1rem; font-weight: 800; letter-spacing: -.04em; line-height: 1.1; }
+    .brand-sub { display: block; color: var(--muted); font-size: .68rem; margin-top: 4px; }
+    .nav-links { display: flex; align-items: center; gap: 27px; color: #4d5d55; font-size: .9rem; font-weight: 600; }
+    .nav-links a:hover { color: var(--green); }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .menu-toggle { display: none; border: 1px solid var(--line); background: var(--white); color: var(--ink); width: 46px; height: 46px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; }
+    .hero { padding: 62px 0 78px; overflow: hidden; }
+    .hero-grid { display: grid; grid-template-columns: 1.02fr .98fr; align-items: center; gap: 54px; }
+    .hero-copy p { max-width: 590px; font-size: 1.1rem; color: var(--muted); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .hero-note { display: flex; gap: 10px; align-items: center; color: var(--muted); font-size: .85rem; margin-top: 22px; }
+    .check { display: inline-grid; place-items: center; width: 22px; height: 22px; flex: 0 0 22px; border-radius: 50%; background: #e3ebd1; color: var(--green); font-size: .8rem; font-weight: 800; }
+    .hero-visual { position: relative; min-height: 500px; border-radius: 28px; overflow: hidden; background: #d8dfd1; box-shadow: var(--shadow); }
+    .hero-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .hero-visual::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(17,43,34,.02) 35%, rgba(17,43,34,.78) 100%); }
+    .visual-label { position: absolute; z-index: 1; top: 22px; left: 22px; padding: 9px 13px; background: rgba(255,254,250,.94); border-radius: 999px; color: var(--green); font-size: .76rem; font-weight: 700; }
+    .visual-caption { position: absolute; z-index: 1; left: 28px; right: 28px; bottom: 26px; color: white; }
+    .visual-caption small { display: block; color: #dce8d8; text-transform: uppercase; letter-spacing: .13em; font-size: .7rem; font-weight: 700; margin-bottom: 7px; }
+    .visual-caption strong { display: block; max-width: 390px; font: 700 clamp(1.5rem, 2.6vw, 2.2rem)/1.15 Manrope, sans-serif; letter-spacing: -.04em; }
+    .trust-strip { background: var(--white); border-block: 1px solid var(--line); }
+    .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .trust-item { display: flex; align-items: center; gap: 14px; padding: 24px 26px; border-right: 1px solid var(--line); }
+    .trust-item:first-child { padding-left: 0; }
+    .trust-item:last-child { border-right: 0; }
+    .trust-icon { width: 42px; height: 42px; flex-shrink: 0; border-radius: 14px; background: var(--soft); display: grid; place-items: center; color: var(--green); font-size: 1.2rem; }
+    .trust-item strong { display: block; font-size: .94rem; }
+    .trust-item span { color: var(--muted); font-size: .82rem; }
+    .product-section { background: var(--white); }
+    .filters { display: flex; flex-wrap: wrap; gap: 9px; margin: 0 0 28px; }
+    .filter-btn { border: 1px solid var(--line); color: #56645b; background: transparent; border-radius: 999px; padding: 10px 15px; font-size: .86rem; font-weight: 700; cursor: pointer; }
+    .filter-btn:hover, .filter-btn[aria-pressed="true"] { background: var(--green); border-color: var(--green); color: white; }
+    .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .product-card { display: flex; flex-direction: column; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; min-height: 285px; transition: transform .2s, box-shadow .2s, border-color .2s; }
+    .product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: #bdcbb6; }
+    .product-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 22px; }
+    .product-icon { width: 48px; height: 48px; border-radius: 15px; background: var(--soft); display: grid; place-items: center; color: var(--green); font-size: 1.4rem; }
+    .product-tag { color: #62734c; background: #edf2df; border-radius: 999px; padding: 6px 9px; font-size: .68rem; font-weight: 700; }
+    .product-card p { color: var(--muted); font-size: .91rem; margin-bottom: 20px; }
+    .product-card .btn-text { margin-top: auto; align-self: flex-start; }
+    .empty-state { padding: 30px; color: var(--muted); border: 1px dashed var(--line); border-radius: var(--radius); text-align: center; }
+    .process-section { background: #e9ede4; }
+    .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .process-card { padding: 26px 0 0; border-top: 1px solid #cbd4c6; }
+    .process-number { color: #83956d; font: 700 .82rem Manrope, sans-serif; margin-bottom: 22px; }
+    .process-card p { color: var(--muted); font-size: .94rem; margin-bottom: 0; max-width: 320px; }
+    .quote-section { background: var(--green-dark); color: white; }
+    .quote-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 56px; align-items: start; }
+    .quote-copy { position: sticky; top: 115px; }
+    .quote-copy .eyebrow { color: var(--lime); }
+    .quote-copy p { color: #c6d3c8; max-width: 380px; }
+    .quote-bullet { display: flex; gap: 10px; align-items: start; color: #e5ede4; font-size: .9rem; margin-top: 14px; }
+    .quote-bullet .check { background: rgba(215,231,162,.16); color: var(--lime); }
+    .quote-form { background: var(--white); color: var(--ink); border-radius: 24px; padding: clamp(22px, 4vw, 38px); }
+    .form-intro { margin-bottom: 25px; }
+    .form-intro h3 { font-size: 1.55rem; }
+    .form-intro p { color: var(--muted); font-size: .9rem; margin-bottom: 0; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .field { display: flex; flex-direction: column; gap: 7px; }
+    .field.full { grid-column: 1 / -1; }
+    .field label { font-size: .82rem; font-weight: 700; }
+    .field .hint { color: #7b877f; font-size: .75rem; font-weight: 400; }
+    .field input, .field select, .field textarea { width: 100%; border: 1px solid #d8dfd5; border-radius: 11px; padding: 12px 13px; background: #fff; color: var(--ink); min-height: 47px; }
+    .field textarea { min-height: 94px; resize: vertical; }
+    .field input::placeholder, .field textarea::placeholder { color: #9aa39c; }
+    .form-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; margin-top: 22px; }
+    .privacy-note { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: .77rem; max-width: 230px; }
+    .form-status { margin-top: 14px; color: #a33c2e; font-size: .84rem; }
+    .about-section { background: var(--paper); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+    .about-copy p { color: var(--muted); }
+    .about-panel { border-radius: 24px; padding: 32px; background: var(--white); border: 1px solid var(--line); }
+    .about-panel h3 { margin-bottom: 22px; }
+    .about-row { padding: 16px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 140px 1fr; gap: 16px; font-size: .88rem; }
+    .about-row strong { color: var(--green); }
+    .about-row span { color: var(--muted); }
+    .final-cta { padding: 60px 0; background: var(--lime); }
+    .final-cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 30px; }
+    .final-cta h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); margin-bottom: 8px; }
+    .final-cta p { color: #526448; margin-bottom: 0; }
+    footer { background: #132d25; color: #e6eee5; padding: 42px 0 24px; }
+    .footer-main { display: flex; justify-content: space-between; gap: 40px; padding-bottom: 32px; }
+    .footer-copy { max-width: 400px; color: #b6c7b8; font-size: .88rem; }
+    .footer-contact { font-size: .88rem; color: #c9d5c9; }
+    .footer-contact p { margin-bottom: 6px; }
+    .footer-bottom { border-top: 1px solid rgba(230,238,229,.14); padding-top: 18px; display: flex; justify-content: space-between; gap: 20px; color: #9caf9f; font-size: .75rem; }
+    .mobile-cta { display: none; }
+    @media (max-width: 980px) {
+      .nav-links { gap: 16px; }
+      .nav-actions .btn { padding-inline: 15px; }
+      .hero-grid { gap: 30px; }
+      .hero-visual { min-height: 430px; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+      .quote-grid { gap: 34px; }
+      .about-grid { gap: 36px; }
+    }
+    @media (max-width: 760px) {
+      .container { width: min(100% - 32px, 560px); }
+      .topline-inner { justify-content: center; text-align: center; padding: 8px 0; }
+      .topline-right { display: none; }
+      .nav { min-height: 68px; }
+      .brand-mark { width: 38px; height: 38px; border-radius: 12px; }
+      .brand-name { font-size: .92rem; }
+      .brand-sub { font-size: .62rem; }
+      .nav-links { display: none; position: absolute; top: 67px; left: 0; right: 0; padding: 12px 20px 20px; background: var(--paper); border-bottom: 1px solid var(--line); box-shadow: 0 14px 22px rgba(24,44,40,.06); }
+      .nav-links.open { display: flex; flex-direction: column; align-items: stretch; gap: 0; }
+      .nav-links a { padding: 12px 4px; border-bottom: 1px solid var(--line); }
+      .nav-actions > .btn { display: none; }
+      .menu-toggle { display: grid; place-items: center; }
+      .hero { padding: 44px 0 48px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+      h1 { font-size: clamp(2.55rem, 11vw, 3.8rem); margin: 16px 0; }
+      .hero-copy p { font-size: 1rem; }
+      .hero-visual { min-height: 370px; }
+      .trust-grid { grid-template-columns: 1fr; }
+      .trust-item, .trust-item:first-child { padding: 16px 0; border-right: 0; border-bottom: 1px solid var(--line); }
+      .trust-item:last-child { border-bottom: 0; }
+      .section { padding: 66px 0; }
+      .section-head { display: block; margin-bottom: 26px; }
+      .section-head p { margin-top: 12px; }
+      .product-grid { grid-template-columns: 1fr; gap: 13px; }
+      .product-card { min-height: unset; padding: 22px; }
+      .filters { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 7px; margin-right: -16px; scrollbar-width: thin; }
+      .filter-btn { white-space: nowrap; }
+      .process-grid { grid-template-columns: 1fr; gap: 26px; }
+      .process-card { padding-top: 18px; }
+      .process-number { margin-bottom: 12px; }
+      .quote-grid { grid-template-columns: 1fr; gap: 28px; }
+      .quote-copy { position: static; }
+      .quote-form { border-radius: 18px; }
+      .form-grid { grid-template-columns: 1fr; gap: 14px; }
+      .field.full { grid-column: auto; }
+      .form-bottom { align-items: stretch; flex-direction: column; }
+      .privacy-note { max-width: unset; }
+      .form-bottom .btn { width: 100%; }
+      .about-grid { grid-template-columns: 1fr; gap: 28px; }
+      .about-panel { padding: 24px; }
+      .about-row { grid-template-columns: 1fr; gap: 4px; }
+      .final-cta-inner { align-items: flex-start; flex-direction: column; }
+      .final-cta-inner .btn { width: 100%; }
+      .footer-main { flex-direction: column; gap: 24px; }
+      .footer-bottom { flex-direction: column; gap: 8px; }
+      .mobile-cta { display: flex; position: fixed; z-index: 30; bottom: 12px; left: 12px; right: 12px; padding: 8px; border: 1px solid rgba(255,255,255,.2); border-radius: 999px; background: rgba(23,56,46,.96); box-shadow: 0 10px 35px rgba(0,0,0,.2); }
+      .mobile-cta .btn { width: 100%; min-height: 46px; background: var(--lime); color: var(--green-dark); }
+      footer { padding-bottom: 90px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topline">
+    <div class="container topline-inner">
+      <p>Solusi plastik untuk kebutuhan industri, pertanian, dan konstruksi</p>
+      <p class="topline-right">Senin–Sabtu · 08.00–17.00 WIB</p>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#beranda" aria-label="Adikarya Plastindo, beranda">
+        <span class="brand-mark">AP.</span>
+        <span><span class="brand-name">Adikarya Plastindo</span><span class="brand-sub">Industrial plastic solutions</span></span>
+      </a>
+      <nav class="nav-links" id="siteNav" aria-label="Navigasi utama">
+        <a href="#produk">Produk</a>
+        <a href="#cara-kerja">Cara pemesanan</a>
+        <a href="#tentang">Tentang kami</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-primary" href="#penawaran">Konsultasi kebutuhan <span aria-hidden="true">↗</span></a>
+        <button class="menu-toggle" id="menuToggle" type="button" aria-label="Buka menu" aria-expanded="false" aria-controls="siteNav">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="beranda">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Mitra kebutuhan plastik B2B</span>
+          <h1>Plastik yang tepat untuk kebutuhan <span style="color:var(--green)">bisnis Anda.</span></h1>
+          <p>Mulai dari polybag pertanian hingga plastik untuk kebutuhan industri. Sampaikan kebutuhan Anda, lalu diskusikan ukuran, material, jumlah, dan penawaran dengan tim kami.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#penawaran">Diskusikan kebutuhan <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-light" href="#produk">Jelajahi produk</a>
+          </div>
+          <div class="hero-note"><span class="check" aria-hidden="true">✓</span> Belum tahu spesifikasi? Mulai dari jenis produk dan perkiraan kebutuhan.</div>
+        </div>
+        <div class="hero-visual">
+          <img class="hero-photo" src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1200&q=85" alt="Aktivitas kerja di lingkungan industri" fetchpriority="high">
+          <span class="visual-label">Untuk kebutuhan usaha & pengadaan</span>
+          <div class="visual-caption"><small>Adikarya Plastindo</small><strong>Dari kebutuhan harian hingga pasokan rutin.</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-strip" aria-label="Informasi layanan">
+      <div class="container trust-grid">
+        <div class="trust-item"><span class="trust-icon" aria-hidden="true">⌁</span><div><strong>Spesifikasi fleksibel</strong><span>Diskusikan ukuran dan material</span></div></div>
+        <div class="trust-item"><span class="trust-icon" aria-hidden="true">▤</span><div><strong>Beragam kebutuhan</strong><span>Pertanian, konstruksi, dan industri</span></div></div>
+        <div class="trust-item"><span class="trust-icon" aria-hidden="true">↗</span><div><strong>Penawaran berdasarkan kebutuhan</strong><span>Bahas volume, harga, dan pengiriman</span></div></div>
+      </div>
+    </section>
+
+    <section class="section product-section" id="produk">
+      <div class="container">
+        <div class="section-head">
+          <div><span class="eyebrow">Pilihan produk</span><h2>Temukan jenis plastik yang Anda butuhkan.</h2></div>
+          <p>Gunakan kategori untuk menyaring pilihan. Jika produk Anda belum tercantum, pilih kebutuhan custom dan ceritakan spesifikasinya.</p>
+        </div>
+        <div class="filters" role="group" aria-label="Filter kategori produk">
+          <button class="filter-btn" type="button" data-filter="all" aria-pressed="true">Semua produk</button>
+          <button class="filter-btn" type="button" data-filter="pertanian" aria-pressed="false">Pertanian</button>
+          <button class="filter-btn" type="button" data-filter="kebersihan" aria-pressed="false">Kebersihan</button>
+          <button class="filter-btn" type="button" data-filter="konstruksi" aria-pressed="false">Konstruksi</button>
+          <button class="filter-btn" type="button" data-filter="kemasan" aria-pressed="false">Kemasan industri</button>
+          <button class="filter-btn" type="button" data-filter="custom" aria-pressed="false">Custom</button>
+        </div>
+        <div class="product-grid" id="productGrid">
+          <article class="product-card" data-category="pertanian">
+            <div class="product-top"><span class="product-icon" aria-hidden="true">♧</span><span class="product-tag">Pertanian</span></div>
+            <h3>Polybag pertanian</h3>
+            <p>Untuk pembibitan dan persemaian tanaman. Diskusikan ukuran, ketebalan, warna, serta kebutuhan lubang drainase.</p>
+            <a class="btn-text product-cta" href="#penawaran" data-product="Polybag pertanian">Diskusikan produk <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="product-card" data-category="kebersihan">
+            <div class="product-top"><span class="product-icon" aria-hidden="true">♲</span><span class="product-tag">Kebersihan</span></div>
+            <h3>Kantong plastik sampah</h3>
+            <p>Untuk kebutuhan fasilitas, usaha, dan operasional. Sampaikan ukuran kantong, warna, serta perkiraan volume pemakaian.</p>
+            <a class="btn-text product-cta" href="#penawaran" data-product="Kantong plastik sampah">Diskusikan produk <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="product-card" data-category="konstruksi">
+            <div class="product-top"><span class="product-icon" aria-hidden="true">▱</span><span class="product-tag">Konstruksi</span></div>
+            <h3>Plastik cor</h3>
+            <p>Plastik lembaran atau roll untuk kebutuhan pekerjaan konstruksi. Ukuran dan ketebalan dibahas sesuai penggunaan.</p>
+            <a class="btn-text product-cta" href="#penawaran" data-product="Plastik cor">Diskusikan produk <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="product-card" data-category="pertanian">
+            <div class="product-top"><span class="product-icon" aria-hidden="true">☼</span><span class="product-tag">Pertanian</span></div>
+            <h3>Plastik sungkup</h3>
+            <p>Untuk perlindungan tanaman dan kebutuhan budidaya. Sampaikan lingkungan penggunaan dan kebutuhan material.</p>
+            <a class="btn-text product-cta" href="#penawaran" data-product="Plastik sungkup">Diskusikan produk <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="product-card" data-category="kemasan">
+            <div class="product-top"><span class="product-icon" aria-hidden="true">▤</span><span class="product-tag">Kemasan industri</span></div>
+            <h3>Inner bag & liner</h3>
+            <p>Pelapis bagian dalam untuk kebutuhan kemasan tertentu. Jenis bahan dan kecocokan penggunaan perlu dikonfirmasi.</p>
+            <a class="btn-text product-cta" href="#penawaran" data-product="Inner bag dan liner">Diskusikan produk <span aria-hidden="true">→</span></a>
+          </article>
+          <article class="product-card" data-category="custom">
+            <div class="product-top"><span class="product-icon" aria-hidden="true">＋</span><span class="product-tag">Spesifikasi khusus</span></div>
+            <h3>Plastik roll & lembaran custom</h3>
+            <p>Punya spesifikasi sendiri? Mulai dari ukuran, fungsi, contoh produk, atau dokumen spesifikasi yang sudah tersedia.</p>
+            <a class="btn-text product-cta" href="#penawaran" data-product="Plastik roll atau lembaran custom">Diskusikan produk <span aria-hidden="true">→</span></a>
+          </article>
+        </div>
+        <p class="empty-state" id="emptyState" hidden>Tidak ada produk dalam kategori ini.</p>
+      </div>
+    </section>
+
+    <section class="section process-section" id="cara-kerja">
+      <div class="container">
+        <div class="section-head">
+          <div><span class="eyebrow">Cara pemesanan</span><h2>Mulai dari kebutuhan. Spesifikasi menyusul.</h2></div>
+          <p>Anda tidak harus menyiapkan semua detail sebelum menghubungi tim. Kita bisa mulai dari informasi yang sudah Anda punya.</p>
+        </div>
+        <div class="process-grid">
+          <article class="process-card"><div class="process-number">LANGKAH 01</div><h3>Ceritakan kebutuhan</h3><p>Pilih jenis produk, jelaskan penggunaannya, dan berikan perkiraan jumlah jika sudah diketahui.</p></article>
+          <article class="process-card"><div class="process-number">LANGKAH 02</div><h3>Konfirmasi spesifikasi</h3><p>Bahas ukuran, ketebalan, material, warna, minimum pesanan, dan kebutuhan pengiriman.</p></article>
+          <article class="process-card"><div class="process-number">LANGKAH 03</div><h3>Tinjau penawaran</h3><p>Tim dapat menindaklanjuti kebutuhan Anda dengan informasi harga dan ketentuan yang perlu disepakati.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section quote-section" id="penawaran">
+      <div class="container quote-grid">
+        <div class="quote-copy">
+          <span class="eyebrow">Mulai konsultasi</span>
+          <h2>Jelaskan kebutuhan Anda. Kami bantu lanjutkan.</h2>
+          <p>Isi informasi yang sudah Anda ketahui. Kolom teknis tidak wajib—Anda bisa menjelaskan kebutuhan dengan bahasa sehari-hari.</p>
+          <div class="quote-bullet"><span class="check" aria-hidden="true">✓</span><span>Bisa mulai tanpa mengetahui micron atau ukuran pasti.</span></div>
+          <div class="quote-bullet"><span class="check" aria-hidden="true">✓</span><span>Rincian pesanan disusun agar mudah ditinjau melalui WhatsApp.</span></div>
+        </div>
+        <form class="quote-form" id="quoteForm">
+          <div class="form-intro"><h3>Form kebutuhan produk</h3><p>Isi detail seperlunya. Anda dapat melengkapi spesifikasi saat konsultasi.</p></div>
+          <div class="form-grid">
+            <div class="field full">
+              <label for="product">Produk yang dicari <span aria-hidden="true">*</span></label>
+              <select id="product" name="product" required>
+                <option value="">Pilih produk</option>
+                <option>Polybag pertanian</option>
+                <option>Kantong plastik sampah</option>
+                <option>Plastik cor</option>
+                <option>Plastik sungkup</option>
+                <option>Inner bag dan liner</option>
+                <option>Plastik roll atau lembaran custom</option>
+                <option>Belum yakin / perlu konsultasi</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="quantity">Perkiraan jumlah</label>
+              <input id="quantity" name="quantity" placeholder="Mis. 500 kg, 10 roll">
+              <span class="hint">Boleh dikosongkan jika belum tahu.</span>
+            </div>
+            <div class="field">
+              <label for="location">Lokasi pengiriman</label>
+              <input id="location" name="location" placeholder="Mis. Sidoarjo, Jawa Timur">
+            </div>
+            <div class="field full">
+              <label for="specs">Ukuran atau spesifikasi <span class="hint">(opsional)</span></label>
+              <input id="specs" name="specs" placeholder="Mis. lebar 30 cm, warna hitam, atau sesuai contoh">
+            </div>
+            <div class="field full">
+              <label for="notes">Keterangan kebutuhan <span class="hint">(opsional)</span></label>
+              <textarea id="notes" name="notes" placeholder="Dipakai untuk apa? Ada contoh produk, target harga, atau jadwal kebutuhan?"></textarea>
+            </div>
+          </div>
+          <div class="form-bottom">
+            <span class="privacy-note"><span aria-hidden="true">↗</span> Rincian akan dibuka di WhatsApp agar bisa Anda periksa sebelum dikirim.</span>
+            <button class="btn btn-primary" type="submit">Lanjut ke WhatsApp <span aria-hidden="true">↗</span></button>
+          </div>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="section about-section" id="tentang">
+      <div class="container about-grid">
+        <div class="about-copy">
+          <span class="eyebrow">Tentang Adikarya Plastindo</span>
+          <h2>Partner untuk kebutuhan plastik bisnis Anda.</h2>
+          <p>Adikarya Plastindo melayani kebutuhan plastik untuk beragam penggunaan usaha dan industri. Setiap kebutuhan dapat memiliki spesifikasi berbeda, sehingga detail produk, material, volume, dan pengiriman sebaiknya dikonfirmasi sebelum penawaran dibuat.</p>
+          <p>Gunakan halaman ini untuk memulai diskusi kebutuhan. Informasi perusahaan, alamat fasilitas, sertifikasi, dan kapasitas produksi dapat ditambahkan di sini setelah diverifikasi.</p>
+          <a class="btn btn-primary" href="#penawaran">Diskusikan kebutuhan <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="about-panel">
+          <h3>Informasi yang bisa dikonfirmasi</h3>
+          <div class="about-row"><strong>Jenis produk</strong><span>Polybag, kantong sampah, plastik cor, sungkup, inner bag, dan kebutuhan custom.</span></div>
+          <div class="about-row"><strong>Spesifikasi</strong><span>Ukuran, ketebalan, material, warna, dan format produk sesuai kebutuhan.</span></div>
+          <div class="about-row"><strong>Pesanan</strong><span>Jumlah, minimum pemesanan, estimasi produksi, serta biaya pengiriman dikonfirmasi saat konsultasi.</span></div>
+          <div class="about-row"><strong>Dokumen</strong><span>Sampaikan bila Anda membutuhkan dokumen teknis atau persyaratan pengadaan tertentu.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="container final-cta-inner">
+        <div><h2>Sudah punya kebutuhan atau contoh produk?</h2><p>Mulai konsultasi, lalu cocokkan detail sebelum membuat pesanan.</p></div>
+        <a class="btn btn-primary" href="#penawaran">Mulai konsultasi <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-main">
+        <div>
+          <a class="brand" href="#beranda"><span class="brand-mark">AP.</span><span><span class="brand-name" style="color:white">Adikarya Plastindo</span><span class="brand-sub" style="color:#b6c7b8">Industrial plastic solutions</span></span></a>
+          <p class="footer-copy" style="margin-top:16px">Solusi plastik untuk kebutuhan usaha, pertanian, konstruksi, dan industri. Hubungi tim untuk membahas spesifikasi serta penawaran.</p>
+        </div>
+        <div class="footer-contact">
+          <strong style="display:block;color:white;margin-bottom:10px">Kontak</strong>
+          <p id="footerEmail">sales@adikaryaplastindo.com</p>
+          <p>Senin–Sabtu · 08.00–17.00 WIB</p>
+          <a class="btn-text" style="color:var(--lime);margin-top:8px" href="#penawaran">Minta penawaran <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <div class="footer-bottom"><span>© <span id="year"></span> Adikarya Plastindo</span><span>Informasi spesifikasi dan penawaran perlu dikonfirmasi.</span></div>
+    </div>
+  </footer>
+
+  <div class="mobile-cta"><a class="btn" href="#penawaran">Diskusikan kebutuhan <span aria-hidden="true">↗</span></a></div>
+
+  <script>
+    // PENTING: ganti nomor contoh ini dengan nomor WhatsApp sales yang sudah diverifikasi.
+    const WHATSAPP_NUMBER = "6281234567890";
+
+    const menuToggle = document.getElementById("menuToggle");
+    const siteNav = document.getElementById("siteNav");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = siteNav.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Tutup menu" : "Buka menu");
+      menuToggle.textContent = isOpen ? "×" : "☰";
+    });
+
+    siteNav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        siteNav.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Buka menu");
+        menuToggle.textContent = "☰";
+      });
+    });
+
+    const filterButtons = [...document.querySelectorAll(".filter-btn")];
+    const productCards = [...document.querySelectorAll(".product-card")];
+    const emptyState = document.getElementById("emptyState");
+
+    function filterProducts(category) {
+      let visibleCount = 0;
+      productCards.forEach((card) => {
+        const show = category === "all" || card.dataset.category === category;
+        card.hidden = !show;
+        if (show) visibleCount += 1;
+      });
+      filterButtons.forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.filter === category));
+      });
+      emptyState.hidden = visibleCount !== 0;
+    }
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => filterProducts(button.dataset.filter));
+    });
+
+    document.querySelectorAll(".product-cta").forEach((link) => {
+      link.addEventListener("click", () => {
+        const product = link.dataset.product;
+        const productSelect = document.getElementById("product");
+        const matchingOption = [...productSelect.options].find((option) => option.text === product);
+        if (matchingOption) productSelect.value = matchingOption.value;
+        else productSelect.value = "Belum yakin / perlu konsultasi";
+      });
+    });
+
+    document.getElementById("quoteForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      if (!/^\d{8,15}$/.test(WHATSAPP_NUMBER)) {
+        document.getElementById("formStatus").textContent = "Nomor WhatsApp sales belum dikonfigurasi dengan benar.";
+        return;
+      }
+
+      const product = document.getElementById("product").value.trim();
+      if (!product) {
+        document.getElementById("formStatus").textContent = "Pilih jenis produk terlebih dahulu.";
+        document.getElementById("product").focus();
+        return;
+      }
+
+      const fields = [
+        ["Produk", product],
+        ["Perkiraan jumlah", document.getElementById("quantity").value.trim()],
+        ["Lokasi pengiriman", document.getElementById("location").value.trim()],
+        ["Ukuran / spesifikasi", document.getElementById("specs").value.trim()],
+        ["Keterangan kebutuhan", document.getElementById("notes").value.trim()]
+      ];
+
+      const details = fields
+        .filter(([, value]) => value)
+        .map(([label, value]) => `• ${label}: ${value}`)
+        .join("\n");
+
+      const message = [
+        "Halo Adikarya Plastindo, saya ingin berkonsultasi mengenai kebutuhan plastik.",
+        "",
+        "Rincian kebutuhan:",
+        details,
+        "",
+        "Mohon informasi spesifikasi yang sesuai, minimum pemesanan, harga, dan estimasi pengiriman. Terima kasih."
+      ].join("\n");
+
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+      const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+      if (!newWindow) {
+        document.getElementById("formStatus").textContent = "Browser memblokir tab baru. Izinkan pop-up atau buka WhatsApp secara manual.";
+      } else {
+        document.getElementById("formStatus").textContent = "WhatsApp dibuka. Periksa kembali pesan sebelum mengirim.";
+      }
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
