@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUTOSEEK - Marketplace Jual Beli Mobil Bekas Bersertifikat</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7', // Sky blue accent
+                            600: '#0369a1',
+                            700: '#075985',
+                            dark: '#0f172a', // Dark charcoal
+                        },
+                        wa: {
+                            500: '#10b981', // Emerald green
+                            600: '#059669',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        /* Custom checkbox styling for crisp sharp brutalist-commercial look */
+        input[type="checkbox"] { accent-color: #0284c7; }
+    </style>
+</head>
+<body class="text-slate-900 bg-slate-50 min-h-screen flex flex-col antialiased selection:bg-sky-500 selection:text-white">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-slate-900 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <span class="flex items-center gap-1.5"><i class="fa-solid fa-shield-halved text-sky-400"></i> Garansi Mesin & Transmisi 1 Tahun</span>
+                <span class="hidden md:inline-flex items-center gap-1.5"><i class="fa-solid fa-rotate text-emerald-400"></i> 5 Hari Jaminan Uang Kembali</span>
+            </div>
+            <div class="flex items-center space-x-6 text-slate-400">
+                <a href="tel:08001234567" class="hover:text-white transition"><i class="fa-solid fa-headset mr-1"></i> Call Center: 0800-123-4567</a>
+                <span class="hidden sm:inline">|</span>
+                <a href="#lokasi-hub" class="hidden sm:inline hover:text-white transition"><i class="fa-solid fa-location-dot mr-1"></i> Hub Surabaya & Jakarta</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <header class="sticky top-0 z-40 bg-white border-b border-slate-200 shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Brand Logo -->
+                <div class="flex items-center space-x-8">
+                    <a href="#" class="flex items-center space-x-2 group">
+                        <div class="bg-slate-900 text-white font-black px-3 py-1.5 text-xl tracking-wider rounded-none flex items-center gap-2 group-hover:bg-sky-600 transition">
+                            <i class="fa-solid fa-car-side text-sky-400 group-hover:text-white"></i>
+                            <span>AUTO<span class="text-sky-400 group-hover:text-white">SEEK</span></span>
+                        </div>
+                        <span class="text-[10px] font-extrabold uppercase tracking-widest text-slate-400 border-l border-slate-300 pl-2 hidden sm:inline-block">MobilBekas<br>Bersertifikat</span>
+                    </a>
+
+                    <!-- Navigation Links -->
+                    <nav class="hidden lg:flex items-center space-x-6 font-semibold text-sm">
+                        <a href="#katalog" class="text-slate-900 hover:text-sky-600 transition">Beli Mobil</a>
+                        <a href="#jual-mobil" class="text-slate-600 hover:text-sky-600 transition flex items-center gap-1">
+                            Jual Mobil <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-1.5 py-0.5 rounded-none">Instant Cash</span>
+                        </a>
+                        <a href="#simulasi-kredit" class="text-slate-600 hover:text-sky-600 transition">Simulasi Kredit</a>
+                        <a href="#layanan-inspeksi" class="text-slate-600 hover:text-sky-600 transition">Laporan Inspeksi</a>
+                    </nav>
+                </div>
+
+                <!-- Right Action Buttons -->
+                <div class="flex items-center space-x-3">
+                    <!-- Bookmark Counter -->
+                    <button id="btn-wishlist-modal" onclick="openWishlistModal()" class="relative p-2.5 text-slate-700 hover:text-sky-600 hover:bg-slate-100 border border-slate-200 transition rounded-none">
+                        <i class="fa-regular fa-heart text-lg"></i>
+                        <span id="wishlist-badge" class="absolute -top-1.5 -right-1.5 bg-sky-600 text-white text-[10px] font-bold h-5 w-5 flex items-center justify-center rounded-full border-2 border-white">0</span>
+                    </button>
+
+                    <!-- Compare Trigger Button -->
+                    <button id="btn-compare-drawer" onclick="toggleCompareDrawer()" class="hidden sm:flex items-center gap-2 px-3 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-300 text-xs font-bold text-slate-800 rounded-none transition">
+                        <i class="fa-solid fa-code-compare text-sky-600"></i>
+                        <span>Bandingkan</span>
+                        <span id="compare-count-badge" class="bg-slate-900 text-white px-1.5 py-0.2 text-[10px]">0</span>
+                    </button>
+
+                    <!-- Contact WhatsApp CTA -->
+                    <a href="https://wa.me/6281234567890?text=Halo%20AUTOSEEK%20Tim%20Sales,%20saya%20ingin%20konsultasi%20pembelian%20mobil%20bekas." target="_blank" class="hidden md:inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2.5 font-bold text-xs uppercase tracking-wider rounded-none transition shadow-sm">
+                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                        <span>Hubungi Sales</span>
+                    </a>
+
+                    <!-- Mobile Menu Button -->
+                    <button onclick="toggleMobileMenu()" class="lg:hidden p-2.5 text-slate-800 hover:bg-slate-100 border border-slate-300 rounded-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Navigation -->
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white px-4 py-4 space-y-3">
+            <a href="#katalog" class="block py-2 font-bold text-slate-800 hover:text-sky-600 border-b border-slate-100">Beli Mobil Bekas</a>
+            <a href="#jual-mobil" class="block py-2 font-bold text-slate-800 hover:text-sky-600 border-b border-slate-100">Jual Mobil Saya</a>
+            <a href="#simulasi-kredit" class="block py-2 font-bold text-slate-800 hover:text-sky-600 border-b border-slate-100">Simulasi Kredit KPM</a>
+            <a href="https://wa.me/6281234567890" target="_blank" class="block w-full text-center bg-emerald-600 text-white py-3 font-bold uppercase text-xs rounded-none">
+                <i class="fa-brands fa-whatsapp mr-2"></i> Chat Sales VIA WhatsApp
+            </a>
+        </div>
+    </header>
+
+    <!-- HERO SEARCH & DYNAMIC FILTER SECTION -->
+    <section class="bg-slate-900 text-white py-12 px-4 sm:px-6 lg:px-8 border-b-4 border-sky-500">
+        <div class="max-w-7xl mx-auto">
+            <div class="max-w-3xl mb-8">
+                <span class="inline-block bg-sky-500 text-slate-900 text-[11px] font-extrabold uppercase px-2.5 py-1 tracking-wider mb-3 rounded-none">
+                    Marketplace Mobil Bekas Lulus Inspeksi
+                </span>
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight leading-none text-white">
+                    Cari Mobil Bekas Imfian. <br><span class="text-sky-400">100% Transparan & Garansi.</span>
+                </h1>
+                <p class="text-slate-300 mt-3 text-sm sm:text-base font-medium">
+                    Temukan ribuan unit mobil bebas banjir & kecelakaan lengkap dengan laporan inspeksi 160 titik.
+                </p>
+            </div>
+
+            <!-- SEARCH FILTER CARD -->
+            <div class="bg-white text-slate-900 p-6 shadow-2xl border border-slate-200 rounded-none">
+                <!-- Search Input Top -->
+                <div class="relative mb-4">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg"></i>
+                    <input type="text" id="search-input" onkeyup="applyFilters()" placeholder="Cari berdasarkan nama mobil, model, atau kota (cth: Honda Brio, Avanza, Surabaya)..." class="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-300 font-medium text-sm focus:outline-none focus:border-sky-500 focus:bg-white transition rounded-none">
+                </div>
+
+                <!-- Dropdown Grid Filters -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <!-- Brand Filter -->
+                    <div>
+                        <label class="block text-xs font-extrabold text-slate-500 uppercase mb-1">Merek Mobil</label>
+                        <select id="filter-brand" onchange="applyFilters()" class="w-full bg-slate-50 border border-slate-300 p-2.5 text-sm font-semibold text-slate-800 focus:outline-none focus:border-sky-500 rounded-none">
+                            <option value="">Semua Merek</option>
+                            <option value="Toyota">Toyota</option>
+                            <option value="Honda">Honda</option>
+                            <option value="Mitsubishi">Mitsubishi</option>
+                            <option value="Suzuki">Suzuki</option>
+                            <option value="Hyundai">Hyundai</option>
+                            <option value="Daihatsu">Daihatsu</option>
+                            <option value="BMW">BMW</option>
+                        </select>
+                    </div>
+
+                    <!-- Transmission Filter -->
+                    <div>
+                        <label class="block text-xs font-extrabold text-slate-500 uppercase mb-1">Transmisi</label>
+                        <select id="filter-transmission" onchange="applyFilters()" class="w-full bg-slate-50 border border-slate-300 p-2.5 text-sm font-semibold text-slate-800 focus:outline-none focus:border-sky-500 rounded-none">
+                            <option value="">Semua Transmisi</option>
+                            <option value="Otmatis">Otomatis / AT / CVT</option>
+                            <option value="Manual">Manual / MT</option>
+                        </select>
+                    </div>
+
+                    <!-- Max Price Filter -->
+                    <div>
+                        <label class="block text-xs font-extrabold text-slate-500 uppercase mb-1">Harga Maksimal: <span id="price-val-label" class="text-sky-600 font-extrabold">Semua Harga</span></label>
+                        <input type="range" id="filter-max-price" min="100000000" max="500000000" step="10000000" value="500000000" oninput="updatePriceLabel(this.value); applyFilters();" class="w-full h-2 bg-slate-200 rounded-none cursor-pointer accent-sky-600 mt-3">
+                    </div>
+
+                    <!-- Year Range Filter -->
+                    <div>
+                        <label class="block text-xs font-extrabold text-slate-500 uppercase mb-1">Tahun Minimal</label>
+                        <select id="filter-min-year" onchange="applyFilters()" class="w-full bg-slate-50 border border-slate-300 p-2.5 text-sm font-semibold text-slate-800 focus:outline-none focus:border-sky-500 rounded-none">
+                            <option value="0">Semua Tahun</option>
+                            <option value="2022">2022 Ke Atas</option>
+                            <option value="2020">2020 Ke Atas</option>
+                            <option value="2018">2018 Ke Atas</option>
+                            <option value="2015">2015 Ke Atas</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Quick Badge Feature Pills Filter -->
+                <div class="mt-5 pt-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span class="text-xs font-bold text-slate-500 uppercase mr-1">Filter Cepat:</span>
+                        <button onclick="togglePillFilter(this, 'Bebas Banjir')" class="pill-filter text-xs font-semibold px-3 py-1.5 border border-slate-300 bg-slate-100 hover:bg-slate-200 text-slate-700 transition rounded-none">
+                            <i class="fa-solid fa-water-lower text-sky-600 mr-1"></i> Bebas Banjir
+                        </button>
+                        <button onclick="togglePillFilter(this, 'Lulus Inspeksi')" class="pill-filter text-xs font-semibold px-3 py-1.5 border border-slate-300 bg-slate-100 hover:bg-slate-200 text-slate-700 transition rounded-none">
+                            <i class="fa-solid fa-certificate text-amber-500 mr-1"></i> Lulus Inspeksi 160+
+                        </button>
+                        <button onclick="togglePillFilter(this, 'DP Low')" class="pill-filter text-xs font-semibold px-3 py-1.5 border border-slate-300 bg-slate-100 hover:bg-slate-200 text-slate-700 transition rounded-none">
+                            <i class="fa-solid fa-percent text-emerald-600 mr-1"></i> Promo DP 10%
+                        </button>
+                        <button onclick="togglePillFilter(this, 'Tangan Pertama')" class="pill-filter text-xs font-semibold px-3 py-1.5 border border-slate-300 bg-slate-100 hover:bg-slate-200 text-slate-700 transition rounded-none">
+                            <i class="fa-solid fa-user-check text-slate-700 mr-1"></i> Tangan Pertama
+                        </button>
+                    </div>
+                    
+                    <button onclick="resetFilters()" class="text-xs font-bold text-rose-600 hover:underline uppercase flex items-center gap-1">
+                        <i class="fa-solid fa-rotate-right"></i> Reset Filter
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LISTING METRICS & SORT BAR -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-200 pb-4 mb-6 gap-4">
+            <div>
+                <h2 class="text-xl font-extrabold text-slate-900 tracking-tight uppercase flex items-center gap-2">
+                    <span>Katalog Stok Mobil Bekas</span>
+                    <span id="unit-count-badge" class="bg-sky-100 text-sky-800 text-xs font-black px-2.5 py-0.5 border border-sky-300 rounded-none">0 Unit</span>
+                </h2>
+                <p class="text-xs text-slate-500 mt-1">Semua unit telah melewati tes inspeksi komprehensif & siap pakai.</p>
+            </div>
+
+            <!-- Sort dropdown -->
+            <div class="flex items-center space-x-2 w-full sm:w-auto justify-end">
+                <label for="sort-select" class="text-xs font-extrabold uppercase text-slate-500 whitespace-nowrap">Urutkan:</label>
+                <select id="sort-select" onchange="applyFilters()" class="bg-white border border-slate-300 px-3 py-2 text-xs font-bold text-slate-800 focus:outline-none focus:border-sky-500 rounded-none shadow-xs">
+                    <option value="rekomendasi">Rekomendasi Utama</option>
+                    <option value="harga-asc">Harga: Termurah ke Termahal</option>
+                    <option value="harga-desc">Harga: Termahal ke Termurah</option>
+                    <option value="tahun-desc">Tahun: Terbaru</option>
+                    <option value="km-asc">Kilometer: Terendah</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- CAR CARDS GRID -->
+        <div id="car-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Dynamic Injection JS -->
+        </div>
+
+        <!-- EMPTY STATE IF NO RESULTS -->
+        <div id="empty-state" class="hidden bg-white border border-slate-200 p-12 text-center my-8 rounded-none">
+            <div class="w-16 h-16 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                <i class="fa-solid fa-car-burst"></i>
+            </div>
+            <h3 class="text-lg font-extrabold text-slate-800">Unit Tidak Ditemukan</h3>
+            <p class="text-sm text-slate-500 mt-1 max-w-md mx-auto">Maaf, tidak ada stok mobil yang sesuai dengan kombinasi filter Anda saat ini. Coba sesuaikan kata kunci atau rentang harga.</p>
+            <button onclick="resetFilters()" class="mt-5 bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold px-5 py-2.5 uppercase tracking-wider rounded-none transition">
+                Tampilkan Semua Stok Mobil
+            </button>
+        </div>
+    </main>
+
+    <!-- FLOATING STICKY COMPARE BAR (Bottom Drawer) -->
+    <div id="compare-bar" class="fixed bottom-0 inset-x-0 bg-slate-900 text-white z-30 transform translate-y-full transition-transform duration-300 border-t-4 border-sky-500 shadow-2xl">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <div class="bg-sky-500 text-slate-900 px-2.5 py-1 text-xs font-black uppercase">
+                    Bandingkan (<span id="compare-count">0</span>/3)
+                </div>
+                <div id="compare-thumbnails" class="hidden sm:flex items-center space-x-2">
+                    <!-- Thumbnails appended via JS -->
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button onclick="clearCompare()" class="text-xs text-slate-400 hover:text-white underline font-semibold">
+                    Batal
+                </button>
+                <button onclick="openCompareModal()" class="bg-sky-500 hover:bg-sky-400 text-slate-950 px-4 py-2 font-black text-xs uppercase tracking-wider rounded-none transition">
+                    Buka Perbandingan <i class="fa-solid fa-arrow-right ml-1"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CAR DETAIL & INSPECTION MODAL -->
+    <div id="car-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-xs z-50 hidden overflow-y-auto p-4 sm:p-6 lg:p-8">
+        <div class="max-w-4xl mx-auto bg-white border border-slate-300 shadow-2xl rounded-none my-6 relative overflow-hidden">
+            <!-- Modal Close Button -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-10 bg-slate-900/80 hover:bg-slate-900 text-white w-9 h-9 flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div id="modal-content">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- COMPARISON MODAL -->
+    <div id="compare-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-xs z-50 hidden overflow-y-auto p-4 sm:p-6 lg:p-8">
+        <div class="max-w-6xl mx-auto bg-white border border-slate-300 shadow-2xl rounded-none my-6 p-6 relative">
+            <button onclick="closeCompareModal()" class="absolute top-4 right-4 bg-slate-900 text-white w-8 h-8 flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-xl font-black uppercase text-slate-900 mb-6 flex items-center gap-2">
+                <i class="fa-solid fa-code-compare text-sky-600"></i> Perbandingan Unit Mobil
+            </h3>
+            <div id="compare-table-wrapper" class="overflow-x-auto">
+                <!-- Table injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- WISHLIST MODAL -->
+    <div id="wishlist-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-xs z-50 hidden overflow-y-auto p-4 sm:p-6 lg:p-8">
+        <div class="max-w-3xl mx-auto bg-white border border-slate-300 shadow-2xl rounded-none my-10 p-6 relative">
+            <button onclick="closeWishlistModal()" class="absolute top-4 right-4 bg-slate-900 text-white w-8 h-8 flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="text-xl font-black uppercase text-slate-900 mb-2 flex items-center gap-2">
+                <i class="fa-solid fa-heart text-rose-600"></i> Mobil Bekas Incaran Saya
+            </h3>
+            <p class="text-xs text-slate-500 mb-6">Daftar unit yang Anda simpan untuk ditinjau kembali.</p>
+            <div id="wishlist-items-container" class="space-y-4">
+                <!-- Wishlist items injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed top-24 right-4 z-50 bg-slate-900 text-white px-4 py-3 shadow-xl border-l-4 border-sky-500 hidden items-center gap-3 transition-all duration-300">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-sky-400 text-lg"></i>
+        <span id="toast-message" class="text-xs font-bold">Pesan Toast</span>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-white border-t-4 border-sky-500 pt-12 pb-8 px-4 sm:px-6 lg:px-8 mt-16">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+            <div>
+                <div class="bg-sky-500 text-slate-950 font-black px-3 py-1 inline-block text-lg tracking-wider mb-4">
+                    AUTOSEEK.ID
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                    Platform marketplace jual beli mobil bekas berkualitas tinggi di Indonesia. Setiap unit diuji penuh dengan jaminan garansi 1 tahun & bebas manipulasi odometer.
+                </p>
+                <div class="flex space-x-3 text-slate-400">
+                    <a href="#" class="hover:text-sky-400"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="hover:text-sky-400"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="hover:text-sky-400"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="hover:text-sky-400"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-xs font-black uppercase tracking-wider text-slate-200 mb-4 border-b border-slate-800 pb-2">Layanan Pembeli</h4>
+                <ul class="space-y-2 text-xs text-slate-400 font-medium">
+                    <li><a href="#" class="hover:text-white">Jaminan 5 Hari Uang Kembali</a></li>
+                    <li><a href="#" class="hover:text-white">Garansi Mesin 1 Tahun</a></li>
+                    <li><a href="#" class="hover:text-white">Laporan Inspeksi 160 Titik</a></li>
+                    <li><a href="#" class="hover:text-white">Hitung Simulasi Kredit KPM</a></li>
+                    <li><a href="#" class="hover:text-white">Layanan Pengiriman Unit Intercity</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-xs font-black uppercase tracking-wider text-slate-200 mb-4 border-b border-slate-800 pb-2">Kota Operasional Hub</h4>
+                <ul class="space-y-2 text-xs text-slate-400 font-medium">
+                    <li><i class="fa-solid fa-location-dot text-sky-400 mr-1.5"></i> Jakarta Selatan - Hub BSD</li>
+                    <li><i class="fa-solid fa-location-dot text-sky-400 mr-1.5"></i> Surabaya - Hub West Surabaya</li>
+                    <li><i class="fa-solid fa-location-dot text-sky-400 mr-1.5"></i> Bandung - Hub Soekarno Hatta</li>
+                    <li><i class="fa-solid fa-location-dot text-sky-400 mr-1.5"></i> Medan - Hub Ringroad</li>
+                    <li><i class="fa-solid fa-location-dot text-sky-400 mr-1.5"></i> Semarang & Sidoarjo</li>
+                </ul>
+            </div>
+
+            <div id="jual-mobil">
+                <h4 class="text-xs font-black uppercase tracking-wider text-slate-200 mb-4 border-b border-slate-800 pb-2">Jual Mobil Instan</h4>
+                <p class="text-xs text-slate-400 mb-3">Ingin jual mobil Anda dengan harga terbaik & cair dalam 1x24 jam?</p>
+                <a href="https://wa.me/6281234567890?text=Halo%20AUTOSEEK,%20saya%20ingin%20mengajukan%20inspeksi%20untuk%20jual%20mobil%20saya." target="_blank" class="inline-block w-full bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs text-center py-2.5 uppercase tracking-wider transition">
+                    <i class="fa-brands fa-whatsapp mr-1.5"></i> Inspeksi Gratis Sekarang
+                </a>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto border-t border-slate-800 pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 font-medium">
+            <p>&copy; 2026 AUTOSEEK Indonesia. Hak Cipta Dilindungi Undang-Undang.</p>
+            <div class="flex space-x-4 mt-2 sm:mt-0">
+                <a href="#" class="hover:text-slate-400">Syarat & Ketentuan</a>
+                <span>&bull;</span>
+                <a href="#" class="hover:text-slate-400">Kebijakan Privasi</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT APPLICATION LOGIC -->
+    <script>
+        // MOCK DATASET: POPULAR INDONESIAN CARS
+        const CAR_DATA = [
+            {
+                id: "CAR-001",
+                brand: "Honda",
+                model: "Honda Brio 1.2 E RS Hatchback AT",
+                year: 2021,
+                price: 158000000,
+                km: 28000,
+                transmission: "Otmatis",
+                fuel: "Bensin",
+                location: "Jakarta Selatan",
+                image: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=800&q=80",
+                dpLow: true,
+                freeBanjir: true,
+                lulusInspeksi: true,
+                tanganPertama: true,
+                engine: "1,199 cc i-VTEC 89 PS",
+                color: "Rallye Red",
+                stnkTax: "Desember 2026 (Pajak Hidup)",
+                plate: "B (Genap)",
+                warranty: "12 Bulan Mesin & Transmisi"
+            },
+            {
+                id: "CAR-002",
+                brand: "Toyota",
+                model: "Toyota Avanza 1.5 G CVT Model Baru",
+                year: 2022,
+                price: 215000000,
+                km: 18500,
+                transmission: "Otmatis",
+                fuel: "Bensin",
+                location: "Surabaya",
+                image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80",
+                dpLow: true,
+                freeBanjir: true,
+                lulusInspeksi: true,
+                tanganPertama: true,
+                engine: "1,496 cc Dual VVT-i 106 PS",
+                color: "Silver Metallic",
+                stnkTax: "Agustus 2027 (Pajak Panjang)",
+                plate: "L (Ganjil)",
+                warranty: "12 Bulan Mesin & Transmisi"
+            },
+            {
+                id: "CAR-003",
+                brand: "Mitsubishi",
+                model: "Mitsubishi Xpander 1.5 Ultimate AT",
+                year: 2020,
+                price: 208000000,
+                km: 42000,
+                transmission: "Otmatis",
+                fuel: "Bensin",
+                location: "Sidoarjo",
+                image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80",
+                dpLow: false,
+                freeBanjir: true,
+                lulusInspeksi: true,
+                tanganPertama: false,
+                engine: "1,499 cc MIVEC DOHC 105 PS",
+                color: "Quartz White Pearl",
+                stnkTax: "November 2026",
+                plate: "W (Genap)",
+                warranty: "12 Bulan Mesin"
+            },
+            {
+                id: "CAR-004",
+                brand: "Honda",
+                model: "Honda HR-V 1.5 E CVT Special Edition",
+                year: 2019,
+                price: 235000000,
+                km: 51000,
+                transmission: "Otmatis",
+                fuel: "Bensin",
+                location: "Tangerang",
+                image: "https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&w=800&q=80",
+                dpLow: true,
+                freeBanjir: true,
+                lulusInspeksi: true,
+                tanganPertama: true,
+                engine: "1,497 cc i-VTEC 120 PS",
+                color: "Modern Steel Metallic",
+                stnkTax: "Oktober 2026",
+                plate: "B (Ganjil)",
+                warranty: "12 Bulan Mesin & Transmisi"
+            },
+            {
+                id: "CAR-005",
+                brand: "Suzuki",
+                model: "Suzuki XL7 1.5 Alpha Automatic",
+                year: 2022,
+                price: 210000000,
+                km: 22000,
+                transmission: "Otmatis",
+                fuel: "Bensin",
+                location: "Bandung",
+                image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80",
+                dpLow: true,
+                freeBanjir: true,
+                lulusInspeksi: true,
+                tanganPertama: true,
+                engine: "1,462 cc K15B 104.7 PS",
+                color: "Rising Orange - Black Top",
+                stnkTax: "Maret 2027",
+                plate: "D (Genap)",
+                warranty: "12 Bulan Mesin"
+            },
+            {
+                id: "CAR-006",
+                brand: "Hyundai",
+                model: "Hyundai Creta 1.5 Prime IVT Two-Tone",
+                year: 2022,
+                price: 275000000,
+                km: 15000,
+                transmission: "Otmatis",
+                fuel: "Bensin",
+                location: "Jakarta Barat",
+                image: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=800&q=80",
+                dpLow: false,
+                freeBanjir: true,
+                lulusInspeksi: true,
+                tanganPertama: true,
+                engine: "1,497 cc Smartstream G1.5 115 PS",
+                color: "Dragon Red Pearl",
+                stnkTax: "Juni 2027",
+                plate: "B (Genap)",
+                warranty: "12 Bulan Resmi Dealer"
+            },
+            {
+                id: "CAR-007",
+                brand: "Toyota",
+                model: "Toyota Fortuner 2.4 VRZ Diesel AT 4x2",
+                year: 2018,
+                price: 385000000,
+                km: 65000,
+                transmission: "Otmatis",
+                fuel: "Diesel",
+                location: "Jakarta Utara",
+                image: "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=800&q=80",
+                dpLow: true,
+                freeBanjir: true,
+                lulusInspeksi: true,
+                tanganPertama: false,
+                engine: "2,393 cc 2GD-FTV Turbo Diesel 149.6 PS",
+                color: "Attitude Black",
+                stnkTax: "Januari 2027",
+                plate: "B (Ganjil)",
+                warranty: "12 Bulan Mesin & Transmisi"
+            },
+            {
+                id: "CAR-008",
+                brand: "Daihatsu",
+                model: "Daihatsu Rocky 1.0 R Turbo CVT ASA",
+                year: 2021,
+                price: 182000000,
+                km: 30000,
+                transmission: "Otmatis",
+                fuel: "Bensin",
+                location: "Semarang",
+                image: "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80",
+                dpLow: true,
+                freeBanjir: true,
+                lulusInspeksi: true,
+                tanganPertama: true,
+                engine: "998 cc 1KR-VET Turbocharger 98 PS",
+                color: "Compagno Red",
+                stnkTax: "Mei 2027",
+                plate: "H (Genap)",
+                warranty: "12 Bulan Mesin"
+            },
+            {
+                id: "CAR-009",
+                brand: "BMW",
+                model: "BMW 320i 2.0 Sport F30 LCI N20",
+                year: 2017,
+                price: 365000000,
+                km: 48000,
+                transmission: "Otmatis",
+                fuel: "Bensin",
+                location: "Jakarta Selatan",
+                image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=800&q=80",
+                dpLow: false,
+                freeBanjir: true,
+                lulusInspeksi: true,
+                tanganPertama: false,
+                engine: "1,997 cc TwinPower Turbo 184 HP",
+                color: "Alpine White",
+                stnkTax: "September 2026",
+                plate: "B (Genap)",
+                warranty: "12 Bulan Mesin & Transmisi"
+            }
+        ];
+
+        // STATE MANAGEMENT
+        let currentCars = [...CAR_DATA];
+        let wishlistIds = [];
+        let compareIds = [];
+        let activePillFilters = new Set();
+
+        // INITIALIZATION
+        window.addEventListener('DOMContentLoaded', () => {
+            loadSavedState();
+            renderCarCards(currentCars);
+            updateMetrics(currentCars.length);
+        });
+
+        // FORMATTER UTILITIES
+        function formatRupiah(num) {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(num);
+        }
+
+        function calculateMonthlyEstimate(price) {
+            // Estimate 20% DP, 5 Year tenor (~60 months)
+            const dp = price * 0.20;
+            const principal = price - dp;
+            const interest = principal * 0.30; // 5 year interest assumption
+            const monthly = (principal + interest) / 60;
+            return Math.round(monthly / 100000) / 10; // formatted in Millions e.g. 3.2
+        }
+
+        // RENDER CAR CARDS
+        function renderCarCards(cars) {
+            const grid = document.getElementById('car-grid');
+            const emptyState = document.getElementById('empty-state');
+            grid.innerHTML = '';
+
+            if (cars.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            cars.forEach(car => {
+                const isWishlisted = wishlistIds.includes(car.id);
+                const isCompared = compareIds.includes(car.id);
+                const estMonthly = calculateMonthlyEstimate(car.price);
+
+                const cardHtml = `
+                    <div class="bg-white border border-slate-200 hover:border-sky-500 transition-all duration-200 flex flex-col justify-between group shadow-xs">
+                        <div>
+                            <!-- Card Image Container -->
+                            <div class="relative aspect-16/10 overflow-hidden bg-slate-100">
+                                <img src="${car.image}" alt="${car.model}" class="w-full h-48 object-cover group-hover:scale-105 transition duration-500" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80'">
+                                
+                                <!-- Top Status Badges -->
+                                <div class="absolute top-2 left-2 flex flex-col gap-1 items-start">
+                                    <span class="bg-slate-900/90 text-sky-400 text-[10px] font-black uppercase px-2 py-0.5 backdrop-blur-xs border border-sky-500/30">
+                                        <i class="fa-solid fa-certificate text-amber-400 mr-1"></i> Lulus Inspeksi
+                                    </span>
+                                    ${car.dpLow ? '<span class="bg-emerald-600 text-white text-[10px] font-black uppercase px-2 py-0.5">DP 10%</span>' : ''}
+                                </div>
+
+                                <!-- Wishlist Heart Button -->
+                                <button onclick="toggleWishlist('${car.id}', event)" class="absolute top-2 right-2 w-8 h-8 bg-white/90 hover:bg-white text-slate-800 flex items-center justify-center transition border border-slate-200">
+                                    <i class="${isWishlisted ? 'fa-solid text-rose-600' : 'fa-regular'} fa-heart"></i>
+                                </button>
+
+                                <!-- Location Badge -->
+                                <div class="absolute bottom-2 left-2 bg-slate-900/80 text-white text-[10px] font-bold px-2 py-0.5 flex items-center gap-1">
+                                    <i class="fa-solid fa-location-dot text-sky-400"></i> ${car.location}
+                                </div>
+                            </div>
+
+                            <!-- Content Specs -->
+                            <div class="p-4">
+                                <div class="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider mb-1">
+                                    ${car.brand} &bull; ${car.year}
+                                </div>
+                                <h3 class="font-extrabold text-slate-900 text-base leading-snug line-clamp-2 hover:text-sky-600 transition">
+                                    ${car.model}
+                                </h3>
+
+                                <!-- Specification Pills -->
+                                <div class="grid grid-cols-3 gap-1 my-3 bg-slate-50 p-2 text-[11px] text-slate-700 font-semibold border border-slate-200">
+                                    <div class="flex items-center gap-1">
+                                        <i class="fa-solid fa-gauge-simple-high text-slate-400"></i>
+                                        <span>${(car.km/1000).toFixed(0)} rb KM</span>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <i class="fa-solid fa-gear text-slate-400"></i>
+                                        <span>${car.transmission}</span>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <i class="fa-solid fa-gas-pump text-slate-400"></i>
+                                        <span>${car.fuel}</span>
+                                    </div>
+                                </div>
+
+                                <!-- Pricing Block -->
+                                <div class="mt-2 pt-2 border-t border-slate-100">
+                                    <div class="text-[10px] font-extrabold text-slate-400 uppercase">Harga Cash OTR</div>
+                                    <div class="text-lg font-black text-slate-900 tracking-tight">
+                                        ${formatRupiah(car.price)}
+                                    </div>
+                                    <div class="text-xs font-bold text-sky-600 mt-0.5">
+                                        Angsuran &asymp; Rp ${estMonthly} Jt<span class="text-[10px] text-slate-500 font-normal">/bln</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Bottom Actions -->
+                        <div class="p-4 pt-0 space-y-2">
+                            <!-- Compare Checkbox Row -->
+                            <div class="flex items-center justify-between text-xs font-bold text-slate-600 pt-2 border-t border-slate-100">
+                                <label class="flex items-center gap-2 cursor-pointer select-none">
+                                    <input type="checkbox" onchange="toggleCompare('${car.id}')" ${isCompared ? 'checked' : ''} class="w-3.5 h-3.5">
+                                    <span>Bandingkan</span>
+                                </label>
+                                <span class="text-[10px] text-slate-400 font-normal">ID: ${car.id}</span>
+                            </div>
+
+                            <!-- Buttons CTA -->
+                            <div class="grid grid-cols-2 gap-2 pt-1">
+                                <button onclick="openModal('${car.id}')" class="bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs py-2.5 uppercase tracking-wider text-center transition">
+                                    Lihat Detail
+                                </button>
+                                <a href="https://wa.me/6281234567890?text=Halo%20AUTOSEEK,%20saya%20tertarik%20dengan%20unit%20${encodeURIComponent(car.model)}%20(Harga%20${encodeURIComponent(formatRupiah(car.price))}).%20Bisa%20info%20jadwal%20test%20drive?" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs py-2.5 uppercase tracking-wider text-center transition flex items-center justify-center gap-1">
+                                    <i class="fa-brands fa-whatsapp text-sm"></i> WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += cardHtml;
+            });
+        }
+
+        // FILTER & SORT ENGINE
+        function applyFilters() {
+            const query = document.getElementById('search-input').value.toLowerCase().trim();
+            const selectedBrand = document.getElementById('filter-brand').value;
+            const selectedTrans = document.getElementById('filter-transmission').value;
+            const maxPrice = parseInt(document.getElementById('filter-max-price').value);
+            const minYear = parseInt(document.getElementById('filter-min-year').value);
+            const sortVal = document.getElementById('sort-select').value;
+
+            let filtered = CAR_DATA.filter(car => {
+                // Keyword match
+                const matchKeyword = car.model.toLowerCase().includes(query) || 
+                                     car.brand.toLowerCase().includes(query) || 
+                                     car.location.toLowerCase().includes(query);
+                
+                // Brand match
+                const matchBrand = !selectedBrand || car.brand === selectedBrand;
+                
+                // Transmission match
+                const matchTrans = !selectedTrans || car.transmission === selectedTrans;
+
+                // Price match
+                const matchPrice = car.price <= maxPrice;
+
+                // Year match
+                const matchYear = car.year >= minYear;
+
+                // Pill quick filters match
+                let matchPills = true;
+                if (activePillFilters.has('Bebas Banjir') && !car.freeBanjir) matchPills = false;
+                if (activePillFilters.has('Lulus Inspeksi') && !car.lulusInspeksi) matchPills = false;
+                if (activePillFilters.has('DP Low') && !car.dpLow) matchPills = false;
+                if (activePillFilters.has('Tangan Pertama') && !car.tanganPertama) matchPills = false;
+
+                return matchKeyword && matchBrand && matchTrans && matchPrice && matchYear && matchPills;
+            });
+
+            // Sorting logic
+            if (sortVal === 'harga-asc') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (sortVal === 'harga-desc') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else if (sortVal === 'tahun-desc') {
+                filtered.sort((a, b) => b.year - a.year);
+            } else if (sortVal === 'km-asc') {
+                filtered.sort((a, b) => a.km - b.km);
+            }
+
+            currentCars = filtered;
+            renderCarCards(currentCars);
+            updateMetrics(filtered.length);
+        }
+
+        function updatePriceLabel(val) {
+            const label = document.getElementById('price-val-label');
+            if (parseInt(val) >= 500000000) {
+                label.innerText = "Semua Harga";
+            } else {
+                label.innerText = formatRupiah(val);
+            }
+        }
+
+        function togglePillFilter(btn, filterName) {
+            if (activePillFilters.has(filterName)) {
+                activePillFilters.delete(filterName);
+                btn.classList.remove('bg-sky-600', 'text-white', 'border-sky-600');
+                btn.classList.add('bg-slate-100', 'text-slate-700');
+            } else {
+                activePillFilters.add(filterName);
+                btn.classList.add('bg-sky-600', 'text-white', 'border-sky-600');
+                btn.classList.remove('bg-slate-100', 'text-slate-700');
+            }
+            applyFilters();
+        }
+
+        function resetFilters() {
+            document.getElementById('search-input').value = '';
+            document.getElementById('filter-brand').value = '';
+            document.getElementById('filter-transmission').value = '';
+            document.getElementById('filter-max-price').value = 500000000;
+            document.getElementById('filter-min-year').value = 0;
+            document.getElementById('sort-select').value = 'rekomendasi';
+            
+            updatePriceLabel(500000000);
+
+            // Reset pills UI
+            activePillFilters.clear();
+            document.querySelectorAll('.pill-filter').forEach(btn => {
+                btn.classList.remove('bg-sky-600', 'text-white', 'border-sky-600');
+                btn.classList.add('bg-slate-100', 'text-slate-700');
+            });
+
+            applyFilters();
+            showToast('Filter telah direset ke tampilan standar.');
+        }
+
+        function updateMetrics(count) {
+            document.getElementById('unit-count-badge').innerText = `${count} Unit`;
+        }
+
+        // WISHLIST FEATURE
+        function toggleWishlist(id, e) {
+            if (e) e.stopPropagation();
+            if (wishlistIds.includes(id)) {
+                wishlistIds = wishlistIds.filter(item => item !== id);
+                showToast('Mobil dihapus dari favorit');
+            } else {
+                wishlistIds.push(id);
+                showToast('Mobil berhasil disimpan ke favorit!');
+            }
+            saveState();
+            renderCarCards(currentCars);
+            updateWishlistBadge();
+        }
+
+        function updateWishlistBadge() {
+            document.getElementById('wishlist-badge').innerText = wishlistIds.length;
+        }
+
+        function openWishlistModal() {
+            const container = document.getElementById('wishlist-items-container');
+            container.innerHTML = '';
+
+            const wishlistedCars = CAR_DATA.filter(c => wishlistIds.includes(c.id));
+
+            if (wishlistedCars.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-slate-400">
+                        <i class="fa-regular fa-heart text-3xl mb-2"></i>
+                        <p class="text-sm font-semibold">Belum ada mobil yang Anda simpan.</p>
+                    </div>
+                `;
+            } else {
+                wishlistedCars.forEach(car => {
+                    container.innerHTML += `
+                        <div class="flex items-center justify-between border border-slate-200 p-3 bg-slate-50">
+                            <div class="flex items-center space-x-3">
+                                <img src="${car.image}" class="w-16 h-12 object-cover" alt="">
+                                <div>
+                                    <h4 class="text-xs font-black text-slate-900">${car.model}</h4>
+                                    <div class="text-[11px] font-bold text-sky-600">${formatRupiah(car.price)}</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <button onclick="openModal('${car.id}'); closeWishlistModal();" class="bg-slate-900 text-white text-xs font-bold px-3 py-1.5 uppercase">
+                                    Detail
+                                </button>
+                                <button onclick="toggleWishlist('${car.id}')" class="text-rose-600 p-2 hover:bg-slate-200">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            document.getElementById('wishlist-modal').classList.remove('hidden');
+        }
+
+        function closeWishlistModal() {
+            document.getElementById('wishlist-modal').classList.add('hidden');
+        }
+
+        // COMPARISON FEATURE
+        function toggleCompare(id) {
+            if (compareIds.includes(id)) {
+                compareIds = compareIds.filter(item => item !== id);
+            } else {
+                if (compareIds.length >= 3) {
+                    showToast('Maksimal 3 mobil untuk dibandingkan!');
+                    renderCarCards(currentCars);
+                    return;
+                }
+                compareIds.push(id);
+            }
+            updateCompareBar();
+            renderCarCards(currentCars);
+        }
+
+        function updateCompareBar() {
+            const bar = document.getElementById('compare-bar');
+            const countBadge = document.getElementById('compare-count');
+            const navBadge = document.getElementById('compare-count-badge');
+            const thumbsContainer = document.getElementById('compare-thumbnails');
+
+            countBadge.innerText = compareIds.length;
+            navBadge.innerText = compareIds.length;
+
+            if (compareIds.length > 0) {
+                bar.classList.remove('translate-y-full');
+            } else {
+                bar.classList.add('translate-y-full');
+            }
+
+            thumbsContainer.innerHTML = '';
+            compareIds.forEach(id => {
+                const car = CAR_DATA.find(c => c.id === id);
+                if (car) {
+                    thumbsContainer.innerHTML += `
+                        <div class="relative bg-slate-800 p-1 border border-slate-700">
+                            <img src="${car.image}" class="w-10 h-7 object-cover">
+                        </div>
+                    `;
+                }
+            });
+        }
+
+        function clearCompare() {
+            compareIds = [];
+            updateCompareBar();
+            renderCarCards(currentCars);
+        }
+
+        function toggleCompareDrawer() {
+            if (compareIds.length === 0) {
+                showToast('Pilih setidaknya 1 mobil untuk dibandingkan.');
+                return;
+            }
+            openCompareModal();
+        }
+
+        function openCompareModal() {
+            const wrapper = document.getElementById('compare-table-wrapper');
+            const carsToCompare = CAR_DATA.filter(c => compareIds.includes(c.id));
+
+            if (carsToCompare.length === 0) return;
+
+            let html = `
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                        <tr class="border-b-2 border-slate-900 bg-slate-100">
+                            <th class="p-3 uppercase font-extrabold text-slate-500 w-1/4">Spesifikasi</th>
+                            ${carsToCompare.map(c => `
+                                <th class="p-3 w-1/4">
+                                    <img src="${c.image}" class="w-full h-24 object-cover mb-2 border border-slate-200">
+                                    <div class="font-black text-slate-900 text-sm leading-tight">${c.model}</div>
+                                    <div class="text-sky-600 font-black text-sm mt-1">${formatRupiah(c.price)}</div>
+                                </th>
+                            `).join('')}
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 font-semibold text-slate-800">
+                        <tr>
+                            <td class="p-3 bg-slate-50 font-bold uppercase text-slate-500">Tahun</td>
+                            ${carsToCompare.map(c => `<td class="p-3">${c.year}</td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td class="p-3 bg-slate-50 font-bold uppercase text-slate-500">Kilometer</td>
+                            ${carsToCompare.map(c => `<td class="p-3">${c.km.toLocaleString()} KM</td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td class="p-3 bg-slate-50 font-bold uppercase text-slate-500">Transmisi</td>
+                            ${carsToCompare.map(c => `<td class="p-3">${c.transmission}</td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td class="p-3 bg-slate-50 font-bold uppercase text-slate-500">Mesin</td>
+                            ${carsToCompare.map(c => `<td class="p-3">${c.engine}</td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td class="p-3 bg-slate-50 font-bold uppercase text-slate-500">Bahan Bakar</td>
+                            ${carsToCompare.map(c => `<td class="p-3">${c.fuel}</td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td class="p-3 bg-slate-50 font-bold uppercase text-slate-500">Lokasi Unit</td>
+                            ${carsToCompare.map(c => `<td class="p-3">${c.location}</td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td class="p-3 bg-slate-50 font-bold uppercase text-slate-500">Status Pajak STNK</td>
+                            ${carsToCompare.map(c => `<td class="p-3 text-emerald-600">${c.stnkTax}</td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td class="p-3 bg-slate-50 font-bold uppercase text-slate-500">Garansi Mesin</td>
+                            ${carsToCompare.map(c => `<td class="p-3">${c.warranty}</td>`).join('')}
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+
+            wrapper.innerHTML = html;
+            document.getElementById('compare-modal').classList.remove('hidden');
+        }
+
+        function closeCompareModal() {
+            document.getElementById('compare-modal').classList.add('hidden');
+        }
+
+        // CAR DETAIL MODAL WITH INSPECTION REPORT & KPM CALCULATOR
+        function openModal(id) {
+            const car = CAR_DATA.find(c => c.id === id);
+            if (!car) return;
+
+            const modalContent = document.getElementById('modal-content');
+            const defaultDp = Math.round(car.price * 0.20);
+
+            modalContent.innerHTML = `
+                <!-- Modal Top Header Banner -->
+                <div class="bg-slate-900 text-white p-6 border-b border-slate-800">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                        <span class="bg-sky-500 text-slate-950 text-[10px] font-black uppercase px-2.5 py-0.5 tracking-wider">
+                            ID Stok: ${car.id}
+                        </span>
+                        <span class="text-xs text-slate-400 font-bold">
+                            <i class="fa-solid fa-location-dot text-sky-400 mr-1"></i> ${car.location}
+                        </span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-white uppercase">${car.model}</h2>
+                    <div class="text-sky-400 text-2xl font-black mt-2">${formatRupiah(car.price)}</div>
+                </div>
+
+                <div class="p-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <!-- Left Column: Gallery & Inspection Specs -->
+                    <div class="lg:col-span-7 space-y-6">
+                        <!-- Main Image -->
+                        <div class="relative bg-slate-100 aspect-16/10 border border-slate-200">
+                            <img src="${car.image}" alt="${car.model}" class="w-full h-full object-cover">
+                            <div class="absolute bottom-3 right-3 bg-slate-900/90 text-white text-xs font-bold px-3 py-1 uppercase border border-slate-700">
+                                HD Photo Inspection Verified
+                            </div>
+                        </div>
+
+                        <!-- Technical Specs Grid -->
+                        <div>
+                            <h4 class="text-xs font-black uppercase text-slate-900 tracking-wider mb-3 pb-1 border-b-2 border-slate-900">
+                                Spesifikasi Detail Kendaraan
+                            </h4>
+                            <div class="grid grid-cols-2 gap-3 text-xs font-semibold">
+                                <div class="bg-slate-50 p-2.5 border border-slate-200">
+                                    <span class="text-slate-400 block text-[10px] uppercase font-bold">Kapasitas Mesin</span>
+                                    <span class="text-slate-900 font-bold">${car.engine}</span>
+                                </div>
+                                <div class="bg-slate-50 p-2.5 border border-slate-200">
+                                    <span class="text-slate-400 block text-[10px] uppercase font-bold">Warna Bodi</span>
+                                    <span class="text-slate-900 font-bold">${car.color}</span>
+                                </div>
+                                <div class="bg-slate-50 p-2.5 border border-slate-200">
+                                    <span class="text-slate-400 block text-[10px] uppercase font-bold">Masa Pajak STNK</span>
+                                    <span class="text-slate-900 font-bold">${car.stnkTax}</span>
+                                </div>
+                                <div class="bg-slate-50 p-2.5 border border-slate-200">
+                                    <span class="text-slate-400 block text-[10px] uppercase font-bold">Sistem Plat Nomor</span>
+                                    <span class="text-slate-900 font-bold">${car.plate}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Inspection Checklist Report -->
+                        <div class="bg-emerald-50/50 border border-emerald-200 p-4">
+                            <div class="flex items-center justify-between mb-3 border-b border-emerald-200 pb-2">
+                                <h4 class="text-xs font-black uppercase text-emerald-900 tracking-wider flex items-center gap-2">
+                                    <i class="fa-solid fa-clipboard-check text-emerald-600 text-base"></i> Hasil Inspeksi AUTOSEEK (160/160 Titik)
+                                </h4>
+                                <span class="bg-emerald-600 text-white text-[10px] font-black px-2 py-0.5">LULUS 100%</span>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-2 text-xs font-bold text-slate-800">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-check text-emerald-600"></i> Bebas Banjir & Rendaman
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-check text-emerald-600"></i> Bebas Kecelakaan Struktral
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-check text-emerald-600"></i> Odometer Asli & Terbukti
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-circle-check text-emerald-600"></i> Mesin & Transmisi Kering
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Interactive Credit Calculator & CTA -->
+                    <div class="lg:col-span-5 bg-slate-50 border border-slate-200 p-5 space-y-5">
+                        <div>
+                            <h4 class="text-xs font-black uppercase text-slate-900 tracking-wider mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-calculator text-sky-600"></i> Kalkulator Kredit KPM
+                            </h4>
+                            <p class="text-[11px] text-slate-500 font-medium">Hitung estimasi angsuran bulanan sesuai bajet DP Anda.</p>
+                        </div>
+
+                        <!-- Calculator Inputs -->
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-[10px] font-extrabold uppercase text-slate-500 mb-1">
+                                    Uang Muka (DP): <span id="calc-dp-text" class="text-sky-600 font-extrabold">${formatRupiah(defaultDp)} (20%)</span>
+                                </label>
+                                <input type="range" id="calc-dp-range" min="10" max="50" step="5" value="20" oninput="recalculateCredit(${car.price})" class="w-full h-2 bg-slate-200 accent-sky-600">
+                            </div>
+
+                            <div>
+                                <label class="block text-[10px] font-extrabold uppercase text-slate-500 mb-1">Jangka Waktu (Tenor)</label>
+                                <select id="calc-tenor" onchange="recalculateCredit(${car.price})" class="w-full bg-white border border-slate-300 p-2 text-xs font-bold text-slate-800">
+                                    <option value="12">12 Bulan (1 Tahun)</option>
+                                    <option value="24">24 Bulan (2 Tahun)</option>
+                                    <option value="36">36 Bulan (3 Tahun)</option>
+                                    <option value="48">48 Bulan (4 Tahun)</option>
+                                    <option value="60" selected>60 Bulan (5 Tahun)</option>
+                                </select>
+                            </div>
+
+                            <!-- Calculation Result Box -->
+                            <div class="bg-slate-900 text-white p-4 border-l-4 border-sky-500">
+                                <div class="text-[10px] uppercase font-extrabold text-slate-400">Estimasi Angsuran Per Bulan</div>
+                                <div id="calc-monthly-result" class="text-2xl font-black text-sky-400 mt-0.5">
+                                    Rp 0
+                                </div>
+                                <div class="text-[10px] text-slate-400 mt-2 pt-2 border-t border-slate-800 flex justify-between font-semibold">
+                                    <span>Pokok Utang: <strong id="calc-principal-text" class="text-white">Rp 0</strong></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Direct Call To Actions -->
+                        <div class="space-y-2 pt-2">
+                            <a href="https://wa.me/6281234567890?text=Halo%20AUTOSEEK,%20saya%20ingin%20pengajuan%20kredit%20atau%20booking%20unit%20${encodeURIComponent(car.model)}%20(ID:%20${car.id})." target="_blank" class="block w-full bg-emerald-600 hover:bg-emerald-700 text-white text-center py-3 font-extrabold text-xs uppercase tracking-wider transition">
+                                <i class="fa-brands fa-whatsapp text-base mr-1"></i> Ajukan Kredit via WhatsApp
+                            </a>
+                            <button onclick="showToast('Jadwal Test Drive berhasil dipesan! Tim Sales akan menghubungi Anda.'); closeModal();" class="block w-full bg-slate-900 hover:bg-slate-800 text-white text-center py-3 font-extrabold text-xs uppercase tracking-wider transition">
+                                <i class="fa-solid fa-calendar-check mr-1"></i> Booking Test Drive
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('car-modal').classList.remove('hidden');
+            recalculateCredit(car.price);
+        }
+
+        function closeModal() {
+            document.getElementById('car-modal').classList.add('hidden');
+        }
+
+        function recalculateCredit(carPrice) {
+            const dpPercent = parseInt(document.getElementById('calc-dp-range').value);
+            const tenorMonths = parseInt(document.getElementById('calc-tenor').value);
+
+            const dpNominal = carPrice * (dpPercent / 100);
+            const principal = carPrice - dpNominal;
+            
+            // Assume interest rates based on tenor
+            let annualRate = 0.08; // 8% flat per year assumption
+            if (tenorMonths > 36) annualRate = 0.085;
+
+            const totalInterest = principal * annualRate * (tenorMonths / 12);
+            const monthlyInstallment = (principal + totalInterest) / tenorMonths;
+
+            document.getElementById('calc-dp-text').innerText = `${formatRupiah(dpNominal)} (${dpPercent}%)`;
+            document.getElementById('calc-monthly-result').innerText = `${formatRupiah(monthlyInstallment)}/bln`;
+            document.getElementById('calc-principal-text').innerText = formatRupiah(principal);
+        }
+
+        // MOBILE DRAWER MENU TOGGLE
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // TOAST NOTIFICATION UTILITY
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const msgEl = document.getElementById('toast-message');
+            msgEl.innerText = msg;
+            toast.classList.remove('hidden');
+            toast.classList.add('flex');
+
+            setTimeout(() => {
+                toast.classList.add('hidden');
+                toast.classList.remove('flex');
+            }, 3000);
+        }
+
+        // LOCALSTORAGE PERSISTENCE
+        function saveState() {
+            try {
+                localStorage.setItem('autoseek_wishlist', JSON.stringify(wishlistIds));
+            } catch(e) {}
+        }
+
+        function loadSavedState() {
+            try {
+                const saved = localStorage.getItem('autoseek_wishlist');
+                if (saved) {
+                    wishlistIds = JSON.parse(saved);
+                    updateWishlistBadge();
+                }
+            } catch(e) {}
+        }
+    </script>
+</body>
+</html>

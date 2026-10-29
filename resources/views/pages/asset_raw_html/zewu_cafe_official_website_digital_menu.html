@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="id" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZEWU - Nongkrong, WFC & Nobar di Wiyung Surabaya</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        zewu: {
+                            bg: '#0F1117',
+                            card: '#181C26',
+                            border: '#2A303F',
+                            accent: '#FF6B00', // Warm Electric Amber/Orange
+                            accentHover: '#E05D00',
+                            glow: 'rgba(255, 107, 0, 0.25)',
+                            textMuted: '#94A3B8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Custom scrollbar & glassmorphism utilities */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0F1117;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2A303F;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FF6B00;
+        }
+        .glass-nav {
+            background: rgba(15, 17, 23, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .glow-effect {
+            box-shadow: 0 0 25px -5px rgba(255, 107, 0, 0.3);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-zewu-bg text-slate-100 font-sans antialiased selection:bg-zewu-accent selection:text-white pb-20 md:pb-0">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-gradient-to-r from-zewu-accent via-amber-600 to-orange-600 text-white text-xs md:text-sm font-semibold py-2 px-4 text-center flex items-center justify-center gap-2">
+        <i class="fa-solid fa-tv animate-pulse"></i>
+        <span>JADWAL NOBAR TIMNAS & LIGA CHAMPIONS TERBARU SUDAH RILIS!</span>
+        <a href="#nobar" class="underline hover:text-slate-200 ml-1">Cek Jadwal <i class="fa-solid fa-arrow-right text-xs"></i></a>
+    </div>
+
+    <!-- NAVBAR -->
+    <header class="sticky top-0 z-40 w-full glass-nav border-b border-zewu-border transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-zewu-accent to-orange-700 flex items-center justify-center font-display font-extrabold text-xl text-white shadow-lg group-hover:scale-105 transition-transform">
+                    Z
+                </div>
+                <div>
+                    <span class="font-display text-2xl font-bold tracking-tight text-white block leading-none">ZEWU</span>
+                    <span class="text-[10px] tracking-widest text-zewu-accent font-semibold uppercase">Wiyung • Surabaya</span>
+                </div>
+            </a>
+
+            <!-- Open / Closed Realtime Indicator (Desktop) -->
+            <div id="statusBadge" class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/80 border border-zewu-border text-xs font-medium">
+                <!-- Javascript dynamic insertion -->
+            </div>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-300">
+                <a href="#about" class="hover:text-zewu-accent transition-colors">Tentang Zewu</a>
+                <a href="#zones" class="hover:text-zewu-accent transition-colors">Fasilitas Area</a>
+                <a href="#menu" class="hover:text-zewu-accent transition-colors">Menu Digital</a>
+                <a href="#nobar" class="hover:text-zewu-accent transition-colors">Jadwal Nobar</a>
+                <a href="#location" class="hover:text-zewu-accent transition-colors">Lokasi & Jam</a>
+            </nav>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center gap-3">
+                <!-- Cart / Order Basket Badge Trigger -->
+                <button onclick="toggleOrderDrawer()" class="relative p-2.5 rounded-xl bg-zewu-card border border-zewu-border text-slate-200 hover:border-zewu-accent hover:text-zewu-accent transition-all">
+                    <i class="fa-solid fa-receipt text-lg"></i>
+                    <span id="cartCount" class="absolute -top-1.5 -right-1.5 bg-zewu-accent text-white text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center border-2 border-zewu-bg hidden">0</span>
+                </button>
+
+                <!-- Reservasi WA Button -->
+                <a href="https://wa.me/6281234567890?text=Halo%20Zewu%20Wiyung,%20saya%20mau%20tanya%20reservasi%20meja" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zewu-accent hover:bg-zewu-accentHover text-white font-semibold text-sm transition-all shadow-md hover:shadow-zewu-accent/20">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Reservasi</span>
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2.5 rounded-xl bg-zewu-card border border-zewu-border text-slate-300 hover:text-white">
+                    <i id="mobileMenuIcon" class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Overlay Dropdown -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-zewu-card border-b border-zewu-border px-4 pt-3 pb-6 space-y-3">
+            <div id="mobileStatusBadge" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-900 border border-zewu-border text-xs font-medium w-fit mb-2"></div>
+            <a href="#about" onclick="toggleMobileMenu()" class="block py-2 text-slate-300 hover:text-zewu-accent font-medium">Tentang Zewu</a>
+            <a href="#zones" onclick="toggleMobileMenu()" class="block py-2 text-slate-300 hover:text-zewu-accent font-medium">Fasilitas Area (Indoor/Outdoor)</a>
+            <a href="#menu" onclick="toggleMobileMenu()" class="block py-2 text-slate-300 hover:text-zewu-accent font-medium">Menu & Harga</a>
+            <a href="#nobar" onclick="toggleMobileMenu()" class="block py-2 text-slate-300 hover:text-zewu-accent font-medium">Jadwal Nobar</a>
+            <a href="#location" onclick="toggleMobileMenu()" class="block py-2 text-slate-300 hover:text-zewu-accent font-medium">Lokasi & Kontak</a>
+            <a href="https://wa.me/6281234567890?text=Halo%20Zewu%20Wiyung,%20saya%20mau%20tanya%20reservasi%20meja" target="_blank" class="w-full mt-2 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-zewu-accent text-white font-semibold text-sm">
+                <i class="fa-brands fa-whatsapp text-lg"></i>
+                <span>Reservasi Meja via WA</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative overflow-hidden pt-8 pb-16 lg:py-24">
+        <!-- Background Ambient Glow & Patterns -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-zewu-accent/15 rounded-full blur-[120px] pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Column Text Content -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zewu-accent/10 border border-zewu-accent/30 text-zewu-accent text-xs font-bold uppercase tracking-wider">
+                        <i class="fa-solid fa-location-dot"></i> Jl. Raya Menganti Kramat No.102, Wiyung
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-extrabold text-white leading-tight">
+                        Nongkrong Santuy, <br class="hidden sm:inline"/>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-zewu-accent via-amber-400 to-orange-500">WFC Nyaman,</span> & Nobar Seru.
+                    </h1>
+
+                    <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                        Spot favorit anak muda Wiyung & Surabaya Barat. Nikmati ruang indoor AC dingin untuk fokus nugas/kerja, serta area outdoor luas berlayar TV besar untuk nobar komunitas. Harga kantong mahasiswa, buka sampai jam 1 malam!
+                    </p>
+
+                    <!-- Quick Key Features Badges -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                        <div class="p-3 rounded-xl bg-zewu-card/80 border border-zewu-border text-center">
+                            <i class="fa-solid fa-wifi text-zewu-accent text-xl mb-1"></i>
+                            <div class="text-xs font-bold text-white">Free Wi-Fi 100Mbps</div>
+                            <div class="text-[10px] text-slate-400">Kencang & Stabil</div>
+                        </div>
+                        <div class="p-3 rounded-xl bg-zewu-card/80 border border-zewu-border text-center">
+                            <i class="fa-solid fa-plug text-zewu-accent text-xl mb-1"></i>
+                            <div class="text-xs font-bold text-white">Banyak Colokan</div>
+                            <div class="text-[10px] text-slate-400">Di Setiap Meja</div>
+                        </div>
+                        <div class="p-3 rounded-xl bg-zewu-card/80 border border-zewu-border text-center">
+                            <i class="fa-solid fa-tv text-zewu-accent text-xl mb-1"></i>
+                            <div class="text-xs font-bold text-white">Layar TV Nobar</div>
+                            <div class="text-[10px] text-slate-400">Outdoor Area</div>
+                        </div>
+                        <div class="p-3 rounded-xl bg-zewu-card/80 border border-zewu-border text-center">
+                            <i class="fa-solid fa-clock text-zewu-accent text-xl mb-1"></i>
+                            <div class="text-xs font-bold text-white">Buka s/d 01.00</div>
+                            <div class="text-[10px] text-slate-400">Setiap Hari</div>
+                        </div>
+                    </div>
+
+                    <!-- Call to Action Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#menu" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-zewu-accent hover:bg-zewu-accentHover text-white font-bold text-base shadow-lg shadow-zewu-accent/25 transition-all text-center flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-utensils"></i>
+                            <span>Lihat Menu & Harga</span>
+                        </a>
+                        <a href="https://maps.app.goo.gl/9Pvx3XN93361h86k6" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-zewu-card hover:bg-slate-800 border border-zewu-border text-white font-semibold text-base transition-all text-center flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-map-location-dot text-zewu-accent"></i>
+                            <span>Petunjuk Arah (Maps)</span>
+                        </a>
+                    </div>
+
+                    <!-- Google Reviews Proof Banner -->
+                    <div class="pt-4 flex items-center justify-center lg:justify-start gap-4 border-t border-zewu-border/60">
+                        <div class="flex items-center gap-1 text-amber-400">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                        </div>
+                        <div class="text-xs text-slate-300">
+                            <strong class="text-white">4.2 / 5.0</strong> dari <span class="underline">470+ Ulasan Google Maps</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Column Visual Card / Image Showcase -->
+                <div class="lg:col-span-5 relative">
+                    <div class="relative rounded-2xl overflow-hidden border border-zewu-border bg-zewu-card shadow-2xl group">
+                        <!-- Card Hero Image Placeholder representing Zewu's vibe -->
+                        <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=1000&auto=format&fit=crop" alt="Suasana Zewu Wiyung" class="w-full h-[380px] sm:h-[450px] object-cover group-hover:scale-105 transition-transform duration-700">
+                        
+                        <div class="absolute inset-0 bg-gradient-to-t from-zewu-bg via-transparent to-transparent"></div>
+
+                        <!-- Floating Live Card Overlay -->
+                        <div class="absolute bottom-4 left-4 right-4 p-4 rounded-xl glass-nav border border-slate-700/60 shadow-xl backdrop-blur-md">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-lg bg-zewu-accent/20 border border-zewu-accent text-zewu-accent flex items-center justify-center">
+                                        <i class="fa-solid fa-mug-hot text-xl"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-sm font-bold text-white">Kopi Susu Zewu</h4>
+                                        <p class="text-xs text-slate-400">Signature Es Kopi Susu Aren • Rp 15.000</p>
+                                    </div>
+                                </div>
+                                <span class="px-2.5 py-1 rounded-full bg-zewu-accent/20 border border-zewu-accent/40 text-[10px] font-bold text-zewu-accent uppercase">
+                                    Best Seller
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- DUAL ZONES EXPERIENCE (INDOOR WFC VS OUTDOOR NOBAR) -->
+    <section id="zones" class="py-16 bg-slate-950/60 border-y border-zewu-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-zewu-accent font-bold text-xs uppercase tracking-widest">Dua Zona Suasana</span>
+                <h2 class="text-3xl sm:text-4xl font-display font-bold text-white mt-2">Pilih Vibes Nongkrong Favoritmu</h2>
+                <p class="text-slate-400 text-sm sm:text-base mt-2">
+                    Apakah kamu butuh ketenangan untuk kerja/nugas, atau suasana ramai bersama komunitas? Zewu punya ruang ideal untuk keduanya.
+                </p>
+            </div>
+
+            <!-- Toggle Buttons -->
+            <div class="flex justify-center mb-8">
+                <div class="inline-flex p-1.5 rounded-2xl bg-zewu-card border border-zewu-border">
+                    <button id="btnIndoor" onclick="switchZone('indoor')" class="px-6 py-2.5 rounded-xl font-bold text-sm transition-all bg-zewu-accent text-white shadow-md">
+                        <i class="fa-solid fa-laptop-code mr-2"></i> Indoor AC (WFC & Nugas)
+                    </button>
+                    <button id="btnOutdoor" onclick="switchZone('outdoor')" class="px-6 py-2.5 rounded-xl font-bold text-sm transition-all text-slate-400 hover:text-white">
+                        <i class="fa-solid fa-users mr-2"></i> Outdoor (Nobar & Nongkrong)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Zone Content Display -->
+            <!-- INDOOR CONTENT -->
+            <div id="zoneIndoor" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-6 space-y-4">
+                    <div class="inline-block px-3 py-1 rounded-md bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-semibold">
+                        ❄️ Ruangan Ber-AC & Tenang
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-bold text-white">Indoor Area: Surga Penggemar WFC & Mahasiswa</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Dirancang khusus untuk kamu yang butuh ruang produktif. Dilengkapi pendingin udara (AC), pencahayaan yang pas untuk fokus, serta akses stopkontak listrik di hampir setiap meja.
+                    </p>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-zewu-accent"></i> Wi-Fi kencang bebas hambatan untuk Zoom & Tugas</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-zewu-accent"></i> Tempat duduk ergonomis & meja lapang</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-zewu-accent"></i> Bebas asap rokok (Non-smoking area)</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-zewu-accent"></i> Tersedia fasilitas Kursi Pijat relaksasi</li>
+                    </ul>
+                </div>
+                <div class="lg:col-span-6">
+                    <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?q=80&w=1000&auto=format&fit=crop" alt="Indoor WFC Zewu" class="rounded-2xl border border-zewu-border w-full h-[320px] object-cover shadow-lg">
+                </div>
+            </div>
+
+            <!-- OUTDOOR CONTENT (HIDDEN BY DEFAULT) -->
+            <div id="zoneOutdoor" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-6 space-y-4">
+                    <div class="inline-block px-3 py-1 rounded-md bg-orange-500/10 border border-orange-500/30 text-orange-400 text-xs font-semibold">
+                        🌙 Area Luas & Smoker Friendly
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-bold text-white">Outdoor Area: Pusat Nobar & Cangkrukan Malam</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Nikmati angin malam Surabaya Barat sambil ngobrol santai atau menyaksikan laga tim sepak bola favoritmu di layar proyeksi / TV besar. Suasana santai dan penuh kehangatan.
+                    </p>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-zewu-accent"></i> Layar TV besar khusus Nobar Liga & Timnas</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-zewu-accent"></i> Area merokok (Smoker friendly) yang lapang</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-zewu-accent"></i> Cocok untuk kumpul komunitas motor / alumni</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-zewu-accent"></i> Menu cemilan sharing porsi puas</li>
+                    </ul>
+                </div>
+                <div class="lg:col-span-6">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1000&auto=format&fit=crop" alt="Outdoor Nobar Zewu" class="rounded-2xl border border-zewu-border w-full h-[320px] object-cover shadow-lg">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- DIGITAL MENU SECTION (INTERACTIVE) -->
+    <section id="menu" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+            <div>
+                <span class="text-zewu-accent font-bold text-xs uppercase tracking-widest">Menu Digital & Harga</span>
+                <h2 class="text-3xl sm:text-4xl font-display font-bold text-white mt-1">Ramah Kantong Mahasiswa</h2>
+                <p class="text-slate-400 text-sm mt-1">Pilih menu favoritmu dan tambahkan ke daftar pesanan untuk disimulasikan!</p>
+            </div>
+
+            <!-- Search Bar Input -->
+            <div class="relative w-full md:w-72">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                <input type="text" id="menuSearch" oninput="filterMenu()" placeholder="Cari kopi, mie, snack..." class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-zewu-card border border-zewu-border text-white text-sm focus:outline-none focus:border-zewu-accent transition-colors">
+            </div>
+        </div>
+
+        <!-- Category Filter Pills -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-4 mb-6 hide-scrollbar">
+            <button onclick="setCategory('all')" class="cat-btn active border px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all bg-zewu-accent border-zewu-accent text-white" data-cat="all">
+                Semua Menu
+            </button>
+            <button onclick="setCategory('kopi')" class="cat-btn border px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all bg-zewu-card border-zewu-border text-slate-300 hover:border-zewu-accent" data-cat="kopi">
+                ☕ Kopi & Espresso
+            </button>
+            <button onclick="setCategory('non-kopi')" class="cat-btn border px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all bg-zewu-card border-zewu-border text-slate-300 hover:border-zewu-accent" data-cat="non-kopi">
+                🧋 Non-Coffee & Refreshers
+            </button>
+            <button onclick="setCategory('snack')" class="cat-btn border px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all bg-zewu-card border-zewu-border text-slate-300 hover:border-zewu-accent" data-cat="snack">
+                🍟 Sharing Snacks
+            </button>
+            <button onclick="setCategory('makanan')" class="cat-btn border px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all bg-zewu-card border-zewu-border text-slate-300 hover:border-zewu-accent" data-cat="makanan">
+                🍚 Rice Bowl & Makan Kenyung
+            </button>
+        </div>
+
+        <!-- Menu Grid Container -->
+        <div id="menuGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Dynamic JavaScript Insertion of Menu Cards -->
+        </div>
+
+        <!-- Empty state message if search finds nothing -->
+        <div id="emptyMenuState" class="hidden text-center py-12 text-slate-400">
+            <i class="fa-solid fa-utensils text-4xl mb-3 text-slate-600"></i>
+            <p>Menu yang kamu cari tidak ditemukan. Coba kata kunci lain.</p>
+        </div>
+    </section>
+
+    <!-- NOBAR & EVENT SCHEDULE HUB -->
+    <section id="nobar" class="py-16 bg-zewu-card/50 border-y border-zewu-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-10 gap-4">
+                <div>
+                    <span class="text-zewu-accent font-bold text-xs uppercase tracking-widest">Matchday Hub</span>
+                    <h2 class="text-3xl sm:text-4xl font-display font-bold text-white mt-1">Jadwal Nonton Bersama (Nobar)</h2>
+                    <p class="text-slate-400 text-sm mt-1">Datang lebih awal untuk mengamankan posisi duduk terbaik di outdoor area!</p>
+                </div>
+                <a href="https://wa.me/6281234567890?text=Halo%20Zewu,%20saya%20mau%20booking%20meja%20untuk%20Nobar" target="_blank" class="px-5 py-2.5 rounded-xl bg-zewu-accent hover:bg-zewu-accentHover text-white text-xs font-bold flex items-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-base"></i> Booking Meja Nobar
+                </a>
+            </div>
+
+            <!-- Schedule Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Match 1 -->
+                <div class="p-6 rounded-2xl bg-zewu-card border border-zewu-border relative overflow-hidden group hover:border-zewu-accent/60 transition-all">
+                    <div class="flex items-center justify-between text-xs text-slate-400 mb-4">
+                        <span class="px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-amber-400 font-semibold">PREMIER LEAGUE</span>
+                        <span>Sabtu, 23:00 WIB</span>
+                    </div>
+                    <div class="flex items-center justify-around my-6 text-center">
+                        <div>
+                            <div class="w-12 h-12 mx-auto mb-2 rounded-full bg-red-900/40 border border-red-500/50 flex items-center justify-center font-bold text-red-400">MUN</div>
+                            <span class="text-xs font-bold text-white">Man. United</span>
+                        </div>
+                        <span class="text-lg font-extrabold text-zewu-accent font-display">VS</span>
+                        <div>
+                            <div class="w-12 h-12 mx-auto mb-2 rounded-full bg-blue-900/40 border border-blue-500/50 flex items-center justify-center font-bold text-blue-400">CHE</div>
+                            <span class="text-xs font-bold text-white">Chelsea</span>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-zewu-border/60 flex items-center justify-between text-xs">
+                        <span class="text-slate-400"><i class="fa-solid fa-tv text-zewu-accent"></i> Screen Outdoor 1</span>
+                        <span class="text-emerald-400 font-bold"><i class="fa-solid fa-circle text-[8px]"></i> Open Table</span>
+                    </div>
+                </div>
+
+                <!-- Match 2 -->
+                <div class="p-6 rounded-2xl bg-zewu-card border border-zewu-border relative overflow-hidden group hover:border-zewu-accent/60 transition-all">
+                    <div class="flex items-center justify-between text-xs text-slate-400 mb-4">
+                        <span class="px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-red-400 font-semibold">TIMNAS DAY</span>
+                        <span>Minggu, 19:00 WIB</span>
+                    </div>
+                    <div class="flex items-center justify-around my-6 text-center">
+                        <div>
+                            <div class="w-12 h-12 mx-auto mb-2 rounded-full bg-red-600/30 border border-red-500 flex items-center justify-center font-bold text-white">IDN</div>
+                            <span class="text-xs font-bold text-white">Indonesia</span>
+                        </div>
+                        <span class="text-lg font-extrabold text-zewu-accent font-display">VS</span>
+                        <div>
+                            <div class="w-12 h-12 mx-auto mb-2 rounded-full bg-slate-700 border border-slate-500 flex items-center justify-center font-bold text-slate-300">JPN</div>
+                            <span class="text-xs font-bold text-white">Jepang</span>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-zewu-border/60 flex items-center justify-between text-xs">
+                        <span class="text-slate-400"><i class="fa-solid fa-tv text-zewu-accent"></i> Dual Screen Outdoor</span>
+                        <span class="text-amber-400 font-bold"><i class="fa-solid fa-fire text-[10px]"></i> Cepat Penuh</span>
+                    </div>
+                </div>
+
+                <!-- Match 3 -->
+                <div class="p-6 rounded-2xl bg-zewu-card border border-zewu-border relative overflow-hidden group hover:border-zewu-accent/60 transition-all">
+                    <div class="flex items-center justify-between text-xs text-slate-400 mb-4">
+                        <span class="px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-blue-400 font-semibold">CHAMPIONS LEAGUE</span>
+                        <span>Rabu, 02:00 WIB</span>
+                    </div>
+                    <div class="flex items-center justify-around my-6 text-center">
+                        <div>
+                            <div class="w-12 h-12 mx-auto mb-2 rounded-full bg-purple-900/40 border border-purple-500/50 flex items-center justify-center font-bold text-purple-300">RMA</div>
+                            <span class="text-xs font-bold text-white">Real Madrid</span>
+                        </div>
+                        <span class="text-lg font-extrabold text-zewu-accent font-display">VS</span>
+                        <div>
+                            <div class="w-12 h-12 mx-auto mb-2 rounded-full bg-red-900/40 border border-red-500/50 flex items-center justify-center font-bold text-red-300">BAY</div>
+                            <span class="text-xs font-bold text-white">Bayern</span>
+                        </div>
+                    </div>
+                    <div class="pt-4 border-t border-zewu-border/60 flex items-center justify-between text-xs">
+                        <span class="text-slate-400"><i class="fa-solid fa-tv text-zewu-accent"></i> Big Projector Area</span>
+                        <span class="text-emerald-400 font-bold"><i class="fa-solid fa-circle text-[8px]"></i> Open Table</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- GOOGLE REVIEWS / SOCIAL PROOF -->
+    <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <span class="text-zewu-accent font-bold text-xs uppercase tracking-widest">Ulasan Pengunjung</span>
+            <h2 class="text-3xl font-display font-bold text-white mt-1">Apa Kata Mereka Tentang Zewu?</h2>
+            <p class="text-slate-400 text-sm mt-1">Diambil langsung dari Google Maps Reviews Zewu Wiyung</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Review 1 -->
+            <div class="p-6 rounded-2xl bg-zewu-card border border-zewu-border space-y-3">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full bg-amber-500/20 text-amber-400 font-bold flex items-center justify-center text-sm">
+                            A
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold text-white">Aditya Pratama</h4>
+                            <span class="text-[10px] text-slate-400">Local Guide • 3 minggu lalu</span>
+                        </div>
+                    </div>
+                    <div class="flex text-amber-400 text-xs">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                </div>
+                <p class="text-slate-300 text-xs leading-relaxed">
+                    "Tempat WFC paling recommended di daerah Wiyung. Indoornya AC dingin, wifi kencang gak nyendat pas dipakai meet online, colokan listrik banyak. Harga kopi susunya cuma 15rb-an tapi enaknya pas!"
+                </p>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="p-6 rounded-2xl bg-zewu-card border border-zewu-border space-y-3">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center text-sm">
+                            R
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold text-white">Rina Setyowati</h4>
+                            <span class="text-[10px] text-slate-400">Pengunjung Setia • 1 bulan lalu</span>
+                        </div>
+                    </div>
+                    <div class="flex text-amber-400 text-xs">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                </div>
+                <p class="text-slate-300 text-xs leading-relaxed">
+                    "Sering kesini pas ada jadwal nobar bola Timnas. Seru banget ramenya di area outdoor! Parkirannya lumayan luas buat motor & mobil. Toiletnya bersih dan pelayanannya ramah."
+                </p>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="p-6 rounded-2xl bg-zewu-card border border-zewu-border space-y-3">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full bg-purple-500/20 text-purple-400 font-bold flex items-center justify-center text-sm">
+                            D
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold text-white">Dimas Bagus</h4>
+                            <span class="text-[10px] text-slate-400">Mahasiswa • 2 bulan lalu</span>
+                        </div>
+                    </div>
+                    <div class="flex text-amber-400 text-xs">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                    </div>
+                </div>
+                <p class="text-slate-300 text-xs leading-relaxed">
+                    "Buka sampai jam 1 malam jadi penyelamat kalau butuh nugas deadline malam-malam. Snack camilannya murah porsinya lumayan banyak. Ada kursi pijatnya juga lumayan kalau pegel!"
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOCATION, OPERATING HOURS & MAPS -->
+    <section id="location" class="py-16 bg-slate-950 border-t border-zewu-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                
+                <!-- Info Left -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div>
+                        <span class="text-zewu-accent font-bold text-xs uppercase tracking-widest">Informasi Praktis</span>
+                        <h2 class="text-3xl font-display font-bold text-white mt-1">Lokasi & Jam Operasional</h2>
+                    </div>
+
+                    <div class="space-y-4 text-sm">
+                        <div class="flex items-start gap-3 p-3.5 rounded-xl bg-zewu-card border border-zewu-border">
+                            <i class="fa-solid fa-map-pin text-zewu-accent text-lg mt-0.5"></i>
+                            <div>
+                                <strong class="text-white block">Alamat Lengkap:</strong>
+                                <span class="text-slate-300 text-xs">Jl. Raya Menganti Kramat No.102, Wiyung, Kec. Wiyung, Surabaya, Jawa Timur 60228</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3 p-3.5 rounded-xl bg-zewu-card border border-zewu-border">
+                            <i class="fa-solid fa-clock text-zewu-accent text-lg mt-0.5"></i>
+                            <div>
+                                <strong class="text-white block">Jam Operasional:</strong>
+                                <span class="text-slate-300 text-xs block">Senin - Minggu: 11.00 - 01.00 WIB</span>
+                                <span class="text-[10px] text-emerald-400 font-semibold">*Buka Setiap Hari Tanpa Libur</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3 p-3.5 rounded-xl bg-zewu-card border border-zewu-border">
+                            <i class="fa-solid fa-square-parking text-zewu-accent text-lg mt-0.5"></i>
+                            <div>
+                                <strong class="text-white block">Fasilitas Parkir & Akses:</strong>
+                                <span class="text-slate-300 text-xs">Parkiran luas untuk Motor & Mobil, lokasi tepat di pinggir jalan utama Menganti Wiyung.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2 flex gap-3">
+                        <a href="https://maps.app.goo.gl/9Pvx3XN93361h86k6" target="_blank" class="flex-1 py-3 rounded-xl bg-zewu-accent hover:bg-zewu-accentHover text-white font-bold text-xs text-center flex items-center justify-center gap-2 transition-all">
+                            <i class="fa-solid fa-diamond-turn-right text-base"></i> Buka Google Maps Navigasi
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Google Maps Embedded iframe Placeholder / Interactive Embed -->
+                <div class="lg:col-span-7 h-[380px] rounded-2xl overflow-hidden border border-zewu-border shadow-xl relative bg-zewu-card">
+                    <iframe 
+                        title="Peta Lokasi Zewu Wiyung"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.510344078864!2d112.7039418!3d-7.3128298!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fd5b5a50f49b%3A0x52f29005d0094cb!2sZewu!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0; filter: grayscale(0.8) contrast(1.2) opacity(0.85);" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-10 border-t border-zewu-border text-slate-500 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-7 h-7 rounded-lg bg-zewu-accent flex items-center justify-center font-bold text-white text-sm">Z</div>
+                <span class="text-slate-300 font-bold">ZEWU Wiyung Surabaya</span>
+            </div>
+            <p>© 2026 Zewu Cafe & Lounge. All Rights Reserved.</p>
+            <div class="flex items-center gap-4 text-slate-400">
+                <a href="https://instagram.com" target="_blank" class="hover:text-zewu-accent text-base"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://tiktok.com" target="_blank" class="hover:text-zewu-accent text-base"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="https://wa.me/6281234567890" target="_blank" class="hover:text-zewu-accent text-base"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ORDER / LIST DRAWER SLIDE-OVER (SIMULATION) -->
+    <div id="orderDrawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <!-- Backdrop -->
+        <div onclick="toggleOrderDrawer()" class="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+        
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-zewu-card border-l border-zewu-border flex flex-col justify-between shadow-2xl">
+                <!-- Drawer Header -->
+                <div class="p-6 border-b border-zewu-border flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-receipt text-zewu-accent text-xl"></i>
+                        <h3 class="text-lg font-bold text-white">Daftar Pilihan Menu</h3>
+                    </div>
+                    <button onclick="toggleOrderDrawer()" class="text-slate-400 hover:text-white text-xl">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Drawer Items List -->
+                <div id="cartItemsContainer" class="p-6 flex-1 overflow-y-auto space-y-4">
+                    <!-- Dynamic cart items JS -->
+                </div>
+
+                <!-- Drawer Footer & Total -->
+                <div class="p-6 border-t border-zewu-border space-y-4 bg-slate-900/50">
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-slate-400">Estimasi Total:</span>
+                        <span id="cartTotal" class="text-xl font-bold text-zewu-accent font-display">Rp 0</span>
+                    </div>
+                    <p class="text-[11px] text-slate-400 leading-tight">
+                        *Catatan: Fitur ini dapat digunakan untuk menyimpan daftar pesanan sebelum kasir atau pemesanan langsung dari meja.
+                    </p>
+                    <button onclick="sendOrderWA()" class="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm flex items-center justify-center gap-2 transition-all">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> Kirim Pesanan / Tanya Kasir via WA
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 px-4 py-3 rounded-xl bg-zewu-accent text-white font-bold text-xs shadow-2xl transition-all duration-300 opacity-0 translate-y-10 pointer-events-none flex items-center gap-2">
+        <i class="fa-solid fa-circle-check text-sm"></i>
+        <span id="toastMessage">Menu ditambahkan!</span>
+    </div>
+
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // MENU DATA STORE
+        const MENU_DATA = [
+            {
+                id: 'm1',
+                name: 'Kopi Susu Zewu',
+                category: 'kopi',
+                price: 15000,
+                badge: 'Best Seller',
+                desc: 'Espresso blend khas Zewu + susu segar + gula aren asli.',
+                img: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?q=80&w=600&auto=format&fit=crop'
+            },
+            {
+                id: 'm2',
+                name: 'Americano Ice',
+                category: 'kopi',
+                price: 12000,
+                badge: 'WFC Companion',
+                desc: 'Double shot espresso dingin yang mantap untuk menemani nugas.',
+                img: 'https://images.unsplash.com/photo-1517256064527-09c73fc73e38?q=80&w=600&auto=format&fit=crop'
+            },
+            {
+                id: 'm3',
+                name: 'Caramel Macchiato',
+                category: 'kopi',
+                price: 18000,
+                badge: 'Favorite',
+                desc: 'Perpaduan espresso manis gurih dengan saus karamel leleh.',
+                img: 'https://images.unsplash.com/photo-1485808191679-5f86510681a2?q=80&w=600&auto=format&fit=crop'
+            },
+            {
+                id: 'm4',
+                name: 'Matcha Creamy Latte',
+                category: 'non-kopi',
+                price: 17000,
+                badge: 'Best Seller',
+                desc: 'Uji matcha Jepang harum dengan kelembutan susu murni.',
+                img: 'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?q=80&w=600&auto=format&fit=crop'
+            },
+            {
+                id: 'm5',
+                name: 'Fresh Lychee Tea',
+                category: 'non-kopi',
+                price: 14000,
+                badge: 'Segar',
+                desc: 'Teh seduh dingin dengan sirup dan buah kelengkeng/lici utuh.',
+                img: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?q=80&w=600&auto=format&fit=crop'
+            },
+            {
+                id: 'm6',
+                name: 'Chocolate Cream Float',
+                category: 'non-kopi',
+                price: 16000,
+                badge: '',
+                desc: 'Cokelat pekat dingin ditaburi foam dan topping cokelat parut.',
+                img: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?q=80&w=600&auto=format&fit=crop'
+            },
+            {
+                id: 'm7',
+                name: 'French Fries Extra Seasoning',
+                category: 'snack',
+                price: 13000,
+                badge: 'Sharing',
+                desc: 'Kentang goreng renyah dengan bumbu gurih BBQ / Keu.',
+                img: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?q=80&w=600&auto=format&fit=crop'
+            },
+            {
+                id: 'm8',
+                name: 'Cireng Bumbu Rujak',
+                category: 'snack',
+                price: 12000,
+                badge: 'Nongkrong',
+                desc: 'Cireng crispy hangat dipadu cocolan saus rujak pedas manis.',
+                img: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=600&auto=format&fit=crop'
+            },
+            {
+                id: 'm9',
+                name: 'Rice Bowl Ayam Crispy Sambal Matah',
+                category: 'makanan',
+                price: 22000,
+                badge: 'Kenyang',
+                desc: 'Nasi hangat, ayam fillet crispy, plus racikan sambal matah segar.',
+                img: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=600&auto=format&fit=crop'
+            },
+            {
+                id: 'm10',
+                name: 'Mie Goreng Spesial Zewu',
+                category: 'makanan',
+                price: 18000,
+                badge: 'Late Night Craving',
+                desc: 'Mie goreng racikan spesial dengan telur ceplok & sosis.',
+                img: 'https://images.unsplash.com/photo-1612927601601-6638404737ce?q=80&w=600&auto=format&fit=crop'
+            }
+        ];
+
+        // CART STATE
+        let cart = [];
+        let activeCategory = 'all';
+
+        // INIT ON LOAD
+        window.addEventListener('DOMContentLoaded', () => {
+            updateOperatingStatus();
+            renderMenu();
+            // Check status every 60s
+            setInterval(updateOperatingStatus, 60000);
+        });
+
+        // 1. OPERATING STATUS LOGIC (11.00 - 01.00 WIB)
+        function updateOperatingStatus() {
+            const now = new Date();
+            // Get WIB time (UTC+7)
+            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+            const wibTime = new Date(utc + (3600000 * 7));
+            
+            const hours = wibTime.getHours();
+            
+            // Open from 11:00 AM (11) up to 01:00 AM (1) next morning
+            const isOpen = (hours >= 11 || hours < 1);
+
+            const badgeHtml = isOpen 
+                ? `<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+                   <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 -ml-4"></span>
+                   <span class="text-emerald-400 font-bold">BUKA SEKARANG</span>
+                   <span class="text-slate-400">(11.00 - 01.00 WIB)</span>`
+                : `<span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+                   <span class="text-rose-400 font-bold">TUTUP SEKARANG</span>
+                   <span class="text-slate-400">(Buka 11.00 WIB)</span>`;
+
+            document.getElementById('statusBadge').innerHTML = badgeHtml;
+            document.getElementById('mobileStatusBadge').innerHTML = badgeHtml;
+        }
+
+        // 2. SWITCH ZONE (INDOOR VS OUTDOOR)
+        function switchZone(zone) {
+            const btnIndoor = document.getElementById('btnIndoor');
+            const btnOutdoor = document.getElementById('btnOutdoor');
+            const zoneIndoor = document.getElementById('zoneIndoor');
+            const zoneOutdoor = document.getElementById('zoneOutdoor');
+
+            if (zone === 'indoor') {
+                btnIndoor.className = "px-6 py-2.5 rounded-xl font-bold text-sm transition-all bg-zewu-accent text-white shadow-md";
+                btnOutdoor.className = "px-6 py-2.5 rounded-xl font-bold text-sm transition-all text-slate-400 hover:text-white";
+                zoneIndoor.classList.remove('hidden');
+                zoneOutdoor.classList.add('hidden');
+            } else {
+                btnOutdoor.className = "px-6 py-2.5 rounded-xl font-bold text-sm transition-all bg-zewu-accent text-white shadow-md";
+                btnIndoor.className = "px-6 py-2.5 rounded-xl font-bold text-sm transition-all text-slate-400 hover:text-white";
+                zoneOutdoor.classList.remove('hidden');
+                zoneIndoor.classList.add('hidden');
+            }
+        }
+
+        // 3. RENDER DIGITAL MENU
+        function renderMenu() {
+            const grid = document.getElementById('menuGrid');
+            const emptyState = document.getElementById('emptyMenuState');
+            const searchVal = document.getElementById('menuSearch').value.toLowerCase().trim();
+
+            const filtered = MENU_DATA.filter(item => {
+                const matchCategory = (activeCategory === 'all' || item.category === activeCategory);
+                const matchSearch = item.name.toLowerCase().includes(searchVal) || item.desc.toLowerCase().includes(searchVal);
+                return matchCategory && matchSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            
+            grid.innerHTML = filtered.map(item => `
+                <div class="bg-zewu-card rounded-2xl border border-zewu-border overflow-hidden flex flex-col justify-between hover:border-zewu-accent/50 transition-all duration-300 group">
+                    <div>
+                        <div class="relative h-44 overflow-hidden bg-slate-900">
+                            <img src="${item.img}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                            ${item.badge ? `<span class="absolute top-3 left-3 bg-zewu-accent text-white text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-md shadow-md">${item.badge}</span>` : ''}
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-bold text-white text-base group-hover:text-zewu-accent transition-colors">${item.name}</h3>
+                            <p class="text-xs text-slate-400 mt-1 line-clamp-2">${item.desc}</p>
+                        </div>
+                    </div>
+
+                    <div class="p-5 pt-0 flex items-center justify-between border-t border-zewu-border/40 mt-2 pt-3">
+                        <div>
+                            <span class="text-[10px] text-slate-400 block">Harga</span>
+                            <span class="text-sm font-extrabold text-white font-display">Rp ${item.price.toLocaleString('id-ID')}</span>
+                        </div>
+                        <button onclick="addToCart('${item.id}')" class="px-3.5 py-2 rounded-xl bg-zewu-border hover:bg-zewu-accent text-slate-200 hover:text-white font-bold text-xs transition-all flex items-center gap-1.5">
+                            <i class="fa-solid fa-plus text-xs"></i> Pilih
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 4. CATEGORY & SEARCH FILTER
+        function setCategory(cat) {
+            activeCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                if (btn.dataset.cat === cat) {
+                    btn.className = "cat-btn active border px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all bg-zewu-accent border-zewu-accent text-white";
+                } else {
+                    btn.className = "cat-btn border px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all bg-zewu-card border-zewu-border text-slate-300 hover:border-zewu-accent";
+                }
+            });
+            renderMenu();
+        }
+
+        function filterMenu() {
+            renderMenu();
+        }
+
+        // 5. CART / ORDER SIMULATION LOGIC
+        function addToCart(itemId) {
+            const item = MENU_DATA.find(i => i.id === itemId);
+            if (!item) return;
+
+            const existing = cart.find(c => c.id === itemId);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...item, qty: 1 });
+            }
+
+            updateCartUI();
+            showToast(`"${item.name}" ditambahkan!`);
+        }
+
+        function changeQty(itemId, delta) {
+            const idx = cart.findIndex(c => c.id === itemId);
+            if (idx > -1) {
+                cart[idx].qty += delta;
+                if (cart[idx].qty <= 0) {
+                    cart.splice(idx, 1);
+                }
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cartItemsContainer');
+            const totalEl = document.getElementById('cartTotal');
+            const badgeEl = document.getElementById('cartCount');
+
+            const totalItems = cart.reduce((acc, curr) => acc + curr.qty, 0);
+            const totalPrice = cart.reduce((acc, curr) => acc + (curr.price * curr.qty), 0);
+
+            // Update badge
+            if (totalItems > 0) {
+                badgeEl.innerText = totalItems;
+                badgeEl.classList.remove('hidden');
+            } else {
+                badgeEl.classList.add('hidden');
+            }
+
+            // Update total price display
+            totalEl.innerText = `Rp ${totalPrice.toLocaleString('id-ID')}`;
+
+            // Render drawer items
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-slate-400">
+                        <i class="fa-solid fa-cart-flatbed text-4xl mb-3 text-slate-600"></i>
+                        <p class="text-sm">Belum ada menu yang dipilih.</p>
+                        <p class="text-xs text-slate-500 mt-1">Klik tombol "+ Pilih" di bagian menu.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = cart.map(c => `
+                <div class="flex items-center justify-between p-3 rounded-xl bg-slate-900 border border-zewu-border">
+                    <div class="flex-1 pr-3">
+                        <h4 class="text-xs font-bold text-white">${c.name}</h4>
+                        <span class="text-[11px] text-zewu-accent font-semibold">Rp ${(c.price * c.qty).toLocaleString('id-ID')}</span>
+                    </div>
+                    <div class="flex items-center gap-2 bg-zewu-card px-2 py-1 rounded-lg border border-zewu-border">
+                        <button onclick="changeQty('${c.id}', -1)" class="text-slate-400 hover:text-white px-1.5 font-bold text-xs">-</button>
+                        <span class="text-xs font-bold text-white px-1">${c.qty}</span>
+                        <button onclick="changeQty('${c.id}', 1)" class="text-slate-400 hover:text-white px-1.5 font-bold text-xs">+</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleOrderDrawer() {
+            const drawer = document.getElementById('orderDrawer');
+            drawer.classList.toggle('hidden');
+        }
+
+        function sendOrderWA() {
+            if (cart.length === 0) {
+                alert('Pilih minimal 1 menu terlebih dahulu!');
+                return;
+            }
+
+            let text = "Halo Zewu Wiyung, saya ingin menanyakan ketersediaan menu berikut:\n\n";
+            let grandTotal = 0;
+
+            cart.forEach((c, i) => {
+                const sub = c.price * c.qty;
+                grandTotal += sub;
+                text += `${i+1}. ${c.name} x${c.qty} - Rp ${sub.toLocaleString('id-ID')}\n`;
+            });
+
+            text += `\n*Estimasi Total:* Rp ${grandTotal.toLocaleString('id-ID')}`;
+            text += `\n\nTerima kasih!`;
+
+            const encoded = encodeURIComponent(text);
+            window.open(`https://wa.me/6281234567890?text=${encoded}`, '_blank');
+        }
+
+        // 6. TOAST NOTIFICATION
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').innerText = msg;
+            toast.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+            
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+            }, 2500);
+        }
+
+        // 7. MOBILE MENU TOGGLE
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
