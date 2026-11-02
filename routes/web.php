@@ -11,7 +11,7 @@ Route::view('/about', 'about')->name('about');
 Route::view('/services', 'pages/services')->name('services');
 
 // Public AI design previews
-Route::get('/design-playground', [
+Route::get('/contoh-desain', [
     DesignPlaygroundController::class,
     'index',
 ])->name('design-playground.index');

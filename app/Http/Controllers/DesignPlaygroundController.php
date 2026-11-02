@@ -8,6 +8,14 @@ use Illuminate\Support\Str;
 
 class DesignPlaygroundController extends Controller
 {
+    /**
+     * Helper privat untuk mencari preview berdasarkan slug secara efisien.
+     */
+    private function findPreviewBySlug(string $slug): ?array
+    {
+        return collect($this->previews())->firstWhere('slug', $slug);
+    }
+
     private function previews(): array
     {
         $directory = resource_path('views/pages/asset_raw_html');
@@ -65,9 +73,9 @@ class DesignPlaygroundController extends Controller
 
     public function show(string $slug)
     {
-        $preview = collect($this->previews())->firstWhere('slug', $slug);
+        $preview = $this->findPreviewBySlug($slug);
 
-        abort_if (!$preview, 404);
+        abort_if(!$preview, 404);
 
         return view('pages.design-playground.show', [
             'preview' => $preview,
@@ -76,31 +84,18 @@ class DesignPlaygroundController extends Controller
 
     public function content(string $slug): Response
     {
-        $preview = collect($this->previews())->firstWhere('slug', $slug);
+        $preview = $this->findPreviewBySlug($slug);
 
-        abort_if (!$preview, 404);
+        abort_if(!$preview, 404);
 
-        $path = resource_path(
-            'views/pages/asset_raw_html/'.$preview['filename']
-        );
+        $path = resource_path('views/pages/asset_raw_html/' . $preview['filename']);
 
         abort_unless(File::isFile($path), 404);
 
         return response(File::get($path), 200, [
             'Content-Type' => 'text/html; charset=UTF-8',
             'X-Content-Type-Options' => 'nosniff',
-            'Content-Security-Policy' => implode('; ', [
-                'sandbox allow-scripts allow-forms allow-popups',
-                "default-src 'self' https: data: blob:",
-                "script-src 'self' https: 'unsafe-inline' 'unsafe-eval'",
-                "style-src 'self' https: 'unsafe-inline'",
-                "img-src 'self' https: data: blob:",
-                "font-src 'self' https: data:",
-                "connect-src https:",
-                "frame-src https:",
-                "object-src 'none'",
-                "base-uri 'none'",
-            ]),
+            'Content-Security-Policy' => "sandbox allow-scripts allow-forms allow-popups; default-src 'self' https: data: blob:; script-src 'self' https: 'unsafe-inline' 'unsafe-eval'; style-src 'self' https: 'unsafe-inline'; img-src 'self' https: data: blob:; font-src 'self' https: data:; connect-src https:; frame-src https:; object-src 'none'; base-uri 'none'",
         ]);
     }
 }

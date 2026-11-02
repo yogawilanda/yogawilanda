@@ -5,10 +5,7 @@
 
         {{-- Section Header --}}
         <div class="max-w-3xl">
-
             <div class="mb-8 flex items-center gap-3 text-sm text-zinc-500 dark:text-zinc-400">
-
-
                 <span>{{ __('portfolio.work.eyebrow') }}</span>
             </div>
 
