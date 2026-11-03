@@ -7,7 +7,9 @@
     <title>GARUDA PRIMA: Bimbel Taruna, Akmil, Akpol</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <style>
         *,
         *::before,
@@ -61,7 +63,13 @@
             max-width: 100%;
         }
 
-        h1, h2, h3, h4, p, ul, li {
+        h1,
+        h2,
+        h3,
+        h4,
+        p,
+        ul,
+        li {
             margin: 0;
             padding: 0;
         }
@@ -215,6 +223,62 @@
             color: var(--bg);
         }
 
+        /* BOTTOM NAV - mobile only */
+        .bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            background: rgba(17, 22, 18, 0.98);
+            backdrop-filter: blur(20px) saturate(140%);
+            -webkit-backdrop-filter: blur(20px) saturate(140%);
+            border-top: 1px solid var(--rule);
+            padding: 8px 4px calc(8px + env(safe-area-inset-bottom, 0px));
+            justify-content: space-around;
+            align-items: stretch;
+        }
+
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            flex: 1;
+            padding: 6px 2px;
+            color: var(--muted);
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: .02em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: color .3s ease;
+            text-align: center;
+            min-width: 0;
+        }
+
+        .bottom-nav-item svg {
+            width: 22px;
+            height: 22px;
+            stroke-width: 1.7;
+            flex: none;
+        }
+
+        .bottom-nav-item span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
+        .bottom-nav-item.is-active,
+        .bottom-nav-item:hover,
+        .bottom-nav-item:focus-visible {
+            color: var(--olive);
+        }
+
         /* HERO */
         .hero {
             position: relative;
@@ -250,29 +314,22 @@
         }
 
         .hero-content {
-            max-width: 720px;
-        }
-
-        .hero-eyebrow {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            font-size: 15px;
-            font-weight: 600;
-            letter-spacing: .06em;
-            text-transform: uppercase;
-            color: var(--olive);
-            margin-bottom: 28px;
+            max-width: 800px;
         }
 
         .hero h1 {
             font-family: var(--disp);
             font-weight: 400;
-            font-size: clamp(48px, 8vw, 120px);
-            line-height: .86;
-            letter-spacing: .01em;
+            font-size: clamp(32px, 9vw, 100px);
+            /* Disesuaikan agar tidak terlalu raksasa di desktop */
+            line-height: 0.95;
+            /* NORMAL: Jarak antar baris rapat tapi tidak saling tindih */
+            letter-spacing: 0.01em;
+            /* NORMAL: Jarak antar huruf proporsional */
             text-transform: uppercase;
-            max-width: 900px;
+
+            /* Hapus margin-top: 10%; agar tidak ada jarak bolong yang mengganggu di atas */
+            margin-top: 10%;
         }
 
         .hero h1 .gold {
@@ -400,20 +457,6 @@
             object-fit: cover;
             object-position: center top;
             display: block;
-        }
-
-        .hero-title {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            right: 20px;
-            z-index: 2;
-            font-family: var(--disp);
-            font-size: 18px;
-            line-height: .95;
-            letter-spacing: .02em;
-            text-transform: uppercase;
-            color: var(--ink);
         }
 
         .hero-visual::after {
@@ -1517,6 +1560,7 @@
             body {
                 font-size: 16px;
                 line-height: 1.7;
+                padding-bottom: 80px;
             }
 
             .shell {
@@ -1528,65 +1572,121 @@
                 padding: 9px 16px;
             }
 
+            .bottom-nav {
+                display: flex;
+            }
+
+            /* TOP NAV: hanya logo, di tengah */
             .nav {
                 top: 38px;
-                padding: 16px 20px;
+                padding: 14px 20px;
+                justify-content: center;
             }
 
             .nav.is-scrolled {
+                top: 0;
                 padding: 12px 20px;
             }
 
-            .nav-links {
+            .nav-links,
+            .nav-cta {
                 display: none;
             }
 
-            .nav-name {
-                font-size: 20px;
+            .nav-brand {
+                gap: 10px;
             }
 
-            .nav-cta {
-                font-size: 12.5px;
-                padding: 10px 14px;
-            }
-
-            .hero {
-                padding: 120px 0 70px;
-                min-height: auto;
-            }
-
-            .hero-visual {
-                aspect-ratio: 4 / 3;
-                max-width: 100%;
-            }
-
-            .hero-eyebrow {
-                font-size: 13px;
-            }
-
-            .hero-lede {
+            .nav-mark {
+                width: 38px;
+                height: 38px;
                 font-size: 17px;
             }
 
-            .hero-actions {
+            .nav-name {
+                font-size: 18px;
+            }
+
+            /* HERO: compact */
+            .hero {
+                padding: 84px 0 40px;
+                min-height: auto;
+            }
+
+            .hero-grid {
+                display: flex;
                 flex-direction: column;
+                gap: 0;
+            }
+
+            .hero-content {
+                display: contents;
+            }
+
+            .hero-eyebrow {
+                order: 1;
+                font-size: 12px;
+                margin-bottom: 12px;
+            }
+
+            .hero h1 {
+                order: 2;
+                font-size: clamp(26px, 7.5vw, 36px);
+                line-height: 0.96;
+            }
+
+            .hero-lede {
+                order: 3;
+                font-size: 14px;
+                line-height: 1.65;
+                margin-top: 14px;
+            }
+
+            .hero-actions {
+                order: 4;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                gap: 8px;
+                margin-top: 18px;
             }
 
             .hero-actions .btn {
-                width: 100%;
+                flex: 1 1 0;
+                width: auto;
+                min-width: 0;
+                font-size: 11.5px;
+                padding: 10px 8px;
+                line-height: 1.25;
+                white-space: normal;
+                text-align: center;
+            }
+
+            .hero-visual {
+                order: 5;
+                margin-top: 22px;
+                aspect-ratio: 16 / 10;
+                max-width: 100%;
             }
 
             .hero-trust {
-                gap: 16px 24px;
+                order: 6;
+                margin-top: 20px;
+                padding-top: 18px;
+                gap: 14px 22px;
             }
 
             .hero-trust-item b {
-                font-size: 28px;
+                font-size: 24px;
+            }
+
+            .hero-trust-item span {
+                font-size: 10.5px;
+                letter-spacing: 0.03em;
             }
 
             .btn {
-                font-size: 14px;
-                padding: 16px 24px;
+                font-size: 13px;
+                padding: 13px 20px;
             }
 
             .section {
@@ -1662,10 +1762,16 @@
             }
 
             .float-wa {
-                bottom: 18px;
-                right: 18px;
-                padding: 13px 18px;
-                font-size: 12px;
+                bottom: 92px;
+                right: 16px;
+                padding: 12px 16px;
+                font-size: 11px;
+                gap: 8px;
+            }
+
+            .float-wa svg {
+                width: 18px;
+                height: 18px;
             }
 
             .price-card {
@@ -1674,6 +1780,7 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
+
             *,
             *::before,
             *::after {
@@ -1719,11 +1826,10 @@
             <main>
 
                 <section class="hero" id="hero">
-                    <div class="hero-bg-glow"></div>
+                    <!-- <div class="hero-bg-glow"></div> -->
                     <div class="shell">
                         <div class="hero-grid">
                             <div class="hero-content">
-                                <div class="hero-eyebrow">Bimbel Spesialis Taruna, Akmil, dan Akpol</div>
                                 <h1 id="hero-title">
                                     AYO SIAPKAN DIRI UNTUK SELEKSI <br>
                                     <span class="outline">ABDI NEGARA</span>
@@ -1757,8 +1863,7 @@
                             </div>
 
                             <div class="hero-visual">
-                                <img id="hero-img"
-                                    src="/bimbel_taruna/contoh_taruna.png"
+                                <img id="hero-img" src="/bimbel_taruna/contoh_taruna.png"
                                     alt="Taruna Akmil Akpol Indonesia"
                                     onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1590418606746-018840f9cd0f?auto=format&fit=crop&w=1200&q=85';">
                                 <div class="hero-caption">
@@ -1810,7 +1915,8 @@
                         <div class="about-grid">
                             <div class="about-copy">
                                 <p>
-                                    Garuda Prima dibuka oleh alumni yang dulu juga pernah mengikuti seleksi taruna, Akmil, dan Akpol.
+                                    Garuda Prima dibuka oleh alumni yang dulu juga pernah mengikuti seleksi taruna,
+                                    Akmil, dan Akpol.
                                 </p>
                                 <p>
                                     Yang kami sediakan: <strong>modul terbaru, simulasi CAT,
@@ -2348,6 +2454,61 @@
         </div>
     </div>
 
+    <nav class="bottom-nav" id="bottomNav" aria-label="Navigasi utama mobile">
+        <a href="#about" class="bottom-nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="16" x2="12" y2="12" />
+                <line x1="12" y1="8" x2="12.01" y2="8" />
+            </svg>
+            <span>Tentang</span>
+        </a>
+        <a href="#services" class="bottom-nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                <polyline points="2 17 12 22 22 17" />
+                <polyline points="2 12 12 17 22 12" />
+            </svg>
+            <span>Layanan</span>
+        </a>
+        <a href="#pricing" class="bottom-nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+                <line x1="7" y1="7" x2="7.01" y2="7" />
+            </svg>
+            <span>Biaya</span>
+        </a>
+        <a href="#roadmap" class="bottom-nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <polygon points="3 11 22 2 13 21 11 13 3 11" />
+            </svg>
+            <span>Alur</span>
+        </a>
+        <a href="#testimonial" class="bottom-nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+            <span>Alumni</span>
+        </a>
+        <a href="#faq" class="bottom-nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                <line x1="12" y1="17" x2="12.01" y2="17" />
+            </svg>
+            <span>FAQ</span>
+        </a>
+    </nav>
+
     <a href="https://wa.me/6285158986696?text=Halo%20Garuda%20Prima%2C%20saya%20ingin%20konsultasi%20gratis%20dan%20cek%20sisa%20kursi."
         target="_blank" rel="noopener" class="float-wa" aria-label="Hubungi via WhatsApp">
         <svg viewBox="0 0 24 24" fill="currentColor">
@@ -2664,6 +2825,32 @@
                     }
                 });
             });
+
+            // Bottom nav active state
+            if (typeof ScrollTrigger !== 'undefined') {
+                var bottomNavItems = document.querySelectorAll('.bottom-nav-item');
+                if (bottomNavItems.length) {
+                    bottomNavItems.forEach(function (item) {
+                        var href = item.getAttribute('href');
+                        if (!href || href.length < 2) return;
+                        var target = document.querySelector(href);
+                        if (!target) return;
+                        ScrollTrigger.create({
+                            trigger: target,
+                            start: 'top 55%',
+                            end: 'bottom 45%',
+                            onToggle: function (self) {
+                                if (self.isActive) {
+                                    bottomNavItems.forEach(function (i) {
+                                        i.classList.remove('is-active');
+                                    });
+                                    item.classList.add('is-active');
+                                }
+                            }
+                        });
+                    });
+                }
+            }
 
             window.addEventListener('load', function () {
                 setTimeout(function () { ScrollTrigger.refresh(); }, 300);
