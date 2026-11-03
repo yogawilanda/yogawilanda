@@ -1,0 +1,2703 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GARUDA PRIMA: Bimbel Taruna, Akmil, Akpol</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        :root {
+            --bg: #0A0D0B;
+            --bg-2: #111612;
+            --bg-3: #18201A;
+            --ink: #EEF0E8;
+            --muted: #A5ABA2;
+            --olive: #6B7F4B;
+            --olive-2: #8FA86A;
+            --brown: #A67C52;
+            --rule: rgba(238, 240, 232, 0.12);
+            --disp: "Bebas Neue", Impact, sans-serif;
+            --sans: "Inter", system-ui, sans-serif;
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--ink);
+            font-family: var(--sans);
+            font-size: 17px;
+            line-height: 1.7;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: var(--olive);
+            color: var(--bg)
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        img {
+            display: block;
+            max-width: 100%
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        p,
+        ul,
+        li {
+            margin: 0;
+            padding: 0
+        }
+
+        ul {
+            list-style: none
+        }
+
+        .shell {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 40px
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--olive);
+            outline-offset: 3px
+        }
+
+        /* URGENCY BAR */
+
+        .urgency {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1002;
+            background: var(--olive);
+            color: var(--bg);
+            text-align: center;
+            padding: 10px 20px;
+            font-size: 13.5px;
+            font-weight: 600;
+            letter-spacing: .02em;
+            transition: transform .4s ease;
+        }
+
+        .urgency.is-hidden {
+            transform: translateY(-100%);
+        }
+
+        .urgency strong {
+            font-weight: 800;
+        }
+
+        /* PROGRESS */
+
+        .progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            z-index: 1003;
+            background: transparent;
+            pointer-events: none
+        }
+
+        .progress span {
+            display: block;
+            height: 100%;
+            background: var(--olive);
+            transform-origin: 0 50%;
+            transform: scaleX(0)
+        }
+
+        /* NAV */
+
+        .nav {
+            position: fixed;
+            top: 42px;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 24px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background .4s ease, padding .4s ease, backdrop-filter .4s ease, top .4s ease;
+        }
+
+        .nav.is-scrolled {
+            top: 0;
+            padding: 14px 40px;
+            background: rgba(10, 13, 11, .9);
+            backdrop-filter: blur(24px) saturate(140%);
+            -webkit-backdrop-filter: blur(24px) saturate(140%);
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .nav-mark {
+            width: 44px;
+            height: 44px;
+            border: 1.5px solid var(--olive);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-family: var(--disp);
+            font-size: 20px;
+            color: var(--olive);
+            letter-spacing: .02em;
+        }
+
+        .nav-name {
+            font-family: var(--disp);
+            font-size: 24px;
+            letter-spacing: .08em;
+            line-height: 1
+        }
+
+        .nav-name em {
+            color: var(--olive);
+            font-style: normal
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: .02em;
+            color: var(--muted);
+            transition: color .3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--ink)
+        }
+
+        .nav-cta {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: .02em;
+            padding: 12px 22px;
+            border: 1px solid var(--olive);
+            border-radius: 2px;
+            color: var(--bg);
+            background: var(--olive);
+            transition: background .3s ease, color .3s ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--olive-2);
+            color: var(--bg)
+        }
+
+        /* HERO */
+
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 160px 0 100px;
+            overflow: hidden;
+            background: var(--bg);
+        }
+
+        .hero-bg-glow {
+            position: absolute;
+            width: 70vw;
+            height: 70vw;
+            max-width: 900px;
+            max-height: 900px;
+            background: radial-gradient(circle, rgba(107, 127, 75, .22) 0%, transparent 65%);
+            top: -20%;
+            right: -15%;
+            filter: blur(60px);
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+
+        .hero-content {
+            max-width: 720px;
+        }
+
+        .hero-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: var(--olive);
+            margin-bottom: 28px;
+        }
+
+        .hero-eyebrow::before,
+        .section-label::before {
+            display: none;
+        }
+
+        .hero h1 {
+            font-family: var(--disp);
+            font-weight: 400;
+            font-size: clamp(58px, 8vw, 120px);
+            line-height: .86;
+            letter-spacing: .01em;
+            text-transform: uppercase;
+            max-width: 900px;
+        }
+
+        .hero h1 .gold {
+            color: var(--olive)
+        }
+
+        .hero h1 .outline {
+            -webkit-text-stroke: 1.5px var(--ink);
+            color: transparent;
+        }
+
+        .hero-lede {
+            max-width: 56ch;
+            font-size: 18px;
+            line-height: 1.75;
+            color: #C9C4B9;
+            font-weight: 400;
+            margin-top: 28px;
+        }
+
+        .hero-lede strong {
+            color: var(--ink);
+            font-weight: 700;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 32px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-family: var(--sans);
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: .02em;
+            padding: 18px 30px;
+            border: 1px solid var(--ink);
+            background: var(--ink);
+            color: var(--bg);
+            transition: background .3s ease, color .3s ease, border-color .3s ease, transform .2s ease;
+            cursor: pointer;
+            border-radius: 2px;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: var(--olive);
+            border-color: var(--olive);
+            color: var(--bg);
+            transform: translateY(-2px);
+        }
+
+        .btn-gold {
+            background: var(--olive);
+            border-color: var(--olive);
+            color: var(--bg)
+        }
+
+        .btn-gold:hover {
+            background: var(--olive-2);
+            border-color: var(--olive-2)
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--ink)
+        }
+
+        .btn-ghost:hover {
+            background: var(--ink);
+            color: var(--bg)
+        }
+
+        .hero-trust {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px 32px;
+            margin-top: 36px;
+            padding-top: 28px;
+            border-top: 1px solid var(--rule);
+        }
+
+        .hero-trust-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .hero-trust-item b {
+            font-family: var(--disp);
+            font-size: 32px;
+            line-height: 1;
+            color: var(--olive);
+            letter-spacing: .02em;
+        }
+
+        .hero-trust-item span {
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .hero-visual {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid var(--rule);
+            background: var(--bg-3);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, .35);
+        }
+
+        .hero-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            display: block;
+        }
+
+        .hero-visual::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 60%, rgba(10, 13, 11, .55) 100%);
+            pointer-events: none;
+        }
+
+        .hero-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            color: var(--ink);
+        }
+
+        .hero-caption span:first-child {
+            color: var(--olive);
+        }
+
+        /* TICKER */
+
+        .ticker {
+            background: var(--olive);
+            color: var(--bg);
+            padding: 14px 0;
+            overflow: hidden;
+            border-top: 1px solid var(--bg);
+            border-bottom: 1px solid var(--bg);
+        }
+
+        .ticker-track {
+            display: flex;
+            width: max-content;
+            gap: 48px;
+            align-items: center;
+            white-space: nowrap
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+            font-family: var(--disp);
+            font-size: 26px;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+        }
+
+        .ticker-item .dot {
+            font-size: .6em;
+            opacity: .6
+        }
+
+        /* GUARANTEE */
+
+        .guarantee {
+            background: var(--bg-2);
+            border-bottom: 1px solid var(--rule);
+            padding: 22px 0;
+        }
+
+        .guarantee-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .guarantee-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            border: 1px solid var(--olive);
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            color: var(--olive);
+        }
+
+        .guarantee-inner p {
+            font-size: 16px;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .guarantee-inner p strong {
+            color: var(--ink);
+        }
+
+        /* SECTION BASE */
+
+        .section {
+            padding: 130px 0;
+            position: relative
+        }
+
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--olive);
+            margin-bottom: 40px;
+        }
+
+        .section-label::before {
+            content: "";
+            width: 28px;
+            height: 1px;
+            background: var(--olive)
+        }
+
+        .section-title {
+            font-family: var(--disp);
+            font-weight: 400;
+            font-size: clamp(42px, 6vw, 84px);
+            line-height: .9;
+            letter-spacing: .01em;
+            text-transform: uppercase;
+            max-width: 1000px;
+        }
+
+        .section-title .gold {
+            color: var(--olive)
+        }
+
+        .section-title .outline {
+            -webkit-text-stroke: 1.2px var(--ink);
+            color: transparent
+        }
+
+        /* ABOUT */
+
+        .about {
+            background: var(--bg-2);
+            border-top: 1px solid var(--rule);
+            border-bottom: 1px solid var(--rule)
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            gap: 80px;
+            align-items: start;
+            margin-top: 56px
+        }
+
+        .about-copy p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #C9C4B9;
+            font-weight: 400;
+            max-width: 54ch
+        }
+
+        .about-copy p+p {
+            margin-top: 20px
+        }
+
+        .about-copy p strong {
+            color: var(--ink);
+            font-weight: 700;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            border-top: 1px solid var(--rule);
+            margin-top: 40px
+        }
+
+        .about-stat {
+            padding: 28px 24px 0 0;
+            border-right: 1px solid var(--rule)
+        }
+
+        .about-stat:nth-child(2n) {
+            border-right: 0;
+            padding-right: 0
+        }
+
+        .about-stat:nth-child(-n+2) {
+            border-bottom: 1px solid var(--rule);
+            padding-bottom: 28px
+        }
+
+        .about-stat b {
+            display: block;
+            font-family: var(--disp);
+            font-size: clamp(36px, 4vw, 56px);
+            line-height: 1;
+            color: var(--olive);
+            letter-spacing: .02em;
+        }
+
+        .about-stat span {
+            display: block;
+            margin-top: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: .02em;
+            text-transform: uppercase;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .about-visual {
+            position: relative;
+            aspect-ratio: 4/5;
+            overflow: hidden;
+            background: var(--bg-3);
+            border-radius: 2px
+        }
+
+        .about-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            will-change: transform
+        }
+
+        .about-visual::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 60%, rgba(10, 13, 11, .6) 100%);
+        }
+
+        .about-cap {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            color: var(--ink);
+            opacity: .9;
+        }
+
+        .about-cap span:first-child {
+            color: var(--olive)
+        }
+
+        /* FEATURES */
+
+        .features {
+            background: var(--bg)
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            border-top: 1px solid var(--rule);
+            border-left: 1px solid var(--rule);
+            margin-top: 56px;
+        }
+
+        .feature {
+            border-right: 1px solid var(--rule);
+            border-bottom: 1px solid var(--rule);
+            padding: 40px 32px;
+            display: flex;
+            flex-direction: column;
+            transition: background .3s ease;
+        }
+
+        .feature:hover {
+            background: var(--bg-2)
+        }
+
+        .feature-n {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: .04em;
+            color: var(--olive)
+        }
+
+        .feature h3 {
+            font-family: var(--disp);
+            font-size: 28px;
+            line-height: 1;
+            letter-spacing: .02em;
+            text-transform: uppercase;
+            margin-top: 16px;
+            color: var(--ink);
+        }
+
+        .feature p {
+            margin-top: 14px;
+            font-size: 16px;
+            line-height: 1.75;
+            color: var(--muted);
+            font-weight: 400;
+        }
+
+        /* ROADMAP */
+
+        .roadmap {
+            background: var(--bg-2);
+            border-top: 1px solid var(--rule);
+            border-bottom: 1px solid var(--rule)
+        }
+
+        .roadmap-list {
+            margin-top: 64px;
+            border-top: 1px solid var(--rule)
+        }
+
+        .roadmap-item {
+            display: grid;
+            grid-template-columns: 88px 1.2fr 1fr;
+            gap: 40px;
+            align-items: start;
+            padding: 40px 0;
+            border-bottom: 1px solid var(--rule);
+            transition: padding-left .3s ease, background .3s ease;
+        }
+
+        .roadmap-item:hover {
+            background: var(--bg-3);
+            padding-left: 16px
+        }
+
+        .roadmap-n {
+            font-family: var(--disp);
+            font-size: 52px;
+            line-height: .9;
+            color: var(--olive);
+            letter-spacing: .02em;
+        }
+
+        .roadmap-item h3 {
+            font-family: var(--disp);
+            font-size: clamp(26px, 2.8vw, 38px);
+            line-height: .95;
+            letter-spacing: .02em;
+            text-transform: uppercase;
+            color: var(--ink);
+        }
+
+        .roadmap-item p {
+            margin-top: 12px;
+            font-size: 16px;
+            line-height: 1.75;
+            color: var(--muted);
+            font-weight: 400;
+            max-width: 48ch;
+        }
+
+        .roadmap-tag {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            color: var(--olive);
+            padding: 10px 16px;
+            border: 1px solid rgba(107, 127, 75, .35);
+            border-radius: 100px;
+            justify-self: start;
+        }
+
+        /* SERVICES */
+
+        .services {
+            background: var(--bg)
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 56px
+        }
+
+        .service-card {
+            border: 1px solid var(--rule);
+            padding: 40px 32px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            transition: border-color .3s ease, transform .3s ease;
+            border-radius: 2px;
+            background: var(--bg-2);
+        }
+
+        .service-card:hover {
+            border-color: var(--olive);
+            transform: translateY(-4px)
+        }
+
+        .service-card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--olive);
+            transform: scaleX(0);
+            transform-origin: 0 50%;
+            transition: transform .4s cubic-bezier(.7, 0, .2, 1);
+        }
+
+        .service-card:hover::after {
+            transform: scaleX(1)
+        }
+
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            border: 1px solid var(--rule);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            margin-bottom: 24px;
+            color: var(--olive);
+        }
+
+        .service-card h3 {
+            font-family: var(--disp);
+            font-size: 34px;
+            line-height: .95;
+            letter-spacing: .02em;
+            text-transform: uppercase;
+            color: var(--ink);
+        }
+
+        .service-card .sub {
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: .02em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-top: 12px;
+        }
+
+        .service-card p {
+            margin-top: 22px;
+            font-size: 16px;
+            line-height: 1.75;
+            color: var(--muted);
+            font-weight: 400;
+            flex-grow: 1;
+        }
+
+        .service-card .btn {
+            margin-top: 28px;
+            width: 100%
+        }
+
+        /* PRICING */
+
+        .pricing {
+            background: var(--bg-2);
+            border-top: 1px solid var(--rule);
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 56px;
+        }
+
+        .price-card {
+            border: 1px solid var(--rule);
+            padding: 36px 30px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background: var(--bg);
+            border-radius: 2px;
+            transition: border-color .3s ease, transform .3s ease;
+        }
+
+        .price-card:hover {
+            border-color: var(--olive);
+            transform: translateY(-4px);
+        }
+
+        .price-card.featured {
+            border-color: var(--olive);
+            box-shadow: 0 0 0 1px var(--olive);
+        }
+
+        .price-badge {
+            position: absolute;
+            top: -13px;
+            left: 24px;
+            background: var(--olive);
+            color: var(--bg);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 100px;
+        }
+
+        .price-card h3 {
+            font-family: var(--disp);
+            font-size: 30px;
+            letter-spacing: .02em;
+            text-transform: uppercase;
+            color: var(--ink);
+        }
+
+        .price-card .price-desc {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--muted);
+            margin-top: 8px;
+            line-height: 1.6;
+        }
+
+        .price-amount {
+            font-family: var(--disp);
+            font-size: clamp(40px, 4vw, 56px);
+            line-height: 1;
+            color: var(--olive);
+            letter-spacing: .02em;
+            margin-top: 24px;
+        }
+
+        .price-amount small {
+            display: block;
+            font-family: var(--sans);
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--muted);
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            margin-top: 6px;
+        }
+
+        .price-list {
+            margin-top: 26px;
+            border-top: 1px solid var(--rule);
+            flex-grow: 1;
+        }
+
+        .price-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--rule);
+            font-size: 15px;
+            line-height: 1.6;
+            color: #C9C4B9;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .price-list li::before {
+            content: "✦";
+            color: var(--olive);
+            font-size: 12px;
+            flex: none;
+            margin-top: 3px;
+        }
+
+        .price-card .btn {
+            margin-top: 26px;
+            width: 100%;
+        }
+
+        .price-note {
+            margin-top: 24px;
+            font-size: 14px;
+            color: var(--muted);
+            text-align: center;
+        }
+
+        .price-note strong {
+            color: var(--olive);
+        }
+
+        /* FUNNEL */
+
+        .funnel {
+            background: var(--bg);
+            border-bottom: 1px solid var(--rule)
+        }
+
+        .funnel-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            margin-top: 56px
+        }
+
+        .funnel-col h3 {
+            font-family: var(--disp);
+            font-size: 32px;
+            letter-spacing: .02em;
+            text-transform: uppercase;
+            color: var(--ink);
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .funnel-list li {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--rule);
+            font-size: 16px;
+            line-height: 1.7;
+            color: #C9C4B9;
+            font-weight: 400;
+        }
+
+        .funnel-list li::before {
+            content: "✦";
+            color: var(--olive);
+            font-size: 14px;
+            flex: none;
+            margin-top: 3px;
+        }
+
+        .funnel-note {
+            margin-top: 24px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: .02em;
+            text-transform: uppercase;
+            color: var(--muted);
+            line-height: 1.9;
+        }
+
+        /* TESTIMONIAL */
+
+        .testimonial {
+            background: var(--bg-2);
+            border-top: 1px solid var(--rule);
+            border-bottom: 1px solid var(--rule)
+        }
+
+        .testi-grid {
+            display: grid;
+            grid-template-columns: 1.3fr .7fr;
+            gap: 64px;
+            margin-top: 56px;
+            align-items: start
+        }
+
+        .testi-main {
+            border: 1px solid var(--rule);
+            padding: 48px 40px;
+            position: relative;
+            background: var(--bg);
+        }
+
+        .testi-main::before {
+            content: '"';
+            position: absolute;
+            top: 16px;
+            left: 32px;
+            font-family: var(--disp);
+            font-size: 120px;
+            line-height: 1;
+            color: var(--olive);
+            opacity: .15;
+        }
+
+        .testi-quote {
+            font-family: var(--disp);
+            font-size: clamp(26px, 2.8vw, 40px);
+            line-height: 1.2;
+            letter-spacing: .01em;
+            color: var(--ink);
+            position: relative;
+            z-index: 1;
+        }
+
+        .testi-author {
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid var(--rule);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .testi-author b {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--ink)
+        }
+
+        .testi-author span {
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: .02em;
+            text-transform: uppercase;
+            color: var(--muted)
+        }
+
+        .testi-side {
+            display: flex;
+            flex-direction: column;
+            gap: 20px
+        }
+
+        .testi-mini {
+            border: 1px solid var(--rule);
+            padding: 26px;
+            font-size: 16px;
+            line-height: 1.75;
+            color: #C9C4B9;
+            font-weight: 400;
+            transition: border-color .3s ease;
+            background: var(--bg);
+        }
+
+        .testi-mini:hover {
+            border-color: var(--olive)
+        }
+
+        .testi-mini b {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            color: var(--olive);
+            margin-bottom: 10px;
+        }
+
+        /* FAQ */
+
+        .faq {
+            background: var(--bg);
+            border-bottom: 1px solid var(--rule)
+        }
+
+        .faq-list {
+            margin-top: 56px;
+            border-top: 1px solid var(--rule);
+            max-width: 900px
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--rule)
+        }
+
+        .faq-q {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+            padding: 26px 0;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--ink);
+            transition: color .3s ease;
+        }
+
+        .faq-q:hover {
+            color: var(--olive)
+        }
+
+        .faq-q .plus {
+            font-size: 22px;
+            font-weight: 400;
+            color: var(--olive);
+            transition: transform .3s ease;
+            flex: none;
+        }
+
+        .faq-item.is-open .faq-q .plus {
+            transform: rotate(45deg)
+        }
+
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .5s cubic-bezier(.7, 0, .2, 1);
+        }
+
+        .faq-a-inner {
+            padding: 0 0 26px;
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--muted);
+            font-weight: 400;
+            max-width: 74ch;
+        }
+
+        /* TEACHERS */
+
+        .teachers {
+            background: var(--bg-2);
+            border-bottom: 1px solid var(--rule)
+        }
+
+        .teacher-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 56px
+        }
+
+        .teacher-card {
+            border: 1px solid var(--rule);
+            overflow: hidden;
+            border-radius: 2px;
+            transition: border-color .3s ease;
+            background: var(--bg);
+        }
+
+        .teacher-card:hover {
+            border-color: var(--olive)
+        }
+
+        .teacher-photo {
+            aspect-ratio: 4/5;
+            overflow: hidden;
+            background: var(--bg-3)
+        }
+
+        .teacher-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .8s cubic-bezier(.22, .61, .36, 1)
+        }
+
+        .teacher-card:hover .teacher-photo img {
+            transform: scale(1.05)
+        }
+
+        .teacher-body {
+            padding: 26px 24px
+        }
+
+        .teacher-body h4 {
+            font-family: var(--disp);
+            font-size: 24px;
+            letter-spacing: .02em;
+            color: var(--ink)
+        }
+
+        .teacher-body span {
+            display: block;
+            margin-top: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: .02em;
+            text-transform: uppercase;
+            color: var(--olive);
+        }
+
+        .teacher-body p {
+            margin-top: 14px;
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--muted);
+            font-weight: 400;
+        }
+
+        /* CTA FINAL */
+
+        .cta-final {
+            position: relative;
+            padding: 150px 0;
+            overflow: hidden;
+            border-top: 1px solid var(--rule);
+            background: var(--bg-2);
+        }
+
+        .cta-final-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0
+        }
+
+        .cta-final-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(.2) saturate(.6)
+        }
+
+        .cta-final-inner {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 40px
+        }
+
+        .cta-final h2 {
+            font-family: var(--disp);
+            font-size: clamp(52px, 8vw, 120px);
+            line-height: .88;
+            letter-spacing: .01em;
+            text-transform: uppercase;
+            margin-top: 20px;
+        }
+
+        .cta-final h2 .gold {
+            color: var(--olive)
+        }
+
+        .cta-final p {
+            margin-top: 28px;
+            font-size: 18px;
+            line-height: 1.75;
+            color: #C9C4B9;
+            max-width: 54ch;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 400;
+        }
+
+        .cta-final p strong {
+            color: var(--ink);
+        }
+
+        .cta-final-actions {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px
+        }
+
+        /* FOOTER */
+
+        .footer {
+            border-top: 1px solid var(--rule);
+            padding: 64px 0 0;
+            background: var(--bg)
+        }
+
+        .footer-inner {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            padding-bottom: 56px
+        }
+
+        .footer-brand .nav-name {
+            font-size: 28px
+        }
+
+        .footer-tagline {
+            margin-top: 18px;
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--muted);
+            max-width: 34ch;
+            font-weight: 400
+        }
+
+        .footer-col h4 {
+            font-size: 14px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--olive);
+            margin-bottom: 18px;
+            font-weight: 700;
+        }
+
+        .footer-col p,
+        .footer-col a {
+            font-size: 15px;
+            line-height: 2.1;
+            color: #C9C4B9;
+            transition: color .3s ease;
+            font-weight: 400
+        }
+
+        .footer-col a:hover {
+            color: var(--olive)
+        }
+
+        .footer-base {
+            border-top: 1px solid var(--rule);
+            padding: 22px 0;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: .02em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        /* FLOATING WA */
+
+        .float-wa {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--olive);
+            color: var(--bg);
+            padding: 16px 24px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: .02em;
+            text-transform: uppercase;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, .5);
+            transition: transform .3s ease, background .3s ease;
+        }
+
+        .float-wa:hover {
+            transform: translateY(-3px);
+            background: var(--olive-2)
+        }
+
+        .float-wa svg {
+            width: 22px;
+            height: 22px
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 1100px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 44px;
+            }
+
+            .hero-visual {
+                max-width: 560px;
+                aspect-ratio: 4 / 3;
+                margin: 0 auto;
+            }
+
+            .hero-content {
+                max-width: 100%;
+            }
+
+            .price-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 48px
+            }
+
+            .about-visual {
+                max-width: 480px
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .feature:nth-child(2n) {
+                border-right: 0
+            }
+
+            .service-grid {
+                grid-template-columns: 1fr
+            }
+
+            .funnel-grid {
+                grid-template-columns: 1fr;
+                gap: 48px
+            }
+
+            .testi-grid {
+                grid-template-columns: 1fr;
+                gap: 32px
+            }
+
+            .teacher-grid {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+                line-height: 1.7
+            }
+
+            .shell {
+                padding: 0 20px
+            }
+
+            .urgency {
+                font-size: 12px;
+                padding: 9px 16px;
+            }
+
+            .nav {
+                top: 38px;
+                padding: 16px 20px
+            }
+
+            .nav.is-scrolled {
+                padding: 12px 20px
+            }
+
+            .nav-links {
+                display: none
+            }
+
+            .nav-name {
+                font-size: 20px
+            }
+
+            .nav-cta {
+                font-size: 12.5px;
+                padding: 10px 14px
+            }
+
+            .hero {
+                padding: 120px 0 70px;
+                min-height: auto;
+            }
+
+            .hero-visual {
+                aspect-ratio: 4 / 3;
+                max-width: 100%;
+            }
+
+            .hero-eyebrow {
+                font-size: 13px
+            }
+
+            .hero-lede {
+                font-size: 17px
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .hero-actions .btn {
+                width: 100%;
+            }
+
+            .hero-trust {
+                gap: 16px 24px;
+            }
+
+            .hero-trust-item b {
+                font-size: 28px;
+            }
+
+            .btn {
+                font-size: 14px;
+                padding: 16px 24px
+            }
+
+            .section {
+                padding: 80px 0
+            }
+
+            .section-label {
+                font-size: 13px
+            }
+
+            .about-copy p {
+                font-size: 17px
+            }
+
+            .feature p,
+            .roadmap-item p,
+            .service-card p,
+            .funnel-list li {
+                font-size: 15px
+            }
+
+            .roadmap-item {
+                grid-template-columns: 56px 1fr;
+                gap: 20px
+            }
+
+            .roadmap-tag {
+                grid-column: 2;
+                justify-self: start;
+                font-size: 12px
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr
+            }
+
+            .feature {
+                border-right: 0;
+                padding: 32px 24px
+            }
+
+            .teacher-grid {
+                grid-template-columns: 1fr
+            }
+
+            .faq-q {
+                font-size: 16px
+            }
+
+            .faq-a-inner {
+                font-size: 15px
+            }
+
+            .testi-quote {
+                font-size: 24px
+            }
+
+            .testi-mini {
+                font-size: 15px
+            }
+
+            .cta-final p {
+                font-size: 17px
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+                gap: 32px
+            }
+
+            .cta-final {
+                padding: 90px 0
+            }
+
+            .float-wa {
+                bottom: 18px;
+                right: 18px;
+                padding: 13px 18px;
+                font-size: 12px
+            }
+
+            .price-card {
+                padding: 30px 24px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important
+            }
+
+            html {
+                scroll-behavior: auto
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="urgency" id="urgency">
+        Batch Bulan Ini Dibuka. Sisa <strong>4 Kursi</strong> Kelas Intensif. Konsultasi Gratis Sekarang.
+    </div>
+
+    <div class="progress" aria-hidden="true"><span id="progress-bar"></span></div>
+
+    <nav class="nav" id="nav">
+        <a href="#" class="nav-brand">
+            <span class="nav-mark">GP</span>
+            <span class="nav-name">GARUDA <em>PRIMA</em></span>
+        </a>
+        <div class="nav-links">
+            <a href="#about">Tentang</a>
+            <a href="#services">Layanan</a>
+            <a href="#pricing">Biaya</a>
+            <a href="#roadmap">Alur</a>
+            <a href="#testimonial">Alumni</a>
+            <a href="#faq">FAQ</a>
+        </div>
+        <a href="https://wa.me/6285158986696?text=Halo%20Garuda%20Prima%2C%20saya%20ingin%20konsultasi%20gratis%20dan%20cek%20sisa%20kursi%20batch%20bulan%20ini."
+            target="_blank" rel="noopener" class="nav-cta">Konsultasi Gratis</a>
+    </nav>
+
+    <div id="smooth-wrapper">
+        <div id="smooth-content">
+
+            <main>
+
+                <section class="hero" id="hero">
+                    <div class="hero-bg-glow"></div>
+                    <div class="shell">
+                        <div class="hero-grid">
+                            <div class="hero-content">
+                                <div class="hero-eyebrow">Bimbel Spesialis Taruna, Akmil, dan Akpol</div>
+                                <h1 id="hero-title">
+                                    Bimbingan belajar<br>
+                                    <span class="outline">Intensif.</span>
+                                </h1>
+                                <p class="hero-lede">
+                                    Setiap tahun <strong>80.000+ orang</strong> berebut kursi. Banyak yang nilainya
+                                    bagus tapi gugur karena tidak siap di satu dari lima tahapan: Akademik, Psikotes,
+                                    Fisik, Mental Ideologi, atau Wawancara. Kami siapkan kelimanya. <strong>94% alumni
+                                        program intensif lolos.</strong>
+                                </p>
+                                <div class="hero-actions">
+                                    <a href="https://wa.me/6285158986696?text=Halo%20Garuda%20Prima%2C%20saya%20ingin%20amankan%20kursi%20dan%20konsultasi%20gratis%20untuk%20persiapan%20seleksi%20taruna."
+                                        target="_blank" rel="noopener" class="btn btn-gold">Amankan Kursi, Konsultasi
+                                        Gratis</a>
+                                    <a href="#pricing" class="btn btn-ghost">Lihat Program dan Biaya</a>
+                                </div>
+                                <div class="hero-trust">
+                                    <div class="hero-trust-item">
+                                        <b>1.240+</b>
+                                        <span>Alumni Lolos</span>
+                                    </div>
+                                    <div class="hero-trust-item">
+                                        <b>94%</b>
+                                        <span>Success Rate</span>
+                                    </div>
+                                    <div class="hero-trust-item">
+                                        <b>100%</b>
+                                        <span>Garansi Uang Kembali</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hero-visual">
+                                <img id="hero-img"
+                                    src="/bimbel_taruna/contoh_taruna.png"
+                                    alt="Taruna Akmil Akpol Indonesia"
+                                    onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1590418606746-018840f9cd0f?auto=format&fit=crop&w=1200&q=85';">
+                                <div class="hero-caption">
+                                    <span>Kelas Intensif</span>
+                                    <span>Batch 2025</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="ticker" aria-hidden="true">
+                    <div class="ticker-track" id="ticker">
+                        <div class="ticker-item">
+                            <span>Taruna Nusantara</span><span class="dot">✦</span>
+                            <span>Akmil</span><span class="dot">✦</span>
+                            <span>Akpol</span><span class="dot">✦</span>
+                            <span>Bintara</span><span class="dot">✦</span>
+                            <span>Psikotes</span><span class="dot">✦</span>
+                            <span>Fisik</span><span class="dot">✦</span>
+                            <span>Mental Ideologi</span><span class="dot">✦</span>
+                        </div>
+                        <div class="ticker-item" aria-hidden="true">
+                            <span>Taruna Nusantara</span><span class="dot">✦</span>
+                            <span>Akmil</span><span class="dot">✦</span>
+                            <span>Akpol</span><span class="dot">✦</span>
+                            <span>Bintara</span><span class="dot">✦</span>
+                            <span>Psikotes</span><span class="dot">✦</span>
+                            <span>Fisik</span><span class="dot">✦</span>
+                            <span>Mental Ideologi</span><span class="dot">✦</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="guarantee">
+                    <div class="shell guarantee-inner">
+                        <span class="guarantee-badge">Garansi Uang Kembali</span>
+                        <p>Tidak lolos? <strong>Uang kembali.</strong> Syarat dan ketentuan berlaku.</p>
+                    </div>
+                </div>
+
+                <section class="section about" id="about">
+                    <div class="shell">
+                        <div class="section-label">Tentang Kami</div>
+                        <h2 class="section-title">
+                            Kami pernah di posisimu.
+                        </h2>
+
+                        <div class="about-grid">
+                            <div class="about-copy">
+                                <p>
+                                    Garuda Prima dibuka oleh alumni yang dulu juga pernah mengikuti seleksi taruna, Akmil, dan Akpol.
+                                </p>
+                                <p>
+                                    Yang kami sediakan: <strong>modul terbaru, simulasi CAT,
+                                        latihan fisik terukur, dan pendampingan sampai hari H.</strong>
+                                    Semuanya disusun dari pengalaman alumni yang sudah melewati
+                                    seleksi yang sama.
+                                </p>
+
+                                <div class="about-stats">
+                                    <div class="about-stat">
+                                        <b>1.000+</b>
+                                        <span>Alumni lolos<br>sejak 2016</span>
+                                    </div>
+                                    <div class="about-stat">
+                                        <b>94%</b>
+                                        <span>Success rate<br>program intensif</span>
+                                    </div>
+                                    <div class="about-stat">
+                                        <b>28</b>
+                                        <span>Pengajar aktif<br>alumni dan praktisi</span>
+                                    </div>
+                                    <div class="about-stat">
+                                        <b>12</b>
+                                        <span>Kota jangkauan<br>offline dan online</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="about-visual">
+                                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1000&q=80"
+                                    alt="Suasana belajar taruna">
+                                <div class="about-cap">
+                                    <span>Kelas Intensif</span>
+                                    <span>2024</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section features" id="features">
+                    <div class="shell">
+                        <div class="section-label">Keunggulan</div>
+                        <h2 class="section-title">
+                            Kenapa <span class="gold">Garuda Prima?</span>
+                        </h2>
+
+                        <div class="feature-grid">
+                            <div class="feature">
+                                <span class="feature-n">01</span>
+                                <h3>Pengajar Alumni</h3>
+                                <p>Semua mentor adalah alumni Akmil, Akpol, dan Taruna Nusantara. Mereka sudah melewati
+                                    seleksi yang sama.</p>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-n">02</span>
+                                <h3>Modul Terbaru</h3>
+                                <p>Modul disusun dari 8 tahun pola soal. Setiap tahun diperbarui mengikuti perubahan
+                                    seleksi.</p>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-n">03</span>
+                                <h3>Simulasi CAT</h3>
+                                <p>Tryout pakai sistem yang sama dengan seleksi resmi. Saat hari H, kamu sudah kenal
+                                    tampilan layar dan tekanan waktunya.</p>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-n">04</span>
+                                <h3>Latihan Fisik Terukur</h3>
+                                <p>Kesamaptaan butuh target terukur. Kami kasih program mingguan. Progresmu terlihat di
+                                    angka.</p>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-n">05</span>
+                                <h3>Psikotes dan Mental</h3>
+                                <p>Psikotes menguji cara berpikir dan ketahanan mental di bawah tekanan. Kami latih
+                                    dua-duanya.</p>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-n">06</span>
+                                <h3>Garansi Belajar</h3>
+                                <p>Program Intensif ada garansi ulang. Kalau belum lolos di periode pertama, kamu bisa
+                                    ikut lagi periode berikutnya tanpa biaya tambahan.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section roadmap" id="roadmap">
+                    <div class="shell">
+                        <div class="section-label">Alur Program</div>
+                        <h2 class="section-title">
+                            Dari <span class="gold">daftar</span> sampai<br>
+                            <span class="outline">baris berbaris.</span>
+                        </h2>
+
+                        <div class="roadmap-list">
+                            <div class="roadmap-item">
+                                <span class="roadmap-n">01</span>
+                                <div>
+                                    <h3>Asesmen Awal</h3>
+                                    <p>Tes diagnostik akademik, psikologi ringan, dan fisik dasar. Hasilnya jadi peta
+                                        belajar kamu selama program.</p>
+                                </div>
+                                <span class="roadmap-tag">Hari 1</span>
+                            </div>
+                            <div class="roadmap-item">
+                                <span class="roadmap-n">02</span>
+                                <div>
+                                    <h3>Kelas Intensif</h3>
+                                    <p>Akademik, psikotes, dan fisik berjalan bersamaan. Maksimal 12 siswa per kelas
+                                        supaya mentor kenal kamu satu-satu.</p>
+                                </div>
+                                <span class="roadmap-tag">Minggu 1 sampai 8</span>
+                            </div>
+                            <div class="roadmap-item">
+                                <span class="roadmap-n">03</span>
+                                <div>
+                                    <h3>Simulasi dan Tryout</h3>
+                                    <p>Tryout CAT tiap dua minggu. Ada ranking dan analisis per subtes. Fokusnya
+                                        menemukan bagian yang perlu dibenahi.</p>
+                                </div>
+                                <span class="roadmap-tag">Minggu 4 sampai 10</span>
+                            </div>
+                            <div class="roadmap-item">
+                                <span class="roadmap-n">04</span>
+                                <div>
+                                    <h3>Pendampingan Seleksi</h3>
+                                    <p>Pendampingan dari administrasi, psikotes, kesamaptaan, wawancara, sampai mental
+                                        ideologi. Kami ikut sampai kamu benar-benar siap.</p>
+                                </div>
+                                <span class="roadmap-tag">Hari H</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section services" id="services">
+                    <div class="shell">
+                        <div class="section-label">Pilih Jalurmu</div>
+                        <h2 class="section-title">
+                            Tiga jalur menuju<br>
+                            <span class="gold">satu tujuan:</span><br>
+                            <span class="outline">jadi taruna.</span>
+                        </h2>
+
+                        <div class="service-grid">
+                            <div class="service-card">
+                                <div class="service-icon">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="1.5">
+                                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                                    </svg>
+                                </div>
+                                <h3>Bimbel Taruna</h3>
+                                <span class="sub">SMA Taruna Nusantara, Krida Nusantara</span>
+                                <p>
+                                    Buat kamu yang masih SMP dan sudah membayangkan masuk
+                                    Taruna Nusantara. Mulai dari akademik, psikotes, sampai
+                                    kebiasaan disiplin sehari-hari.
+                                </p>
+                                <a href="https://wa.me/6285158986696?text=Halo%20Garuda%20Prima%2C%20saya%20tertarik%20dengan%20program%20BIMBEL%20TARUNA.%20Bisa%20minta%20info%20lengkapnya%3F"
+                                    target="_blank" rel="noopener" class="btn btn-gold">Tanya via WA</a>
+                            </div>
+
+                            <div class="service-card">
+                                <div class="service-icon">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="1.5">
+                                        <path d="M12 2l3 7h7l-5.5 4.5 2 7L12 16l-6.5 4.5 2-7L2 9h7l3-7z" />
+                                    </svg>
+                                </div>
+                                <h3>Bimbel Akmil</h3>
+                                <span class="sub">Akademi Militer TNI AD</span>
+                                <p>
+                                    Jalur paling ketat. Akademik, fisik, psikotes, dan mental
+                                    ideologi disiapkan sekaligus. Supaya kamu lolos, dan
+                                    bertahan setelah masuk.
+                                </p>
+                                <a href="https://wa.me/6285158986696?text=Halo%20Garuda%20Prima%2C%20saya%20tertarik%20dengan%20program%20BIMBEL%20AKMIL.%20Bisa%20minta%20info%20lengkapnya%3F"
+                                    target="_blank" rel="noopener" class="btn btn-gold">Tanya via WA</a>
+                            </div>
+
+                            <div class="service-card">
+                                <div class="service-icon">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="1.5">
+                                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                    </svg>
+                                </div>
+                                <h3>Bimbel Akpol</h3>
+                                <span class="sub">Akademi Kepolisian Polri</span>
+                                <p>
+                                    Akpol butuh kecermatan dan ketahanan. Kami latih keduanya.
+                                    Mulai dari simulasi psikotes sampai latihan menghadapi
+                                    tekanan waktu.
+                                </p>
+                                <a href="https://wa.me/6285158986696?text=Halo%20Garuda%20Prima%2C%20saya%20tertarik%20dengan%20program%20BIMBEL%20AKPOL.%20Bisa%20minta%20info%20lengkapnya%3F"
+                                    target="_blank" rel="noopener" class="btn btn-gold">Tanya via WA</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section pricing" id="pricing">
+                    <div class="shell">
+                        <div class="section-label">Program dan Investasi</div>
+                        <h2 class="section-title">
+                            Pilih yang <span class="gold">paling masuk akal.</span>
+                        </h2>
+
+                        <div class="price-grid">
+                            <div class="price-card">
+                                <h3>Online Class</h3>
+                                <p class="price-desc">Untuk kamu yang disiplin dan butuh fleksibilitas waktu.</p>
+                                <div class="price-amount">Rp1.960.000<small>Mulai dari</small></div>
+                                <ul class="price-list">
+                                    <li>Belajar online via Zoom, 1 on 1</li>
+                                    <li>Waktu belajar fleksibel</li>
+                                    <li>Modul terbaru</li>
+                                    <li>Tryout CAT online</li>
+                                    <li>Konsultasi gratis</li>
+                                </ul>
+                                <a href="https://wa.me/6285158986696?text=Halo%20Garuda%20Prima%2C%20saya%20ingin%20daftar%20Program%20ONLINE%20CLASS.%20Mohon%20info%20ketersediaan%20kursi."
+                                    target="_blank" rel="noopener" class="btn btn-ghost">Pilih Online</a>
+                            </div>
+
+                            <div class="price-card featured">
+                                <span class="price-badge">Paling Banyak Dipilih</span>
+                                <h3>Intensive Class</h3>
+                                <p class="price-desc">Privat dan grup. Paling seimbang antara harga, waktu, dan hasil.
+                                </p>
+                                <div class="price-amount">Rp5.320.000<small>Mulai dari</small></div>
+                                <ul class="price-list">
+                                    <li>Sistem belajar privat dan grup</li>
+                                    <li>Latihan fisik terprogram</li>
+                                    <li>Akademik, psikotes, dan mental ideologi</li>
+                                    <li>Tryout CAT setiap dua minggu</li>
+                                    <li>Simulasi wawancara dan PMK</li>
+                                    <li>Merchandise dan konsultasi gratis</li>
+                                </ul>
+                                <a href="https://wa.me/6285158986696?text=Halo%20Garuda%20Prima%2C%20saya%20ingin%20daftar%20Program%20INTENSIVE%20CLASS.%20Mohon%20info%20ketersediaan%20kursi."
+                                    target="_blank" rel="noopener" class="btn btn-gold">Amankan Kursi</a>
+                            </div>
+
+                            <div class="price-card">
+                                <h3>Bootcamp</h3>
+                                <p class="price-desc">Karantina penuh. Untuk yang mau fokus belajar setiap hari.</p>
+                                <div class="price-amount">Rp14.750.000<small>Mulai dari</small></div>
+                                <ul class="price-list">
+                                    <li>Karantina penuh, belajar setiap hari</li>
+                                    <li>18 sesi belajar per minggu</li>
+                                    <li>Latihan fisik 3x per minggu</li>
+                                    <li>Tryout CAT, PMK, dan wawancara</li>
+                                    <li>Full akomodasi, makan, laundry</li>
+                                    <li>Garansi uang kembali 100%</li>
+                                </ul>
+                                <a href="https://wa.me/6285158986696?text=Halo%20Garuda%20Prima%2C%20saya%20ingin%20daftar%20Program%20BOOTCAMP.%20Mohon%20info%20ketersediaan%20kursi."
+                                    target="_blank" rel="noopener" class="btn btn-ghost">Pilih Bootcamp</a>
+                            </div>
+                        </div>
+
+                        <p class="price-note">
+                            Garansi uang kembali berlaku untuk Program Bootcamp dengan syarat dan ketentuan yang
+                            berlaku.
+                            <strong>Kuota setiap program maksimal 12 siswa.</strong>
+                        </p>
+                    </div>
+                </section>
+
+                <section class="section funnel" id="funnel">
+                    <div class="shell">
+                        <div class="section-label">Fasilitas dan Materi</div>
+                        <h2 class="section-title">
+                            Yang kamu <span class="gold">dapat.</span>
+                        </h2>
+
+                        <div class="funnel-grid">
+                            <div class="funnel-col">
+                                <h3>Fasilitas</h3>
+                                <ul class="funnel-list">
+                                    <li>Modul cetak dan digital, diperbarui tiap tahun</li>
+                                    <li>Tryout CAT dengan ranking nasional</li>
+                                    <li>Kelas kecil, maksimal 12 siswa</li>
+                                    <li>Latihan fisik dengan target mingguan</li>
+                                    <li>Pendampingan psikotes dan wawancara</li>
+                                    <li>Grup WhatsApp alumni dan mentor</li>
+                                    <li>Garansi ulang program Intensif</li>
+                                    <li>Konsultasi administrasi seleksi</li>
+                                </ul>
+                            </div>
+                            <div class="funnel-col">
+                                <h3>Materi Inti</h3>
+                                <ul class="funnel-list">
+                                    <li>Matematika dan Penalaran Numerik</li>
+                                    <li>Bahasa Indonesia dan Inggris (TOEFL dasar)</li>
+                                    <li>Pengetahuan Umum dan Wawasan Kebangsaan</li>
+                                    <li>Psikotes: kecerdasan, kepribadian, kecermatan</li>
+                                    <li>Kesamaptaan: lari, pull up, sit up, shuttle run</li>
+                                    <li>Mental Ideologi: Pancasila, UUD 1945, TNI dan Polri</li>
+                                    <li>Simulasi wawancara dan studi kasus</li>
+                                    <li>Manajemen waktu dan strategi ujian</li>
+                                </ul>
+                                <p class="funnel-note">
+                                    Materi disesuaikan dengan jalur yang dipilih: Taruna, Akmil, atau Akpol.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section testimonial" id="testimonial">
+                    <div class="shell">
+                        <div class="section-label">Bukti, Bukan Janji</div>
+                        <h2 class="section-title">
+                            Mereka sudah <span class="gold">di sana.</span><br>
+                            <span class="outline">Giliranmu.</span>
+                        </h2>
+
+                        <div class="testi-grid">
+                            <div class="testi-main">
+                                <p class="testi-quote">
+                                    "Saya hampir nyerah di psikotes. Mentor di sini
+                                    ngajarin saya cara berpikir. Pas hari H, saya
+                                    nggak panik lagi."
+                                </p>
+                                <div class="testi-author">
+                                    <div>
+                                        <b>Raka Pratama</b><br>
+                                        <span>Alumni Akmil 2024, Lulus</span>
+                                    </div>
+                                    <span>2024</span>
+                                </div>
+                            </div>
+
+                            <div class="testi-side">
+                                <div class="testi-mini">
+                                    <b>Alumni Akpol 2024</b>
+                                    "Latihan fisiknya berat, tapi jelas targetnya. Tiap minggu tahu harus capai apa."
+                                </div>
+                                <div class="testi-mini">
+                                    <b>Alumni Taruna Nusantara</b>
+                                    "Dulu saya nggak pede. Sekarang malah wawancara jadi bagian yang paling saya
+                                    tunggu."
+                                </div>
+                                <div class="testi-mini">
+                                    <b>Orang Tua Siswa</b>
+                                    "Anak saya jadi lebih disiplin. Cara dia menghadapi tekanan juga berubah, bukan cuma
+                                    soal nilai."
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section faq" id="faq">
+                    <div class="shell">
+                        <div class="section-label">Pertanyaan Umum</div>
+                        <h2 class="section-title">
+                            Masih <span class="gold">ragu?</span>
+                        </h2>
+
+                        <div class="faq-list">
+                            <div class="faq-item">
+                                <div class="faq-q">
+                                    Apakah ada garansi jika tidak lolos?
+                                    <span class="plus">+</span>
+                                </div>
+                                <div class="faq-a">
+                                    <div class="faq-a-inner">
+                                        Untuk program Intensif, kamu bisa mengulang programnya di periode berikutnya
+                                        tanpa biaya tambahan. Untuk Bootcamp, berlaku garansi uang kembali 100%
+                                        sesuai syarat dan ketentuan.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-q">
+                                    Berapa lama durasi program?
+                                    <span class="plus">+</span>
+                                </div>
+                                <div class="faq-a">
+                                    <div class="faq-a-inner">
+                                        Program Reguler 8 minggu, Intensif 12 minggu. Bootcamp berjalan selama masa
+                                        karantina penuh. Untuk persiapan lebih panjang, tersedia program 6 bulan.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-q">
+                                    Apakah bisa online?
+                                    <span class="plus">+</span>
+                                </div>
+                                <div class="faq-a">
+                                    <div class="faq-a-inner">
+                                        Bisa. Kelas online tersedia untuk akademik dan psikotes. Untuk latihan fisik,
+                                        kami kasih panduan video dan target mingguan yang bisa kamu lakukan sendiri.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="faq-item">
+                                <div class="faq-q">
+                                    Kapan pendaftaran dibuka?
+                                    <span class="plus">+</span>
+                                </div>
+                                <div class="faq-a">
+                                    <div class="faq-a-inner">
+                                        Pendaftaran buka sepanjang tahun, tapi kelas dimulai setiap awal bulan.
+                                        Kuota per kelas maksimal 12 siswa. Lebih baik daftar minimal 2 minggu
+                                        sebelum kelas mulai.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section teachers" id="teachers">
+                    <div class="shell">
+                        <div class="section-label">Pengajar</div>
+                        <h2 class="section-title">
+                            Yang <span class="gold">membimbingmu.</span>
+                        </h2>
+
+                        <div class="teacher-grid">
+                            <div class="teacher-card">
+                                <div class="teacher-photo">
+                                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=80"
+                                        alt="Pengajar Akmil">
+                                </div>
+                                <div class="teacher-body">
+                                    <h4>Letda (Purn.) Andi Saputra</h4>
+                                    <span>Akmil 2008, Pengajar Akademik</span>
+                                    <p>12 tahun bimbing calon taruna. Spesialis penalaran numerik dan strategi CAT.</p>
+                                </div>
+                            </div>
+
+                            <div class="teacher-card">
+                                <div class="teacher-photo">
+                                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80"
+                                        alt="Pengajar Akpol">
+                                </div>
+                                <div class="teacher-body">
+                                    <h4>Iptu (Purn.) Maya Kartika</h4>
+                                    <span>Akpol 2011, Pengajar Psikotes</span>
+                                    <p>Psikolog seleksi Akpol. Fokus di kecermatan, kepribadian, dan kesiapan wawancara.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="teacher-card">
+                                <div class="teacher-photo">
+                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=600&q=80"
+                                        alt="Pelatih Fisik">
+                                </div>
+                                <div class="teacher-body">
+                                    <h4>Coach Rizal Hidayat</h4>
+                                    <span>Pelatih Kesamaptaan</span>
+                                    <p>Mantan pelatih fisik Akmil. Menyusun program latihan yang terukur untuk tiap
+                                        siswa.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="cta-final" id="contact">
+                    <div class="cta-final-bg">
+                        <img src="https://images.unsplash.com/photo-1521295121783-8a321d551ad2?auto=format&fit=crop&w=2000&q=80"
+                            alt="">
+                    </div>
+                    <div class="cta-final-inner">
+                        <div class="section-label" style="justify-content:center;color:var(--olive)">Mulai Sekarang
+                        </div>
+                        <h2>
+                            Satu <span class="gold">langkah</span><br>
+                            sebelum <span class="outline">baris.</span>
+                        </h2>
+                        <p>
+                            Konsultasi gratis. Ceritakan targetmu. Kami bantu susun rencana
+                            belajar paling masuk akal untukmu. <strong>Kuota terbatas, 12 siswa per kelas.</strong>
+                        </p>
+                        <div class="cta-final-actions">
+                            <a href="https://wa.me/6285158986696?text=Halo%20Garuda%20Prima%2C%20saya%20ingin%20konsultasi%20gratis%20dan%20amankan%20kursi%20untuk%20persiapan%20seleksi%20taruna."
+                                target="_blank" rel="noopener" class="btn btn-gold">WhatsApp Sekarang</a>
+                            <a href="tel:+6285158986696" class="btn btn-ghost">Telepon</a>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+
+            <footer class="footer">
+                <div class="shell">
+                    <div class="footer-inner">
+                        <div class="footer-brand">
+                            <span class="nav-name">GARUDA <em>PRIMA</em></span>
+                            <p class="footer-tagline">
+                                Bimbel spesialis Taruna, Akmil, dan Akpol. Kami bantu kamu siap menghadapi seleksi.
+                            </p>
+                        </div>
+                        <div class="footer-col">
+                            <h4>Layanan</h4>
+                            <p>
+                                <a href="#services">Bimbel Taruna</a><br>
+                                <a href="#services">Bimbel Akmil</a><br>
+                                <a href="#services">Bimbel Akpol</a>
+                            </p>
+                        </div>
+                        <div class="footer-col">
+                            <h4>Kontak</h4>
+                            <p>
+                                <a href="https://wa.me/6285158986696" target="_blank" rel="noopener">0851 5898
+                                    6696</a><br>
+                                <a href="mailto:halo@garudaprima.id">halo@garudaprima.id</a><br>
+                                Jakarta, Bandung, Surabaya
+                            </p>
+                        </div>
+                        <div class="footer-col">
+                            <h4>Ikuti</h4>
+                            <p>
+                                <a href="#">Instagram</a><br>
+                                <a href="#">YouTube</a><br>
+                                <a href="#">TikTok</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="footer-base">
+                        <span>© 2025 Garuda Prima</span>
+                        <span>Dibangun untuk yang berani mencoba.</span>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+
+    <a href="https://wa.me/6285158986696?text=Halo%20Garuda%20Prima%2C%20saya%20ingin%20konsultasi%20gratis%20dan%20cek%20sisa%20kursi."
+        target="_blank" rel="noopener" class="float-wa" aria-label="Hubungi via WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+        </svg>
+        <span>Konsultasi</span>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+
+    <script>
+        (function () {
+            'use strict';
+
+            if (typeof gsap === 'undefined') {
+                console.warn('[Garuda Prima] animasi tidak termuat, animasi dilewati.');
+                return;
+            }
+            if (typeof ScrollTrigger !== 'undefined' && typeof ScrollSmoother !== 'undefined') {
+                gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+            }
+            if (typeof SplitText !== 'undefined') gsap.registerPlugin(SplitText);
+
+            var ease = 'power3.out';
+
+            var smoother = null;
+            try {
+                if (typeof ScrollSmoother !== 'undefined') {
+                    smoother = ScrollSmoother.create({
+                        wrapper: '#smooth-wrapper',
+                        content: '#smooth-content',
+                        smooth: 1.1,
+                        smoothTouch: 0.08,
+                        effects: false,
+                        normalizeScroll: false
+                    });
+                }
+            } catch (e) {
+                console.warn('[Garuda Prima] ScrollSmoother gagal init:', e);
+                smoother = null;
+            }
+
+            var heroTitle = document.getElementById('hero-title');
+            if (heroTitle && typeof SplitText !== 'undefined') {
+                try {
+                    var heroSplit = new SplitText(heroTitle, {
+                        type: 'chars,words,lines',
+                        linesClass: 'hero-line'
+                    });
+                    gsap.from(heroSplit.chars, {
+                        y: 90,
+                        opacity: 0,
+                        rotate: 3,
+                        duration: 0.9,
+                        stagger: 0.015,
+                        ease: ease,
+                        delay: 0.2
+                    });
+                } catch (e) {
+                    gsap.from(heroTitle, { y: 40, opacity: 0, duration: 1.2, ease: ease, delay: 0.2 });
+                }
+            } else if (heroTitle) {
+                gsap.from(heroTitle, { y: 40, opacity: 0, duration: 1.2, ease: ease, delay: 0.2 });
+            }
+
+            var heroImg = document.getElementById('hero-img');
+            if (heroImg) {
+                gsap.fromTo(heroImg,
+                    { scale: 1.06, yPercent: -2 },
+                    {
+                        scale: 1.06,
+                        yPercent: 2,
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: '.hero',
+                            start: 'top top',
+                            end: 'bottom top',
+                            scrub: 1
+                        }
+                    }
+                );
+            }
+
+            var nav = document.getElementById('nav');
+            var urgency = document.getElementById('urgency');
+            if (nav) {
+                ScrollTrigger.create({
+                    start: 80,
+                    end: 99999,
+                    onUpdate: function (self) {
+                        var scrolled = self.scroll() > 80;
+                        nav.classList.toggle('is-scrolled', scrolled);
+                        if (urgency) urgency.classList.toggle('is-hidden', scrolled);
+                    }
+                });
+            }
+
+            var progressBar = document.getElementById('progress-bar');
+            if (progressBar) {
+                ScrollTrigger.create({
+                    start: 0,
+                    end: 'max',
+                    onUpdate: function (self) {
+                        progressBar.style.transform = 'scaleX(' + self.progress + ')';
+                    }
+                });
+            }
+
+            var ticker = document.getElementById('ticker');
+            if (ticker) {
+                var tickerTween = gsap.to(ticker, {
+                    xPercent: -50,
+                    duration: 28,
+                    ease: 'none',
+                    repeat: -1
+                });
+                ScrollTrigger.create({
+                    trigger: '.ticker',
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    onUpdate: function (self) {
+                        var v = self.getVelocity() / 500;
+                        gsap.to(ticker, {
+                            skewX: Math.max(-8, Math.min(8, -v)),
+                            duration: 0.5,
+                            ease: 'power3.out',
+                            overwrite: 'auto'
+                        });
+                        tickerTween.timeScale(1 + Math.min(2, Math.abs(v) * 0.1));
+                    }
+                });
+            }
+
+            document.querySelectorAll('.section-label').forEach(function (el) {
+                gsap.from(el, {
+                    opacity: 0,
+                    x: -20,
+                    duration: 1,
+                    ease: ease,
+                    scrollTrigger: { trigger: el, start: 'top 88%' }
+                });
+            });
+
+            document.querySelectorAll('.section-title').forEach(function (el) {
+                gsap.from(el, {
+                    y: 50,
+                    opacity: 0,
+                    duration: 1.2,
+                    ease: ease,
+                    scrollTrigger: { trigger: el, start: 'top 85%' }
+                });
+            });
+
+            gsap.utils.toArray('.feature-grid .feature').forEach(function (card, i) {
+                gsap.from(card, {
+                    y: 40,
+                    opacity: 0,
+                    duration: 0.9,
+                    delay: i * 0.05,
+                    ease: ease,
+                    scrollTrigger: { trigger: card, start: 'top 88%' }
+                });
+            });
+
+            gsap.utils.toArray('.roadmap-item').forEach(function (item, i) {
+                gsap.from(item, {
+                    y: 40,
+                    opacity: 0,
+                    duration: 0.9,
+                    delay: i * 0.08,
+                    ease: ease,
+                    scrollTrigger: { trigger: item, start: 'top 88%' }
+                });
+            });
+
+            gsap.utils.toArray('.service-card').forEach(function (card, i) {
+                gsap.from(card, {
+                    y: 50,
+                    opacity: 0,
+                    duration: 1,
+                    delay: i * 0.1,
+                    ease: ease,
+                    scrollTrigger: { trigger: card, start: 'top 85%' }
+                });
+            });
+
+            gsap.utils.toArray('.price-card').forEach(function (card, i) {
+                gsap.from(card, {
+                    y: 50,
+                    opacity: 0,
+                    duration: 1,
+                    delay: i * 0.1,
+                    ease: ease,
+                    scrollTrigger: { trigger: card, start: 'top 85%' }
+                });
+            });
+
+            var aboutImg = document.querySelector('.about-visual img');
+            if (aboutImg) {
+                gsap.fromTo(aboutImg,
+                    { yPercent: -6, scale: 1.1 },
+                    {
+                        yPercent: 6,
+                        scale: 1.1,
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: '.about-visual',
+                            start: 'top bottom',
+                            end: 'bottom top',
+                            scrub: 1
+                        }
+                    }
+                );
+            }
+
+            var testiMain = document.querySelector('.testi-main');
+            if (testiMain) {
+                gsap.from(testiMain, {
+                    x: -30,
+                    opacity: 0,
+                    duration: 1.1,
+                    ease: ease,
+                    scrollTrigger: { trigger: testiMain, start: 'top 85%' }
+                });
+            }
+            gsap.utils.toArray('.testi-mini').forEach(function (mini, i) {
+                gsap.from(mini, {
+                    x: 30,
+                    opacity: 0,
+                    duration: 0.9,
+                    delay: i * 0.1,
+                    ease: ease,
+                    scrollTrigger: { trigger: mini, start: 'top 88%' }
+                });
+            });
+
+            document.querySelectorAll('.faq-q').forEach(function (q) {
+                q.addEventListener('click', function () {
+                    var item = q.parentElement;
+                    var answer = item.querySelector('.faq-a');
+                    var isOpen = item.classList.contains('is-open');
+
+                    document.querySelectorAll('.faq-item').forEach(function (i) {
+                        i.classList.remove('is-open');
+                        var a = i.querySelector('.faq-a');
+                        if (a) a.style.maxHeight = '0px';
+                    });
+
+                    if (!isOpen) {
+                        item.classList.add('is-open');
+                        answer.style.maxHeight = answer.scrollHeight + 'px';
+                    }
+                });
+            });
+
+            gsap.utils.toArray('.teacher-card').forEach(function (card, i) {
+                gsap.from(card, {
+                    y: 50,
+                    opacity: 0,
+                    duration: 1,
+                    delay: i * 0.1,
+                    ease: ease,
+                    scrollTrigger: { trigger: card, start: 'top 88%' }
+                });
+            });
+
+            var ctaInner = document.querySelector('.cta-final-inner');
+            if (ctaInner) {
+                gsap.utils.toArray('.cta-final-inner > *').forEach(function (el, i) {
+                    gsap.from(el, {
+                        y: 40,
+                        opacity: 0,
+                        duration: 1,
+                        delay: i * 0.1,
+                        ease: ease,
+                        scrollTrigger: { trigger: '.cta-final', start: 'top 78%' }
+                    });
+                });
+            }
+
+            var ctaBgImg = document.querySelector('.cta-final-bg img');
+            if (ctaBgImg) {
+                gsap.fromTo(ctaBgImg,
+                    { yPercent: -10, scale: 1.15 },
+                    {
+                        yPercent: 10,
+                        scale: 1.15,
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: '.cta-final',
+                            start: 'top bottom',
+                            end: 'bottom top',
+                            scrub: 1
+                        }
+                    }
+                );
+            }
+
+            document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+                a.addEventListener('click', function (e) {
+                    var href = a.getAttribute('href');
+                    if (!href || href.length < 2) return;
+                    var target = document.querySelector(href);
+                    if (!target) return;
+                    e.preventDefault();
+                    if (smoother) {
+                        smoother.scrollTo(target, true, 'top top');
+                    } else {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+
+            window.addEventListener('load', function () {
+                setTimeout(function () { ScrollTrigger.refresh(); }, 300);
+            });
+
+        })();
+    </script>
+
+</body>
+
+</html>

@@ -11,9 +11,11 @@ Route::view('/about', 'about')->name('about');
 Route::view('/services', 'pages/services')->name('services');
 
 // Public AI design previews
+// wrap the contoh desain with middleware to prevent users from accessing the design playground without authentication
 Route::get('/contoh-desain', [
     DesignPlaygroundController::class,
     'index',
+// ])->name('design-playground.index')->middleware('auth', 'verified');
 ])->name('design-playground.index');
 
 Route::get('/design-playground/preview/{slug}', [
