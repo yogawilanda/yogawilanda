@@ -40,6 +40,11 @@ class GenerateSitemap extends Command
             '/website-bimbingan-belajar' => 0.8,
             '/jasa-perbaikan-website' => 0.8,
 
+            '/jasa-pembuatan-website-sidoarjo' => 0.8,
+            '/jasa-maintenance-website' => 0.8,
+            '/portfolio/wisata-mobil-bekas' => 0.7,
+            '/portfolio/downloadrumah' => 0.7,
+            '/harga-jasa-website' => 0.8,
             // Design showcase
             '/contoh-desain' => 0.7,
         ];

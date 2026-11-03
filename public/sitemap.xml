@@ -71,6 +71,31 @@
     <priority>0.8</priority>
             </url>
     <url>
+    <loc>http://localhost:8000/jasa-pembuatan-website-sidoarjo</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+            </url>
+    <url>
+    <loc>http://localhost:8000/jasa-maintenance-website</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+            </url>
+    <url>
+    <loc>http://localhost:8000/portfolio/wisata-mobil-bekas</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+            </url>
+    <url>
+    <loc>http://localhost:8000/portfolio/downloadrumah</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+            </url>
+    <url>
+    <loc>http://localhost:8000/harga-jasa-website</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+            </url>
+    <url>
     <loc>http://localhost:8000/contoh-desain</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

@@ -42,7 +42,26 @@ request()->routeIs('website-bimbingan-belajar') => [
 'description' => 'Website bimbingan belajar dan tempat les untuk menampilkan program, jadwal, pengajar, biaya, serta
 pendaftaran siswa.',
 ],
-request()->routeIs('services.website-repair') => [
+request()->routeIs('services.website.sidoarjo') => [
+'title' => 'Jasa Pembuatan Website Sidoarjo | Yoga Wilanda',
+'description' => 'Jasa pembuatan website bisnis di Sidoarjo: company profile, katalog produk, website UMKM, dan aplikasi web custom.',
+],
+request()->routeIs('services.website-maintenance') => [
+'title' => 'Jasa Maintenance Website | Yoga Wilanda',
+'description' => 'Layanan maintenance website, pemeriksaan rutin, backup, pembaruan, dan perbaikan teknis untuk website bisnis.',
+],
+request()->routeIs('portfolio.wisata-mobil-bekas') => [
+'title' => 'Portfolio Website Wisata Mobil Bekas | Yoga Wilanda',
+'description' => 'Studi proyek pengembangan website showroom mobil bekas dengan katalog kendaraan dan pengelolaan konten.',
+],
+request()->routeIs('portfolio.downloadrumah') => [
+'title' => 'Portfolio DownloadRumah | Yoga Wilanda',
+'description' => 'Studi proyek pengembangan platform penemuan properti berbasis kebutuhan pengguna.',
+],
+request()->routeIs('pricing') => [
+'title' => 'Harga Jasa Website dan Pengembangan Sistem | Yoga Wilanda',
+'description' => 'Estimasi harga pembuatan website, perbaikan, maintenance, dan pengembangan aplikasi bisnis.',
+],request()->routeIs('services.website-repair') => [
 'title' => 'Jasa Perbaikan Website dan Troubleshooting | Yoga Wilanda',
 'description' => 'Jasa perbaikan website error, lambat, dan bermasalah. Troubleshooting Laravel, PHP, WordPress,
 database, tampilan, serta optimasi teknis website.',

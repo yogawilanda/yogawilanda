@@ -36,6 +36,17 @@ Route::view('/website-bimbingan-belajar', 'pages.service-detail')
     ->name('website-bimbingan-belajar');
 Route::view('/jasa-perbaikan-website', 'pages.service-detail')
     ->name('services.website-repair');
+Route::view('/jasa-pembuatan-website-sidoarjo', 'pages.service-detail')
+    ->name('services.website.sidoarjo');
+Route::view('/jasa-maintenance-website', 'pages.service-detail')
+    ->name('services.website-maintenance');
+
+Route::view('/portfolio/wisata-mobil-bekas', 'pages.portfolio.detail')
+    ->name('portfolio.wisata-mobil-bekas');
+Route::view('/portfolio/downloadrumah', 'pages.portfolio.detail')
+    ->name('portfolio.downloadrumah');
+Route::view('/harga-jasa-website', 'pages.pricing')
+    ->name('pricing');
 Route::get('/contoh-desain', [
     DesignPlaygroundController::class,
     'index',

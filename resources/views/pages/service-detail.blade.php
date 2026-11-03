@@ -247,6 +247,69 @@
                 ['q' => 'Apakah menjamin semua masalah langsung selesai?', 'a' => 'Penanganan mengikuti hasil diagnosis, akses yang tersedia, kondisi aplikasi, dan scope yang disepakati.'],
             ],
         ],
+        'services.website.sidoarjo' => [
+            'title' => 'Jasa Pembuatan Website Sidoarjo untuk Bisnis dan Perusahaan.',
+            'eyebrow' => 'Website bisnis Sidoarjo',
+            'intro' => 'Bangun kehadiran digital bisnis di Sidoarjo melalui website profesional, katalog produk, company profile, atau aplikasi web sesuai kebutuhan operasional.',
+            'price' => 'Rp1 juta+',
+            'price_note' => 'Estimasi awal website bisnis sederhana. Harga akhir mengikuti halaman, konten, dan fitur.',
+            'audience' => ['UMKM dan bisnis lokal', 'Distributor dan supplier', 'Perusahaan dan jasa profesional', 'Usaha kuliner dan retail'],
+            'uses' => [
+                ['title' => 'Profil bisnis', 'description' => 'Perkenalkan usaha, layanan, lokasi, dan informasi perusahaan.'],
+                ['title' => 'Katalog produk', 'description' => 'Tampilkan produk dan spesifikasi secara terstruktur.'],
+                ['title' => 'Kanal pelanggan', 'description' => 'Sediakan jalur komunikasi dan inquiry yang mudah diakses.'],
+                ['title' => 'Sistem bisnis', 'description' => 'Kembangkan aplikasi web untuk kebutuhan operasional.'],
+            ],
+            'features' => [
+                ['title' => 'Desain responsif', 'description' => 'Nyaman digunakan melalui ponsel dan desktop.'],
+                ['title' => 'CMS dan admin', 'description' => 'Pengelolaan konten sesuai lingkup proyek.'],
+                ['title' => 'SEO dasar', 'description' => 'Metadata dan struktur halaman yang terorganisasi.'],
+                ['title' => 'Integrasi WhatsApp', 'description' => 'Permudah calon pelanggan menghubungi bisnis.'],
+            ],
+            'process' => [
+                ['title' => 'Konsultasi', 'description' => 'Petakan kebutuhan dan tujuan website.'],
+                ['title' => 'Perencanaan', 'description' => 'Tentukan halaman, fitur, dan lingkup pekerjaan.'],
+                ['title' => 'Development', 'description' => 'Bangun website sesuai kesepakatan.'],
+                ['title' => 'Testing', 'description' => 'Periksa fungsi dan tampilan.'],
+                ['title' => 'Publikasi', 'description' => 'Deploy website ke domain bisnis.'],
+            ],
+            'faqs' => [
+                ['q' => 'Apakah melayani seluruh Sidoarjo?', 'a' => 'Layanan ditujukan untuk bisnis di Sidoarjo dan konsultasi dapat dilakukan secara online.'],
+                ['q' => 'Berapa biaya pembuatan website?', 'a' => 'Estimasi awal mulai Rp1 juta. Harga mengikuti kebutuhan dan lingkup pekerjaan.'],
+                ['q' => 'Apakah bisa membuat aplikasi internal?', 'a' => 'Bisa. Kebutuhan sistem dan workflow akan dipetakan sebelum menentukan scope.'],
+            ],
+        ],
+        'services.website-maintenance' => [
+            'title' => 'Jasa Maintenance Website untuk Menjaga Website Tetap Terawat.',
+            'eyebrow' => 'Maintenance website',
+            'intro' => 'Dapatkan bantuan teknis untuk pembaruan, pemeriksaan rutin, perbaikan kecil, backup, dan pemeliharaan website bisnis.',
+            'price' => 'Mulai Rp1,5 juta/bulan',
+            'price_note' => 'Paket maintenance mengikuti kuota pekerjaan, kondisi website, dan kebutuhan dukungan.',
+            'audience' => ['Bisnis dengan website aktif', 'Website company profile', 'Toko online dan katalog', 'Tim tanpa developer internal'],
+            'uses' => [
+                ['title' => 'Pembaruan website', 'description' => 'Pemeriksaan dan pembaruan komponen sesuai kompatibilitas.'],
+                ['title' => 'Perbaikan teknis', 'description' => 'Penanganan bug dan kendala kecil sesuai kuota.'],
+                ['title' => 'Backup dan pemeriksaan', 'description' => 'Pemeriksaan kondisi website dan ketersediaan backup.'],
+                ['title' => 'Dukungan teknis', 'description' => 'Bantuan untuk kebutuhan teknis website yang berjalan.'],
+            ],
+            'features' => [
+                ['title' => 'Pemeriksaan rutin', 'description' => 'Pantau kondisi website secara berkala.'],
+                ['title' => 'Bug fixing', 'description' => 'Perbaikan kendala sesuai lingkup layanan.'],
+                ['title' => 'Backup', 'description' => 'Dukungan backup sesuai konfigurasi hosting.'],
+                ['title' => 'Technical support', 'description' => 'Konsultasi dan bantuan teknis.'],
+            ],
+            'process' => [
+                ['title' => 'Audit awal', 'description' => 'Periksa kondisi website dan infrastrukturnya.'],
+                ['title' => 'Tentukan scope', 'description' => 'Sepakati prioritas, kuota, dan jadwal dukungan.'],
+                ['title' => 'Pemeliharaan', 'description' => 'Jalankan pekerjaan sesuai paket.'],
+                ['title' => 'Pemeriksaan', 'description' => 'Periksa hasil dan kondisi website.'],
+            ],
+            'faqs' => [
+                ['q' => 'Apakah termasuk redesign?', 'a' => 'Redesign atau pengembangan fitur besar dihitung sebagai pekerjaan terpisah.'],
+                ['q' => 'Apakah bisa merawat website Laravel dan WordPress?', 'a' => 'Bisa, setelah pemeriksaan kompatibilitas dan kondisi teknis website.'],
+                ['q' => 'Apakah ada batas pekerjaan?', 'a' => 'Ada. Kuota dan lingkup pekerjaan disepakati sebelum layanan dimulai.'],
+            ],
+        ],
     ];
 
     $service = $services[request()->route()->getName()];
@@ -264,7 +327,7 @@
                 <h1 class="mt-8 max-w-4xl text-4xl font-semibold leading-[1.12] tracking-tight sm:text-6xl lg:text-7xl">{{ $service['title'] }}</h1>
                 <p class="mt-8 max-w-2xl text-lg leading-8 text-zinc-600 dark:text-zinc-300">{{ $service['intro'] }}</p>
                 <div class="mt-10 flex flex-wrap gap-3">
-                    <a href="{{ $waUrl }}" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-12 items-center bg-zinc-950 px-6 py-3 text-sm font-semibold text-white hover:bg-zinc-700 dark:bg-white dark:text-zinc-950">Diskusikan kebutuhanmu ↗</a>
+                    <a href="{{ $waUrl }}" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-12 items-center bg-zinc-950 px-6 py-3 text-sm font-semibold text-white hover:bg-zinc-700 dark:bg-white dark:text-zinc-950">Diskusikan kebutuhanmu â†—</a>
                     <a href="#layanan" class="inline-flex min-h-12 items-center border border-zinc-300 px-6 py-3 text-sm font-semibold dark:border-zinc-700">Pelajari layanan</a>
                 </div>
             </div>
@@ -355,7 +418,7 @@
             <h2 class="mt-7 max-w-3xl text-4xl font-semibold tracking-tight sm:text-6xl">Ceritakan kebutuhan bisnismu.</h2>
             <p class="mt-6 max-w-2xl leading-8 text-zinc-300">Diskusikan tujuan, proses, dan fitur yang dibutuhkan. Kita tentukan scope pengerjaan yang sesuai.</p>
             <div class="mt-10 flex flex-wrap gap-5">
-                <a href="{{ $waUrl }}" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-12 items-center bg-white px-6 py-3 text-sm font-semibold text-zinc-950 hover:bg-zinc-200">Konsultasi melalui WhatsApp ↗</a>
+                <a href="{{ $waUrl }}" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-12 items-center bg-white px-6 py-3 text-sm font-semibold text-zinc-950 hover:bg-zinc-200">Konsultasi melalui WhatsApp â†—</a>
                 <a href="{{ route('services.website.surabaya') }}" class="inline-flex min-h-12 items-center text-sm text-zinc-300 underline underline-offset-4">Jasa pembuatan website Surabaya</a>
             </div>
         </div>

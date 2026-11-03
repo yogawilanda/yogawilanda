@@ -1,2 +1,35 @@
+# ==========================================
+# YOGA WILANDA
+# Search Discovery & AI Crawler Policy
+# ==========================================
+
+# General crawlers
 User-agent: *
-Disallow:
+Allow: /
+
+# OpenAI - ChatGPT Search
+User-agent: OAI-SearchBot
+Allow: /
+
+# OpenAI - AI Training
+User-agent: GPTBot
+Disallow: /
+
+# Anthropic - Claude Search
+User-agent: Claude-SearchBot
+Allow: /
+
+# Anthropic - User Initiated Fetch
+User-agent: Claude-User
+Allow: /
+
+# Anthropic - AI Training
+User-agent: ClaudeBot
+Disallow: /
+
+# Google - Gemini AI usage
+User-agent: Google-Extended
+Disallow: /
+
+# Sitemap
+Sitemap: https://yogawilanda.com/sitemap.xml
