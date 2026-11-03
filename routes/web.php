@@ -9,9 +9,33 @@ Route::view('/', 'welcome')->name('home');
 Route::view('/about', 'about')->name('about');
 
 Route::view('/services', 'pages/services')->name('services');
+Route::view('/jasa-pembuatan-website-surabaya', 'pages.jasa-pembuatan-website-surabaya')
+    ->name('services.website.surabaya');
+Route::view('/jasa-pembuatan-company-profile', 'pages.jasa-pembuatan-company-profile')
+    ->name('services.company-profile');
 
-// Public AI design previews
-// wrap the contoh desain with middleware to prevent users from accessing the design playground without authentication
+Route::view('/jasa-pembuatan-toko-online', 'pages.jasa-pembuatan-toko-online')
+    ->name('services.online-store');
+
+Route::view('/jasa-pembuatan-landing-page', 'pages.jasa-pembuatan-landing-page')
+    ->name('services.landing-page');
+
+
+Route::view('/jasa-pembuatan-website-umkm', 'pages.service-detail')
+    ->name('services.umkm');
+Route::view('/jasa-pembuatan-website-katalog-produk', 'pages.service-detail')
+    ->name('services.catalog');
+Route::view('/jasa-pembuatan-web-application', 'pages.service-detail')
+    ->name('services.web-app');
+
+Route::view('/website-jual-beli-mobil-bekas', 'pages.service-detail')
+    ->name('website-jual-beli-mobil-bekas');
+Route::view('/aplikasi-kasir-bengkel', 'pages.service-detail')
+    ->name('aplikasi-kasir-bengkel');
+Route::view('/website-bimbingan-belajar', 'pages.service-detail')
+    ->name('website-bimbingan-belajar');
+Route::view('/jasa-perbaikan-website', 'pages.service-detail')
+    ->name('services.website-repair');
 Route::get('/contoh-desain', [
     DesignPlaygroundController::class,
     'index',

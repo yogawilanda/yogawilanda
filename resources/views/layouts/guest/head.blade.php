@@ -1,7 +1,57 @@
 {{-- SEO metadata with safe defaults --}}
 @php
 $seo = match (true) {
-request()->routeIs('services') => [
+request()->routeIs('services.company-profile') => [
+'title' => 'Jasa Pembuatan Company Profile Profesional | Yoga Wilanda',
+'description' => 'Jasa pembuatan website company profile untuk perusahaan dan bisnis. Tampilkan profil, layanan,
+portfolio, pengalaman, dan kontak secara profesional.',
+],request()->routeIs('services.online-store') => [
+'title' => 'Jasa Pembuatan Toko Online untuk Bisnis | Yoga Wilanda',
+'description' => 'Jasa pembuatan toko online untuk bisnis dan UMKM. Website katalog produk, keranjang, checkout,
+pengelolaan pesanan, dan integrasi pembayaran sesuai kebutuhan.',
+],request()->routeIs('services.landing-page') => [
+'title' => 'Jasa Pembuatan Landing Page untuk Bisnis | Yoga Wilanda',
+'description' => 'Jasa pembuatan landing page untuk promosi, kampanye, produk, dan layanan bisnis. Halaman responsif
+dengan struktur konten dan CTA yang terarah.',
+],request()->routeIs('services.umkm') => [
+'title' => 'Jasa Pembuatan Website UMKM | Yoga Wilanda',
+'description' => 'Jasa pembuatan website UMKM untuk memperkenalkan bisnis, layanan, produk, dan informasi kontak secara
+profesional.',
+],
+request()->routeIs('services.catalog') => [
+'title' => 'Jasa Pembuatan Website Katalog Produk | Yoga Wilanda',
+'description' => 'Jasa pembuatan website katalog produk untuk menampilkan koleksi, spesifikasi, kategori, dan informasi
+produk bisnis.',
+],
+request()->routeIs('services.web-app') => [
+'title' => 'Jasa Pembuatan Web Application Custom | Yoga Wilanda',
+'description' => 'Jasa pengembangan aplikasi web custom untuk dashboard, pengelolaan data, workflow, sistem internal,
+dan integrasi bisnis.',
+],request()->routeIs('website-jual-beli-mobil-bekas') => [
+'title' => 'Jasa Website Jual Beli Mobil Bekas | Yoga Wilanda',
+'description' => 'Pembuatan website showroom mobil bekas dengan katalog kendaraan, detail spesifikasi, filter pencarian,
+panel pengelolaan stok, dan WhatsApp.',
+],
+request()->routeIs('aplikasi-kasir-bengkel') => [
+'title' => 'Jasa Pembuatan Aplikasi Kasir Bengkel | Yoga Wilanda',
+'description' => 'Aplikasi kasir bengkel untuk transaksi servis, data pelanggan, riwayat kendaraan, stok sparepart, dan
+laporan operasional.',
+],
+request()->routeIs('website-bimbingan-belajar') => [
+'title' => 'Jasa Pembuatan Website Bimbingan Belajar | Yoga Wilanda',
+'description' => 'Website bimbingan belajar dan tempat les untuk menampilkan program, jadwal, pengajar, biaya, serta
+pendaftaran siswa.',
+],
+request()->routeIs('services.website-repair') => [
+'title' => 'Jasa Perbaikan Website dan Troubleshooting | Yoga Wilanda',
+'description' => 'Jasa perbaikan website error, lambat, dan bermasalah. Troubleshooting Laravel, PHP, WordPress,
+database, tampilan, serta optimasi teknis website.',
+],
+request()->routeIs('services.website.surabaya') => [
+'title' => 'Jasa Pembuatan Website Surabaya untuk Bisnis | Yoga Wilanda',
+'description' => 'Jasa pembuatan website bisnis di Surabaya dan Sidoarjo. Website UMKM, company profile, katalog produk,
+toko online, dan aplikasi web custom.',
+],request()->routeIs('services') => [
 'title' => 'Jasa Pembuatan Website untuk Bisnis | Yoga Wilanda',
 'description' => 'Jasa pembuatan website, company profile, perbaikan sistem, dan otomasi proses bisnis. Solusi teknis
 sesuai kebutuhan dan anggaran.',
@@ -71,7 +121,90 @@ $robotsContent = app()->environment('production') ? 'index,follow' : 'noindex,no
     ],
     ];
 
-    if (request()->routeIs('services')) {
+    if (request()->routeIs(
+    'services.umkm',
+    'services.catalog',
+    'services.web-app',
+    'website-jual-beli-mobil-bekas',
+    'aplikasi-kasir-bengkel',
+    'website-bimbingan-belajar',
+    'services.website-repair'
+    )) {
+    $serviceDetails = match (request()->route()->getName()) {
+    'services.umkm' => [
+    'name' => 'Jasa Pembuatan Website UMKM',
+    'type' => 'Small Business Website Development',
+    ],
+    'services.catalog' => [
+    'name' => 'Jasa Pembuatan Website Katalog Produk',
+    'type' => 'Product Catalog Website Development',
+    ],
+    'website-jual-beli-mobil-bekas' => [
+    'name' => 'Jasa Pembuatan Website Jual Beli Mobil Bekas',
+    'type' => 'Used Car Showroom Website Development',
+    ],
+    'aplikasi-kasir-bengkel' => [
+    'name' => 'Jasa Pembuatan Aplikasi Kasir Bengkel',
+    'type' => 'Workshop Management Software Development',
+    ],
+    'services.website-repair' => [
+    'name' => 'Jasa Perbaikan dan Optimasi Website',
+    'type' => 'Website Troubleshooting and Maintenance',
+    ],
+    'website-bimbingan-belajar' => [
+    'name' => 'Jasa Pembuatan Website Bimbingan Belajar',
+    'type' => 'Tutoring Website Development',
+    ],
+    default => [
+    'name' => 'Jasa Pembuatan Web Application Custom',
+    'type' => 'Custom Web Application Development',
+    ],
+    };
+
+    $schemas[] = [
+    '@context' => 'https://schema.org',
+    '@type' => 'Service',
+    '@id' => $canonicalUrl . '#service',
+    'name' => $serviceDetails['name'],
+    'serviceType' => $serviceDetails['type'],
+    'description' => $pageDescription,
+    'url' => $canonicalUrl,
+    'provider' => ['@id' => $siteUrl . '/#person'],
+    ];
+    } elseif (request()->routeIs('services.landing-page')) {
+    $schemas[] = [
+    '@context' => 'https://schema.org',
+    '@type' => 'Service',
+    '@id' => $canonicalUrl . '#service',
+    'name' => 'Jasa Pembuatan Landing Page',
+    'serviceType' => 'Landing Page Development',
+    'description' => $pageDescription,
+    'url' => $canonicalUrl,
+    'provider' => ['@id' => $siteUrl . '/#person'],
+    ];
+    } elseif (request()->routeIs('services.online-store')) {
+    $schemas[] = [
+    '@context' => 'https://schema.org',
+    '@type' => 'Service',
+    '@id' => $canonicalUrl . '#service',
+    'name' => 'Jasa Pembuatan Website Toko Online',
+    'serviceType' => 'E-commerce Website Development',
+    'description' => $pageDescription,
+    'url' => $canonicalUrl,
+    'provider' => ['@id' => $siteUrl . '/#person'],
+    ];
+    } elseif (request()->routeIs('services.company-profile')) {
+    $schemas[] = [
+    '@context' => 'https://schema.org',
+    '@type' => 'Service',
+    '@id' => $canonicalUrl . '#service',
+    'name' => 'Jasa Pembuatan Website Company Profile',
+    'serviceType' => 'Corporate Website Development',
+    'description' => $pageDescription,
+    'url' => $canonicalUrl,
+    'provider' => ['@id' => $siteUrl . '/#person'],
+    ];
+    } elseif (request()->routeIs('services')) {
     $schemas[] = [
     '@context' => 'https://schema.org',
     '@type' => 'Service',

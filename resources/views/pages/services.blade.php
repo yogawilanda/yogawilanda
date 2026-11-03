@@ -240,32 +240,18 @@
         {{-- Needs --}}
         <section id="bantuan" class="scroll-mt-8 border-b border-zinc-200 dark:border-zinc-800">
             <div class="mx-auto max-w-6xl px-6 py-24 sm:px-8 lg:px-6 lg:py-28">
-                <div data-reveal class="max-w-2xl">
-                    <p class="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
-                        {{ $section_help_badge }}
-                    </p>
-                    <h2 class="mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">
-                        {{ $section_help_title }}
-                    </h2>
-                    <p class="mt-5 text-base leading-7 text-zinc-600 dark:text-zinc-300">
-                        {{ $section_help_sub }}
-                    </p>
-                </div>
+                <x-site.section-heading data-reveal :eyebrow="$section_help_badge" :title="$section_help_title" :description="$section_help_sub" />
 
                 <div data-reveal-group class="mt-12 grid gap-5 md:grid-cols-3">
                     @foreach ($services_list as $service)
-                        <article class="flex flex-col border border-zinc-200 p-6 dark:border-zinc-800 sm:p-8">
+                        <x-site.card padding="lg">
                             <span class="font-mono text-xs text-zinc-400">{{ $service['tag'] }}</span>
                             <h3 class="mt-7 text-xl font-semibold">{{ $service['title'] }}</h3>
                             <p class="mt-4 flex-1 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
                                 {{ $service['description'] }}
                             </p>
-                            <ul class="mt-6 space-y-2 border-t border-zinc-200 pt-5 text-sm leading-6 dark:border-zinc-800">
-                                @foreach ($service['features'] as $feature)
-                                    <li>— {{ $feature }}</li>
-                                @endforeach
-                            </ul>
-                        </article>
+                            <x-site.feature-list :items="$service['features']" />
+                        </x-site.card>
                     @endforeach
                 </div>
             </div>
@@ -274,21 +260,11 @@
         {{-- Engagement models --}}
         <section class="border-b border-zinc-200 dark:border-zinc-800">
             <div class="mx-auto max-w-6xl px-6 py-24 sm:px-8 lg:px-6 lg:py-28">
-                <div data-reveal class="max-w-2xl">
-                    <p class="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
-                        {{ $section_models_badge }}
-                    </p>
-                    <h2 class="mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">
-                        {{ $section_models_title }}
-                    </h2>
-                    <p class="mt-5 text-base leading-7 text-zinc-600 dark:text-zinc-300">
-                        {{ $section_models_sub }}
-                    </p>
-                </div>
+                <x-site.section-heading data-reveal :eyebrow="$section_models_badge" :title="$section_models_title" :description="$section_models_sub" />
 
                 <div data-reveal-group class="mt-12 grid gap-5 lg:grid-cols-3">
                     @foreach ($engagement_models as $model)
-                        <article class="flex flex-col border p-6 sm:p-8 {{ $model['is_highlighted'] ? 'border-zinc-900 dark:border-zinc-100' : 'border-zinc-200 dark:border-zinc-800' }}">
+                        <x-site.card padding="lg" :highlighted="$model['is_highlighted']">
                             <span class="font-mono text-xs text-zinc-400">{{ $model['tag'] }}</span>
                             <h3 class="mt-5 text-xl font-semibold">{{ $model['title'] }}</h3>
                             <p class="mt-3 flex-1 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
@@ -303,7 +279,7 @@
                                     {{ $model['price_note'] }}
                                 </span>
                             </p>
-                        </article>
+                        </x-site.card>
                     @endforeach
                 </div>
             </div>
@@ -347,14 +323,7 @@
         {{-- Process --}}
         <section id="cara-kerja" class="scroll-mt-8 border-b border-zinc-200 dark:border-zinc-800">
             <div class="mx-auto max-w-6xl px-6 py-24 sm:px-8 lg:px-6 lg:py-28">
-                <div data-reveal class="max-w-2xl">
-                    <p class="font-mono text-xs uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400">
-                        {{ $section_process_badge }}
-                    </p>
-                    <h2 class="mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">
-                        {{ $section_process_title }}
-                    </h2>
-                </div>
+                <x-site.section-heading data-reveal :eyebrow="$section_process_badge" :title="$section_process_title" />
 
                 <div data-reveal-group class="mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-5">
                     @foreach ($steps as $step)
@@ -384,16 +353,8 @@
                         {{ $section_cta_sub }}
                     </p>
                     <div class="mt-8 flex flex-col gap-3 min-[420px]:flex-row min-[420px]:flex-wrap">
-                        <a href="https://wa.me/{{ $wa_service_number }}?text={{ $contact_from_service_final }}"
-                           target="_blank" rel="noopener noreferrer"
-                           class="inline-flex min-h-12 items-center justify-center rounded-none bg-zinc-950 px-5 py-3 text-center text-sm font-medium text-white transition hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-zinc-400 focus:ring-offset-2 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-200">
-                            {{ $text_cta_start }}
-                            <span aria-hidden="true" class="ml-2">↗</span>
-                        </a>
-                        <a href="{{ route('home') }}#projects"
-                           class="inline-flex min-h-12 items-center justify-center rounded-none border border-zinc-200 px-5 py-3 text-center text-sm font-medium text-zinc-700 transition hover:bg-zinc-50 focus:outline-none focus:ring-2 focus:ring-zinc-300 focus:ring-offset-2 dark:border-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-900">
-                            {{ $text_cta_portfolio }}
-                        </a>
+                        <x-site.button href="https://wa.me/{{ $wa_service_number }}?text={{ $contact_from_service_final }}" target="_blank">{{ $text_cta_start }}<span aria-hidden="true" class="ml-2">↗</span></x-site.button>
+                        <x-site.button :href="route('home') . '#projects'" variant="secondary">{{ $text_cta_portfolio }}</x-site.button>
                     </div>
                 </div>
             </div>
