@@ -8,11 +8,71 @@
     <url>
     <loc>http://localhost:8000/about</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
             </url>
     <url>
     <loc>http://localhost:8000/services</loc>
     <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+            </url>
+    <url>
+    <loc>http://localhost:8000/jasa-pembuatan-website-surabaya</loc>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+            </url>
+    <url>
+    <loc>http://localhost:8000/jasa-pembuatan-company-profile</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+            </url>
+    <url>
+    <loc>http://localhost:8000/jasa-pembuatan-toko-online</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+            </url>
+    <url>
+    <loc>http://localhost:8000/jasa-pembuatan-landing-page</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+            </url>
+    <url>
+    <loc>http://localhost:8000/jasa-pembuatan-website-umkm</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+            </url>
+    <url>
+    <loc>http://localhost:8000/jasa-pembuatan-website-katalog-produk</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+            </url>
+    <url>
+    <loc>http://localhost:8000/jasa-pembuatan-web-application</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+            </url>
+    <url>
+    <loc>http://localhost:8000/website-jual-beli-mobil-bekas</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+            </url>
+    <url>
+    <loc>http://localhost:8000/aplikasi-kasir-bengkel</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+            </url>
+    <url>
+    <loc>http://localhost:8000/website-bimbingan-belajar</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+            </url>
+    <url>
+    <loc>http://localhost:8000/jasa-perbaikan-website</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+            </url>
+    <url>
+    <loc>http://localhost:8000/contoh-desain</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
             </url>
 </urlset>

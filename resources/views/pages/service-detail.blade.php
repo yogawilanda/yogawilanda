@@ -211,8 +211,6 @@
                 ['q' => 'Apakah bisa dibuat aplikasi administrasi siswa?', 'a' => 'Bisa. Sistem administrasi siswa, pembayaran, dan jadwal dapat menjadi proyek aplikasi web terpisah.'],
             ],
         ],
-    ];
-
         'services.website-repair' => [
             'title' => 'Jasa Perbaikan Website dan Troubleshooting Masalah Teknis.',
             'eyebrow' => 'Perbaikan dan optimasi website',
@@ -249,6 +247,8 @@
                 ['q' => 'Apakah menjamin semua masalah langsung selesai?', 'a' => 'Penanganan mengikuti hasil diagnosis, akses yang tersedia, kondisi aplikasi, dan scope yang disepakati.'],
             ],
         ],
+    ];
+
     $service = $services[request()->route()->getName()];
     $waNumber = '6285158986696';
     $waMessage = rawurlencode('Halo Yoga, saya ingin konsultasi tentang ' . $service['eyebrow'] . '.');
