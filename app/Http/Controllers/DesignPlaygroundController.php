@@ -98,4 +98,54 @@ class DesignPlaygroundController extends Controller
             'Content-Security-Policy' => "sandbox allow-scripts allow-forms allow-popups; default-src 'self' https: data: blob:; script-src 'self' https: 'unsafe-inline' 'unsafe-eval'; style-src 'self' https: 'unsafe-inline'; img-src 'self' https: data: blob:; font-src 'self' https: data:; connect-src https:; frame-src https:; object-src 'none'; base-uri 'none'",
         ]);
     }
+
+    public function asset(string $slug, string $path)
+    {
+        $preview = $this->findPreviewBySlug($slug);
+
+        abort_if(!$preview, 404);
+
+        $assetRoot = realpath(
+            resource_path("views/pages/asset_raw_html/{$slug}")
+        );
+
+        abort_unless($assetRoot && is_dir($assetRoot), 404);
+
+        $assetPath = realpath(
+            $assetRoot . DIRECTORY_SEPARATOR . $path
+        );
+
+        abort_unless(
+            $assetPath &&
+            str_starts_with($assetPath, $assetRoot . DIRECTORY_SEPARATOR) &&
+            File::isFile($assetPath),
+            404
+        );
+
+        $extension = strtolower(pathinfo($assetPath, PATHINFO_EXTENSION));
+
+        abort_unless(
+            in_array($extension, [
+                'css', 'js', 'png', 'jpg', 'jpeg', 'webp', 'gif', 'avif', 'woff2',
+            ], true),
+            404
+        );
+
+        $contentType = match ($extension) {
+            'css' => 'text/css; charset=UTF-8',
+            'js' => 'application/javascript; charset=UTF-8',
+            'png' => 'image/png',
+            'jpg', 'jpeg' => 'image/jpeg',
+            'webp' => 'image/webp',
+            'gif' => 'image/gif',
+            'avif' => 'image/avif',
+            'woff2' => 'font/woff2',
+            default => 'application/octet-stream',
+        };
+
+        return response()->file($assetPath, [
+            'Content-Type' => $contentType,
+            'X-Content-Type-Options' => 'nosniff',
+        ]);
+    }
 }

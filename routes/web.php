@@ -74,6 +74,16 @@ Route::get('/design-playground/content/{slug}', [
     ->where('slug', '[a-z0-9-]+')
     ->name('design-playground.content');
 
+Route::get('/design-playground/assets/{slug}/{path}', [
+    DesignPlaygroundController::class,
+    'asset',
+])
+    ->where([
+        'slug' => '[a-z0-9-]+',
+        'path' => '.*',
+    ])
+    ->name('design-playground.assets');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
 });
