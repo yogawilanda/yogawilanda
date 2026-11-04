@@ -9,6 +9,8 @@ Route::view('/', 'welcome')->name('home');
 Route::view('/about', 'about')->name('about');
 
 Route::view('/services', 'pages/services')->name('services');
+
+// services SEO specific supplements
 Route::view('/jasa-pembuatan-website-surabaya', 'pages.jasa-pembuatan-website-surabaya')
     ->name('services.website.surabaya');
 Route::view('/jasa-pembuatan-company-profile', 'pages.jasa-pembuatan-company-profile')
@@ -47,12 +49,16 @@ Route::view('/portfolio/downloadrumah', 'pages.portfolio.detail')
     ->name('portfolio.downloadrumah');
 Route::view('/harga-jasa-website', 'pages.pricing')
     ->name('pricing');
+
+// portfolio showcase
 Route::get('/contoh-desain', [
     DesignPlaygroundController::class,
     'index',
 // ])->name('design-playground.index')->middleware('auth', 'verified');
 ])->name('design-playground.index');
 
+
+// iframe showcase
 Route::get('/design-playground/preview/{slug}', [
     DesignPlaygroundController::class,
     'show',
@@ -60,6 +66,7 @@ Route::get('/design-playground/preview/{slug}', [
     ->where('slug', '[a-z0-9-]+')
     ->name('design-playground.preview');
 
+// use this for quick inspect instead of using iframe
 Route::get('/design-playground/content/{slug}', [
     DesignPlaygroundController::class,
     'content',
