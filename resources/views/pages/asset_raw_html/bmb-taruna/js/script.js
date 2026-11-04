@@ -56,16 +56,16 @@
             var heroImg = document.getElementById('hero-img');
             if (heroImg) {
                 gsap.fromTo(heroImg,
-                    { scale: 1.06, yPercent: -2 },
+                    { scale: 1.08, yPercent: -5 },
                     {
-                        scale: 1.06,
-                        yPercent: 2,
+                        scale: 1.14,
+                        yPercent: 5,
                         ease: 'none',
                         scrollTrigger: {
                             trigger: '.hero',
                             start: 'top top',
                             end: 'bottom top',
-                            scrub: 1
+                            scrub: 1.4
                         }
                     }
                 );
